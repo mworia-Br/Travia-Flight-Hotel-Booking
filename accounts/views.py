@@ -9,5 +9,8 @@ amadeus = Client(
 
 # Create your views here.
 
+def Index(req):
+    return render(req, 'index.html')
+
 def Login(req):
     return render(req, 'login.html')
