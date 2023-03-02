@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from amadeus import Client, ResponseError, Location
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 # Create your views here.
 
 amadeus = Client(
@@ -41,10 +43,13 @@ def search_offers(req):
         except ResponseError as error:
             print(error)
 
+@csrf_exempt
 def price_offer(req):
     if req.method == "POST":
         try:
-            flight = req.POST["flight"]
+            #flight = req.POST["flight"]
+            data = json.loads(req.body)
+            flight = data.get("flight")
             response = amadeus.shopping.flight_offers.pricing.post(
                 flight)
             print(response.data)
@@ -54,10 +59,13 @@ def price_offer(req):
     else:
         return JsonResponse({"error": "Invalid request method"})
 
+@csrf_exempt
 def book_flight(req):
     if req.method == "POST":
         try:
-            flight = req.POST["flight"]
+            #flight = req.POST["flight"]
+            data = json.loads(req.body)
+            flight = data.get("flight")
             traveler = req.POST["traveler"]
             booking = amadeus.booking.flight_orders.post(
                 flight, traveler)
