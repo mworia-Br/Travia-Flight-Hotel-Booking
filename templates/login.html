@@ -106,7 +106,7 @@
       <header class="header js-header header_border">
         <div class="header__center center">
           <a class="header__logo" href="#">
-            <img class="some-icon src="{% static 'img/logo-light.svg' %}" alt="Logo">
+            <img class=some-icon src="{% static 'img/logo-light.svg' %}" alt="Logo">
 
           </a>
           <div class="header__wrapper js-header-wrapper">
@@ -203,9 +203,14 @@
               </div>
             </div>
           </div>
-          <div class="header__item header__item_user js-header-item">
-            <button class="header__head js-header-head">
-              <img src="{% static 'img/content/avatar-2.jpg' %}" alt="Avatar" />
+          <button
+            type="button"
+            class="status login__status js-popup-open"
+            href="#popup-login"
+            data-effect="mfp-zoom-in"
+          >
+            Login
+          </button>
 
             </button>
             <div class="header__body js-header-body">
