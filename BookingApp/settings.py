@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'flight',
     'frontend',
+    'accounts',
     'corsheaders',
 ]
 
