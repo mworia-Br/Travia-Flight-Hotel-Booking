@@ -1,5 +1,13 @@
 amadeus==8.0.0
 asgiref==3.6.0
+contextlib2==21.6.0
+dj-database-url==1.2.0
 Django==4.1.7
+django-cors-headers==3.14.0
+psycopg2==2.9.5
+python-dotenv==1.0.0
+schema==0.7.5
 sqlparse==0.4.3
 tzdata==2022.7
+urllib3==1.26.14
+whitenoise==6.4.0
