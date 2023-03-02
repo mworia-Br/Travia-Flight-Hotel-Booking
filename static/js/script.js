@@ -13,7 +13,7 @@ function handleFromLocation() {
   let locationEl = "";
   const fromInput = document.getElementById("from").value;
   if (fromInput.length > 1) {
-    fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInput}`)
+    fetch(`http://localhost:8001/api/v1/flight/select_destination/${fromInput}`)
       .then((response) => response.json())
       .then((data) => (fromLocationArray = data.data));
 
@@ -59,7 +59,7 @@ function handleToLocation() {
   let locationEl = "";
   const toInput = document.getElementById("to").value;
   if (toInput.length > 1) {
-    fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${toInput}`)
+    fetch(`http://localhost:8001/api/v1/flight/select_destination/${toInput}`)
       .then((response) => response.json())
       .then((data) => (toLocationArray = data.data));
 
@@ -105,7 +105,7 @@ function handleFindFlight() {
   let flightEl = "";
 
   fetch(
-    `https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`
+    `http://localhost:8001/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -160,7 +160,7 @@ function BookFlight(flight) {
   const first = document.getElementById("first").value;
   const last = document.getElementById("last").value;
 
-  fetch("https://traviabooking.azurewebsites.net/api/v1/flight/price_offers", {
+  fetch("http://localhost:8001/api/v1/flight/price_offers", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -173,7 +173,7 @@ function BookFlight(flight) {
     .then((dataObject) => {
       console.log("Success:", dataObject);
 
-      fetch("https://traviabooking.azurewebsites.net/api/v1/flight/book_flight/", {
+      fetch("http://localhost:8001/api/v1/flight/book_flight/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
