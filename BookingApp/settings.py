@@ -30,9 +30,10 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-h&@6&n)$0li4p@j#lsw2f^*sy$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['traviabooking.azurewebsites.net']
+ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['traviabooking.azurewebsites.net']
 
-CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net"]
+#CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net"]
 
 
 # Application definition
@@ -86,7 +87,7 @@ WSGI_APPLICATION = 'BookingApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-"""
+
 #local database settings
 DATABASES = {
     'default': {
@@ -105,7 +106,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('DBPASS'),
     }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
