@@ -6,8 +6,8 @@ import json
 from amadeus import Client, ResponseError, Location
 
 amadeus = Client(
-    client_id='CoArtPgeKZ5667oYQFCkFCBsv5PeV43Q',
-    client_secret='PbkxxwJuP5xL5aqX'
+    client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
+    client_secret='K95GQ2APHlRQ0R1l'
 )
 
 
