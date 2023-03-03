@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -12,22 +13,22 @@
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="img/apple-touch-icon.png"
+      href="{% static 'img/apple-touch-icon.png' %}"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="img/favicon-32x32.png"
+      href="{% static 'img/favicon-32x32.png' %}"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="img/favicon-16x16.png"
+      href="{% static 'img/favicon-16x16.png' %}"
     />
-    <link rel="manifest" href="img/site.webmanifest" />
-    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="manifest" href="{% static 'img/site.webmanifest' %}" />
+    <link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#5bbad5" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="Epic Travel Shopping Design Kit" />
@@ -64,8 +65,9 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" media="all" href="css/app.min.css" />
-    <link rel="stylesheet" media="all" href="css/main.css" />
+    <link rel="stylesheet" media="all" href="{% static 'css' %}">
+    <link rel="stylesheet" media="all" href="{% static 'css/app.min.css' %}">
+    <link rel="stylesheet" media="all" href="{% static 'css/main.css' %}">
     <script>
       var viewportmeta = document.querySelector('meta[name="viewport"]');
       if (viewportmeta) {
@@ -83,6 +85,24 @@
         }
       }
     </script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/demo.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.min.js' %}"></script>
+    <script src="{% static 'js/lib/slick.min.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/lib/share-buttons.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.fancybox.min.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.rateyo.min.js' %}"></script>
+    <script src="{% static 'js/lib/nouislider.min.js' %}"></script>
+    <script src="{% static 'js/lib/wNumb.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/lib/moment.min.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.daterangepicker.min.js' %}"></script>
+    <script src="{% static 'js/lib/simpleParallax.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/demo.js' %}"></script>
+
+
   </head>
   <body>
     <script>
@@ -99,8 +119,9 @@
       <!-- header-->
       <header class="header js-header header_border">
         <div class="header__center center">
-          <a class="header__logo" href="index.html">
-            <img class="some-icon" src="img/logo-light.svg" alt="Fleet" />
+          <a class="header__logo" href="{% url 'index' %}">
+            <img class=some-icon src="{% static 'img/logo-light.svg' %}" alt="Logo">
+
           </a>
           <div class="header__wrapper js-header-wrapper">
             <a class="header__item" href="./index.html">Flights</a>
@@ -195,6 +216,14 @@
               </div>
             </div>
           </div>
+          <button
+            type="button"
+            class="status login__status js-popup-open"
+            href="{% url 'login' %}"
+            data-effect="mfp-zoom-in"
+          >
+            Login
+          </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
               <img src="img/content/avatar-2.jpg" alt="Avatar" />
@@ -228,6 +257,16 @@
                   >
                 </div>
               </div>
+              <div class="header__btns">
+                <a
+                  class="button button-small header__button"
+                  href="account-setting.html"
+                  >Account</a
+                >
+                <button class="button-stroke button-small header__button">
+                  Log out
+                </button>
+              </div>
             </div>
           </div>
           <button class="header__burger js-header-burger"></button>
@@ -235,118 +274,87 @@
       </header>
       <!-- outer content-->
 
-    <div class="popup popup_login mfp-zoom-in">
+      <div class="popup popup_login mfp-zoom-in">
         <div class="login">
-            <div class="login__item">
-            <div class="login__title h3">Sign up on Fleet</div>
-            <div class="login__info">Use Your OpenID to Sign up</div>
-            <div class="login__btns">
-                <button class="button login__button">
-                <svg class="icon icon-google">
-                    <use xlink:href="#icon-google"></use></svg
-                ><span>Google</span>
-                </button>
-                <button class="button-black login__button">
-                <svg class="icon icon-apple">
-                    <use xlink:href="#icon-apple"></use></svg
-                ><span>Apple</span>
-                </button>
-            </div>
-            <div class="login__note">Or continue with email</div>
-            <div class="subscription">
-                <input
-                class="subscription__input"
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                required
-                />
-                <button class="subscription__btn">
-                <svg class="icon icon-arrow-next">
-                    <use xlink:href="#icon-arrow-next"></use>
-                </svg>
-                </button>
-            </div>
-            <div class="login__foot">
-                Already have an account? <a class="login__link" href="#">Login</a>
-            </div>
-            </div>
-            <div class="login__item">
-            <div class="login__title h3">Sign in</div>
-            <div class="login__form">
+          {% block content %}
+          <div class="login__item">
+            <div class="login__title h3">Sign up</div>
+            <form method="post">
+              {% csrf_token %}
+              <div class="login__form">
                 <div class="field field_view">
-                <div class="field__wrap">
+                  <div class="field__wrap">
+                    <label for="{{ form.username.id_for_label }}">Username:</label>
                     <input
-                    class="field__input"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    required
+                      class="field__input"
+                      type="{{ form.username.field.widget.input_type }}"
+                      name="{{ form.username.name }}"
+                      id="{{ form.username.id_for_label }}"
+                      placeholder="Enter your username"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="field field_view">
+                  <div class="field__wrap">
+                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                    <input
+                      class="field__input"
+                      type="{{ form.email.field.widget.input_type }}"
+                      name="{{ form.email.name }}"
+                      id="{{ form.email.id_for_label }}"
+                      placeholder="Enter your email"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="field field_view">
+                  <div class="field__wrap">
+                    <label for="{{ form.password1.id_for_label }}">Password:</label>
+                    <input
+                      class="field__input"
+                      type="{{ form.password1.field.widget.input_type }}"
+                      name="{{ form.password1.name }}"
+                      id="{{ form.password1.id_for_label }}"
+                      placeholder="Enter your password"
+                      required
                     />
                     <button class="field__view">
-                    <svg class="icon icon-eye">
+                      <svg class="icon icon-eye">
                         <use xlink:href="#icon-eye"></use>
-                    </svg>
+                      </svg>
                     </button>
+                  </div>
                 </div>
-                </div>
-                <button class="button login__button">Login</button>
-            </div>
-            <div class="login__foot">
-                <a class="login__password" href="#">Forgot password?</a>
-            <div class="login__info">
-                Help us secure your account. Please complete the verifications below
-            </div>
-            <div class="login__form">
-                <div class="login__variants">
-                <label class="radio">
+                <div class="field field_view">
+                  <div class="field__wrap">
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
                     <input
-                    class="radio__input"
-                    type="radio"
-                    name="login"
-                    checked="checked"
-                    /><span class="radio__inner"
-                    ><span class="radio__tick"></span
-                    ><span class="radio__text"
-                        >Get the code by text message (SM) at +1 234 567 890</span
-                    ></span
-                    >
-                </label>
-                <label class="radio">
-                    <input class="radio__input" type="radio" name="login" /><span
-                    class="radio__inner"
-                    ><span class="radio__tick"></span
-                    ><span class="radio__text"
-                        >Get the code by email at tranm••••••••••••@gm•••.com</span
-                    ></span
-                    >
-                </label>
+                      class="field__input"
+                      type="{{ form.password2.field.widget.input_type }}"
+                      name="{{ form.password2.name }}"
+                      id="{{ form.password2.id_for_label }}"
+                      placeholder="Confirm your password"
+                      required
+                    />
+                    <button class="field__view">
+                      <svg class="icon icon-eye">
+                        <use xlink:href="#icon-eye"></use>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
-                <button class="button login__button">Continue</button>
+                <button class="button login__button" type="submit">Create Account</button>
+              </div>
+            </form>
+            <div class="login__foot">
+              <a class="login__password" href="{% url 'login' %}">I already have an account</a>
             </div>
-            </div>
-            <div class="login__item">
-            <div class="login__title h3">Enter your security code</div>
-            <div class="login__info">We texted your code to +1 234 567 890</div>
-            <div class="login__form">
-                <div class="login__code">
-                <div class="login__number">
-                    <input type="tel" />
-                </div>
-                <div class="login__number">
-                    <input type="tel" />
-                </div>
-                <div class="login__number">
-                    <input type="tel" />
-                </div>
-                <div class="login__number">
-                    <input type="tel" />
-                </div>
-                </div>
-            </div>
-            </div>
+          </div>
+          {% endblock %}
         </div>
-        </div>
+      </div>
+    </div>
     <div style="display: none">
         <svg width="0" height="0">
             <symbol

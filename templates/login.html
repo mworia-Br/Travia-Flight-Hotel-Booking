@@ -27,7 +27,7 @@
       sizes="16x16"
       href="{% static 'img/favicon-16x16.png' %}"
     />
-    <link rel="manifest" href="img/site.webmanifest" />
+    <link rel="manifest" href="{% static 'img/site.webmanifest' %}" />
     <link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#5bbad5" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
@@ -119,7 +119,7 @@
       <!-- header-->
       <header class="header js-header header_border">
         <div class="header__center center">
-          <a class="header__logo" href="#">
+          <a class="header__logo" href="{% url 'index' %}">
             <img class=some-icon src="{% static 'img/logo-light.svg' %}" alt="Logo">
 
           </a>
@@ -219,7 +219,7 @@
           <button
             type="button"
             class="status login__status js-popup-open"
-            href="#popup-login"
+            href="{% url 'login' %}"
             data-effect="mfp-zoom-in"
           >
             Login
@@ -274,48 +274,54 @@
       </header>
       <!-- outer content-->
 
-    <div class="popup popup_login mfp-zoom-in">
+      <div class="popup popup_login mfp-zoom-in">
         <div class="login">
-            <div class="login__item">
+          {% block content %}
+          <div class="login__item">
             <div class="login__title h3">Sign in</div>
+            <form method="post">
+              {% csrf_token %}
               <div class="login__form">
                 <div class="field field_view">
-                    <div class="field__wrap">
-                        <input
-                        class="field__input"
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                        />
-                    </div>
+                  <label for="{{ form.username.id_for_label }}" class="field__label">Username</label>
+                  <div class="field__wrap">
+                    <input 
+                      class="field__input"
+                      id="{{ form.username.id_for_label }}"
+                      name="{{ form.username.name }}"
+                      type="{{ form.username.field.widget.input_type }}"
+                      placeholder="Username"
+                      required
+                    />
+                  </div>
                 </div>
                 <div class="field field_view">
+                  <label for="{{ form.password.id_for_label }}" class="field__label">Password</label>
+                  <div class="field__wrap">
+                    <input 
+                      class="field__input"
+                      id="{{ form.password.id_for_label }}"
+                      name="{{ form.password.name }}"
+                      type="{{ form.password.field.widget.input_type }}"
+                      placeholder="Password"
+                      required
+                    />
+                    <button class="field__view">
+                      <svg class="icon icon-eye">
+                        <use xlink:href="#icon-eye"></use>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
-                <div class="field field_view">
-                    <div class="field__wrap">
-                        <input
-                        class="field__input"
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        required
-                        />
-                        <button class="field__view">
-                        <svg class="icon icon-eye">
-                            <use xlink:href="#icon-eye"></use>
-                        </svg>
-                        </button>
-                    </div>
-                </div>
-                <button class="button login__button">Login</button>
+                <button class="button login__button" type="submit">Login</button>
               </div>
+            </form>
             <div class="login__foot">
-                <a class="login__password" href="#">Create an account</a>
-                <a class="login__password" href="#">|  Forgot password?</a>
+              <a class="login__password" href="{% url 'signup' %}">Create an account</a>
+              <a class="login__password" href="#">|  Forgot password?</a>
             </div>
           </div>
-        </div>
+          {% endblock %}
         </div>
       </div>
     </div>

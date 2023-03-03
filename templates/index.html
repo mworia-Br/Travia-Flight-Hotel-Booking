@@ -27,7 +27,7 @@
       sizes="16x16"
       href="{% static 'img/favicon-16x16.png' %}"
     />
-    <link rel="manifest" href="img/site.webmanifest" />
+    <link rel="manifest" href="{% static 'img/site.webmanifest' %}" />
     <link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#5bbad5" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
@@ -89,7 +89,7 @@
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href="index.html">
+          <a class="header__logo" href="{% url 'index' %}">
             <img class="some-icon" src="{% static 'img/logo-light.svg' %}" alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
@@ -188,10 +188,14 @@
           <button
             type="button"
             class="status login__status js-popup-open"
-            href="#popup-login"
-            data-effect="mfp-zoom-in"
+            href="{% url 'logout' %}"
           >
-            Login
+            Logout
+          </button>
+          <button class="button-stroke button-small header__button"
+            href="{% url 'logout' %}"
+          >
+            Logout
           </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
