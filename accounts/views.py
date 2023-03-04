@@ -55,26 +55,6 @@ def login_view(request):
         messages.error(request,"Invalid username or password.")
         form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
-'''
-def login_view(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data.get('email') # Use email instead of username
-            print(email)
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, email=email, password=password, backend='accounts.backends.EmailBackend') # Authenticate using email
-            if user is not None:
-                login(request, user)
-                messages.info(request, f"You are now logged in as {email}.")
-                return redirect("index")
-            else:
-                messages.error(request,"Invalid email or password.")
-    else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
-'''
-
 
 def logout_view(request):
     logout(request)
