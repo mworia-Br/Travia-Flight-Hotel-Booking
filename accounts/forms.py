@@ -1,5 +1,7 @@
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.models import User
+from . import models
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, AuthenticationForm, SetPasswordForm
 
 
@@ -53,3 +55,15 @@ class CustomAuthenticationForm(AuthenticationForm):
 
     class Meta:
         fields = ('username', 'password')
+
+class OneWayFlightSearchForm(ModelForm):
+    class Meta:
+        model = models.OneWayFlightSearch
+        fields = ('origin', 'destination', 'departure_date', 'adults', 'children',
+        'infants', 'travel_class', 'non_stop', 'currency', 'max_price')
+
+class TwoWayFlightSearchForm(ModelForm):
+    class Meta:
+        model = models.TwoWayFlightSearch
+        fields = ('origin', 'destination', 'departure_date', 'return_date', 'adults', 'children',
+        'infants', 'travel_class', 'non_stop', 'currency', 'max_price')

@@ -5,4 +5,7 @@ urlpatterns = [
     path('login/', views.login_view, name="login"),
     path('signup/', views.signup, name="signup"),
     path('logout/', views.logout_view, name='logout'),
+    path('password_reset/', views.password_reset, name='password_reset'),
+    path('oneway_flight_search/', views.oneway_view, name='oneway_flight'),
+    path('roundtrip_flight_search/', views.roundtrip_view, name='roundtrip_flight'),
 ]

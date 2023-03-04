@@ -54,20 +54,7 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Invalid login credentials.'})
     else:
         return render(request, 'login.html', {})
-'''
-def login_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            return render(request, 'login.html', {'error': 'Invalid login credentials.'})
-    else:
-        return render(request, 'login.html', {})
-'''
+
 def logout_view(request):
     logout(request)
     return redirect('login')
@@ -102,3 +89,71 @@ def password_reset_confirm(request, uidb64, token):
         return render(request, 'password_reset_confirm.html', {'form': form})
     else:
         return render(request, 'password_reset_invalid.html')
+
+def oneway_view(req):
+    if req.method == 'POST':
+        origin = req.POST['origin']
+        destination = req.POST['destination']
+        departure_date = req.POST['departure_date']
+        adults = req.POST['adults']
+        children = req.POST['children']
+        infants = req.POST['infants']
+        travel_class = req.POST['travel_class']
+        currency = req.POST['currency']
+        non_stop = req.POST['non_stop']
+        max_price = req.POST['max_price']
+        max = req.POST['max']
+        print(origin)
+        print(destination)
+        print(departure_date)
+        print(adults)
+        print(children)
+        print(infants)
+        print(travel_class)
+        print(currency)
+        print(non_stop)
+        print(max_price)
+        print(max)
+        try:
+            response = amadeus.shopping.flight_offers_search.get(originLocationCode=origin, destinationLocationCode=destination, departureDate=departure_date, adults=adults, children=children, infants=infants, travelClass=travel_class, currencyCode=currency, nonStop=non_stop, maxPrice=max_price, max=max)
+            print(response.data)
+            return render(req, 'flights-category.html', {'response': response.data})
+        except ResponseError as error:
+            print(error)
+    else:
+        return render(req, 'flights-category.html', {})
+
+def roundtrip_view(req):
+    if req.method == 'POST':
+        origin = req.POST['origin']
+        destination = req.POST['destination']
+        departure_date = req.POST['departure_date']
+        return_date = req.POST['return_date']
+        adults = req.POST['adults']
+        children = req.POST['children']
+        infants = req.POST['infants']
+        travel_class = req.POST['travel_class']
+        currency = req.POST['currency']
+        non_stop = req.POST['non_stop']
+        max_price = req.POST['max_price']
+        max = req.POST['max']
+        print(origin)
+        print(destination)
+        print(departure_date)
+        print(return_date)
+        print(adults)
+        print(children)
+        print(infants)
+        print(travel_class)
+        print(currency)
+        print(non_stop)
+        print(max_price)
+        print(max)
+        try:
+            response = amadeus.shopping.flight_offers_search.get(originLocationCode=origin, destinationLocationCode=destination, departureDate=departure_date, returnDate=return_date, adults=adults, children=children, infants=infants, travelClass=travel_class, currencyCode=currency, nonStop=non_stop, maxPrice=max_price, max=max)
+            print(response.data)
+            return render(req, 'flights-category-round.html', {'response': response.data})
+        except ResponseError as error:
+            print(error)
+    else:
+        return render(req, 'flights-category-round.html', {})

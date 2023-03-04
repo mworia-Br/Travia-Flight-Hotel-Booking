@@ -93,7 +93,7 @@
             <img class="some-icon" src="{% static 'img/logo-light.svg' %}" alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href="#">Flights</a>
+            <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
             <a class="header__item" href="#">Hotels</a>
             <a class="header__item" href="#">Promo</a>
             <a class="header__item me__auto" href="#">Orders</a>
@@ -283,25 +283,25 @@
             <div class="panel panel_flights">
               <div class="panel__background"></div>
               <div class="panel__nav">
-                <a class="panel__link active" href="index.html">Flights</a
+                <a class="panel__link active" href="{% url 'oneway_flight' %}">Flights</a
                 ><a class="panel__link" href="hotels.html">Hotels</a
                 ><a class="panel__link" href="holidays.html">Holidays</a>
               </div>
               <div class="panel__controls">
                 <a
-                  href="./index.html"
+                  href="{% url 'oneway_flight' %}"
                   class="button-stroke button-small panel__button active"
                 >
                   One-way
                 </a>
                 <a
-                  href="./index-round.html"
+                  href="{% url 'roundtrip_flight' %}"
                   class="button-stroke button-small panel__button"
                 >
                   Round-trip
                 </a>
                 <a
-                  href="./index-multi.html"
+                  href="{% url 'roundtrip_flight' %}"
                   class="button-stroke button-small panel__button"
                 >
                   Multi-destination
@@ -504,7 +504,7 @@
                       </div>
                     </div>
                   </div>
-                  <a class="panel__search" href="flights-category.html">
+                  <a class="panel__search" href="{% url 'oneway_flight' %}">
                     <svg class="icon icon-search">
                       <use xlink:href="#icon-search"></use>
                     </svg>
