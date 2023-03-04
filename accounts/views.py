@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.decorators import login_required
-from .forms import SignupForm, CustomPasswordResetForm, EmailAuthenticationForm
+from .forms import SignupForm, CustomPasswordResetForm, EmailAuthenticationForm, CustomAuthenticationForm
 
 from amadeus import Client, ResponseError, Location
 
@@ -39,7 +39,7 @@ def signup(request):
 
 def login_view(request):
     if request.method == "POST":
-        form = AuthenticationForm(request.POST)
+        form = CustomAuthenticationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -53,24 +53,28 @@ def login_view(request):
                 messages.error(request,"Invalid username or password.")
     else:
         messages.error(request,"Invalid username or password.")
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
 '''
 def login_view(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        print(username)
-        print(password)
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'Invalid email or password.')
-    
-    return render(request, 'login.html')
+    if request.method == "POST":
+        form = AuthenticationForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email') # Use email instead of username
+            print(email)
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, email=email, password=password, backend='accounts.backends.EmailBackend') # Authenticate using email
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {email}.")
+                return redirect("index")
+            else:
+                messages.error(request,"Invalid email or password.")
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 '''
+
 
 def logout_view(request):
     logout(request)

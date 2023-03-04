@@ -47,4 +47,9 @@ class CustomSetPasswordForm(SetPasswordForm):
     class Meta:
         fields = ('new_password1', 'new_password2')
 
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password = forms.CharField(max_length=30, required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
+    class Meta:
+        fields = ('username', 'password')
