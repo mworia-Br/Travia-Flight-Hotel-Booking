@@ -21,6 +21,18 @@ class SignupForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('email', 'username', 'password1', 'password2')
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email is already taken.")
+        return email
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError("Username is already taken.")
+        return username
 
 class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(max_length=254, required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
@@ -36,8 +48,8 @@ class CustomSetPasswordForm(SetPasswordForm):
         fields = ('new_password1', 'new_password2')
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
-    password = forms.CharField(max_length=30, required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Password'}))
 
     class Meta:
         fields = ('username', 'password')

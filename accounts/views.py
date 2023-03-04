@@ -21,18 +21,20 @@ amadeus = Client(
 def Index(req):
     return render(req, 'index.html')
 
-'''
-def Login(req):
-    return render(req, 'login.html')
-'''
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.username = form.cleaned_data.get('username')
+            user.email = form.cleaned_data.get('email')
+            user.password = form.cleaned_data.get('password1')
+            user.save()
             login(request, user)
             messages.success(request, "Registration successful.")
             return redirect('home')
+        else:
+            messages.error(request, "Please correct the errors below.")
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
@@ -43,19 +45,33 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            print(username)
+            print("accessing")
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
+                messages.success(request, f"You are now logged in as {username}.")
                 return redirect("index")
-            else:
-                messages.error(request,"Invalid username or password.")
+        # If the form is not valid, render the login page with the invalid form
+        messages.error(request, "Invalid username or password.")
     else:
-        messages.error(request,"Invalid username or password.")
+        # If the request method is not POST, render the login page with a fresh form
         form = CustomAuthenticationForm()
+        messages.info(request, "Please enter your login details.")
     return render(request, 'login.html', {'form': form})
-
+'''
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'login.html', {'error': 'Invalid login credentials.'})
+    else:
+        return render(request, 'login.html', {})
+'''
 def logout_view(request):
     logout(request)
     return redirect('login')
