@@ -28,7 +28,8 @@ def signup(request):
             user = form.save()
             user.username = form.cleaned_data.get('username')
             user.email = form.cleaned_data.get('email')
-            user.password = form.cleaned_data.get('password1')
+            password = form.cleaned_data.get('password2')
+            user.set_password(password)
             user.save()
             login(request, user)
             messages.success(request, "Registration successful.")
@@ -41,23 +42,18 @@ def signup(request):
 
 def login_view(request):
     if request.method == "POST":
-        form = CustomAuthenticationForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            print("accessing")
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, f"You are now logged in as {username}.")
-                return redirect("index")
-        # If the form is not valid, render the login page with the invalid form
-        messages.error(request, "Invalid username or password.")
+        username = request.POST['username']
+        password = request.POST['password']
+        print(username)
+        print(password)
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'login.html', {'error': 'Invalid login credentials.'})
     else:
-        # If the request method is not POST, render the login page with a fresh form
-        form = CustomAuthenticationForm()
-        messages.info(request, "Please enter your login details.")
-    return render(request, 'login.html', {'form': form})
+        return render(request, 'login.html', {})
 '''
 def login_view(request):
     if request.method == 'POST':
