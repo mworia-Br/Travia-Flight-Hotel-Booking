@@ -12,22 +12,22 @@
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="img/apple-touch-icon.png"
+      href=" {% static 'img/apple-touch-icon.png' %} "
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="img/favicon-32x32.png"
+      href=" {% static 'img/favicon-32x32.png' %} "
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="img/favicon-16x16.png"
+      href=" {% static 'img/favicon-16x16.png' %} "
     />
-    <link rel="manifest" href="img/site.webmanifest" />
-    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="manifest" href=" {% static 'img/site.webmanifest' %} " />
+    <link rel="mask-icon" href=" {% static 'img/safari-pinned-tab.svg' %} " color="#5bbad5" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="Epic Travel Shopping Design Kit" />
@@ -46,7 +46,7 @@
     <meta property="og:title" content="Fleet – Travel Shopping UI Kit" />
     <meta property="og:type" content="Article" />
     <meta
-      property="og:url"
+      property="og:url" {% static '' %} 
       content="https://ui8.net/ui8/products/fleet--travel-shopping-ui-design-kit"
     />
     <meta
@@ -61,8 +61,8 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" media="all" href="css/app.min.css" />
-    <link rel="stylesheet" media="all" href="css/main.css" />
+    <link rel="stylesheet" media="all" href=" {% static 'css/app.min.css' %} " />
+    <link rel="stylesheet" media="all" href=" {% static 'css/main.css' %} " />
     <script>
       var viewportmeta = document.querySelector('meta[name="viewport"]');
       if (viewportmeta) {
@@ -87,19 +87,19 @@
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href="index.html">
-            <img class="some-icon" src="img/logo-light.svg" alt="Fleet" />
+          <a class="header__logo" href=" {% static 'index.html' %} ">
+            <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href="./index.html">Flights</a>
+            <a class="header__item" href=" {% static './index.html' %} ">Flights</a>
             <a class="header__item" href="#">Hotels</a>
             <a class="header__item" href="#">Promo</a>
             <a class="header__item me__auto" href="#">Orders</a>
-            <a class="header__item" href="support.html">Support</a>
+            <a class="header__item" href=" {% static 'support.html' %} ">Support</a>
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-globe">
-                  <use xlink:href="#icon-globe"></use></svg
+                  <use xlink:href=" {% static '#icon-globe' %} "></use></svg
                 >Language
               </button>
               <div class="header__body js-header-body">
@@ -123,7 +123,7 @@
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-coin">
-                  <use xlink:href="#icon-coin"></use>
+                  <use xlink:href=" {% static '#icon-coin' %} "></use>
                 </svg>
                 BDT
               </button>
@@ -149,15 +149,15 @@
           <div class="header__item header__item_notification js-header-item">
             <button class="header__head js-header-head active">
               <svg class="icon icon-notification">
-                <use xlink:href="#icon-notification"></use>
+                <use xlink:href=" {% static '#icon-notification' %} "></use>
               </svg>
             </button>
             <div class="header__body js-header-body">
               <div class="header__title">Notification</div>
               <div class="header__notifications">
-                <a class="header__notification" href="message-center.html">
+                <a class="header__notification" href=" {% static 'message-center.html' %} ">
                   <div class="header__avatar">
-                    <img src="img/content/avatar-1.jpg" alt="Avatar" />
+                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -167,9 +167,9 @@
                       class="header__status"
                       style="background-color: #3b71fe"
                     ></div></div></a
-                ><a class="header__notification" href="message-center.html">
+                ><a class="header__notification" href=" {% static 'message-center.html' %} ">
                   <div class="header__avatar">
-                    <img src="img/content/avatar-1.jpg" alt="Avatar" />
+                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -186,40 +186,40 @@
           <button
             type="button"
             class="status login__status js-popup-open"
-            href="#popup-login"
+            href=" {% static '#popup-login' %} "
             data-effect="mfp-zoom-in"
           >
             Login
           </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
-              <img src="img/content/avatar-2.jpg" alt="Avatar" />
+              <img src=" {% static 'img/content/avatar-2.jpg' %} " alt="Avatar" />
             </button>
             <div class="header__body js-header-body">
               <div class="header__group">
                 <div class="header__menu">
-                  <a class="header__link" href="message-center.html">
+                  <a class="header__link" href=" {% static 'message-center.html' %} ">
                     <svg class="icon icon-comment">
-                      <use xlink:href="#icon-comment"></use></svg
+                      <use xlink:href=" {% static '#icon-comment' %} "></use></svg
                     >Messages</a
-                  ><a class="header__link" href="bookings-list.html">
+                  ><a class="header__link" href=" {% static 'bookings-list.html' %} ">
                     <svg class="icon icon-home">
-                      <use xlink:href="#icon-home"></use></svg
+                      <use xlink:href=" {% static '#icon-home' %} "></use></svg
                     >Bookings</a
-                  ><a class="header__link" href="wishlists.html">
+                  ><a class="header__link" href=" {% static 'wishlists.html' %} ">
                     <svg class="icon icon-email">
-                      <use xlink:href="#icon-email"></use></svg
+                      <use xlink:href=" {% static '#icon-email' %} "></use></svg
                     >Wishlists</a
                   >
                 </div>
                 <div class="header__menu">
-                  <a class="header__link" href="list-your-property.html">
+                  <a class="header__link" href=" {% static 'list-your-property.html' %} ">
                     <svg class="icon icon-building">
-                      <use xlink:href="#icon-building"></use></svg
+                      <use xlink:href=" {% static '#icon-building' %} "></use></svg
                     >List your property</a
-                  ><a class="header__link" href="host-an-experience.html">
+                  ><a class="header__link" href=" {% static 'host-an-experience.html' %} ">
                     <svg class="icon icon-flag">
-                      <use xlink:href="#icon-flag"></use></svg
+                      <use xlink:href=" {% static '#icon-flag' %} "></use></svg
                     >Host an experience</a
                   >
                 </div>
@@ -227,7 +227,7 @@
               <div class="header__btns">
                 <a
                   class="button button-small header__button"
-                  href="account-setting.html"
+                  href=" {% static 'account-setting.html' %} "
                   >Account</a
                 >
                 <button class="button-stroke button-small header__button">
@@ -243,26 +243,26 @@
       <div class="outer__inner">
         <div class="section main main_flights-category">
           <div class="main__bg">
-            <img src="img/content/bg-flight-1.jpg" alt="Flight" />
+            <img src=" {% static 'img/content/bg-flight-1.jpg' %} " alt="Flight" />
           </div>
           <div class="main__center center">
             <div class="panel panel_flights-category">
               <div class="panel__background"></div>
               <div class="panel__controls">
                 <a
-                  href="./flights-category.html"
+                  href=" {% static './flights-category.html' %} "
                   class="button-stroke button-small panel__button"
                 >
                   One-way
                 </a>
                 <a
-                  href="./flights-category-round.html"
+                  href=" {% static './flights-category-round.html' %} "
                   class="button-stroke button-small panel__button active"
                 >
                   Round-trip
                 </a>
                 <a
-                  href="./flights-category-multi.html"
+                  href=" {% static './flights-category-multi.html' %} "
                   class="button-stroke button-small panel__button"
                 >
                   Multi-destination
@@ -274,7 +274,7 @@
                     <div class="location__head js-location-head">
                       <div class="location__icon">
                         <svg class="icon icon-marker">
-                          <use xlink:href="#icon-marker"></use>
+                          <use xlink:href=" {% static '#icon-marker' %} "></use>
                         </svg>
                       </div>
                       <input
@@ -287,7 +287,7 @@
                       <div class="location__description">Leaving from</div>
                       <button class="location__clear js-location-clear">
                         <svg class="icon icon-close-circle">
-                          <use xlink:href="#icon-close-circle"></use>
+                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
                         </svg>
                       </button>
                     </div>
@@ -311,7 +311,7 @@
                     <div class="location__head js-location-head">
                       <div class="location__icon">
                         <svg class="icon icon-location">
-                          <use xlink:href="#icon-location"></use>
+                          <use xlink:href=" {% static '#icon-location' %} "></use>
                         </svg>
                       </div>
                       <input
@@ -324,7 +324,7 @@
                       <div class="location__description">Going to</div>
                       <button class="location__clear js-location-clear">
                         <svg class="icon icon-close-circle">
-                          <use xlink:href="#icon-close-circle"></use>
+                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
                         </svg>
                       </button>
                     </div>
@@ -359,7 +359,7 @@
                         />
                         <div class="datepicker__icon">
                           <svg class="icon icon-calendar">
-                            <use xlink:href="#icon-calendar"></use>
+                            <use xlink:href=" {% static '#icon-calendar' %} "></use>
                           </svg>
                         </div>
                         <div class="datepicker__description">Departure</div>
@@ -373,16 +373,16 @@
                         />
                         <div class="datepicker__icon">
                           <svg class="icon icon-calendar">
-                            <use xlink:href="#icon-calendar"></use>
+                            <use xlink:href=" {% static '#icon-calendar' %} "></use>
                           </svg>
                         </div>
                         <div class="datepicker__description">return date</div>
                       </div>
                     </div>
                   </div>
-                  <a class="panel__search" href="flights-category.html">
+                  <a class="panel__search" href=" {% static 'flights-category.html' %} ">
                     <svg class="icon icon-search">
-                      <use xlink:href="#icon-search"></use></svg
+                      <use xlink:href=" {% static '#icon-search' %} "></use></svg
                     ><span>Search</span></a
                   >
                 </div>
@@ -395,15 +395,15 @@
             <div class="control">
               <a
                 class="button-stroke button-small control__button"
-                href="flights.html"
+                href=" {% static 'flights.html' %} "
               >
                 <svg class="icon icon-arrow-left">
-                  <use xlink:href="#icon-arrow-left"></use></svg
+                  <use xlink:href=" {% static '#icon-arrow-left' %} "></use></svg
                 ><span>Go home</span></a
               >
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
-                  <a class="breadcrumbs__link" href="flights.html">Home</a>
+                  <a class="breadcrumbs__link" href=" {% static 'flights.html' %} ">Home</a>
                 </li>
                 <li class="breadcrumbs__item">Flights</li>
               </ul>
@@ -459,7 +459,7 @@
                     <div class="collapsible__header" data-target="#collapse1">
                       <div class="range__label">Cost options</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse1">
@@ -511,7 +511,7 @@
                     <div class="collapsible__header" data-target="#collapse2">
                       <div class="range__label">Stops</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse2">
@@ -557,7 +557,7 @@
                     <div class="collapsible__header" data-target="#collapse3">
                       <div class="range__label">Baggage</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse3">
@@ -603,7 +603,7 @@
                     <div class="collapsible__header" data-target="#collapse4">
                       <div class="range__label">Flight Number</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse4">
@@ -620,7 +620,7 @@
                     <div class="collapsible__header" data-target="#collapse5">
                       <div class="range__label">Times</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse5">
@@ -698,7 +698,7 @@
                     <div class="collapsible__header" data-target="#collapse6">
                       <div class="range__label">Airlines</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse6">
@@ -834,7 +834,7 @@
                     <div class="collapsible__header" data-target="#collapse7">
                       <div class="range__label">Duration of stop</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse7">
@@ -860,7 +860,7 @@
                     <div class="collapsible__header" data-target="#collapse8">
                       <div class="range__label">Duration of stop</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse8">
@@ -886,7 +886,7 @@
                     <div class="collapsible__header" data-target="#collapse9">
                       <div class="range__label">Airports</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse9">
@@ -985,7 +985,7 @@
                     <div class="collapsible__header" data-target="#collapse10">
                       <div class="range__label">Ticket refund</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse10">
@@ -1031,7 +1031,7 @@
                     <div class="collapsible__header" data-target="#collapse11">
                       <div class="range__label">Ticket refund</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse11">
@@ -1077,7 +1077,7 @@
                     <div class="collapsible__header" data-target="#collapse12">
                       <div class="range__label">ticket time limit</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
+                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse12">
@@ -1102,7 +1102,7 @@
                 </div>
                 <button class="flights__reset">
                   <svg class="icon icon-close-circle-fill">
-                    <use xlink:href="#icon-close-circle-fill"></use></svg
+                    <use xlink:href=" {% static '#icon-close-circle-fill' %} "></use></svg
                   >Reset filter
                 </button>
               </div>
@@ -1112,7 +1112,7 @@
                     <div class="flight__wrap">
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1128,7 +1128,7 @@
                       </div>
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1146,7 +1146,7 @@
                     <div class="flight__control">
                       <div class="flight__info">
                         <svg class="icon icon-tick">
-                          <use xlink:href="#icon-tick"></use></svg
+                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
                         >eDreams
                       </div>
                       <button class="button-stroke flight__button">
@@ -1154,7 +1154,7 @@
                         ><span class="flight__more"
                           ><span>View deal</span>
                           <svg class="icon icon-arrow-next">
-                            <use xlink:href="#icon-arrow-next"></use></svg
+                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
                         ></span>
                       </button>
                     </div>
@@ -1163,7 +1163,7 @@
                     <div class="flight__wrap">
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1179,7 +1179,7 @@
                       </div>
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1197,7 +1197,7 @@
                     <div class="flight__control">
                       <div class="flight__info">
                         <svg class="icon icon-tick">
-                          <use xlink:href="#icon-tick"></use></svg
+                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
                         >eDreams
                       </div>
                       <button class="button-stroke flight__button">
@@ -1205,7 +1205,7 @@
                         ><span class="flight__more"
                           ><span>View deal</span>
                           <svg class="icon icon-arrow-next">
-                            <use xlink:href="#icon-arrow-next"></use></svg
+                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
                         ></span>
                       </button>
                     </div>
@@ -1214,7 +1214,7 @@
                     <div class="flight__wrap">
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1230,7 +1230,7 @@
                       </div>
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1248,7 +1248,7 @@
                     <div class="flight__control">
                       <div class="flight__info">
                         <svg class="icon icon-tick">
-                          <use xlink:href="#icon-tick"></use></svg
+                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
                         >eDreams
                       </div>
                       <button class="button-stroke flight__button">
@@ -1256,7 +1256,7 @@
                         ><span class="flight__more"
                           ><span>View deal</span>
                           <svg class="icon icon-arrow-next">
-                            <use xlink:href="#icon-arrow-next"></use></svg
+                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
                         ></span>
                       </button>
                     </div>
@@ -1265,7 +1265,7 @@
                     <div class="flight__wrap">
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1281,7 +1281,7 @@
                       </div>
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1299,7 +1299,7 @@
                     <div class="flight__control">
                       <div class="flight__info">
                         <svg class="icon icon-tick">
-                          <use xlink:href="#icon-tick"></use></svg
+                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
                         >eDreams
                       </div>
                       <button class="button-stroke flight__button">
@@ -1307,7 +1307,7 @@
                         ><span class="flight__more"
                           ><span>View deal</span>
                           <svg class="icon icon-arrow-next">
-                            <use xlink:href="#icon-arrow-next"></use></svg
+                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
                         ></span>
                       </button>
                     </div>
@@ -1316,7 +1316,7 @@
                     <div class="flight__wrap">
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1332,7 +1332,7 @@
                       </div>
                       <div class="flight__item">
                         <div class="flight__logo">
-                          <img src="img/content/emirates.svg" alt="Emirates" />
+                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
@@ -1350,7 +1350,7 @@
                     <div class="flight__control">
                       <div class="flight__info">
                         <svg class="icon icon-tick">
-                          <use xlink:href="#icon-tick"></use></svg
+                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
                         >eDreams
                       </div>
                       <button class="button-stroke flight__button">
@@ -1358,7 +1358,7 @@
                         ><span class="flight__more"
                           ><span>View deal</span>
                           <svg class="icon icon-arrow-next">
-                            <use xlink:href="#icon-arrow-next"></use></svg
+                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
                         ></span>
                       </button>
                     </div>
@@ -1381,7 +1381,7 @@
                 <div class="testimonials__row">
                   <div class="testimonials__col">
                     <div class="testimonials__logo">
-                      <img src="img/content/goldlines.svg" alt="Logo" />
+                      <img src=" {% static 'img/content/goldlines.svg' %} " alt="Logo" />
                     </div>
                     <div class="testimonials__comment">
                       "Stacks is the cleanest design system I’ve used. It helps
@@ -1412,13 +1412,13 @@
                   <div class="testimonials__col">
                     <div class="testimonials__preview">
                       <img
-                        srcset="img/content/testimonials-pic@2x.jpg 2x"
-                        src="img/content/testimonials-pic.jpg"
+                        srcse {% static 't="img/cont' %} ent/testimonials-pic@2x.jpg 2x"
+                        src=" {% static 'img/content/testimonials-pic.jpg' %} "
                         alt="Testimonials"
                       />
                       <button class="play play_small">
                         <svg class="icon icon-play">
-                          <use xlink:href="#icon-play"></use>
+                          <use xlink:href=" {% static '#icon-play' %} "></use>
                         </svg>
                       </button>
                     </div>
@@ -1429,7 +1429,7 @@
                 <div class="testimonials__row">
                   <div class="testimonials__col">
                     <div class="testimonials__logo">
-                      <img src="img/content/velocity9.svg" alt="Logo" />
+                      <img src=" {% static 'img/content/velocity9.svg' %} " alt="Logo" />
                     </div>
                     <div class="testimonials__comment">
                       "Stacks is the cleanest design system I’ve used. It helps
@@ -1458,13 +1458,13 @@
                   <div class="testimonials__col">
                     <div class="testimonials__preview">
                       <img
-                        srcset="img/content/testimonials-pic@2x.jpg 2x"
-                        src="img/content/testimonials-pic.jpg"
+                        srcse {% static 't="img/cont' %} ent/testimonials-pic@2x.jpg 2x"
+                        src=" {% static 'img/content/testimonials-pic.jpg' %} "
                         alt="Testimonials"
                       />
                       <button class="play play_small">
                         <svg class="icon icon-play">
-                          <use xlink:href="#icon-play"></use>
+                          <use xlink:href=" {% static '#icon-play' %} "></use>
                         </svg>
                       </button>
                     </div>
@@ -1475,7 +1475,7 @@
                 <div class="testimonials__row">
                   <div class="testimonials__col">
                     <div class="testimonials__logo">
-                      <img src="img/content/velocity9.svg" alt="Logo" />
+                      <img src=" {% static 'img/content/velocity9.svg' %} " alt="Logo" />
                     </div>
                     <div class="testimonials__comment">
                       "Stacks is the cleanest design system I’ve used. It helps
@@ -1506,13 +1506,13 @@
                   <div class="testimonials__col">
                     <div class="testimonials__preview">
                       <img
-                        srcset="img/content/testimonials-pic@2x.jpg 2x"
-                        src="img/content/testimonials-pic.jpg"
+                        srcse {% static 't="img/cont' %} ent/testimonials-pic@2x.jpg 2x"
+                        src=" {% static 'img/content/testimonials-pic.jpg' %} "
                         alt="Testimonials"
                       />
                       <button class="play play_small">
                         <svg class="icon icon-play">
-                          <use xlink:href="#icon-play"></use>
+                          <use xlink:href=" {% static '#icon-play' %} "></use>
                         </svg>
                       </button>
                     </div>
@@ -1523,7 +1523,7 @@
                 <div class="testimonials__row">
                   <div class="testimonials__col">
                     <div class="testimonials__logo">
-                      <img src="img/content/goldlines.svg" alt="Logo" />
+                      <img src=" {% static 'img/content/goldlines.svg' %} " alt="Logo" />
                     </div>
                     <div class="testimonials__comment">
                       "Stacks is the cleanest design system I’ve used. It helps
@@ -1554,13 +1554,13 @@
                   <div class="testimonials__col">
                     <div class="testimonials__preview">
                       <img
-                        srcset="img/content/testimonials-pic@2x.jpg 2x"
-                        src="img/content/testimonials-pic.jpg"
+                        srcse {% static 't="img/cont' %} ent/testimonials-pic@2x.jpg 2x"
+                        src=" {% static 'img/content/testimonials-pic.jpg' %} "
                         alt="Testimonials"
                       />
                       <button class="play play_small">
                         <svg class="icon icon-play">
-                          <use xlink:href="#icon-play"></use>
+                          <use xlink:href=" {% static '#icon-play' %} "></use>
                         </svg>
                       </button>
                     </div>
@@ -1575,7 +1575,7 @@
                 data-aos="animation-opacity"
               >
                 <div class="testimonials__avatar">
-                  <img src="img/content/avatar-4.jpg" alt="Avatar" />
+                  <img src=" {% static 'img/content/avatar-4.jpg' %} " alt="Avatar" />
                 </div>
                 <div class="testimonials__group">
                   <div class="testimonials__man">Jazmin Grady</div>
@@ -1587,7 +1587,7 @@
                 data-aos="animation-opacity"
               >
                 <div class="testimonials__avatar">
-                  <img src="img/content/avatar-5.jpg" alt="Avatar" />
+                  <img src=" {% static 'img/content/avatar-5.jpg' %} " alt="Avatar" />
                 </div>
                 <div class="testimonials__group">
                   <div class="testimonials__man">Kaylah Botsford</div>
@@ -1599,7 +1599,7 @@
                 data-aos="animation-opacity"
               >
                 <div class="testimonials__avatar">
-                  <img src="img/content/avatar-2.jpg" alt="Avatar" />
+                  <img src=" {% static 'img/content/avatar-2.jpg' %} " alt="Avatar" />
                 </div>
                 <div class="testimonials__group">
                   <div class="testimonials__man">Reinhold Ullrich</div>
@@ -1611,7 +1611,7 @@
                 data-aos="animation-opacity"
               >
                 <div class="testimonials__avatar">
-                  <img src="img/content/avatar-3.jpg" alt="Avatar" />
+                  <img src=" {% static 'img/content/avatar-3.jpg' %} " alt="Avatar" />
                 </div>
                 <div class="testimonials__group">
                   <div class="testimonials__man">Josh Bartoletti</div>
@@ -1627,8 +1627,8 @@
         <div class="footer__center center">
           <div class="footer__row">
             <div class="footer__col">
-              <a class="footer__logo" href="index.html"
-                ><img class="some-icon" src="img/logo-light.svg" alt="Fleet"
+              <a class="footer__logo" href=" {% static 'index.html' %} "
+                ><img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet"
               /></a>
               <div class="footer__social">
                 <a href="#" class="social__link">
@@ -1679,7 +1679,7 @@
               <div class="footer__menu__widget">
                 <div class="footer__menu">
                   <h5 class="footer__subtitle">Airtravia</h5>
-                  <a class="footer__link" href="index.html">Home</a>
+                  <a class="footer__link" href=" {% static 'index.html' %} ">Home</a>
                   <a class="footer__link" href="#">About Us</a>
                   <a class="footer__link" href="#">Promo</a>
                   <a class="footer__link" href="#">Airline Information</a>
@@ -1706,16 +1706,16 @@
                 <h5 class="footer__subtitle">Payment Methods</h5>
                 <div class="payment__methods">
                   <a class="footer__link" href="#">
-                    <img src="./img/content/visa.svg" alt="" />
+                    <img src=" {% static './img/content/visa.svg' %} " alt="" />
                   </a>
                   <a class="footer__link" href="#">
-                    <img src="./img/content/master-card.svg" alt="" />
+                    <img src=" {% static './img/content/master-card.svg' %} " alt="" />
                   </a>
                   <a class="footer__link" href="#">
-                    <img src="./img/content/visa.svg" alt="" />
+                    <img src=" {% static './img/content/visa.svg' %} " alt="" />
                   </a>
                   <a class="footer__link" href="#">
-                    <img src="./img/content/master-card.svg" alt="" />
+                    <img src=" {% static './img/content/master-card.svg' %} " alt="" />
                   </a>
                 </div>
               </div>
@@ -1738,12 +1738,12 @@
           <div class="login__btns">
             <button class="button login__button">
               <svg class="icon icon-google">
-                <use xlink:href="#icon-google"></use></svg
+                <use xlink:href=" {% static '#icon-google' %} "></use></svg
               ><span>Google</span>
             </button>
             <button class="button-black login__button">
               <svg class="icon icon-apple">
-                <use xlink:href="#icon-apple"></use></svg
+                <use xlink:href=" {% static '#icon-apple' %} "></use></svg
               ><span>Apple</span>
             </button>
           </div>
@@ -1758,7 +1758,7 @@
             />
             <button class="subscription__btn">
               <svg class="icon icon-arrow-next">
-                <use xlink:href="#icon-arrow-next"></use>
+                <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
               </svg>
             </button>
           </div>
@@ -1780,7 +1780,7 @@
                 />
                 <button class="field__view">
                   <svg class="icon icon-eye">
-                    <use xlink:href="#icon-eye"></use>
+                    <use xlink:href=" {% static '#icon-eye' %} "></use>
                   </svg>
                 </button>
               </div>
@@ -1848,20 +1848,20 @@
     </div>
 
     <!-- scripts-->
-    <script src="js/lib/jquery.min.js"></script>
-    <script src="js/lib/slick.min.js"></script>
-    <script src="js/lib/jquery.nice-select.min.js"></script>
-    <script src="js/lib/share-buttons.js"></script>
-    <script src="js/lib/jquery.fancybox.min.js"></script>
-    <script src="js/lib/jquery.rateyo.min.js"></script>
-    <script src="js/lib/nouislider.min.js"></script>
-    <script src="js/lib/wNumb.js"></script>
-    <script src="js/lib/jquery.magnific-popup.min.js"></script>
-    <script src="js/lib/moment.min.js"></script>
-    <script src="js/lib/jquery.daterangepicker.min.js"></script>
-    <script src="js/lib/simpleParallax.min.js"></script>
-    <script src="js/demo.js"></script>
-    <script src="js/app.js"></script>
+    <script src=" {% static 'js/lib/jquery.min.js' %} "></script>
+    <script src=" {% static 'js/lib/slick.min.js' %} "></script>
+    <script src=" {% static 'js/lib/jquery.nice-select.min.js' %} "></script>
+    <script src=" {% static 'js/lib/share-buttons.js' %} "></script>
+    <script src=" {% static 'js/lib/jquery.fancybox.min.js' %} "></script>
+    <script src=" {% static 'js/lib/jquery.rateyo.min.js' %} "></script>
+    <script src=" {% static 'js/lib/nouislider.min.js' %} "></script>
+    <script src=" {% static 'js/lib/wNumb.js' %} "></script>
+    <script src=" {% static 'js/lib/jquery.magnific-popup.min.js' %} "></script>
+    <script src=" {% static 'js/lib/moment.min.js' %} "></script>
+    <script src=" {% static 'js/lib/jquery.daterangepicker.min.js' %} "></script>
+    <script src=" {% static 'js/lib/simpleParallax.min.js' %} "></script>
+    <script src=" {% static 'js/demo.js' %} "></script>
+    <script src=" {% static 'js/app.js' %} "></script>
     <!-- svg sprite-->
     <div style="display: none">
       <svg width="0" height="0">
