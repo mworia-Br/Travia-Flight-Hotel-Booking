@@ -38,5 +38,19 @@ class TwoWayFlightSearch(models.Model):
     def __str__(self):
         return self.origin + self.destination
 
+class HotelSearch(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    destination = models.CharField(max_length=3)
+    check_in = models.DateField()
+    check_out = models.DateField()
+    adults = models.IntegerField()
+    children = models.IntegerField()
+    currency = models.CharField(max_length=3)
+    max_price = models.IntegerField()
+    made_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.destination
+
 admin.site.register(OneWayFlightSearch)
 admin.site.register(TwoWayFlightSearch)

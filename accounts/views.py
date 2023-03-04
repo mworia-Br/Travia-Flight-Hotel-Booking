@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login,logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
@@ -157,3 +157,47 @@ def roundtrip_view(req):
             print(error)
     else:
         return render(req, 'flights-category-round.html', {})
+
+def hotels_view(req):
+    if req.method == 'POST':
+        city_code = req.POST['city_code']
+        check_in_date = req.POST['check_in_date']
+        check_out_date = req.POST['check_out_date']
+        adults = req.POST['adults']
+        children = req.POST['children']
+        radius = req.POST['radius']
+        radius_unit = req.POST['radius_unit']
+        currency = req.POST['currency']
+        print(city_code)
+        print(check_in_date)
+        print(check_out_date)
+        print(adults)
+        print(children)
+        print(radius)
+        print(radius_unit)
+        print(currency)
+        try:
+            response = amadeus.shopping.hotel_offers.get(cityCode=city_code, checkInDate=check_in_date, checkOutDate=check_out_date, adults=adults, radius=radius, radiusUnit=radius_unit, currencyCode=currency)
+            print(response.data)
+            return render(req, 'hotels.html', {'response': response.data})
+        except ResponseError as error:
+            print(error)
+    else:
+        return render(req, 'hotels.html', {})
+
+def profile_view(req):
+    return render(req, 'profile.html', {})
+
+def change_password_view(req):
+    if req.method == 'POST':
+        form = PasswordChangeForm(req.user, req.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(req, user)
+            messages.success(req, 'Your password was successfully updated!')
+            return redirect('index')
+        else:
+            messages.error(req, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(req.user)
+    return render(req, 'profile-password.html', {'form': form})
