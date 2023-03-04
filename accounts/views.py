@@ -33,7 +33,7 @@ def signup(request):
             user.save()
             login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect('home')
+            return redirect('index')
         else:
             messages.error(request, "Please correct the errors below.")
     else:
@@ -49,7 +49,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('index')
         else:
             return render(request, 'login.html', {'error': 'Invalid login credentials.'})
     else:
