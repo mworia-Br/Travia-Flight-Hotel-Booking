@@ -65,7 +65,7 @@ def login_view(request):
             loggedin_user = User.objects.get(username=username)
             recipient = loggedin_user.email
             print(recipient)
-            emailbody = "Thank you for using Travia Booking Services. You were logged in to our servers at: https://traviabooking.azurewebsites.net"
+            emailbody = "Thank you for using Travia Booking Services. You were logged in to our test servers at: https://traviabooking.azurewebsites.net"
             emailsend(recipient, emailbody)
             return redirect('index')
             

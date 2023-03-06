@@ -52,5 +52,26 @@ class HotelSearch(models.Model):
     def __str__(self):
         return self.destination
 
+class Traveler(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    nationality = models.CharField(max_length=50)
+    birth_date = models.DateField()
+    city = models.CharField(max_length=50)
+    passport_holder = models.BooleanField(default=False)
+    passport_number = models.CharField(max_length=20)
+    passport_issue_date = models.DateField()
+    passport_expiry = models.DateField()
+    passport_country = models.CharField(max_length=50)
+    passport_validitycountry = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.first_name + self.last_name + self.nationality
+
 admin.site.register(OneWayFlightSearch)
 admin.site.register(TwoWayFlightSearch)
+admin.site.register(HotelSearch)
+admin.site.register(Traveler)
