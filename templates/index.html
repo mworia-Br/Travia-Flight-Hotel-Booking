@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load static %}
+   {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -94,7 +94,7 @@
           </a>
           <div class="header__wrapper js-header-wrapper">
             <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
-            <a class="header__item" href="#">Hotels</a>
+            <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
             <a class="header__item" href="#">Promo</a>
             <a class="header__item me__auto" href="#">Orders</a>
             <a class="header__item" href="support.html">Support</a>
@@ -1178,20 +1178,20 @@
     </div>
 
     <!-- scripts-->
-    <script src=" {% static 'js/lib/jquery.min.js' %} "></script>
-    <script src=" {% static 'js/lib/slick.min.js' %} "></script>
-    <script src=" {% static 'js/lib/jquery.nice-select.min.js' %} "></script>
-    <script src=" {% static 'js/lib/share-buttons.js' %} "></script>
-    <script src=" {% static 'js/lib/jquery.fancybox.min.js' %} "></script>
-    <script src=" {% static 'js/lib/jquery.rateyo.min.js' %} "></script>
-    <script src=" {% static 'js/lib/nouislider.min.js' %} "></script>
-    <script src=" {% static 'js/lib/wNumb.js' %} "></script>
-    <script src=" {% static 'js/lib/jquery.magnific-popup.min.js' %} "></script>
-    <script src=" {% static 'js/lib/moment.min.js' %} "></script>
-    <script src=" {% static 'js/lib/jquery.daterangepicker.min.js' %} "></script>
-    <script src=" {% static 'js/lib/simpleParallax.min.js' %} "></script>
-    <script src=" {% static 'js/demo.js' %} "></script>
-    <script src=" {% static 'js/app.js' %} "></script>
+    <script src="{% static 'js/lib/jquery.min.js' %}"></script>
+    <script src="{% static 'js/lib/slick.min.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/lib/share-buttons.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.fancybox.min.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.rateyo.min.js' %}"></script>
+    <script src="{% static 'js/lib/nouislider.min.js' %}"></script>
+    <script src="{% static 'js/lib/wNumb.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/lib/moment.min.js' %}"></script>
+    <script src="{% static 'js/lib/jquery.daterangepicker.min.js' %}"></script>
+    <script src="{% static 'js/lib/simpleParallax.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/demo.js' %}"></script>
     <!-- svg sprite-->
     <div style="display: none">
       <svg width="0" height="0">
