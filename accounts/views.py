@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import SignupForm, CustomPasswordResetForm, EmailAuthenticationForm, CustomAuthenticationForm
 
 from amadeus import Client, ResponseError, Location
+from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 
 amadeus = Client(
     client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
@@ -16,6 +18,16 @@ amadeus = Client(
 )
 
 # Create your views here.
+def emailsend(recipient, emailbody):
+    msg = EmailMultiAlternatives(
+    subject="Welcome to Travia Booking",
+    body=emailbody,
+    from_email="orderprocessing@humpbackfieldsolutions.xyz",
+    to=[str(recipient), "briannganga70@gmail.com"],
+    reply_to=["briannganga70@gmail.com"])
+    print("Email called")
+    sending = msg.send()
+    print(sending)
 
 @login_required(login_url='login')
 def Index(req):
@@ -49,7 +61,14 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            print("User is logged in")
+            loggedin_user = User.objects.get(username=username)
+            recipient = loggedin_user.email
+            print(recipient)
+            emailbody = "Thank you for using Travia Booking Services. You were logged in to our servers at: https://traviabooking.azurewebsites.net"
+            emailsend(recipient, emailbody)
             return redirect('index')
+            
         else:
             return render(request, 'login.html', {'error': 'Invalid login credentials.'})
     else:

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'flight',
     'frontend',
     'accounts',
+    'anymail',
     'corsheaders',
 ]
 
@@ -126,13 +127,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-'''
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)
+#Email settings
+EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
 
-AUTH_USER_MODEL = 'auth.User'
-'''
+ANYMAIL = {
+    "MAILJET_API_KEY": 'c8624fb9a345ba333f4bc9bb285350ff',
+    "MAILJET_SECRET_KEY": 'd6ea4acfdae75ec3a3b3cd656fd0b9bc',
+}
+
+DEFAULT_FROM_EMAIL = 'orderprocessing@humpbackfieldsolutions.xyz'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
