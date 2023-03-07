@@ -1,6 +1,8 @@
 let originCode = "";
 let destinationCode = "";
 let departureDate = "";
+let adults = 1;
+let children = 0;
 let fromLocationArray = [];
 let toLocationArray = [];
 let flights = [];
@@ -15,25 +17,28 @@ function handleFromLocation() {
   if (fromInput.length > 1) {
     fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInput}`)
       .then((response) => response.json())
-      .then((data) => (fromLocationArray = data.data));
+      .then((data) => {
+        fromLocationArray = data.data;
+        if (fromLocationArray) {
+          fromLocationData.classList.add("location__body");
+          fromLocationData.style.display = "block";
+          const locationList = document.createElement("div");
+          locationList.classList.add("location__list");
+          fromLocationArray.forEach((location) => {
+            const locationItem = document.createElement("a");
+            locationItem.classList.add("location__item");
+            locationItem.classList.add("js-location-item");
+            locationItem.innerText = `${location.name}, ${location.address.cityName}, ${location.address.countryName}`;
+            locationItem.onclick = () => getFromLocation(location.iataCode);
+            locationList.appendChild(locationItem);
+          });
+          fromLocationData.appendChild(locationList);
+        }
+      })
+      .catch((error) => console.log(error));
 
-    if (fromLocationArray) {
-    fromLocationData.classList.add("location__body");
-    fromLocationData.style.display = "block";
-    const locationList = document.createElement("div");
-    locationList.classList.add("location__list");
-    fromLocationArray.forEach((location) => {
-        const locationItem = document.createElement("a");
-        locationItem.classList.add("location__item");
-        locationItem.classList.add("js-location-item");
-        locationItem.innerText = `${location.name}, ${location.address.cityName}, ${location.address.countryName}`;
-        locationItem.onclick = () => getFromLocation(location.iataCode);
-        locationList.appendChild(locationItem);
-    });
-    fromLocationData.appendChild(locationList);
-    }
-
-  fromLocationData.innerHTML = locationEl;
+    fromLocationData.innerHTML = locationEl;
+  }
 }
 
 function getFromLocation(regionCode) {
@@ -48,26 +53,28 @@ function handleToLocation() {
   if (toInput.length > 1) {
     fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${toInput}`)
       .then((response) => response.json())
-      .then((data) => (toLocationArray = data.data));
-
-    if (toLocationArray) {
-        toLocationData.classList.add("location__body");
-        toLocationData.style.display = "block";
-        const locationList = document.createElement("div");
-        locationList.classList.add("location__list");
-        toLocationArray.forEach((location) => {
+      .then((data) => {
+        toLocationArray = data.data;
+        if (toLocationArray) {
+          toLocationData.classList.add("location__body");
+          toLocationData.style.display = "block";
+          const locationList = document.createElement("div");
+          locationList.classList.add("location__list");
+          toLocationArray.forEach((location) => {
             const locationItem = document.createElement("a");
             locationItem.classList.add("location__item");
             locationItem.classList.add("js-location-item");
             locationItem.innerText = `${location.name}, ${location.address.cityName}, ${location.address.countryName}`;
             locationItem.onclick = () => getToLocation(location.iataCode);
             locationList.appendChild(locationItem);
-        });
-        toLocationData.appendChild(locationList);
+          });
+          toLocationData.appendChild(locationList);
         }
-      }
+      })
+      .catch((error) => console.log(error));
 
-  toLocationData.innerHTML = locationEl;
+    toLocationData.innerHTML = locationEl;
+  }
 }
 
 function getToLocation(regionCode) {
@@ -172,3 +179,6 @@ function BookFlight(flight) {
       alert(error);
     });
 }
+
+//const adults = document.getElementById('adultsCount').textContent;
+//const children = document.getElementById('childrenCount').textContent;
