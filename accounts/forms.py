@@ -3,6 +3,20 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, AuthenticationForm, SetPasswordForm
+from django.contrib.auth.forms import SetPasswordForm as BaseSetPasswordForm
+
+
+class SetPasswordForm(BaseSetPasswordForm):
+    new_password1 = forms.CharField(
+        label="New password",
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        strip=False,
+    )
+    new_password2 = forms.CharField(
+        label="New password confirmation",
+        strip=False,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+    )
 
 
 class EmailAuthenticationForm(AuthenticationForm):

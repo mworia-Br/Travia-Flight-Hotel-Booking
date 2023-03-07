@@ -1,14 +1,17 @@
+import secrets
 from django.shortcuts import render, redirect
-from django.contrib.auth import login,logout, authenticate
+from django.contrib.auth import login,logout, authenticate, get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes
+from six import text_type as force_text
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.decorators import login_required
 from .forms import SignupForm, CustomPasswordResetForm, EmailAuthenticationForm, CustomAuthenticationForm
+from .forms import SetPasswordForm
 from django.http import HttpResponse
 from amadeus import Client, ResponseError, Location
 from django.core.mail import send_mail
@@ -225,35 +228,43 @@ def change_password_view(req):
 
 def forgot_password_view(req):
     if req.method == 'POST':
-        email = request.POST['email']
+        email = req.POST['email']
+        print(email)
         try:
             user = User.objects.get(email=email)
             recipient = user.email
+            print("working")
+            token = secrets.token_urlsafe(32)
+            print(token)
+            user.auth_token = token
+            user.save()
+            reset_link = req.build_absolute_uri('/set-password/{}/{}'.format(user.id, token))
+            print(reset_link)
+            print(recipient)
+            emailbody = 'Password Reset Requested, \nPlease follow this link to reset your password: {}'.format(reset_link)
+            emailsend(recipient, emailbody)
+            return HttpResponse('Password reset email sent to Email')
         except User.DoesNotExist:
+            print('Invalid email')
             return HttpResponse('Invalid email')
-        token = get_random_string(length=32)
-        user.auth_token = token
-        user.save()
-        reset_link = request.build_absolute_uri('/set_password/{}/{}'.format(user.id, token))
-        print(reser_link)
-        print(recipient)
-        emailbody = 'Password Reset Requested, \nPlease follow this link to reset your password: {}'.format(reset_link)
-        emailsend(recipient, emailbody)
-        return HttpResponse('Password reset email sent to Email')
     else:
-        return render(request, 'forgot_password.html')
+        return render(req, 'forgot-password.html', {})
 
-def set_password(req, uidb64, token):
+def set_password(request, uidb64, token):
     """
     View for setting a new password after receiving the authentication token.
     """
+    print("called")
     User = get_user_model()
+    print("called2")
+
     try:
         # Decode the user ID from the base64 encoded uidb64 value
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist, ValidationError):
+        # If uidb64 is invalid, return a 404 response
+        return HttpResponseNotFound()
 
     # Verify that the user is valid and that the token is valid
     if user is not None and PasswordResetTokenGenerator().check_token(user, token):
