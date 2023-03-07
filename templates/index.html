@@ -308,209 +308,195 @@
                 </a>
               </div>
               <div class="panel__body">
-                <div class="panel__row">
-                  <div class="location js-location panel__item__rounded">
-                    <div class="location__head js-location-head">
-                      <div class="location__icon">
-                        <svg class="icon icon-marker">
-                          <use xlink:href="#icon-marker"></use>
-                        </svg>
+                <form>
+                  <div class="panel__row">
+                    <div class="location js-location panel__item__rounded">
+                      <!--From location-->
+                      <div class="location__head js-location-head" id="fromLocation">
+                        <div class="location__icon">
+                          <svg class="icon icon-marker">
+                            <use xlink:href="#icon-marker"></use>
+                          </svg>
+                        </div>
+                        <input
+                          type="text"
+                          class="location__input js-location-input"
+                          id="from"
+                          onkeyup="handleFromLocation()"
+                          name="from"
+                          autocomplete="off"
+                          placeholder="Flying from"
+                        />
+                        <div class="location__description">Leaving from</div>
+                        <button class="location__clear js-location-clear">
+                          <svg class="icon icon-close-circle">
+                            <use xlink:href="#icon-close-circle"></use>
+                          </svg>
+                        </button>
                       </div>
-                      <input
-                        class="location__input js-location-input"
-                        type="text"
-                        name="location"
-                        autocomplete="off"
-                        placeholder="Flying from"
-                      />
-                      <div class="location__description">Leaving from</div>
-                      <button class="location__clear js-location-clear">
-                        <svg class="icon icon-close-circle">
-                          <use xlink:href="#icon-close-circle"></use>
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="location__body js-location-body">
-                      <div class="location__list">
-                        <a class="location__item js-location-item" href="#"
-                          >New York, NY</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New York, Manhattan</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Zealand</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Smyrna Beach, FL</a
-                        ><a class="location__item js-location-item" href="#"
-                          >Newark, NJ</a
-                        >
+                      <div class="location__body js-location-body">
+                        <div id="fromLocationData"></div>
                       </div>
                     </div>
+                    <div class="location js-location panel__item__rounded">
+                      <!--Destination-->
+                      <div class="location__head js-location-head" id="toLocationTemplate">
+                        <div class="location__icon">
+                          <svg class="icon icon-location">
+                            <use xlink:href="#icon-location"></use>
+                          </svg>
+                        </div>
+                        <input
+                          class="location__input js-location-input"
+                          type="text"
+                          name="to"
+                          id="to"
+                          onkeyup="handleToLocation()"
+                          autocomplete="off"
+                          placeholder="Flying to"
+                        />
+                        <div class="location__description">Going to</div>
+                        <button class="location__clear js-location-clear">
+                          <svg class="icon icon-close-circle">
+                            <use xlink:href="#icon-close-circle"></use>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="location__body js-location-body">
+                        <div id="toLocationData"></div>
+                      </div>
+                    </div>
+                    <!--Departure Date -->
+                    <div class="datepicker datepicker__single" id="departureDateTemplate">
+                      <div class="datepicker__item panel__item__rounded">
+                        <input
+                          id="date"
+                          class="datepicker__input js-date-single"
+                          data-format="MMM DD, YYYY"
+                          id="departureDate"
+                          data-container=".datepicker"
+                          type="text"
+                          placeholder="Date"
+                          readonly="readonly"
+                        />
+                        <div class="datepicker__icon">
+                          <svg class="icon icon-calendar">
+                            <use xlink:href="#icon-calendar"></use>
+                          </svg>
+                        </div>
+                        <div class="datepicker__description">Add date</div>
+                      </div>
+                    </div>                  
+                    <div class="travelers js-travelers panel__item__rounded">
+                      <div class="travelers__head js-travelers-head">
+                        <div class="travelers__icon">
+                          <svg class="icon icon-user">
+                            <use xlink:href="#icon-user"></use>
+                          </svg>
+                        </div>
+                        <div class="travelers__content js-travelers-content">
+                          Travelers
+                        </div>
+                        <div class="travelers__description">Travelers</div>
+                      </div>
+                      <div class="travelers__body js-travelers-body">
+                        <div class="travelers__item">
+                          <div class="travelers__details">
+                            <div class="travelers__category">Adults</div>
+                            <div class="travelers__text">Ages 13 or above</div>
+                          </div>
+                          <div class="counter js-counter" data-min="0">
+                            <button
+                              class="counter__button js-counter-button js-counter-minus disabled"
+                              type="button"
+                            >
+                              <svg class="icon icon-minus-circle">
+                                <use xlink:href="#icon-minus-circle"></use>
+                              </svg>
+                            </button>
+                            <div class="counter__value js-counter-value"></div>
+                            <button
+                              class="counter__button js-counter-button js-counter-plus"
+                              type="button"
+                            >
+                              <svg class="icon icon-plus-circle">
+                                <use xlink:href="#icon-plus-circle"></use>
+                              </svg>
+                            </button>
+                            <input
+                              class="js-counter-input js-counter-result js-counter-adults"
+                              type="hidden"
+                            />
+                          </div>
+                        </div>
+                        <div class="travelers__item">
+                          <div class="travelers__details">
+                            <div class="travelers__category">Children</div>
+                            <div class="travelers__text">Ages 2 - 12</div>
+                          </div>
+                          <div class="counter js-counter" data-min="0">
+                            <button
+                              class="counter__button js-counter-button js-counter-minus disabled"
+                              type="button"
+                            >
+                              <svg class="icon icon-minus-circle">
+                                <use xlink:href="#icon-minus-circle"></use>
+                              </svg>
+                            </button>
+                            <div class="counter__value js-counter-value"></div>
+                            <button
+                              class="counter__button js-counter-button js-counter-plus"
+                              type="button"
+                            >
+                              <svg class="icon icon-plus-circle">
+                                <use xlink:href="#icon-plus-circle"></use>
+                              </svg>
+                            </button>
+                            <input
+                              class="js-counter-input js-counter-result js-counter-children"
+                              type="hidden"
+                            />
+                          </div>
+                        </div>
+                        <div class="travelers__item">
+                          <div class="travelers__details">
+                            <div class="travelers__category">Adults</div>
+                            <div class="travelers__text">Under 2</div>
+                          </div>
+                          <div class="counter js-counter" data-min="0">
+                            <button
+                              class="counter__button js-counter-button js-counter-minus disabled"
+                              type="button"
+                            >
+                              <svg class="icon icon-minus-circle">
+                                <use xlink:href="#icon-minus-circle"></use>
+                              </svg>
+                            </button>
+                            <div class="counter__value js-counter-value"></div>
+                            <button
+                              class="counter__button js-counter-button js-counter-plus"
+                              type="button"
+                            >
+                              <svg class="icon icon-plus-circle">
+                                <use xlink:href="#icon-plus-circle"></use>
+                              </svg>
+                            </button>
+                            <input
+                              class="js-counter-input js-counter-result js-counter-babies"
+                              type="hidden"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="panel__search" onclick="handleFindFlight()">
+                      <svg class="icon icon-search">
+                        <use xlink:href="#icon-search"></use>
+                      </svg>
+                      <span>Search</span>
+                    </a>
                   </div>
-                  <div class="location js-location panel__item__rounded">
-                    <div class="location__head js-location-head">
-                      <div class="location__icon">
-                        <svg class="icon icon-location">
-                          <use xlink:href="#icon-location"></use>
-                        </svg>
-                      </div>
-                      <input
-                        class="location__input js-location-input"
-                        type="text"
-                        name="location"
-                        autocomplete="off"
-                        placeholder="Flying to"
-                      />
-                      <div class="location__description">Going to</div>
-                      <button class="location__clear js-location-clear">
-                        <svg class="icon icon-close-circle">
-                          <use xlink:href="#icon-close-circle"></use>
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="location__body js-location-body">
-                      <div class="location__list">
-                        <a class="location__item js-location-item" href="#"
-                          >New York, NY</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New York, Manhattan</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Zealand</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Smyrna Beach, FL</a
-                        ><a class="location__item js-location-item" href="#"
-                          >Newark, NJ</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="datepicker datepicker__single">
-                    <div class="datepicker__item panel__item__rounded">
-                      <input
-                        class="datepicker__input js-date-single"
-                        data-format="MMM DD, YYYY"
-                        data-single="data-single"
-                        data-container=".datepicker"
-                        type="text"
-                        placeholder="Date"
-                        readonly="readonly"
-                      />
-                      <div class="datepicker__icon">
-                        <svg class="icon icon-calendar">
-                          <use xlink:href="#icon-calendar"></use>
-                        </svg>
-                      </div>
-                      <div class="datepicker__description">Add date</div>
-                    </div>
-                  </div>
-                  <div class="travelers js-travelers panel__item__rounded">
-                    <div class="travelers__head js-travelers-head">
-                      <div class="travelers__icon">
-                        <svg class="icon icon-user">
-                          <use xlink:href="#icon-user"></use>
-                        </svg>
-                      </div>
-                      <div class="travelers__content js-travelers-content">
-                        Travelers
-                      </div>
-                      <div class="travelers__description">Travelers</div>
-                    </div>
-                    <div class="travelers__body js-travelers-body">
-                      <div class="travelers__item">
-                        <div class="travelers__details">
-                          <div class="travelers__category">Adults</div>
-                          <div class="travelers__text">Ages 13 or above</div>
-                        </div>
-                        <div class="counter js-counter" data-min="0">
-                          <button
-                            class="counter__button js-counter-button js-counter-minus disabled"
-                            type="button"
-                          >
-                            <svg class="icon icon-minus-circle">
-                              <use xlink:href="#icon-minus-circle"></use>
-                            </svg>
-                          </button>
-                          <div class="counter__value js-counter-value"></div>
-                          <button
-                            class="counter__button js-counter-button js-counter-plus"
-                            type="button"
-                          >
-                            <svg class="icon icon-plus-circle">
-                              <use xlink:href="#icon-plus-circle"></use>
-                            </svg>
-                          </button>
-                          <input
-                            class="js-counter-input js-counter-result js-counter-adults"
-                            type="hidden"
-                          />
-                        </div>
-                      </div>
-                      <div class="travelers__item">
-                        <div class="travelers__details">
-                          <div class="travelers__category">Children</div>
-                          <div class="travelers__text">Ages 2 - 12</div>
-                        </div>
-                        <div class="counter js-counter" data-min="0">
-                          <button
-                            class="counter__button js-counter-button js-counter-minus disabled"
-                            type="button"
-                          >
-                            <svg class="icon icon-minus-circle">
-                              <use xlink:href="#icon-minus-circle"></use>
-                            </svg>
-                          </button>
-                          <div class="counter__value js-counter-value"></div>
-                          <button
-                            class="counter__button js-counter-button js-counter-plus"
-                            type="button"
-                          >
-                            <svg class="icon icon-plus-circle">
-                              <use xlink:href="#icon-plus-circle"></use>
-                            </svg>
-                          </button>
-                          <input
-                            class="js-counter-input js-counter-result js-counter-children"
-                            type="hidden"
-                          />
-                        </div>
-                      </div>
-                      <div class="travelers__item">
-                        <div class="travelers__details">
-                          <div class="travelers__category">Adults</div>
-                          <div class="travelers__text">Under 2</div>
-                        </div>
-                        <div class="counter js-counter" data-min="0">
-                          <button
-                            class="counter__button js-counter-button js-counter-minus disabled"
-                            type="button"
-                          >
-                            <svg class="icon icon-minus-circle">
-                              <use xlink:href="#icon-minus-circle"></use>
-                            </svg>
-                          </button>
-                          <div class="counter__value js-counter-value"></div>
-                          <button
-                            class="counter__button js-counter-button js-counter-plus"
-                            type="button"
-                          >
-                            <svg class="icon icon-plus-circle">
-                              <use xlink:href="#icon-plus-circle"></use>
-                            </svg>
-                          </button>
-                          <input
-                            class="js-counter-input js-counter-result js-counter-babies"
-                            type="hidden"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="panel__search" href="{% url 'oneway_flight' %}">
-                    <svg class="icon icon-search">
-                      <use xlink:href="#icon-search"></use>
-                    </svg>
-                    <span>Search</span>
-                  </a>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -1192,6 +1178,8 @@
     <script src="{% static 'js/lib/simpleParallax.min.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
     <script src="{% static 'js/demo.js' %}"></script>
+    <script src="{% static 'js/local.js' %}"></script>
+
     <!-- svg sprite-->
     <div style="display: none">
       <svg width="0" height="0">
