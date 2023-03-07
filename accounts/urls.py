@@ -13,4 +13,5 @@ urlpatterns = [
     path('forgot_password/',views.forgot_password_view, name='forgot_password'),
     path('change_password/', views.change_password_view, name='change_password'),
     path('set-password/<str:uidb64>/<str:token>/', views.set_password, name='set_password'),
+    path('search/', views.search_flights, name='searchflight'),
 ]

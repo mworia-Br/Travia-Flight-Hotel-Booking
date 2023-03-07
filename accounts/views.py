@@ -16,6 +16,7 @@ from django.http import HttpResponse
 from amadeus import Client, ResponseError, Location
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
+from django.views.decorators.csrf import csrf_exempt
 
 amadeus = Client(
     client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
@@ -283,3 +284,30 @@ def set_password(request, uidb64, token):
         return render(request, 'set_password.html', {'form': form})
     else:
         return render(request, 'set_password_error.html')
+
+def search_flights(request):
+    if request.method == 'POST':
+        origin = request.POST.get('origin')
+        destination = request.POST.get('destination')
+        departure_date = request.POST.get('departure_date')
+        return_date = request.POST.get('return_date')
+        adults = request.POST.get('adults')
+        children = request.POST.get('children')
+
+        try:
+            flights = amadeus_api.shopping.flight_offers_search.get(
+                origin=origin,
+                destination=destination,
+                departureDate=departure_date,
+                returnDate=return_date,
+                adults=adults,
+                children=children
+            )
+        except ResponseError as error:
+            print(error)
+            flights = []
+            print(flights)
+
+        return render(request, 'flight_search/results.html', {'flights': flights})
+
+    return render(request, 'flight_search/search.html')

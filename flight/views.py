@@ -10,7 +10,6 @@ amadeus = Client(
     client_secret='K95GQ2APHlRQ0R1l'
 )
 
-
 def select_destination(req, param):
     if req.method == "GET":
         try:
