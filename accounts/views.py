@@ -4,10 +4,12 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, Set
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
+from django.urls import reverse_lazy
+from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.decorators import login_required
 from .forms import SignupForm, CustomPasswordResetForm, EmailAuthenticationForm, CustomAuthenticationForm
-
+from django.http import HttpResponse
 from amadeus import Client, ResponseError, Location
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
@@ -220,3 +222,53 @@ def change_password_view(req):
     else:
         form = PasswordChangeForm(req.user)
     return render(req, 'profile-password.html', {'form': form})
+
+def forgot_password_view(req):
+    if req.method == 'POST':
+        email = request.POST['email']
+        try:
+            user = User.objects.get(email=email)
+            recipient = user.email
+        except User.DoesNotExist:
+            return HttpResponse('Invalid email')
+        token = get_random_string(length=32)
+        user.auth_token = token
+        user.save()
+        reset_link = request.build_absolute_uri('/set_password/{}/{}'.format(user.id, token))
+        print(reser_link)
+        print(recipient)
+        emailbody = 'Password Reset Requested, \nPlease follow this link to reset your password: {}'.format(reset_link)
+        emailsend(recipient, emailbody)
+        return HttpResponse('Password reset email sent to Email')
+    else:
+        return render(request, 'forgot_password.html')
+
+def set_password(req, uidb64, token):
+    """
+    View for setting a new password after receiving the authentication token.
+    """
+    User = get_user_model()
+    try:
+        # Decode the user ID from the base64 encoded uidb64 value
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    # Verify that the user is valid and that the token is valid
+    if user is not None and PasswordResetTokenGenerator().check_token(user, token):
+        # If the request is a POST, validate the form and set the new password
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                # Log the user in and redirect to a success page
+                user = authenticate(username=user.username, password=form.cleaned_data['new_password1'])
+                login(request, user)
+                return redirect('password_reset_done')
+        else:
+            # If the request is a GET, display the form for setting the new password
+            form = SetPasswordForm(user)
+        return render(request, 'set_password.html', {'form': form})
+    else:
+        return render(request, 'set_password_error.html')

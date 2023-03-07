@@ -18,7 +18,7 @@ amadeus = Client(
 def Indexfr(req):
     return render(req, 'indexfr.html')
 
-@login_required(login_url='login')
+
 def Frontend(request):
     # Retrieve data from the UI form
     origin = request.POST.get("Origin")
@@ -103,7 +103,6 @@ def Frontend(request):
         )
     return render(request, "demo/home.html", {})
 
-@login_required(login_url='login')
 def book_flight(request, flight):
     # Create a fake traveler profile for booking
     traveler = {

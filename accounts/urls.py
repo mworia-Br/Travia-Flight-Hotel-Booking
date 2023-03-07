@@ -11,4 +11,6 @@ urlpatterns = [
     path('hotels/', views.hotels_view, name='hotels'),
     path('profile/', views.profile_view, name='profile'),
     path('change_password/', views.change_password_view, name='change_password'),
+    path('forgot_password/',views.forgot_password_view, name='forgot_password'),
+    path('set-password/<str:token>/', views.set_password, name='set_password'),
 ]
