@@ -559,13 +559,13 @@
                     <div class="datepicker datepicker__single" id="departureDateTemplate">
                       <div class="datepicker__item panel__item__rounded">
                         <input
-                          id="date"
-                          class="datepicker__input js-date-single"
-                          data-container=".datepicker"
-                          data-format="dd/mm/yyyy"
-                          type="date"
-                          placeholder="Date"
-                          readonly="readonly"
+                        name="date"
+                        id="date"
+                        class="datepicker__input js-date-single"
+                        data-container=".datepicker"
+                        data-format="MMM DD, YYYY"
+                        placeholder="Date"
+                        readonly="readonly"
                         />
                         <div class="datepicker__icon">
                           <svg class="icon icon-calendar">
@@ -2668,7 +2668,7 @@
     <script src=" {% static 'js/demo.js' %} "></script>
     <script src=" {% static 'js/app.js' %} "></script>
     <script src="{% static 'js/local.js' %}"></script>
-    
+
     <!-- svg sprite-->
     <div style="display: none">
       <svg width="0" height="0">

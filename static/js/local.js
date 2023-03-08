@@ -131,6 +131,7 @@ function getToLocation(regionCode) {
 
 function handleFindFlight() {
   departureDate = document.getElementById("date").value;
+  console.log(departureDate);
   let flightEl = "";
 
   fetch(
