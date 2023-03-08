@@ -606,14 +606,14 @@
                       </div>
                     </div>
                     <!--Departure Date -->
-                    <div class="datepicker datepicker__single" id="departureDateTemplate">
+                    <div class="datepicker datepicker__single">
                       <div class="datepicker__item panel__item__rounded">
                         <input
-                          name="date"
                           id="date"
                           class="datepicker__input js-date-single"
+                          data-single="data-single"
                           data-container=".datepicker"
-                          data-format="MMM DD, YYYY"
+                          type="date"
                           placeholder="Date"
                           readonly="readonly"
                         />
@@ -624,7 +624,7 @@
                         </div>
                         <div class="datepicker__description">Add date</div>
                       </div>
-                    </div>                  
+                    </div>                
                     <div class="travelers js-travelers panel__item__rounded">
                       <div class="travelers__head js-travelers-head">
                         <div class="travelers__icon">
