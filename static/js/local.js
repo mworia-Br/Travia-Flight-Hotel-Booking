@@ -27,7 +27,7 @@ function handleFromLocation() {
             const locationItem = document.createElement("a");
             locationItem.classList.add("location__item");
             locationItem.classList.add("js-location-item");
-            locationItem.innerText = `${location.name}, ${location.address.cityName}, ${location.address.countryName}`;
+            locationItem.innerText = `${location.name}, ${location.subType}, ${location.address.cityName}`;
             locationItem.onclick = () => getFromLocation(location.iataCode);
             locationList.appendChild(locationItem);
           });
