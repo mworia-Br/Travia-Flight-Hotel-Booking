@@ -103,16 +103,15 @@
       const flightData = document.getElementById("flightData");
 
       function handleFromLocation() {
-        let locationEl = "";
         const fromInput = document.getElementById("from").value;
-        if (fromInput.length > 1) {
+        const fromLocationData = document.getElementById("fromLocationData");
+
+        if (fromInput.length > 1 && fromLocationData) {
           fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInput}`)
             .then((response) => response.json())
             .then((data) => {
-              fromLocationArray = data.data;
+              const fromLocationArray = data.data;
               if (fromLocationArray) {
-                fromLocationData.classList.add("location__body");
-                fromLocationData.style.display = "block";
                 const locationList = document.createElement("div");
                 locationList.classList.add("location__list");
                 fromLocationArray.forEach((location) => {
@@ -124,13 +123,18 @@
                   locationList.appendChild(locationItem);
                 });
                 fromLocationData.appendChild(locationList);
+                fromLocationData.style.display = "block";
               }
             })
             .catch((error) => console.log(error));
-
-          fromLocationData.innerHTML = locationEl;
         }
       }
+      document.addEventListener("DOMContentLoaded", () => {
+        const fromInput = document.getElementById("from");
+        if (fromInput) {
+          fromInput.addEventListener("keyup", handleFromLocation);
+        }
+      });
 
       function getFromLocation(regionCode) {
         originCode = regionCode;
@@ -271,9 +275,8 @@
           });
       }
 
-      //const adults = document.getElementById('adultsCount').textContent;
-      //const children = document.getElementById('childrenCount').textContent;
-
+//const adults = document.getElementById('adultsCount').textContent;
+//const children = document.getElementById('childrenCount').textContent;
 
       </script>
   </head>
