@@ -132,7 +132,6 @@ function getToLocation(destinationCode) {
 
 function handleFindFlight() {
   departureDate = document.getElementById("date").value;
-  console.log(departureDate);
   let flightEl = "";
 
   fetch(
@@ -144,41 +143,67 @@ function handleFindFlight() {
 
       if (flights) {
         flights.map((flight) => {
-         console.log(flight)
           flightEl +=
             '\
-         <div class="card mb-3 mt-3" >\
-         <div class="card-header">\
-           <b>Price:</b>  ' +
-            flight.price.total +
-            "  (\
-           " +
+            <div class="flight">\
+              <div class="flight__wrap">\
+                <div class="flight__item">\
+                  <div class="flight__logo">\
+                    <img src=" {% static \'img/content/emirates.svg\' %} " alt="Emirates" />\
+                  </div>\
+                  <div class="flight__details">\
+                    <div class="flight__box">\
+                      <div class="flight__title">' +
+            originCode +
+            '</div>\
+                      <div class="flight__time">' +
+            flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5) +
+            '</div>\
+                    </div>\
+                    <div class="flight__note">' +
+            flight.itineraries[0].segments.length +
+            " stops</div>";
+
+          for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
+            flightEl +=
+              '\
+            <div class="flight__box">\
+              <div class="flight__title">' +
+              flight.itineraries[0].segments[i].arrival.iataCode +
+              '</div>\
+              <div class="flight__time">' +
+              flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5) +
+              '</div>\
+            </div>';
+          }
+
+          flightEl +=
+            '\
+                  </div>\
+                </div>\
+              </div>\
+              <div class="flight__control">\
+                <div class="flight__info">\
+                  <svg class="icon icon-tick">\
+                    <use xlink:href=" {% static \'#icon-tick\' %} "></use>\
+                  </svg>\
+                  ' +
             flight.price.currency +
-            ' )\
-         </div>\
-         <div class="card-body">\
-           Number of Seats Available:  ' +
-            flight.numberOfBookableSeats +
-            "\
-           <br />\
-           Last Ticketing Date:  " +
-            flight.lastTicketingDate +
-            "\
-           <hr />\
-           <h5>Itineraries</h5>\
-           Duration:  " +
-            flight.itineraries[0].duration +
-            ' \
-           <hr />\
-           <h5>Enter your details:</h5>\
-           <input type="text" id="first" placeholder="Your first Name" class="form-control"/>\
-           <br />\
-           <input type="text" id="last" placeholder="Your Last Name" class="form-control"/>\
-         </div>\
-         <div class="card-footer">\
-           <button class="btn btn-primary" onclick="BookFlight(flight)">Book Flight</button>\
-         </div>\
-       </div>'
+            '\
+                </div>\
+                <button class="button-stroke flight__button">\
+                  <span class="flight__price">' +
+            flight.price.total +
+            '</span>\
+                  <span class="flight__more">\
+                    <span>View deal</span>\
+                    <svg class="icon icon-arrow-next">\
+                      <use xlink:href=" {% static \'#icon-arrow-next\' %} "></use>\
+                    </svg>\
+                  </span>\
+                </button>\
+              </div>\
+            </div>';
         });
         flightData.innerHTML = flightEl;
       } else {
@@ -186,6 +211,7 @@ function handleFindFlight() {
       }
     });
 }
+
 
 function BookFlight(flight) {
   const first = document.getElementById("first").value;
