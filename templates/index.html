@@ -88,7 +88,8 @@
         }
       }
     </script>
-    <script>let originCode = "";
+    <script>
+      let originCode = "";
       let destinationCode = "";
       let departureDate = "";
       let adults = 1;
@@ -609,10 +610,9 @@
                         <input
                           id="date"
                           class="datepicker__input js-date-single"
-                          data-format="MMM DD, YYYY"
-                          id="departureDate"
                           data-container=".datepicker"
-                          type="text"
+                          data-format="dd/mm/yyyy"
+                          type="date"
                           placeholder="Date"
                           readonly="readonly"
                         />
