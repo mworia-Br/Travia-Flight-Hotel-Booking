@@ -35,7 +35,7 @@ def search_offers(req):
             print(origin_code, destination_code, departure_date)
             response = amadeus.shopping.flight_offers_search.get(
                 originLocationCode=origin_code, destinationLocationCode=destination_code, 
-                departureDate=departure_date, adults=1, children=0, oneWay=True)
+                departureDate=departure_date, adults=1)
             context = {
                 "data": response.data
             }
