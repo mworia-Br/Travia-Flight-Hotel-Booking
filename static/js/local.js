@@ -32,6 +32,7 @@ function handleFromLocation() {
               locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
               locationItem.onclick = () => {
                 fromInput.value = location.iataCode;
+                originCode = location.iataCode;
                 fromLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -65,8 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-function getFromLocation(regionCode) {
-  originCode = regionCode;
+function getFromLocation(originCode) {
   console.log(originCode);
   fromLocationData.style.display = "none";
 }
@@ -92,6 +92,7 @@ function handleToLocation() {
               locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
               locationItem.onclick = () => {
                 toInput.value = location.iataCode;
+                destinationCode = location.iataCode;
                 toLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -124,8 +125,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-function getToLocation(regionCode) {
-  destinationCode = regionCode;
+function getToLocation(destinationCode) {
+  console.log(destinationCode);
   toLocationData.style.display = "none";
 }
 

@@ -97,15 +97,15 @@
       let fromLocationArray = [];
       let toLocationArray = [];
       let flights = [];
-      
+
       const fromLocationData = document.getElementById("fromLocationData");
       const toLocationData = document.getElementById("toLocationData");
       const flightData = document.getElementById("flightData");
-      
+
       function handleFromLocation() {
         const fromInput = document.getElementById("from");
         const fromLocationData = document.getElementById("fromLocationData");
-      
+
         if (fromInput && fromLocationData) {
           const fromInputValue = fromInput.value.trim();
           if (fromInputValue.length > 1) {
@@ -123,6 +123,7 @@
                     locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
                     locationItem.onclick = () => {
                       fromInput.value = location.iataCode;
+                      originCode = location.iataCode;
                       fromLocationData.style.display = "none";
                     };
                     locationList.appendChild(locationItem);
@@ -139,33 +140,32 @@
           }
         }
       }
-      
+
       document.addEventListener("DOMContentLoaded", () => {
         const fromInput = document.getElementById("from");
         const fromLocationData = document.getElementById("fromLocationData");
-      
+
         if (fromInput) {
           fromInput.addEventListener("input", handleFromLocation);
         }
-      
+
         if (fromLocationData) {
           fromLocationData.addEventListener("mouseleave", () => {
             fromLocationData.style.display = "none";
           });
         }
       });
-      
-      
-      function getFromLocation(regionCode) {
-        originCode = regionCode;
+
+
+      function getFromLocation(originCode) {
         console.log(originCode);
         fromLocationData.style.display = "none";
       }
-      
+
       function handleToLocation() {
         const toInput = document.getElementById("to");
         const toLocationData = document.getElementById("toLocationData");
-      
+
         if (toInput && toLocationData) {
           const toInputValue = toInput.value.trim();
           if (toInputValue.length > 1) {
@@ -183,6 +183,7 @@
                     locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
                     locationItem.onclick = () => {
                       toInput.value = location.iataCode;
+                      destinationCode = location.iataCode;
                       toLocationData.style.display = "none";
                     };
                     locationList.appendChild(locationItem);
@@ -199,75 +200,76 @@
           }
         }
       }
-      
+
       document.addEventListener("DOMContentLoaded", () => {
         const toInput = document.getElementById("to");
         const toLocationData = document.getElementById("toLocationData");
-      
+
         if (toInput) {
           toInput.addEventListener("input", handleToLocation);
         }
-      
+
         if (toLocationData) {
           toLocationData.addEventListener("mouseleave", () => {
             toLocationData.style.display = "none";
           });
         }
       });
-      
-      function getToLocation(regionCode) {
-        destinationCode = regionCode;
+
+      function getToLocation(destinationCode) {
+        console.log(destinationCode);
         toLocationData.style.display = "none";
       }
-      
+
       function handleFindFlight() {
         departureDate = document.getElementById("date").value;
+        console.log(departureDate);
         let flightEl = "";
-      
+
         fetch(
           `https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`
         )
           .then((response) => response.json())
           .then((data) => {
             flights = data.data;
-      
+
             if (flights) {
               flights.map((flight) => {
-               console.log(flight)
+              console.log(flight)
                 flightEl +=
                   '\
-               <div class="card mb-3 mt-3" >\
-               <div class="card-header">\
-                 <b>Price:</b>  ' +
+              <div class="card mb-3 mt-3" >\
+              <div class="card-header">\
+                <b>Price:</b>  ' +
                   flight.price.total +
                   "  (\
-                 " +
+                " +
                   flight.price.currency +
                   ' )\
-               </div>\
-               <div class="card-body">\
-                 Number of Seats Available:  ' +
+              </div>\
+              <div class="card-body">\
+                Number of Seats Available:  ' +
                   flight.numberOfBookableSeats +
                   "\
-                 <br />\
-                 Last Ticketing Date:  " +
+                <br />\
+                Last Ticketing Date:  " +
                   flight.lastTicketingDate +
                   "\
-                 <hr />\
-                 <h5>Itineraries</h5>\
-                 Duration:  " +
+                <hr />\
+                <h5>Itineraries</h5>\
+                Duration:  " +
                   flight.itineraries[0].duration +
                   ' \
-                 <hr />\
-                 <h5>Enter your details:</h5>\
-                 <input type="text" id="first" placeholder="Your first Name" class="form-control"/>\
-                 <br />\
-                 <input type="text" id="last" placeholder="Your Last Name" class="form-control"/>\
-               </div>\
-               <div class="card-footer">\
-                 <button class="btn btn-primary" onclick="BookFlight(flight)">Book Flight</button>\
-               </div>\
-             </div>'
+                <hr />\
+                <h5>Enter your details:</h5>\
+                <input type="text" id="first" placeholder="Your first Name" class="form-control"/>\
+                <br />\
+                <input type="text" id="last" placeholder="Your Last Name" class="form-control"/>\
+              </div>\
+              <div class="card-footer">\
+                <button class="btn btn-primary" onclick="BookFlight(flight)">Book Flight</button>\
+              </div>\
+            </div>'
               });
               flightData.innerHTML = flightEl;
             } else {
@@ -275,11 +277,11 @@
             }
           });
       }
-      
+
       function BookFlight(flight) {
         const first = document.getElementById("first").value;
         const last = document.getElementById("last").value;
-      
+
         fetch("https://traviabooking.azurewebsites.net/api/v1/flight/price_offers", {
           method: "POST",
           headers: {
@@ -292,7 +294,7 @@
           .then((response) => response.json())
           .then((dataObject) => {
             console.log("Success:", dataObject);
-      
+
             fetch("https://traviabooking.azurewebsites.net/api/v1/flight/book_flight/", {
               method: "POST",
               headers: {
@@ -317,7 +319,6 @@
             alert(error);
           });
       }
-      
       //const adults = document.getElementById('adultsCount').textContent;
       //const children = document.getElementById('childrenCount').textContent;
       </script>
