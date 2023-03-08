@@ -12,38 +12,58 @@ const toLocationData = document.getElementById("toLocationData");
 const flightData = document.getElementById("flightData");
 
 function handleFromLocation() {
-  const fromInput = document.getElementById("from").value;
+  const fromInput = document.getElementById("from");
   const fromLocationData = document.getElementById("fromLocationData");
 
-  if (fromInput.length > 1 && fromLocationData) {
-    fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInput}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const fromLocationArray = data.data;
-        if (fromLocationArray) {
-          const locationList = document.createElement("div");
-          locationList.classList.add("location__list");
-          fromLocationArray.forEach((location) => {
-            const locationItem = document.createElement("a");
-            locationItem.classList.add("location__item");
-            locationItem.classList.add("js-location-item");
-            locationItem.innerText = `${location.name}, ${location.subType}, ${location.address.cityName}`;
-            locationItem.onclick = () => getFromLocation(location.iataCode);
-            locationList.appendChild(locationItem);
-          });
-          fromLocationData.appendChild(locationList);
-          fromLocationData.style.display = "block";
-        }
-      })
-      .catch((error) => console.log(error));
+  if (fromInput && fromLocationData) {
+    const fromInputValue = fromInput.value.trim();
+    if (fromInputValue.length > 1) {
+      fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInputValue}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const fromLocationArray = data.data;
+          if (fromLocationArray) {
+            const locationList = document.createElement("div");
+            locationList.classList.add("location__list");
+            fromLocationArray.forEach((location) => {
+              const locationItem = document.createElement("a");
+              locationItem.classList.add("location__item");
+              locationItem.classList.add("js-location-item");
+              locationItem.innerText = `${location.name}, ${location.address.cityName}, ${location.address.countryName}`;
+              locationItem.onclick = () => {
+                fromInput.value = location.iataCode;
+                fromLocationData.style.display = "none";
+              };
+              locationList.appendChild(locationItem);
+            });
+            fromLocationData.innerHTML = "";
+            fromLocationData.appendChild(locationList);
+            fromLocationData.style.display = "block";
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      fromLocationData.innerHTML = "";
+      fromLocationData.style.display = "none";
+    }
   }
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   const fromInput = document.getElementById("from");
+  const fromLocationData = document.getElementById("fromLocationData");
+
   if (fromInput) {
-    fromInput.addEventListener("keyup", handleFromLocation);
+    fromInput.addEventListener("input", handleFromLocation);
+  }
+
+  if (fromLocationData) {
+    fromLocationData.addEventListener("mouseleave", () => {
+      fromLocationData.style.display = "none";
+    });
   }
 });
+
 
 function getFromLocation(regionCode) {
   originCode = regionCode;
