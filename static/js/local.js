@@ -13,7 +13,7 @@ const flightData = document.getElementById("flightData");
 
 function handleFromLocation() {
   const fromInput = document.getElementById("from").value;
-  const fromLocationData = document.querySelector(".location__body");
+  const fromLocationData = document.getElementById("fromLocationData");
 
   if (fromInput.length > 1 && fromLocationData) {
     fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInput}`)
