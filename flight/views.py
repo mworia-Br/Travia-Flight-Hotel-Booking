@@ -6,8 +6,8 @@ import json
 from amadeus import Client, ResponseError, Location
 
 amadeus = Client(
-    client_id='Khcl21oqYbEN2jLI7NQIN3zJPEPPuWJa',
-    client_secret='w28Z1wpi5ZhXiKfh'
+    client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
+    client_secret='K95GQ2APHlRQ0R1l'
 )
 
 def select_destination(req, param):
