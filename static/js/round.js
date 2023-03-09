@@ -1,6 +1,7 @@
 let originCode = "";
 let destinationCode = "";
 let departureDate = "";
+let returnDate = "";
 let adults = 1;
 let children = 0;
 let fromLocationArray = [];
@@ -132,10 +133,11 @@ function getToLocation(destinationCode) {
 
 function handleFindFlight() {
   departureDate = document.getElementById("date").value;
+  returnDate = document.getElementById("returnDate").value;
   let flightEl = "";
   const flightData = document.getElementById("flightData");
 
-  fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`)
+  fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}`)
     .then((response) => response.json())
     .then((data) => {
       flights = data.data;
@@ -263,3 +265,4 @@ function FlightCheckout(flight) {
 }
 
 //const adults = document.getElementById('adultsCount').textContent;
+//const children = document.getElementById('childrenCount').textContent;

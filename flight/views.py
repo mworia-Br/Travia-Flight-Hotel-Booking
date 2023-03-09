@@ -46,7 +46,7 @@ def search_offers(req):
     else:
         return JsonResponse({"error": "Invalid request method"})
 
-def search_offersRoundTrip(req):
+def search_roundtrip(req):
     if req.method == "GET":
         try:
             origin_code = req.GET["originCode"]
