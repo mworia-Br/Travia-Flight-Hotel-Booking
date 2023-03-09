@@ -187,7 +187,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <button class="button-stroke flight__button" onclick="FlightCheckout(flight)">
+                <button class="button-stroke flight__button" onclick="FlightCheckout()">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
                     <span>View deal</span>
