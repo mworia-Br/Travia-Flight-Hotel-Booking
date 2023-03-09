@@ -6,8 +6,8 @@ import json
 from amadeus import Client, ResponseError, Location
 
 amadeus = Client(
-    client_id='hLMBIHXv892WmW68fznSbddJL0s6uc3a',
-    client_secret='CFAdAR5jl3crzHBW'
+    client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
+    client_secret='K95GQ2APHlRQ0R1l'
 )
 
 def select_destination(req, param):
@@ -35,7 +35,7 @@ def search_offers(req):
             print(origin_code, destination_code, departure_date)
             response = amadeus.shopping.flight_offers_search.get(
                 originLocationCode=origin_code, destinationLocationCode=destination_code, 
-                departureDate=departure_date, adults=1)
+                departureDate=departure_date, adults=1, oneWay=True)
             context = {
                 "data": response.data
             }
@@ -52,9 +52,11 @@ def search_offersRoundTrip(req):
             origin_code = req.GET["originCode"]
             destination_code = req.GET["destinationCode"]
             departure_date = req.GET["departureDate"]
+            return_date = req.GET["returnDate"]
+
             print(origin_code, destination_code, departure_date)
             response = amadeus.shopping.flight_offers_search.get(
-                originLocationCode=origin_code, destinationLocationCode=destination_code, departureDate=departure_date, adults=1)
+                originLocationCode=origin_code, destinationLocationCode=destination_code, departureDate=departure_date, returnDate=return_date, adults=1)
             context = {
                 "data": response.data
             }
@@ -93,3 +95,16 @@ def book_flight(req):
             print(error)
     else:
        return JsonResponse({"error": "Invalid request method"})
+
+@csrf_exempt
+def flight_checkout(req):
+    if req.method == "POST":
+        try: 
+            data = json.loads(req.body)
+            flight = data.get('flight')
+            render(req, 'flightcheckout.html', {'flight': flight})
+        except ResponseError as error:
+            print(error)
+    else:
+       return JsonResponse({"error": "Invalid request method"})
+

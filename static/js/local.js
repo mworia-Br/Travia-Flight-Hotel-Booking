@@ -185,8 +185,8 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <button class="button-stroke flight__button">
-                  <span class="flight__price">${flight.price.total}</span>
+                <button class="button-stroke flight__button" onclick="FlightCheckout(${JSON.stringify(flight)})">
+                  <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
                     <span>View deal</span>
                     <svg class="icon icon-arrow-next">
@@ -248,6 +248,18 @@ function BookFlight(flight) {
       console.error("Error:", error);
       alert(error);
     });
+}
+
+function FlightCheckout(flight) {
+  fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      flight,
+    }),
+  })
 }
 
 //const adults = document.getElementById('adultsCount').textContent;

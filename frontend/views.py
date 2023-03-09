@@ -9,8 +9,8 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 amadeus = Client(
-    client_id='hLMBIHXv892WmW68fznSbddJL0s6uc3a',
-    client_secret='CFAdAR5jl3crzHBW'
+    client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
+    client_secret='K95GQ2APHlRQ0R1l'
 )
 
 # Create your views here.
