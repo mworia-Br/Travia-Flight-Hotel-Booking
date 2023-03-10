@@ -225,6 +225,7 @@
           .then((response) => response.json())
           .then((data) => {
             flights = data.data;
+            console.log(flights);
 
             if (flights) {
               flights.map((flight) => {
@@ -610,7 +611,6 @@
                           placeholder="Departure"
                           readonly="readonly"
                           />
-                        />
                           <div class="datepicker__icon">
                             <svg class="icon icon-calendar">
                               <use xlink:href='#icon-calendar'></use>
