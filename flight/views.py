@@ -101,7 +101,7 @@ def flight_checkout(req):
     if req.method == "POST":
         try: 
             data = json.loads(req.body)
-            flight = data.get('flight')
+            flight = data.get('flightData')
             render(req, 'flightcheckout.html', {'flight': flight})
         except ResponseError as error:
             print(error)
