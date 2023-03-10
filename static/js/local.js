@@ -199,8 +199,8 @@ function handleFindFlight() {
             `;
         });
         flightData.innerHTML = flightEl;
-        const viewDealButtons = document.getElementById("flightData")
-        viewDealButtons.forEach((button) => {
+        const viewDealButtons = document.querySelectorAll(".flight__button");
+        Array.from(viewDealButtons).forEach((button) => {
           button.addEventListener("click", () => {
             const flightData = JSON.parse(button.getAttribute("data-flight"));
             FlightCheckout(flightData);
@@ -213,8 +213,6 @@ function handleFindFlight() {
     })
     .catch((error) => console.log(error));
 }
-
-
 
 function BookFlight(flight) {
   const first = document.getElementById("first").value;

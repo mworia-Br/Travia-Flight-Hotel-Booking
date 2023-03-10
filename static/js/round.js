@@ -133,11 +133,10 @@ function getToLocation(destinationCode) {
 
 function handleFindFlight() {
   departureDate = document.getElementById("date").value;
-  returnDate = document.getElementById("returnDate").value;
   let flightEl = "";
   const flightData = document.getElementById("flightData");
 
-  fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}`)
+  fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`)
     .then((response) => response.json())
     .then((data) => {
       flights = data.data;
@@ -187,7 +186,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <button class="button-stroke flight__button" onclick="FlightCheckout()">
+                <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
                     <span>View deal</span>
@@ -201,14 +200,20 @@ function handleFindFlight() {
             `;
         });
         flightData.innerHTML = flightEl;
+        const viewDealButtons = document.querySelectorAll(".flight__button");
+        Array.from(viewDealButtons).forEach((button) => {
+          button.addEventListener("click", () => {
+            const flightData = JSON.parse(button.getAttribute("data-flight"));
+            FlightCheckout(flightData);
+          });
+        });
+
       } else {
         alert("No flight Data found");
       }
     })
     .catch((error) => console.log(error));
 }
-
-
 
 function BookFlight(flight) {
   const first = document.getElementById("first").value;
