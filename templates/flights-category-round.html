@@ -81,6 +81,281 @@
         }
       }
     </script>
+    <script>
+      let originCode = "";
+      let destinationCode = "";
+      let departureDate = "";
+      let returnDate = "";
+      let adults = 1;
+      let children = 0;
+      let fromLocationArray = [];
+      let toLocationArray = [];
+      let flights = [];
+
+      const fromLocationData = document.getElementById("fromLocationData");
+      const toLocationData = document.getElementById("toLocationData");
+      const flightData = document.getElementById("flightData");
+
+      function handleFromLocation() {
+        const fromInput = document.getElementById("from");
+        const fromLocationData = document.getElementById("fromLocationData");
+
+        if (fromInput && fromLocationData) {
+          const fromInputValue = fromInput.value.trim();
+          if (fromInputValue.length > 1) {
+            fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInputValue}`)
+              .then((response) => response.json())
+              .then((data) => {
+                const fromLocationArray = data.data;
+                if (fromLocationArray) {
+                  const locationList = document.createElement("div");
+                  locationList.classList.add("location__list");
+                  fromLocationArray.forEach((location) => {
+                    const locationItem = document.createElement("a");
+                    locationItem.classList.add("location__item");
+                    locationItem.classList.add("js-location-item");
+                    locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
+                    locationItem.onclick = () => {
+                      fromInput.value = location.iataCode;
+                      originCode = location.iataCode;
+                      fromLocationData.style.display = "none";
+                    };
+                    locationList.appendChild(locationItem);
+                  });
+                  fromLocationData.innerHTML = "";
+                  fromLocationData.appendChild(locationList);
+                  fromLocationData.style.display = "block";
+                }
+              })
+              .catch((error) => console.log(error));
+          } else {
+            fromLocationData.innerHTML = "";
+            fromLocationData.style.display = "none";
+          }
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const fromInput = document.getElementById("from");
+        const fromLocationData = document.getElementById("fromLocationData");
+
+        if (fromInput) {
+          fromInput.addEventListener("input", handleFromLocation);
+        }
+
+        if (fromLocationData) {
+          fromLocationData.addEventListener("mouseleave", () => {
+            fromLocationData.style.display = "none";
+          });
+        }
+      });
+
+
+      function getFromLocation(originCode) {
+        console.log(originCode);
+        fromLocationData.style.display = "none";
+      }
+
+      function handleToLocation() {
+        const toInput = document.getElementById("to");
+        const toLocationData = document.getElementById("toLocationData");
+
+        if (toInput && toLocationData) {
+          const toInputValue = toInput.value.trim();
+          if (toInputValue.length > 1) {
+            fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${toInputValue}`)
+              .then((response) => response.json())
+              .then((data) => {
+                const toLocationArray = data.data;
+                if (toLocationArray) {
+                  const locationList = document.createElement("div");
+                  locationList.classList.add("location__list");
+                  toLocationArray.forEach((location) => {
+                    const locationItem = document.createElement("a");
+                    locationItem.classList.add("location__item");
+                    locationItem.classList.add("js-location-item");
+                    locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
+                    locationItem.onclick = () => {
+                      toInput.value = location.iataCode;
+                      destinationCode = location.iataCode;
+                      toLocationData.style.display = "none";
+                    };
+                    locationList.appendChild(locationItem);
+                  });
+                  toLocationData.innerHTML = "";
+                  toLocationData.appendChild(locationList);
+                  toLocationData.style.display = "block";
+                }
+              })
+              .catch((error) => console.log(error));
+          } else {
+            toLocationData.innerHTML = "";
+            toLocationData.style.display = "none";
+          }
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const toInput = document.getElementById("to");
+        const toLocationData = document.getElementById("toLocationData");
+
+        if (toInput) {
+          toInput.addEventListener("input", handleToLocation);
+        }
+
+        if (toLocationData) {
+          toLocationData.addEventListener("mouseleave", () => {
+            toLocationData.style.display = "none";
+          });
+        }
+      });
+
+      function getToLocation(destinationCode) {
+        console.log(destinationCode);
+        toLocationData.style.display = "none";
+      }
+
+      function handleFindFlight() {
+        departureDate = document.getElementById("date").value;
+        returnDate = document.getElementById("returndate").value;
+        let flightEl = "";
+        const flightData = document.getElementById("flightData");
+
+        fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_roundtrip/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}`)
+          .then((response) => response.json())
+          .then((data) => {
+            flights = data.data;
+
+            if (flights) {
+              flights.map((flight) => {
+                // Extract the validating airline code from the flight object
+                const airlineCode = flight.validatingAirlineCodes[0];
+                
+                // Construct the URL of the airline logo based on the airline code
+                const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
+                flightEl +=
+                  `
+                  <div class="flight">
+                    <div class="flight__wrap">
+                      <div class="flight__item">
+                        <div class="flight__logo">
+                          <img src="${logoUrl}" alt="${airlineCode}" />
+                        </div>
+                        <div class="flight__details">
+                          <div class="flight__box">
+                            <div class="flight__title">${originCode}</div>
+                            <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
+                          </div>
+                          <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
+                `;
+
+                for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
+                  flightEl +=
+                    `
+                    <div class="flight__box">
+                      <div class="flight__title">${flight.itineraries[0].segments[i].arrival.iataCode}</div>
+                      <div class="flight__time">${flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5)}</div>
+                    </div>
+                    `;
+                }
+
+                flightEl +=
+                  `
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flight__control">
+                      <div class="flight__info">
+                        <svg class="icon icon-tick">
+                          <use xlink:href="#icon-tick"></use>
+                        </svg>
+                        ${flight.price.currency}
+                      </div>
+                      <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}'>
+                        <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
+                        <span class="flight__more">
+                          <span>View deal</span>
+                          <svg class="icon icon-arrow-next">
+                            <use xlink:href="#icon-arrow-next"></use>
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                  `;
+              });
+              flightData.innerHTML = flightEl;
+              const viewDealButtons = document.querySelectorAll(".flight__button");
+              Array.from(viewDealButtons).forEach((button) => {
+                button.addEventListener("click", () => {
+                  const flightData = JSON.parse(button.getAttribute("data-flight"));
+                  FlightCheckout(flightData);
+                });
+              });
+
+            } else {
+              alert("No flight Data found");
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+
+      function BookFlight(flight) {
+        const first = document.getElementById("first").value;
+        const last = document.getElementById("last").value;
+
+        fetch("https://traviabooking.azurewebsites.net/api/v1/flight/price_offers", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            flight,
+          }),
+        })
+          .then((response) => response.json())
+          .then((dataObject) => {
+            console.log("Success:", dataObject);
+
+            fetch("https://traviabooking.azurewebsites.net/api/v1/flight/book_flight/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                flight,
+                traveler: { first, last },
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Success:", data);
+                flights = [];
+              })
+              .catch((error) => {
+                alert(error);
+              });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert(error);
+          });
+      }
+
+      function FlightCheckout(flightData) {
+        fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            flightData,
+          }),
+        })
+      }
+
+      //const adults = document.getElementById('adultsCount').textContent;
+    </script>
   </head>
   <body>
     <!-- outer-->
@@ -265,123 +540,109 @@
                 </a>
               </div>
               <div class="panel__body">
-                <div class="panel__row">
-                  <div class="location js-location panel__item__rounded">
-                    <div class="location__head js-location-head">
-                      <div class="location__icon">
-                        <svg class="icon icon-marker">
-                          <use xlink:href="#icon-marker"></use>
-                        </svg>
-                      </div>
-                      <input
-                        class="location__input js-location-input"
-                        type="text"
-                        name="location"
-                        autocomplete="off"
-                        placeholder="Flying from"
-                      />
-                      <div class="location__description">Leaving from</div>
-                      <button class="location__clear js-location-clear">
-                        <svg class="icon icon-close-circle">
-                          <use xlink:href='#icon-close-circle'></use>
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="location__body js-location-body">
-                      <div class="location__list">
-                        <a class="location__item js-location-item" href="#"
-                          >New York, NY</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New York, Manhattan</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Zealand</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Smyrna Beach, FL</a
-                        ><a class="location__item js-location-item" href="#"
-                          >Newark, NJ</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="location js-location panel__item__rounded">
-                    <div class="location__head js-location-head">
-                      <div class="location__icon">
-                        <svg class="icon icon-location">
-                          <use xlink:href="#icon-location"></use>
-                        </svg>
-                      </div>
-                      <input
-                        class="location__input js-location-input"
-                        type="text"
-                        name="location"
-                        autocomplete="off"
-                        placeholder="Flying to"
-                      />
-                      <div class="location__description">Going to</div>
-                      <button class="location__clear js-location-clear">
-                        <svg class="icon icon-close-circle">
-                          <use xlink:href='#icon-close-circle'></use>
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="location__body js-location-body">
-                      <div class="location__list">
-                        <a class="location__item js-location-item" href="#"
-                          >New York, NY</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New York, Manhattan</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Zealand</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Smyrna Beach, FL</a
-                        ><a class="location__item js-location-item" href="#"
-                          >Newark, NJ</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="datepicker js-date-range"
-                    data-format="ddd, MMM DD"
-                    data-container=".datepicker"
-                  >
-                    <div class="datepicker__list">
-                      <div class="datepicker__item panel__item__rounded">
+                <form>
+                  <div class="panel__row">
+                    <div class="location js-location panel__item__rounded">
+                      <!--From location-->
+                      <div class="location__head js-location-head" id="fromLocation">
+                        <div class="location__icon">
+                          <svg class="icon icon-marker">
+                            <use xlink:href="#icon-marker"></use>
+                          </svg>
+                        </div>
                         <input
-                          class="datepicker__input js-date-from"
                           type="text"
+                          class="location__input js-location-input"
+                          id="from"
+                          onkeyup="handleFromLocation()"
+                          autocomplete="off"
+                          placeholder="Flying from"
+                        />
+                        <div class="location__description">Leaving from</div>
+                        <button class="location__clear js-location-clear">
+                          <svg class="icon icon-close-circle">
+                            <use xlink:href="#icon-close-circle"></use>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="location__body js-location-body">
+                        <div id="fromLocationData"></div>
+                      </div>
+                    </div>
+                    <div class="location js-location panel__item__rounded">
+                      <!--Destination-->
+                      <div class="location__head js-location-head" id="toLocationTemplate">
+                        <div class="location__icon">
+                          <svg class="icon icon-location">
+                            <use xlink:href="#icon-location"></use>
+                          </svg>
+                        </div>
+                        <input
+                          class="location__input js-location-input"
+                          type="text"
+                          name="to"
+                          id="to"
+                          onkeyup="handleToLocation()"
+                          autocomplete="off"
+                          placeholder="Flying to"
+                        />
+                        <div class="location__description">Going to</div>
+                        <button class="location__clear js-location-clear">
+                          <svg class="icon icon-close-circle">
+                            <use xlink:href="#icon-close-circle"></use>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="location__body js-location-body">
+                        <div id="toLocationData"></div>
+                      </div>
+                    </div>
+                    <div
+                      class="datepicker js-date-range"
+                      data-container=".datepicker"
+                    >
+                      <div class="datepicker__list">
+                        <div class="datepicker__item panel__item__rounded">
+                          <input
+                          id="date"
+                          class="datepicker__input js-date-from"
+                          type="date"
                           placeholder="Departure"
                           readonly="readonly"
+                          />
                         />
-                        <div class="datepicker__icon">
-                          <svg class="icon icon-calendar">
-                            <use xlink:href='#icon-calendar'></use>
-                          </svg>
+                          <div class="datepicker__icon">
+                            <svg class="icon icon-calendar">
+                              <use xlink:href='#icon-calendar'></use>
+                            </svg>
+                          </div>
+                          <div class="datepicker__description">Departure</div>
                         </div>
-                        <div class="datepicker__description">Departure</div>
-                      </div>
-                      <div class="datepicker__item panel__item__rounded">
-                        <input
+                        <div class="datepicker__item panel__item__rounded">
+                          <input
+                          id="returndate"
                           class="datepicker__input js-date-to"
-                          type="text"
+                          type="date"
                           placeholder="Return"
                           readonly="readonly"
-                        />
-                        <div class="datepicker__icon">
-                          <svg class="icon icon-calendar">
-                            <use xlink:href='#icon-calendar'></use>
-                          </svg>
+                          />
+                          <div class="datepicker__icon">
+                            <svg class="icon icon-calendar">
+                              <use xlink:href='#icon-calendar'></use>
+                            </svg>
+                          </div>
+                          <div class="datepicker__description">return date</div>
                         </div>
-                        <div class="datepicker__description">return date</div>
                       </div>
                     </div>
+                    <a class="panel__search" onclick="handleFindFlight()">
+                      <svg class="icon icon-search">
+                        <use xlink:href="#icon-search"></use>
+                      </svg>
+                      <span>Search</span>
+                    </a>
                   </div>
-                  <a class="panel__search" href=" {% url 'roundtrip_flight' %} ">
-                    <svg class="icon icon-search">
-                      <use xlink:href=" {% static '#icon-search' %} "></use></svg
-                    ><span>Search</span></a
-                  >
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -1104,261 +1365,7 @@
               </div>
               <div class="flights__container">
                 <div class="flights__list">
-                  <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flight__control">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
-                      </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flight__control">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
-                      </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flight__control">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
-                      </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flight__control">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
-                      </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flight__control">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
-                      </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
+                  <div id="flightData"></div>
                 </div>
                 <div class="flights__btns">
                   <button class="button-stroke flights__button">
@@ -1858,6 +1865,7 @@
     <script src=" {% static 'js/lib/simpleParallax.min.js' %} "></script>
     <script src=" {% static 'js/demo.js' %} "></script>
     <script src=" {% static 'js/app.js' %} "></script>
+    <script src=" {% static 'js/round.js' %} "></script>
     <!-- svg sprite-->
     <div style="display: none">
       <svg width="0" height="0">

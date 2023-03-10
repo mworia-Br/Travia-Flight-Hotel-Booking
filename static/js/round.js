@@ -133,10 +133,11 @@ function getToLocation(destinationCode) {
 
 function handleFindFlight() {
   departureDate = document.getElementById("date").value;
+  returnDate = document.getElementById("returndate").value;
   let flightEl = "";
   const flightData = document.getElementById("flightData");
 
-  fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`)
+  fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_roundtrip/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}`)
     .then((response) => response.json())
     .then((data) => {
       flights = data.data;
@@ -186,7 +187,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}">
+                <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}'>
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
                     <span>View deal</span>
@@ -257,17 +258,16 @@ function BookFlight(flight) {
     });
 }
 
-function FlightCheckout(flight) {
+function FlightCheckout(flightData) {
   fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      flight,
+      flightData,
     }),
   })
 }
 
 //const adults = document.getElementById('adultsCount').textContent;
-//const children = document.getElementById('childrenCount').textContent;
