@@ -185,7 +185,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <button class="button-stroke flight__button" onclick="FlightCheckout()">
+                <button class="button-stroke flight__button" data-flight='${JSON.stringify(flight)}">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
                     <span>View deal</span>
@@ -199,6 +199,14 @@ function handleFindFlight() {
             `;
         });
         flightData.innerHTML = flightEl;
+        const viewDealButtons = document.querySelectorAll("#flightData .flight__button");
+        viewDealButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const flightData = JSON.parse(button.getAttribute("data-flight"));
+            FlightCheckout(flightData);
+          });
+        });
+
       } else {
         alert("No flight Data found");
       }
@@ -250,14 +258,14 @@ function BookFlight(flight) {
     });
 }
 
-function FlightCheckout(flight) {
+function FlightCheckout(flightData) {
   fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      flight,
+      flightData,
     }),
   })
 }
