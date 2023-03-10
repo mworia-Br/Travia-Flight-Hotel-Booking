@@ -185,7 +185,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <button class="button-stroke flight__button" data-flight='${JSON.stringify(flight)}">
+                <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
                     <span>View deal</span>
@@ -199,7 +199,7 @@ function handleFindFlight() {
             `;
         });
         flightData.innerHTML = flightEl;
-        const viewDealButtons = document.querySelectorAll("#flightData .flight__button");
+        const viewDealButtons = document.getElementById("flightData")
         viewDealButtons.forEach((button) => {
           button.addEventListener("click", () => {
             const flightData = JSON.parse(button.getAttribute("data-flight"));
