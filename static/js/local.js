@@ -185,7 +185,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.fareDetailsBySegment.cabin}
                 </div>
-                <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}">
+                <button class="button-stroke flight__button" id="flightdata" data-flight='${flight}">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
                     <span>View deal</span>
