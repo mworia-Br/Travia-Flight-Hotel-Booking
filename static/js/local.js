@@ -183,7 +183,7 @@ function handleFindFlight() {
                   <svg class="icon icon-tick">
                     <use xlink:href="#icon-tick"></use>
                   </svg>
-                  ${flight.price.currency}
+                  ${flight.fareDetailsBySegment.cabin}
                 </div>
                 <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
