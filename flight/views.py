@@ -98,10 +98,10 @@ def book_flight(req):
 
 @csrf_exempt
 def flight_checkout(req):
-    if req.method == "POST":
+    if req.method == "GET":
         try: 
             data = json.loads(req.body)
-            flight = data.get('flightData')
+            flight = data.get('dataflight')
             render(req, 'flightcheckout.html', {'flight': flight})
         except ResponseError as error:
             print(error)
