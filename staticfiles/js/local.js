@@ -31,7 +31,7 @@ function handleFromLocation() {
               locationItem.classList.add("js-location-item");
               locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
               locationItem.onclick = () => {
-                fromInput.value = location.iataCode;
+                fromInput.value = location.name;
                 fromLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -91,7 +91,7 @@ function handleToLocation() {
               locationItem.classList.add("js-location-item");
               locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
               locationItem.onclick = () => {
-                toInput.value = location.iataCode;
+                toInput.value = location.name;
                 toLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);

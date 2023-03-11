@@ -108,3 +108,34 @@ def flight_checkout(req):
     else:
        return JsonResponse({"error": "Invalid request method"})
 
+# Hotel views.py
+
+# Define a function to search for hotels
+def search_hotels(req):
+    if req.method == "GET":
+        try:
+            checkin = req.GET["checkInDate"]
+            checkout = req.GET["checkout"]
+            cityCode = req.GET["locationCode"]
+            adults = req.GET["adultsPerRoom"]
+            children = req.GET["childrenPerRoom"]
+            rooms = req.GET["rooms"]
+            
+            # Define API endpoint and parameters
+            #url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-circle'
+            
+            # Send GET request to API
+            response = amadeus.shopping.hotel_offers_search.get(cityCode=cityCode, checkInDate=checkin, checkOutDate=checkout, adults=adults, radius=5, radiusUnit='KM', currency='USD')
+            
+            # Check if request was successful
+            if response.status_code == 200:
+                context = {
+                    "data": response.data
+                }
+                return JsonResponse(context)  
+            else:
+                # Request was not successful, return None
+                return None
+
+        except ResponseError as error:
+            print(error)

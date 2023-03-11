@@ -116,7 +116,7 @@
                     locationItem.classList.add("js-location-item");
                     locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
                     locationItem.onclick = () => {
-                      fromInput.value = location.iataCode;
+                      fromInput.value = location.name;
                       originCode = location.iataCode;
                       fromLocationData.style.display = "none";
                     };
@@ -176,7 +176,7 @@
                     locationItem.classList.add("js-location-item");
                     locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
                     locationItem.onclick = () => {
-                      toInput.value = location.iataCode;
+                      toInput.value = location.name;
                       destinationCode = location.iataCode;
                       toLocationData.style.display = "none";
                     };
@@ -1739,7 +1739,7 @@
           </div>
           <div class="footer__bottom">
             <div class="footer__copyright">
-              Copyright © 2021 UI8 LLC. All rights reserved
+              Copyright © 2023 UI8 LLC. All rights reserved
             </div>
           </div>
         </div>
