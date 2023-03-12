@@ -99,13 +99,13 @@ def book_flight(req):
 def flight_checkout(req):
     if req.method == "POST":
         try: 
-            data = json.loads(req.dataflight)
-            flight = data.get('dataflight')
-            render(req, 'flightcheckout.html', {'flight': flight})
-        except ResponseError as error:
-            print(error)
+            data = json.loads(request.POST.get('dataflight'))
+            flight = data.get('flight')
+            return render(request, 'flightcheckout.html', {'flight': flight})
+        except json.JSONDecodeError as error:
+            return JsonResponse({"error": str(error)})
     else:
-       return JsonResponse({"error": "Invalid request method"})
+        return HttpResponse("Invalid request method")
 
 # Hotel views.py
 
