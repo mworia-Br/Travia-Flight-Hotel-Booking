@@ -190,7 +190,9 @@ function handleFindFlight() {
                   ${flight.price.currency}
                 </div>
                 <input type="hidden" name="dataflight" value="${dataflight}">
-                <button type=submit class="button-stroke flight__button" href = "{% url 'flight_checkout'%}"">
+                <!-- button type=submit class="button-stroke flight__button" href = "{% url 'flight_checkout'%}"" -->
+                <!-- input type="hidden" name="dataflight" value="{{ dataflight }}" -->
+                <button type="submit" class="button-stroke flight__button" formaction="{% url 'flight_checkout' %}">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
                     <span>View deal</span>
@@ -212,8 +214,6 @@ function handleFindFlight() {
     })
     .catch((error) => console.log(error));
 }
-
-
 
 function BookFlight(flight) {
   const first = document.getElementById("first").value;
