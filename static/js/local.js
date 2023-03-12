@@ -147,6 +147,8 @@ function handleFindFlight() {
           
           // Construct the URL of the airline logo based on the airline code
           const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
+          // Convert the flight object to a string
+          const dataflight = JSON.stringify({flight})
           flightEl +=
             `
             <div class="flight">
@@ -187,7 +189,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <input type="hidden" name="flight" value="${flight}">
+                <input type="hidden" name="flight" value="${dataflight}">
                 <button type=submit class="button-stroke flight__button" href = "{% url 'flight_checkout'%}"">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
@@ -210,6 +212,7 @@ function handleFindFlight() {
     })
     .catch((error) => console.log(error));
 }
+
 
 
 function BookFlight(flight) {

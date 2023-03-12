@@ -72,7 +72,7 @@ def price_offer(req):
     if req.method == "POST":
         try:
             data = json.loads(req.body)
-            flight = data.get("flight")
+            flight = data.get("dataflight")
             response = amadeus.shopping.flight_offers.pricing.post(flight)
  
             return JsonResponse(response.data)
@@ -99,7 +99,7 @@ def book_flight(req):
 def flight_checkout(req):
     if req.method == "POST":
         try: 
-            data = json.loads(req.body)
+            data = json.loads(req.dataflight)
             flight = data.get('flight')
             render(req, 'flightcheckout.html', {'flight': flight})
         except ResponseError as error:
