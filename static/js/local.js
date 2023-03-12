@@ -189,7 +189,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <input type="hidden" name="flight" value="${dataflight}">
+                <input type="hidden" name="dataflight" value="${dataflight}">
                 <button type=submit class="button-stroke flight__button" href = "{% url 'flight_checkout'%}"">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
