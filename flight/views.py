@@ -96,12 +96,11 @@ def book_flight(req):
     else:
        return JsonResponse({"error": "Invalid request method"})
 
-@csrf_exempt
 def flight_checkout(req):
-    if req.method == "GET":
+    if req.method == "POST":
         try: 
             data = json.loads(req.body)
-            flight = data.get('dataflight')
+            flight = data.get('flight')
             render(req, 'flightcheckout.html', {'flight': flight})
         except ResponseError as error:
             print(error)
