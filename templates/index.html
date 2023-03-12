@@ -238,6 +238,7 @@
                 
                 // Construct the URL of the airline logo based on the airline code
                 const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
+                const dataflight = JSON.stringify({flight});
                 flightEl +=
                   `
                   <div class="flight">
