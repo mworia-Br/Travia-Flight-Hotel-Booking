@@ -335,6 +335,7 @@
       }
 
       function FlightCheckout() {
+        console.log(dataflight);
         fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout", {
           method: "POST",
           headers: {
