@@ -273,7 +273,7 @@
                         </svg>
                         ${flight.price.currency}
                       </div>
-                      <input type="hidden" name="dataflight" value="{{ dataflight }}>
+                      <input type="hidden" name="dataflight" id="dataflight">
                       <!-- button type=submit class="button-stroke flight__button" href = "{% url 'flight_checkout'%}"" -->
                       <!-- input type="hidden" name="dataflight" value="{{ dataflight }}" -->
                       <button type="submit" class="button-stroke flight__button" formaction="{% url 'flight_checkout' %}">
