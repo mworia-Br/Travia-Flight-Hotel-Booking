@@ -142,14 +142,12 @@ function handleFindFlight() {
 
       if (flights) {
         flights.map((flight) => {
-          const dataflightInput = document.getElementById("dataflight");
           // Extract the validating airline code from the flight object
           const airlineCode = flight.validatingAirlineCodes[0];
           // Construct the URL of the airline logo based on the airline code
           const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
           // Convert the flight object to a string
-          const dataflight = JSON.stringify({flight})
-          dataflightInput.value = dataflight;
+          const dataflight = JSON.stringify({flight});
 
           flightEl +=
             `
@@ -207,6 +205,8 @@ function handleFindFlight() {
               </form>
             </div>
             `;
+          const dataflightInput = document.getElementById("dataflight");
+          dataflightInput.value = dataflight;  
         });
         flightData.innerHTML = flightEl;
 
@@ -216,6 +216,7 @@ function handleFindFlight() {
     })
     .catch((error) => console.log(error));
 }
+
 
 
 function BookFlight(flight) {
