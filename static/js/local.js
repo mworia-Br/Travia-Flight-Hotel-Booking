@@ -251,7 +251,7 @@ function BookFlight(flight) {
     });
 }
 
-function FlightCheckout(dataflight) {
+function FlightCheckout(${dataflight}) {
   fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout", {
     method: "POST",
     headers: {
