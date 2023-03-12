@@ -192,7 +192,7 @@ function handleFindFlight() {
                 <input type="hidden" name="dataflight" id="dataflight">
                 <!-- button type=submit class="button-stroke flight__button" href = "{% url 'flight_checkout'%}"" -->
                 <!-- input type="hidden" name="dataflight" value="{{ dataflight }}" -->
-                <button type="submit" class="button-stroke flight__button" formaction="{% url 'flight_checkout' %}">
+                <button type="submit" class="button-stroke flight__button" onclick="setDataFlight(event, '${dataflight}') formaction="{% url 'flight_checkout' %}" ">
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
                     <span>View deal</span>
@@ -200,7 +200,7 @@ function handleFindFlight() {
                       <use xlink:href="#icon-arrow-next"></use>
                     </svg>
                   </span>
-                </button>
+              </button>
               </div>
               </form>
             </div>
@@ -261,16 +261,9 @@ function BookFlight(flight) {
     });
 }
 
-function FlightCheckout() {
-  fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      dataflight,
-    }),
-  })
+function setDataFlight(event, dataflight) {
+  const dataflightInput = event.target.form.querySelector("#dataflight");
+  dataflightInput.value = dataflight;
 }
 //const adults = document.getElementById('adultsCount').textContent;
 //const children = document.getElementById('childrenCount').textContent;
