@@ -99,7 +99,7 @@ def book_flight(req):
 def flight_checkout(req):
     if req.method == "POST":
         try: 
-            data = json.loads(req.POST.get('flight'))
+            data = json.loads(req.POST.get('dataflight'))
             flight = data.get('flight')
             return render(req, 'flightcheckout.html', {'flight': flight})
         except json.JSONDecodeError as error:
