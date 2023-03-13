@@ -277,7 +277,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <button class="button-stroke flight__button" onclick="setDataFlight(flight)">
+                <button class="button-stroke flight__button" onclick="setDataFlight(dataflight)">
 
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
@@ -344,14 +344,14 @@ function BookFlight(flight) {
     });
 }
 
-function setDataFlight(flight) {
+function setDataFlight(dataflight) {
   fetch("https://traviabooking.azurewebsites.net/flight_checkout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      flight,
+      dataflight,
     }),
   })
   console.log(success);
