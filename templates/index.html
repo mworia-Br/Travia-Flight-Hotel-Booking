@@ -221,7 +221,7 @@
         toLocationData.style.display = "none";
       }
 
-      function handleFindFlight() {
+      function handleFindFlightDUP() {
         departureDate = document.getElementById("date").value;
         let flightEl = "";
         const flightData = document.getElementById("flightData");
@@ -297,8 +297,92 @@
                     </form>
                   </div>
                   `;
-                //const dataflightInput = document.getElementById("dataflight");
-                //dataflightInput.value = dataflight;  
+                const dataflightInput = document.getElementById("dataflight");
+                dataflightInput.value = dataflight;  
+              });
+              flightData.innerHTML = flightEl;
+
+            } else {
+              alert("No flight Data found");
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+
+      function handleFindFlight() {
+        departureDate = document.getElementById("date").value;
+        let flightEl = "";
+        const flightData = document.getElementById("flightData");
+
+        fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`)
+          .then((response) => response.json())
+          .then((data) => {
+            flights = data.data;
+
+            if (flights) {
+              flights.map((flight) => {
+                // Extract the validating airline code from the flight object
+                const airlineCode = flight.validatingAirlineCodes[0];
+                // Construct the URL of the airline logo based on the airline code
+                const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
+                // Convert the flight object to a string
+                const dataflight = JSON.stringify({flight});
+
+                flightEl +=
+                  `
+                  <div class="flight">
+                    <form method="post">
+                      {% csrf_token %}
+                    <div class="flight__wrap">
+                      <div class="flight__item">
+                        <div class="flight__logo">
+                          <img src="${logoUrl}" alt="${airlineCode}" />
+                        </div>
+                        <div class="flight__details">
+                          <div class="flight__box">
+                            <div class="flight__title">${originCode}</div>
+                            <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
+                          </div>
+                          <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
+                `;
+
+                for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
+                  flightEl +=
+                    `
+                    <div class="flight__box">
+                      <div class="flight__title">${flight.itineraries[0].segments[i].arrival.iataCode}</div>
+                      <div class="flight__time">${flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5)}</div>
+                    </div>
+                    `;
+                }
+
+                flightEl +=
+                  `
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flight__control">
+                      <div class="flight__info">
+                        <svg class="icon icon-tick">
+                          <use xlink:href="#icon-tick"></use>
+                        </svg>
+                        ${flight.price.currency}
+                      </div>
+                      <button class="button-stroke flight__button" onclick="setDataFlight(flight)">
+
+                        <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
+                        <span class="flight__more">
+                          <span>View deal</span>
+                          <svg class="icon icon-arrow-next">
+                            <use xlink:href="#icon-arrow-next"></use>
+                          </svg>
+                        </span>
+                    </button>
+                    </div>
+                  </div>
+                  `;
+                const dataflightInput = document.getElementById("dataflight");
+                dataflightInput.value = dataflight;  
               });
               flightData.innerHTML = flightEl;
 
@@ -351,10 +435,18 @@
           });
       }
 
-      function setDataFlight(event, dataflight) {
-        const dataflightInput = event.target.form.querySelector("#dataflight");
-        dataflightInput.value = dataflight;
-      }      
+      function setDataFlight(flight) {
+        fetch("https://traviabooking.azurewebsites.net/flight_checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            flight,
+          }),
+        })
+        console.log(success);
+      }
       //const adults = document.getElementById('adultsCount').textContent;
       //const children = document.getElementById('childrenCount').textContent;
     </script>
