@@ -9,13 +9,5 @@
     <h1>Flight Checkout</h1>
     <p>Success Checkout page is rendered: Configure to change content displayed here></p>
     <p>Thank you for choosing this flight:</p>
-    <ul>
-        <li>Airline: {{ flight.validatingAirlineCodes[0] }}</li>
-        <li>From: {{ flight.itineraries[0].segments[0].departure.iataCode }}</li>
-        <li>To: {{ flight.itineraries[0].segments[flight.itineraries[0].segments.length - 1].arrival.iataCode }}</li>
-        <li>Departure time: {{ flight.itineraries[0].segments[0].departure.at.split('T')[1].substring(0, 5) }}</li>
-        <li>Arrival time: {{ flight.itineraries[0].segments[flight.itineraries[0].segments.length - 1].arrival.at.split('T')[1].substring(0, 5) }}</li>
-        <li>Price: {{ flight.price.currency }} {{ flight.price.total }}</li>
-    </ul>
 </body>
 </html>
