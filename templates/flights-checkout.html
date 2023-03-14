@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -87,19 +88,19 @@
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href=" {% static 'index.html' %} ">
-            <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
+          <a class="header__logo" href="{% url 'index' %}">
+            <img class="some-icon" src="{% static 'img/logo-light.svg' %}" alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href=" {% static './index.html' %} ">Flights</a>
-            <a class="header__item" href="#">Hotels</a>
+            <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
+            <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
             <a class="header__item" href="#">Promo</a>
             <a class="header__item me__auto" href="#">Orders</a>
-            <a class="header__item" href=" {% static 'support.html' %} ">Support</a>
+            <a class="header__item" href="support.html">Support</a>
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-globe">
-                  <use xlink:href=" {% static '#icon-globe' %} "></use></svg
+                  <use xlink:href="#icon-globe"></use></svg
                 >Language
               </button>
               <div class="header__body js-header-body">
@@ -123,7 +124,7 @@
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-coin">
-                  <use xlink:href=" {% static '#icon-coin' %} "></use>
+                  <use xlink:href="#icon-coin"></use>
                 </svg>
                 BDT
               </button>
@@ -149,15 +150,15 @@
           <div class="header__item header__item_notification js-header-item">
             <button class="header__head js-header-head active">
               <svg class="icon icon-notification">
-                <use xlink:href=" {% static '#icon-notification' %} "></use>
+                <use xlink:href="#icon-notification"></use>
               </svg>
             </button>
             <div class="header__body js-header-body">
               <div class="header__title">Notification</div>
               <div class="header__notifications">
-                <a class="header__notification" href=" {% static 'message-center.html' %} ">
+                <a class="header__notification" href="message-center.html">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -167,9 +168,9 @@
                       class="header__status"
                       style="background-color: #3b71fe"
                     ></div></div></a
-                ><a class="header__notification" href=" {% static 'message-center.html' %} ">
+                ><a class="header__notification" href="message-center.html">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -183,43 +184,38 @@
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            class="status login__status js-popup-open"
-            href=" {% static '#popup-login' %} "
-            data-effect="mfp-zoom-in"
-          >
-            Login
+          <a class="button-stroke button-small header__button" href="{% url 'logout' %}">Logout</a>
           </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
-              <img src=" {% static 'img/content/avatar-2.jpg' %} " alt="Avatar" />
+              <img src="{% static 'img/content/avatar-2.jpg' %}" alt="Avatar" />
+              
             </button>
             <div class="header__body js-header-body">
               <div class="header__group">
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'message-center.html' %} ">
+                  <a class="header__link" href="message-center.html">
                     <svg class="icon icon-comment">
-                      <use xlink:href=" {% static '#icon-comment' %} "></use></svg
+                      <use xlink:href="#icon-comment"></use></svg
                     >Messages</a
-                  ><a class="header__link" href=" {% static 'bookings-list.html' %} ">
+                  ><a class="header__link" href="bookings-list.html">
                     <svg class="icon icon-home">
-                      <use xlink:href=" {% static '#icon-home' %} "></use></svg
+                      <use xlink:href="#icon-home"></use></svg
                     >Bookings</a
-                  ><a class="header__link" href=" {% static 'wishlists.html' %} ">
+                  ><a class="header__link" href="wishlists.html">
                     <svg class="icon icon-email">
-                      <use xlink:href=" {% static '#icon-email' %} "></use></svg
+                      <use xlink:href="#icon-email"></use></svg
                     >Wishlists</a
                   >
                 </div>
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'list-your-property.html' %} ">
+                  <a class="header__link" href="list-your-property.html">
                     <svg class="icon icon-building">
-                      <use xlink:href=" {% static '#icon-building' %} "></use></svg
+                      <use xlink:href="#icon-building"></use></svg
                     >List your property</a
-                  ><a class="header__link" href=" {% static 'host-an-experience.html' %} ">
+                  ><a class="header__link" href="host-an-experience.html">
                     <svg class="icon icon-flag">
-                      <use xlink:href=" {% static '#icon-flag' %} "></use></svg
+                      <use xlink:href="#icon-flag"></use></svg
                     >Host an experience</a
                   >
                 </div>
@@ -227,7 +223,7 @@
               <div class="header__btns">
                 <a
                   class="button button-small header__button"
-                  href=" {% static 'account-setting.html' %} "
+                  href="account-setting.html"
                   >Account</a
                 >
                 <button class="button-stroke button-small header__button">
