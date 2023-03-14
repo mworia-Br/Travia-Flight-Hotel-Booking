@@ -1,6 +1,7 @@
 let originCode = "";
 let destinationCode = "";
 let departureDate = "";
+let dataflight = "";
 let adults = 1;
 let children = 0;
 let fromLocationArray = [];
@@ -147,7 +148,7 @@ function handleFindFlightDUP() {
           // Construct the URL of the airline logo based on the airline code
           const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
           // Convert the flight object to a string
-          const dataflight = JSON.stringify({flight});
+          dataflight = JSON.stringify({flight});
 
           flightEl +=
             `
@@ -235,7 +236,7 @@ function handleFindFlight() {
           // Construct the URL of the airline logo based on the airline code
           const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
           // Convert the flight object to a string
-          const dataflight = JSON.stringify({flight});
+          dataflight = JSON.stringify({flight});
 
           flightEl +=
             `
