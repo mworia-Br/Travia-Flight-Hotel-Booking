@@ -167,15 +167,12 @@ function handleFindFlight() {
           // Construct the URL of the airline logo based on the airline code
           logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
           // Define constants to pass to checkout view
-          departureTime = flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5);
-          arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
-          arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
+          departureTime = flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5);          
           flightDuration = flight.itineraries[0].duration;
           flightTotal = flight.price.total;
           lastTicketing = flight.lastTicketingDate;
           bookableSeats = flight.numberOfBookableSeats;
-          checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&flightTotal=${flightTotal}`
-
+          
           flightEl +=
             `
             <div class="flight">
@@ -195,6 +192,10 @@ function handleFindFlight() {
           `;
 
           for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
+            arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
+            arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
+            checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&flightTotal=${flightTotal}`;
+
             flightEl +=
               `
               <div class="flight__box">
