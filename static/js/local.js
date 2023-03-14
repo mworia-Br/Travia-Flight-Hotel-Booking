@@ -245,3 +245,4 @@ function setDataFlight() {
 }
 //const adults = document.getElementById('adultsCount').textContent;
 //const children = document.getElementById('childrenCount').textContent;
+// flightNumber = flight.itineraries[0].segments[i].carrier;
