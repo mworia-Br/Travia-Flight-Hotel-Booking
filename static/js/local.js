@@ -354,7 +354,6 @@ function setDataFlight(dataflight) {
       dataflight,
     }),
   })
-  console.log(success);
 }
 //const adults = document.getElementById('adultsCount').textContent;
 //const children = document.getElementById('childrenCount').textContent;
