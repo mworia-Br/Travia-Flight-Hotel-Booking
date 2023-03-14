@@ -346,7 +346,7 @@ function BookFlight(flight) {
 }
 
 function setDataFlight() {
-  fetch("https://traviabooking.azurewebsites.net/oneway_flight_search/", {
+  fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
