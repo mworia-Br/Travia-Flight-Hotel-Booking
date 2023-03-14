@@ -105,7 +105,8 @@ def flight_checkout(req):
         except json.JSONDecodeError as error:
             return JsonResponse({"error": str(error)})
     else:
-        return HttpResponse("Invalid request method")
+        flight = req.GET['flight']
+        return render(req, 'flightcheckout.html', {'flight': flight})
 
 # Hotel views.py
 
