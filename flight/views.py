@@ -141,13 +141,13 @@ def flight_checkout(req):
                 'travelers': traveler_s,
                 'flight_total': flight_Total
             }
-            return render(req, 'flightcheckout.html', flight_data)
+            return render(req, 'flights-checkout.html', flight_data)
         
         except:
             # Handle the exception appropriately
             return HttpResponseBadRequest()
     else:
-        return render(req, 'flightcheckout.html')
+        return render(req, 'flights-checkout.html')
 
 
 # Hotel views.py
