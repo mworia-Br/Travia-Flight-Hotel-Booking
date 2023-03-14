@@ -277,7 +277,7 @@ function handleFindFlight() {
                   </svg>
                   ${flight.price.currency}
                 </div>
-                <button class="button-stroke flight__button" onclick="setDataFlight(dataflight)">
+                <button class="button-stroke flight__button" onclick="setDataFlight(${dataflight})">
 
                   <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                   <span class="flight__more">
