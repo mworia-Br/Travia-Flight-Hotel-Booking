@@ -117,34 +117,12 @@ def password_reset_confirm(request, uidb64, token):
 
 def oneway_view(req):
     if req.method == 'POST':
-        origin = req.POST['origin']
-        destination = req.POST['destination']
-        departure_date = req.POST['departure_date']
-        adults = req.POST['adults']
-        children = req.POST['children']
-        infants = req.POST['infants']
-        travel_class = req.POST['travel_class']
-        currency = req.POST['currency']
-        non_stop = req.POST['non_stop']
-        max_price = req.POST['max_price']
-        max = req.POST['max']
-        print(origin)
-        print(destination)
-        print(departure_date)
-        print(adults)
-        print(children)
-        print(infants)
-        print(travel_class)
-        print(currency)
-        print(non_stop)
-        print(max_price)
-        print(max)
         try:
-            response = amadeus.shopping.flight_offers_search.get(originLocationCode=origin, destinationLocationCode=destination, departureDate=departure_date, adults=adults, children=children, infants=infants, travelClass=travel_class, currencyCode=currency, nonStop=non_stop, maxPrice=max_price, max=max)
-            print(response.data)
-            return render(req, 'flights-category.html', {'response': response.data})
-        except ResponseError as error:
-            print(error)
+            data = json.loads(req.POST.get('dataflight'))
+            flight = data.get('flight')
+            return render(req, 'flightcheckout.html', {'flight': flight})
+        except json.JSONDecodeError as error:
+            return JsonResponse({"error": str(error)})
     else:
         return render(req, 'flights-category.html', {})
 
