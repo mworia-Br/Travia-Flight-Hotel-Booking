@@ -1,6 +1,6 @@
 from . import views
 from django.urls import path
-from flight import views as flight_views
+
 urlpatterns = [
     path('', views.Index, name="index"),
     path('login/', views.login_view, name="login"),
@@ -15,5 +15,4 @@ urlpatterns = [
     path('change_password/', views.change_password_view, name='change_password'),
     path('set-password/<str:uidb64>/<str:token>/', views.set_password, name='set_password'),
     path('search/', views.search_flights, name='searchflight'),
-    path('flight_checkout/',flight_views.flight_checkout, name="flight_checkout"),
 ]
