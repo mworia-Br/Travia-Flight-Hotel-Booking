@@ -96,6 +96,7 @@ def book_flight(req):
     else:
        return JsonResponse({"error": "Invalid request method"})
 
+@csrf_exempt
 def flight_checkout(req):
     if req.method == "POST":
         try: 
