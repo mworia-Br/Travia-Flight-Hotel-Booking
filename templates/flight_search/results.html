@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if flights %}
+    <h2>Search results:</h2>
+    <ul>
+      {% for flight in flights %}
+        <li>
+          <h3>{{ flight.itineraries.0.segments.0.departure.iataCode }} to {{ flight.itineraries.0.segments|last.departure.iataCode }}</h3>
+          <p>Price: {{ flight.price.total }}</p>
+          <form method="post" action="{% url 'book_flight' %}">
+            {% csrf_token %}
+            <input type="hidden" name="flight_id" value="{{ flight.id }}">
+            <button type="submit">Book now</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No flights found.</p>
+  {% endif %}
+{% endblock %}
