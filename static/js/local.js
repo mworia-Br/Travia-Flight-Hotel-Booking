@@ -1,7 +1,6 @@
 let originCode = "";
 let destinationCode = "";
 let departureDate = "";
-let dataflight = "";
 let adults = 1;
 let children = 0;
 let fromLocationArray = [];
