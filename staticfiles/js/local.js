@@ -21,7 +21,7 @@ function handleFromLocation() {
       fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInputValue}`)
         .then((response) => response.json())
         .then((data) => {
-          const fromLocationArray = data.data;
+          fromLocationArray = data.data;
           if (fromLocationArray) {
             const locationList = document.createElement("div");
             locationList.classList.add("location__list");
@@ -81,7 +81,7 @@ function handleToLocation() {
       fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${toInputValue}`)
         .then((response) => response.json())
         .then((data) => {
-          const toLocationArray = data.data;
+          toLocationArray = data.data;
           if (toLocationArray) {
             const locationList = document.createElement("div");
             locationList.classList.add("location__list");
