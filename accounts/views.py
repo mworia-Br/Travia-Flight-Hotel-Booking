@@ -16,7 +16,9 @@ from django.http import HttpResponse
 from amadeus import Client, ResponseError, Location
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 amadeus = Client(
     client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
