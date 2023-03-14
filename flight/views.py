@@ -96,18 +96,59 @@ def book_flight(req):
     else:
        return JsonResponse({"error": "Invalid request method"})
 
-@csrf_exempt
 def flight_checkout(req):
-    if req.method == "POST":
-        try: 
-            dataflight = json.loads(req.POST.get('dataflight'))
-            flight = dataflight.get('flight')
-            return render(req, 'flightcheckout.html', {'flight': flight})
-        except json.JSONDecodeError as error:
-            return JsonResponse({"error": str(error)})
+    if req.method == "GET":
+        try:
+            origin_code = req.GET["originCode"]
+            destination_code = req.GET["destinationCode"] 
+            short_Origin = req.GET["shortOrigin"]
+            short_Destination = req.GET["shortDestination"]
+            long_Origin = req.GET["longOrigin"]
+            long_Destination = req.GET["longDestination"]
+            departure_date = req.GET["departureDate"]
+            arrival_date = req.GET["arrivalDate"]
+            departure_Time = req.GET["departureTime"]
+            arrival_Time = req.GET["arrivalTime"]
+            flight_Duration = req.GET["flightDuration"]
+            #dep_Terminal = req.GET["depTerminal"]
+            #arr_Terminal = req.GET["arrTerminal"]
+            air_lineCode = req.GET["airlineCode"]
+            logo_Url = req.GET["logoUrl"]
+            bookable_Seats = req.GET["bookableSeats"]
+            last_Ticketing = req.GET["lastTicketing"]
+            traveler_s = req.GET["adults"]
+            flight_Total = req.GET["flightTotal"]
+
+            # Create a dictionary of flight details to pass to the template
+            flight_data = {
+                'origin_code': origin_code,
+                'destination_code': destination_code,
+                'short_origin': short_Origin,
+                'short_destination': short_Destination,
+                'long_origin': long_Origin,
+                'long_destination': long_Destination,
+                'departure_date': departure_date,
+                'arrival_date': arrival_date,
+                'departure_time': departure_Time,
+                'arrival_time': arrival_Time,
+                'flight_duration': flight_Duration,
+                #'dep_terminal': dep_Terminal,
+                #'arr_terminal': arr_Terminal,
+                'airline_code': air_lineCode,
+                'logo_url': logo_Url,
+                'bookable_seats': bookable_Seats,
+                'last_ticketing': last_Ticketing,
+                'travelers': traveler_s,
+                'flight_total': flight_Total
+            }
+            return render(req, 'flightcheckout.html', flight_data)
+        
+        except:
+            # Handle the exception appropriately
+            return HttpResponseBadRequest()
     else:
-        flight = req.GET['flight']
-        return render(req, 'flightcheckout.html', {'flight': flight})
+        return render(req, 'flightcheckout.html')
+
 
 # Hotel views.py
 

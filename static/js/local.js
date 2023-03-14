@@ -1,12 +1,28 @@
 let originCode = "";
 let destinationCode = "";
+let shortOrigin = "";
+let shortDestination = "";
+let longOrigin = "";
+let longDestination = "";
 let departureDate = "";
-let dataflight = "";
+let arrivalDate = "";
+let departureTime = "";
+let arrivalTime = "";
+let flightDuration = "";
+let depTerminal = "";
+let arrTerminal = "";
+let flightTotal = "";
+let airlineCode = "";
+let logoUrl = "";
+let bookableSeats = "";
+let lastTicketing = "";
+let checkout_url = ``;
 let adults = 1;
 let children = 0;
 let fromLocationArray = [];
 let toLocationArray = [];
 let flights = [];
+let flightCosts = [];
 
 const fromLocationData = document.getElementById("fromLocationData");
 const toLocationData = document.getElementById("toLocationData");
@@ -34,6 +50,8 @@ function handleFromLocation() {
               locationItem.onclick = () => {
                 fromInput.value = location.name;
                 originCode = location.iataCode;
+                shortOrigin = location.address.cityName;
+                longOrigin = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                 fromLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -66,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 function getFromLocation(originCode) {
   console.log(originCode);
   fromLocationData.style.display = "none";
@@ -94,6 +111,8 @@ function handleToLocation() {
               locationItem.onclick = () => {
                 toInput.value = location.name;
                 destinationCode = location.iataCode;
+                shortDestination = location.address.cityName;
+                longDestination = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                 toLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -131,94 +150,6 @@ function getToLocation(destinationCode) {
   toLocationData.style.display = "none";
 }
 
-function handleFindFlightDUP() {
-  departureDate = document.getElementById("date").value;
-  let flightEl = "";
-  const flightData = document.getElementById("flightData");
-
-  fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`)
-    .then((response) => response.json())
-    .then((data) => {
-      flights = data.data;
-
-      if (flights) {
-        flights.map((flight) => {
-          // Extract the validating airline code from the flight object
-          const airlineCode = flight.validatingAirlineCodes[0];
-          // Construct the URL of the airline logo based on the airline code
-          const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
-          // Convert the flight object to a string
-          dataflight = JSON.stringify({flight});
-
-          flightEl +=
-            `
-            <div class="flight">
-              <form method="post">
-                {% csrf_token %}
-              <div class="flight__wrap">
-                <div class="flight__item">
-                  <div class="flight__logo">
-                    <img src="${logoUrl}" alt="${airlineCode}" />
-                  </div>
-                  <div class="flight__details">
-                    <div class="flight__box">
-                      <div class="flight__title">${originCode}</div>
-                      <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
-                    </div>
-                    <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
-          `;
-
-          for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
-            flightEl +=
-              `
-              <div class="flight__box">
-                <div class="flight__title">${flight.itineraries[0].segments[i].arrival.iataCode}</div>
-                <div class="flight__time">${flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5)}</div>
-              </div>
-              `;
-          }
-
-          flightEl +=
-            `
-                  </div>
-                </div>
-              </div>
-              <div class="flight__control">
-                <div class="flight__info">
-                  <svg class="icon icon-tick">
-                    <use xlink:href="#icon-tick"></use>
-                  </svg>
-                  ${flight.price.currency}
-                </div>
-                <input type="hidden" name="dataflight" id="dataflight">
-                <!-- button type=submit class="button-stroke flight__button" href = "{% url 'flight_checkout'%}"" -->
-                <!-- input type="hidden" name="dataflight" value="{{ dataflight }}" -->
-                <button type="submit" class="button-stroke flight__button" onclick="setDataFlight(event, '${dataflight}');" formaction="{% url 'flight_checkout' %}">
-
-                  <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
-                  <span class="flight__more">
-                    <span>View deal</span>
-                    <svg class="icon icon-arrow-next">
-                      <use xlink:href="#icon-arrow-next"></use>
-                    </svg>
-                  </span>
-              </button>
-              </div>
-              </form>
-            </div>
-            `;
-          const dataflightInput = document.getElementById("dataflight");
-          dataflightInput.value = dataflight;  
-        });
-        flightData.innerHTML = flightEl;
-
-      } else {
-        alert("No flight Data found");
-      }
-    })
-    .catch((error) => console.log(error));
-}
-
 function handleFindFlight() {
   departureDate = document.getElementById("date").value;
   let flightEl = "";
@@ -232,11 +163,18 @@ function handleFindFlight() {
       if (flights) {
         flights.map((flight) => {
           // Extract the validating airline code from the flight object
-          const airlineCode = flight.validatingAirlineCodes[0];
+          airlineCode = flight.validatingAirlineCodes[0];
           // Construct the URL of the airline logo based on the airline code
-          const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
-          // Convert the flight object to a string
-          dataflight = JSON.stringify({flight});
+          logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
+          // Define constants to pass to checkout view
+          departureTime = flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5);
+          arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
+          arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
+          flightDuration = flight.itineraries[0].duration;
+          flightTotal = flight.price.total;
+          lastTicketing = flight.lastTicketingDate;
+          bookableSeats = flight.numberOfBookableSeats;
+          checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&flightTotal=${flightTotal}`
 
           flightEl +=
             `
@@ -290,9 +228,7 @@ function handleFindFlight() {
               </button>
               </div>
             </div>
-            `;
-          const dataflightInput = document.getElementById("dataflight");
-          dataflightInput.value = dataflight;  
+            `;  
         });
         flightData.innerHTML = flightEl;
 
@@ -303,58 +239,8 @@ function handleFindFlight() {
     .catch((error) => console.log(error));
 }
 
-function BookFlight(flight) {
-  const first = document.getElementById("first").value;
-  const last = document.getElementById("last").value;
-
-  fetch("https://traviabooking.azurewebsites.net/api/v1/flight/price_offers", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      flight,
-    }),
-  })
-    .then((response) => response.json())
-    .then((dataObject) => {
-      console.log("Success:", dataObject);
-
-      fetch("https://traviabooking.azurewebsites.net/api/v1/flight/book_flight/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          flight,
-          traveler: { first, last },
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-          flights = [];
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert(error);
-    });
-}
-
 function setDataFlight() {
-  fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      dataflight,
-    }),
-  })
+  window.location.href = checkout_url;
 }
 //const adults = document.getElementById('adultsCount').textContent;
 //const children = document.getElementById('childrenCount').textContent;
