@@ -7,6 +7,7 @@ let children = 0;
 let fromLocationArray = [];
 let toLocationArray = [];
 let flights = [];
+let ticketCost = 0;
 
 const fromLocationData = document.getElementById("fromLocationData");
 const toLocationData = document.getElementById("toLocationData");
@@ -150,9 +151,6 @@ function handleFindFlight() {
           // Construct the URL of the airline logo based on the airline code
           const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
 
-          // Calculate the total price of the outbound and inbound flights
-          const totalPrice = (flight.price.outbound.total + flight.price.inbound.total).toFixed(2);
-
           flightEl +=
             `
             <div class="flight">
@@ -201,87 +199,32 @@ function handleFindFlight() {
                       </svg>
                       ${flight.price.inbound.currency}
                     </div>
-                    <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}'>
-                      <span class="flight__price"> ${flight.price.inbound.currency} ${totalPrice}</span>
-                      <span class="flight__more">
-                        <span>View deal</span>
-                        <svg class="icon icon-arrow-next">
-                          <use xlink:href="#icon-arrow-next"></use>
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
+              `;
+              // Calculate the total price of the outbound and inbound flights
+              ticketCost = parseFloat((flight.price.outbound.total + flight.price.inbound.total).toFixed(2));
+              
+              flightEl +=
+                `
+                  <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}'>
+                          <span class="flight__price"> ${flight.price.inbound.currency} ${ticketCost}</span>
+                          <span class="flight__more">
+                            <span>View deal</span>
+                            <svg class="icon icon-arrow-next">
+                              <use xlink:href="#icon-arrow-next"></use>
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
               `;
             });
             flightData.innerHTML = flightEl;
-            // Add an event listener to each button to show the flight details
-            const buttons = document.querySelectorAll(".flight__button");
-            buttons.forEach((button) => {
-              button.addEventListener("click", (event) => {
-                const flightData = JSON.parse(event.currentTarget.dataset.flight);
-                FlightCheckout(flightData);
-              });
-            });
-          } else {
+          }
+             else {
             flightData.innerHTML = "<p>No flights found.</p>";
           }
         })
         .catch((error) => console.error(error));
-}
-
-function BookFlight(flight) {
-  const first = document.getElementById("first").value;
-  const last = document.getElementById("last").value;
-
-  fetch("https://traviabooking.azurewebsites.net/api/v1/flight/price_offers", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      flight,
-    }),
-  })
-    .then((response) => response.json())
-    .then((dataObject) => {
-      console.log("Success:", dataObject);
-
-      fetch("https://traviabooking.azurewebsites.net/api/v1/flight/book_flight/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          flight,
-          traveler: { first, last },
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-          flights = [];
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert(error);
-    });
-}
-
-function FlightCheckout(flightData) {
-  fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      flightData,
-    }),
-  })
 }
 
 function handleFindRoundTripFlight() {
