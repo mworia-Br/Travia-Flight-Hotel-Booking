@@ -15,7 +15,7 @@ class CartItem(models.Model):
         ('Cancelled', 'Cancelled'),
         ('Completed', 'Completed'),
     ]
-    status = models.CharField(choices=STATUS_CHOICES, default="Waiting")
+    status = models.CharField(choices=STATUS_CHOICES, max_length=20, default="Waiting")
     created_at = models.DateTimeField(auto_now_add=True)
     made_on = models.DateTimeField(auto_now_add=True)
 
@@ -27,6 +27,9 @@ class SearchedRoute(models.Model):
     destination = models.CharField(max_length=3)
     departure_date = models.DateField()
     return_date = models.DateField(blank=True, null=True)
+    adults_count = models.PositiveIntegerField(default=1)
+    children_count = models.PositiveIntegerField(default=0)
+    infants_count = models.PositiveIntegerField(default=0)
     made_on = models.DateTimeField(auto_now_add=True)
 
 admin.site.register(CartItem)

@@ -35,9 +35,13 @@ def search_offers(req):
             origin_code = req.GET["originCode"]
             destination_code = req.GET["destinationCode"]
             departure_date = req.GET["departureDate"]
+            adults = req.GET["adults"]
+            children = req.GET["children"]
+            infants = req.GET["infants"]
+            currencyCode = USD
             response = amadeus.shopping.flight_offers_search.get(
                 originLocationCode=origin_code, destinationLocationCode=destination_code, 
-                departureDate=departure_date, adults=1)
+                departureDate=departure_date, adults=adults, children=children, infants=infants, currencyCode=currencyCode)
             context = {
                 "data": response.data
             }
@@ -45,7 +49,10 @@ def search_offers(req):
             route = SearchedRoute.objects.create(
                 origin=origin_code, 
                 destination=destination_code, 
-                departure_date=departure_date
+                departure_date=departure_date,
+                adults_count=adults,
+                children_count=children,
+                infants_count=infants
             )
             return JsonResponse(context)
 
@@ -132,8 +139,11 @@ def flight_checkout(req):
             logo_Url = req.GET["logoUrl"]
             bookable_Seats = req.GET["bookableSeats"]
             last_Ticketing = req.GET["lastTicketing"]
-            traveler_s = req.GET["adults"]
+            adults_count = req.GET["adults"]
+            children_count = req.GET["children"]
+            infants_count = req.GET["infants"]
             flight_Total = req.GET["flightTotal"]
+            traveler_s = adults_count + children_count + infants_count
 
             # Create a dictionary of flight details to pass to the template
             flight_data = {
@@ -153,6 +163,9 @@ def flight_checkout(req):
                 'bookable_seats': bookable_Seats,
                 'last_ticketing': last_Ticketing,
                 'travelers': traveler_s,
+                'adults_count': adults_count,
+                'children_count': children_count,
+                'infants_count': infants_count,
                 'flight_total': flight_Total
             }
             # Add the flight to the cart

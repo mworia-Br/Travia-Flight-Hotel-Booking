@@ -103,6 +103,7 @@
       let checkout_url = ``;
       let adults = 1;
       let children = 0;
+      let infants = 0;
       let fromLocationArray = [];
       let toLocationArray = [];
       let flights = [];
@@ -236,14 +237,17 @@
       
       function handleFindFlight() {
         departureDate = document.getElementById("date").value;
+        adults = document.getElementById("adults").value;
+        children = document.getElementById("children").value;
+        infants = document.getElementById("infants").value;
         let flightEl = "";
         const flightData = document.getElementById("flightData");
-
-        fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`)
+      
+        fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}`)
           .then((response) => response.json())
           .then((data) => {
             flights = data.data;
-            
+      
             if (flights) {
               flights.map((flight) => {
                 // Extract the validating airline code from the flight object
@@ -274,12 +278,12 @@
                           </div>
                           <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
                 `;
-
+      
                 for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
                   arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
                   arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
-                  checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&flightTotal=${flightTotal}`;
-
+                  checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&children=${children}&infants=${infants}&flightTotal=${flightTotal}`;
+      
                   flightEl +=
                     `
                     <div class="flight__box">
@@ -288,7 +292,7 @@
                     </div>
                     `;
                 }
-
+      
                 flightEl +=
                   `
                         </div>
@@ -302,7 +306,7 @@
                         ${flight.price.currency}
                       </div>
                       <button class="button-stroke flight__button" onclick="setDataFlight()">
-
+      
                         <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                         <span class="flight__more">
                           <span>View deal</span>
@@ -316,19 +320,137 @@
                   `;  
               });
               flightData.innerHTML = flightEl;
-
+      
             } else {
               alert("No flight Data found");
             }
           })
           .catch((error) => console.log(error));
       }
-     
+      
       function setDataFlight() {
         window.location.href = checkout_url;
       }
+      
+      function handleFindRoundTripFlight() {
+        departureDate = document.getElementById("date").value;
+        returnDate = document.getElementById("returnDate").value;
+        let flightEl = "";
+        const flightData = document.getElementById("flightData");
+      
+        fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`)
+          .then((response) => response.json())
+          .then((data) => {
+            flights = data.data;
+      
+            if (flights) {
+              flights.map((flight) => {
+                // Extract the validating airline code from the flight object
+                airlineCode = flight.validatingAirlineCodes[0];
+                // Construct the URL of the airline logo based on the airline code
+                logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
+                // Define constants to pass to checkout view
+                departureTime = flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5);          
+                flightDuration = flight.itineraries[0].duration;
+                flightTotal = flight.price.total;
+                lastTicketing = flight.lastTicketingDate;
+                bookableSeats = flight.numberOfBookableSeats;
+      
+                flightEl +=
+                  `
+                  <div class="flight">
+                    <form method="post">
+                      {% csrf_token %}
+                    <div class="flight__wrap">
+                      <div class="flight__item">
+                        <div class="flight__logo">
+                          <img src="${logoUrl}" alt="${airlineCode}" />
+                        </div>
+                        <div class="flight__details">
+                          <div class="flight__box">
+                            <div class="flight__title">${originCode}</div>
+                            <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
+                          </div>
+                          <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
+                `;
+      
+                for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
+                  arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
+                  arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
+                  checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&flightTotal=${flightTotal}`;
+      
+                  flightEl +=
+                    `
+                    <div class="flight__box">
+                      <div class="flight__title">${flight.itineraries[0].segments[i].arrival.iataCode}</div>
+                      <div class="flight__box">
+                      <div class="flight__time">${arrivalTime}</div>
+                      <div class="flight__date">${arrivalDate}</div>
+                      </div>
+                      </div>
+                      `;
+                      }
+                  flightEl +=
+                  `
+                          <div class="flight__box">
+                            <div class="flight__title">${destinationCode}</div>
+                            <div class="flight__time">${flight.itineraries[0].segments[flight.itineraries[0].segments.length - 1].arrival.at.split("T")[1].substring(0, 5)}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flight__item">
+                        <div class="flight__details">
+                          <div class="flight__box">
+                            <div class="flight__title">${destinationCode}</div>
+                            <div class="flight__time">${flight.itineraries[0].segments[flight.itineraries[0].segments.length - 1].arrival.at.split("T")[1].substring(0, 5)}</div>
+                          </div>
+                          <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
+                  `;
+        
+                for (let i = flight.itineraries[0].segments.length - 1; i >= 0; i--) {
+                  departureTime = flight.itineraries[0].segments[i].departure.at.split("T")[1].substring(0, 5);
+                  departureDate = flight.itineraries[0].segments[i].departure.at.split("T")[0];
+          
+                  flightEl +=
+                    `
+                    <div class="flight__box">
+                      <div class="flight__title">${flight.itineraries[0].segments[i].departure.iataCode}</div>
+                      <div class="flight__box">
+                        <div class="flight__time">${departureTime}</div>
+                        <div class="flight__date">${departureDate}</div>
+                      </div>
+                    </div>
+                    `;
+                }
+          
+                flightEl +=
+                  `
+                          <div class="flight__box">
+                            <div class="flight__title">${originCode}</div>
+                            <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flight__info">
+                      <div class="flight__price">$${flightTotal}</div>
+                      <button type="submit" class="btn btn--primary btn--block" formaction="${checkout_url}">Book now</button>
+                    </div>
+                    </form>
+                  </div>
+                  `;
+              });
+            flightData.innerHTML = flightEl;
+          } else {
+            flightData.innerHTML = "No flights found for the selected date range. Please try again.";
+          }
+        });
+      }     
+      
+      
       //const adults = document.getElementById('adultsCount').textContent;
       //const children = document.getElementById('childrenCount').textContent;
+      // flightNumber = flight.itineraries[0].segments[i].carrier;
     </script>
   </head>
   <body>
@@ -628,7 +750,9 @@
                               </svg>
                             </button>
                             <input
+                              id="adults"
                               class="js-counter-input js-counter-result js-counter-adults"
+                              name="adults"
                               type="hidden"
                             />
                           </div>
@@ -657,7 +781,9 @@
                               </svg>
                             </button>
                             <input
+                              id="children"
                               class="js-counter-input js-counter-result js-counter-children"
+                              name="children"
                               type="hidden"
                             />
                           </div>
@@ -686,7 +812,9 @@
                               </svg>
                             </button>
                             <input
+                              id="infants"
                               class="js-counter-input js-counter-result js-counter-babies"
+                              name="infants"
                               type="hidden"
                             />
                           </div>
