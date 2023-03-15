@@ -149,7 +149,7 @@ def flight_checkout(req):
         
         except:
             # Handle the exception appropriately
-            return HttpResponseBadRequest()
+            print("errorincheckout")
     else:
         return render(req, 'flights-checkout.html')
 
