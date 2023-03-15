@@ -144,7 +144,7 @@ def flight_checkout(req):
                 'travelers': traveler_s,
                 'flight_total': flight_Total
             }
-            item = CartItem.objects.create(owner=request.User, flight_data=flight_data, quantity=1)
+            #item = CartItem.objects.create(owner=request.User, flight_data=flight_data, quantity=1)
             return render(req, 'flights-checkout.html', flight_data)
         
         except:
