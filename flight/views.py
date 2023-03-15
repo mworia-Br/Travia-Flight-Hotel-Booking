@@ -38,10 +38,10 @@ def search_offers(req):
             adults = req.GET["adults"]
             children = req.GET["children"]
             infants = req.GET["infants"]
-            currencyCode = USD
+            #currencyCode = USD
             response = amadeus.shopping.flight_offers_search.get(
                 originLocationCode=origin_code, destinationLocationCode=destination_code, 
-                departureDate=departure_date, adults=adults, children=children, infants=infants, currencyCode=currencyCode)
+                departureDate=departure_date, adults=adults, children=children, infants=infants)
             context = {
                 "data": response.data
             }
