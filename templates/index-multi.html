@@ -97,7 +97,7 @@
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href=" {% static 'index.html' %} ">
+          <a class="header__logo" href=" {% url 'index' %} ">
             <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
@@ -296,7 +296,7 @@
             <div class="panel panel_flights">
               <div class="panel__background"></div>
               <div class="panel__nav">
-                <a class="panel__link active" href=" {% static 'index.html' %} ">Flights</a
+                <a class="panel__link active" href=" {% url 'index' %} ">Flights</a
                 ><a class="panel__link" href=" {% static 'hotels.html' %} ">Hotels</a
                 ><a class="panel__link" href=" {% static 'holidays.html' %} ">Holidays</a>
               </div>
@@ -1001,7 +1001,7 @@
         <div class="footer__center center">
           <div class="footer__row">
             <div class="footer__col">
-              <a class="footer__logo" href=" {% static 'index.html' %} "
+              <a class="footer__logo" href=" {% url 'index' %} "
                 ><img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet"
               /></a>
               <div class="footer__social">
@@ -1053,7 +1053,7 @@
               <div class="footer__menu__widget">
                 <div class="footer__menu">
                   <h5 class="footer__subtitle">Airtravia</h5>
-                  <a class="footer__link" href=" {% static 'index.html' %} ">Home</a>
+                  <a class="footer__link" href=" {% url 'index' %} ">Home</a>
                   <a class="footer__link" href="#">About Us</a>
                   <a class="footer__link" href="#">Promo</a>
                   <a class="footer__link" href="#">Airline Information</a>
