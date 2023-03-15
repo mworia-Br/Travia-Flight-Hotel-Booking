@@ -106,11 +106,9 @@ def book_flight(req):
 
 def addCartItem(request, flight_data):
     try:
-        cart_item = CartItem(owner=request.user, flight_data=flight_data, quantity=1)
-        cart_item.save()
+        cart_item = CartItem.objects.create(owner=request.user, flight_data=flight_data, quantity=1)
         return JsonResponse({"success": "Item added to cart"})
     except:
-        pass
         return JsonResponse({"error": "Item not added to cart"})
 
 
@@ -157,8 +155,8 @@ def flight_checkout(req):
                 'flight_total': flight_Total
             }
             # Add the flight to the cart
-            new_item = CartItem.objects.create(owner=req.user, flight_data=flight_data, quantity=1)
-            #addCartItem(flight_data)
+            #new_item = CartItem.objects.create(owner=req.user, flight_data=flight_data, quantity=1)
+            addCartItem(flight_data)
             return render(req, 'flights-checkout.html', flight_data)
         
         except:
