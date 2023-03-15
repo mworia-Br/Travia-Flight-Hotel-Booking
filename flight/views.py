@@ -107,6 +107,7 @@ def book_flight(req):
 def addCartItem(request, flight_data):
     try:
         cart_item = CartItem.objects.create(owner=request.user, flight_data=flight_data, quantity=1)
+        print("run")
         return JsonResponse({"success": "Item added to cart"})
     except:
         return JsonResponse({"error": "Item not added to cart"})
