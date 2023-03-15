@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import CartItem, SearchedRoute
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from amadeus import Client, ResponseError, Location
 
@@ -103,6 +104,14 @@ def book_flight(req):
     else:
        return JsonResponse({"error": "Invalid request method"})
 
+@login_required
+def add_to_cart():
+    item = CartItem.objects.create(owner=request.user, flight_data=flight_data, quantity=1)
+    item.save()
+    print(item)
+
+
+@login_required
 def flight_checkout(req):
     if req.method == "GET":
         try:
@@ -144,7 +153,7 @@ def flight_checkout(req):
                 'travelers': traveler_s,
                 'flight_total': flight_Total
             }
-            #item = CartItem.objects.create(owner=request.User, flight_data=flight_data, quantity=1)
+            add_to_cart()
             return render(req, 'flights-checkout.html', flight_data)
         
         except:
