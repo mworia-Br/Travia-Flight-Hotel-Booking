@@ -118,80 +118,25 @@ def password_reset_confirm(request, uidb64, token):
         return render(request, 'password_reset_invalid.html')
 
 def oneway_view(req):
-    if req.method == 'POST':
-        try:
-            data = json.loads(req.POST.get('dataflight'))
-            flight = data.get('flight')
-            return render(req, 'flightcheckout.html', {'flight': flight})
-        except json.JSONDecodeError as error:
-            return JsonResponse({"error": str(error)})
-    else:
-        return render(req, 'flights-category.html', {})
+    return render(req, 'flights-category.html', {})
 
 def roundtrip_view(req):
-    if req.method == 'POST':
-        origin = req.POST['origin']
-        destination = req.POST['destination']
-        departure_date = req.POST['departure_date']
-        return_date = req.POST['return_date']
-        adults = req.POST['adults']
-        children = req.POST['children']
-        infants = req.POST['infants']
-        travel_class = req.POST['travel_class']
-        currency = req.POST['currency']
-        non_stop = req.POST['non_stop']
-        max_price = req.POST['max_price']
-        max = req.POST['max']
-        print(origin)
-        print(destination)
-        print(departure_date)
-        print(return_date)
-        print(adults)
-        print(children)
-        print(infants)
-        print(travel_class)
-        print(currency)
-        print(non_stop)
-        print(max_price)
-        print(max)
-        try:
-            response = amadeus.shopping.flight_offers_search.get(originLocationCode=origin, destinationLocationCode=destination, departureDate=departure_date, returnDate=return_date, adults=adults, children=children, infants=infants, travelClass=travel_class, currencyCode=currency, nonStop=non_stop, maxPrice=max_price, max=max)
-            print(response.data)
-            return render(req, 'flights-category-round.html', {'response': response.data})
-        except ResponseError as error:
-            print(error)
-    else:
-        return render(req, 'flights-category-round.html', {})
+    return render(req, 'flights-category-round.html', {})
 
 def hotels_view(req):
-    if req.method == 'POST':
-        city_code = req.POST['city_code']
-        check_in_date = req.POST['check_in_date']
-        check_out_date = req.POST['check_out_date']
-        adults = req.POST['adults']
-        children = req.POST['children']
-        radius = req.POST['radius']
-        radius_unit = req.POST['radius_unit']
-        currency = req.POST['currency']
-        print(city_code)
-        print(check_in_date)
-        print(check_out_date)
-        print(adults)
-        print(children)
-        print(radius)
-        print(radius_unit)
-        print(currency)
-        try:
-            response = amadeus.shopping.hotel_offers.get(cityCode=city_code, checkInDate=check_in_date, checkOutDate=check_out_date, adults=adults, radius=radius, radiusUnit=radius_unit, currencyCode=currency)
-            print(response.data)
-            return render(req, 'hotels.html', {'response': response.data})
-        except ResponseError as error:
-            print(error)
-    else:
-        return render(req, 'hotels.html', {})
+    return render(req, 'hotels.html', {})
 
-def profile_view(req):
+def profile(req):
     return render(req, 'profile.html', {})
+
+def profile_orders(req):
+    return render(req, 'profile-orders.html', {})
+
+def profile_travelers(req):
+    return render(req, 'profile-traveler.html', {})
+
+def profile_traveleradd(req):
+    return render(req, 'profile-traveler-new.html', {})
 
 def change_password_view(req):
     if req.method == 'POST':
@@ -264,30 +209,3 @@ def set_password(request, uidb64, token):
         return render(request, 'set_password.html', {'form': form})
     else:
         return render(request, 'set_password_error.html')
-
-def search_flights(request):
-    if request.method == 'POST':
-        origin = request.POST.get('origin')
-        destination = request.POST.get('destination')
-        departure_date = request.POST.get('departure_date')
-        return_date = request.POST.get('return_date')
-        adults = request.POST.get('adults')
-        children = request.POST.get('children')
-
-        try:
-            flights = amadeus_api.shopping.flight_offers_search.get(
-                origin=origin,
-                destination=destination,
-                departureDate=departure_date,
-                returnDate=return_date,
-                adults=adults,
-                children=children
-            )
-        except ResponseError as error:
-            print(error)
-            flights = []
-            print(flights)
-
-        return render(request, 'flight_search/results.html', {'flights': flights})
-
-    return render(request, 'flight_search/search.html')

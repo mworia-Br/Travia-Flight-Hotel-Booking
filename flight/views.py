@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from .models import CartItem, SearchedRoute
+from django.contrib.auth.models import User
 
 from amadeus import Client, ResponseError, Location
 
@@ -32,13 +34,18 @@ def search_offers(req):
             origin_code = req.GET["originCode"]
             destination_code = req.GET["destinationCode"]
             departure_date = req.GET["departureDate"]
-            print(origin_code, destination_code, departure_date)
             response = amadeus.shopping.flight_offers_search.get(
                 originLocationCode=origin_code, destinationLocationCode=destination_code, 
                 departureDate=departure_date, adults=1)
             context = {
                 "data": response.data
             }
+            # Create a new SearchedRoute object and save it to the database
+            route = SearchedRoute.objects.create(
+                origin=origin_code, 
+                destination=destination_code, 
+                departure_date=departure_date
+            )
             return JsonResponse(context)
 
         except ResponseError as error:
@@ -110,8 +117,6 @@ def flight_checkout(req):
             departure_Time = req.GET["departureTime"]
             arrival_Time = req.GET["arrivalTime"]
             flight_Duration = req.GET["flightDuration"]
-            #dep_Terminal = req.GET["depTerminal"]
-            #arr_Terminal = req.GET["arrTerminal"]
             air_lineCode = req.GET["airlineCode"]
             logo_Url = req.GET["logoUrl"]
             bookable_Seats = req.GET["bookableSeats"]
@@ -132,8 +137,6 @@ def flight_checkout(req):
                 'departure_time': departure_Time,
                 'arrival_time': arrival_Time,
                 'flight_duration': flight_Duration,
-                #'dep_terminal': dep_Terminal,
-                #'arr_terminal': arr_Terminal,
                 'airline_code': air_lineCode,
                 'logo_url': logo_Url,
                 'bookable_seats': bookable_Seats,
@@ -141,6 +144,7 @@ def flight_checkout(req):
                 'travelers': traveler_s,
                 'flight_total': flight_Total
             }
+            item = CartItem.objects.create(owner=request.user, flight_data=flight_data, quantity=1)
             return render(req, 'flights-checkout.html', flight_data)
         
         except:

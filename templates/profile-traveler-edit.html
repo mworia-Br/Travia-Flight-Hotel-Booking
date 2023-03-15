@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+   {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -103,10 +104,10 @@
             <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href=" {% static './index.html' %} ">Flights</a>
-            <a class="header__item" href="#">Hotels</a>
+            <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
+            <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
             <a class="header__item" href="#">Promo</a>
-            <a class="header__item me__auto" href="#">Orders</a>
+            <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
             <a class="header__item" href=" {% static 'support.html' %} ">Support</a>
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">

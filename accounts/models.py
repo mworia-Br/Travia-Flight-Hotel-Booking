@@ -3,40 +3,42 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 
 # Create your models here.
-class OneWayFlightSearch(models.Model):
+class Personal_Info(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    origin = models.CharField(max_length=3)
-    destination = models.CharField(max_length=3)
-    departure_date = models.DateField()
-    travel_class = models.CharField(max_length=10, default='all')
-    non_stop = models.BooleanField(default=False)
-    adults = models.IntegerField()
-    children = models.IntegerField()
-    infants = models.IntegerField()
-    currency = models.CharField(max_length=3)
-    max_price = models.IntegerField()
-    made_on = models.DateTimeField(auto_now_add=True)
-
+    title = models.CharField(max_length=10, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=False, null=True)
+    surname = models.CharField(max_length=50, blank=False, null=True)
+    phone = models.CharField(max_length=20, blank=False, null=True)
+    email = models.EmailField(max_length=254, blank=False, null=True)
+    city = models.CharField(max_length=50, blank=False, null=True)
+    natianality = models.CharField(max_length=50, blank=False, null=True)
+    
     def __str__(self):
-        return self.origin + self.destination
+        return self.name + self.surname + self.natianality
 
-class TwoWayFlightSearch(models.Model):
+class Traveler(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    origin = models.CharField(max_length=3)
-    destination = models.CharField(max_length=3)
-    departure_date = models.DateField()
-    travel_class = models.CharField(max_length=10, default='all')
-    non_stop = models.BooleanField(default=False)
-    return_date = models.DateField()
-    adults = models.IntegerField()
-    children = models.IntegerField()
-    infants = models.IntegerField()
-    currency = models.CharField(max_length=3)
-    max_price = models.IntegerField()
-    made_on = models.DateTimeField(auto_now_add=True)
+    TYPE_CHOICES = [
+        ('adult', 'Adult'),
+        ('child', 'Child'),
+        ('infant', 'Infant'),
+    ]
 
+    type = models.CharField(choices=TYPE_CHOICES, max_length=10, default='adult')
+    title = models.CharField(max_length=10, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=False, null=True)
+    surname = models.CharField(max_length=50, blank=False, null=True)
+    date_of_birth = models.DateField(blank=False, null=True)
+    nationality = models.CharField(max_length=50, blank=False, null=True)
+    id_card_number = models.CharField(max_length=20, blank=False, null=True)
+    id_card_expiry = models.DateField(blank=True, null=True)
+    id_card_country = models.CharField(max_length=50, blank=True, null=True)
+    passport_number = models.CharField(max_length=20, blank=True, null=True)
+    passport_expiry = models.DateField(max_length=20, blank=True, null=True)
+    passport_country = models.CharField(max_length=50, blank=True, null=True)
+    
     def __str__(self):
-        return self.origin + self.destination
+        return self.name + self.surname + self.nationality
 
 class HotelSearch(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
@@ -52,26 +54,6 @@ class HotelSearch(models.Model):
     def __str__(self):
         return self.destination
 
-class Traveler(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
-    nationality = models.CharField(max_length=50)
-    birth_date = models.DateField()
-    city = models.CharField(max_length=50)
-    passport_holder = models.BooleanField(default=False)
-    passport_number = models.CharField(max_length=20)
-    passport_issue_date = models.DateField()
-    passport_expiry = models.DateField()
-    passport_country = models.CharField(max_length=50)
-    passport_validitycountry = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.first_name + self.last_name + self.nationality
-
-admin.site.register(OneWayFlightSearch)
-admin.site.register(TwoWayFlightSearch)
 admin.site.register(HotelSearch)
 admin.site.register(Traveler)
+admin.site.register(Personal_Info)

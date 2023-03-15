@@ -18,7 +18,6 @@ class SetPasswordForm(BaseSetPasswordForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
     )
 
-
 class EmailAuthenticationForm(AuthenticationForm):
     email = forms.EmailField(max_length=254, required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
     password = forms.CharField(max_length=30, required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
@@ -69,15 +68,3 @@ class CustomAuthenticationForm(AuthenticationForm):
 
     class Meta:
         fields = ('username', 'password')
-
-class OneWayFlightSearchForm(ModelForm):
-    class Meta:
-        model = models.OneWayFlightSearch
-        fields = ('origin', 'destination', 'departure_date', 'adults', 'children',
-        'infants', 'travel_class', 'non_stop', 'currency', 'max_price')
-
-class TwoWayFlightSearchForm(ModelForm):
-    class Meta:
-        model = models.TwoWayFlightSearch
-        fields = ('origin', 'destination', 'departure_date', 'return_date', 'adults', 'children',
-        'infants', 'travel_class', 'non_stop', 'currency', 'max_price')
