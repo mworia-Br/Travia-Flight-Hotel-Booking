@@ -106,7 +106,7 @@ def book_flight(req):
 
 @login_required
 def add_to_cart(request, flight_data):
-    item = CartItem.objects.create(owner=request.user, flight_data=flight_data, quantity=1)
+    item = CartItem.objects.create(owner=request.User, flight_data=flight_data, quantity=1)
     item.save()
     print(item)
 
