@@ -9,11 +9,18 @@ class CartItem(models.Model):
     owner = models.CharField(max_length=100, null=True, blank=True)
     flight_data = models.JSONField()
     quantity = models.PositiveIntegerField(default=1)
+    STATUS_CHOICES = [
+        ('Waiting', 'Waiting'),
+        ('Confirmed', 'Confirmed'),
+        ('Cancelled', 'Cancelled'),
+        ('Completed', 'Completed'),
+    ]
+    status = models.CharField(choices=STATUS_CHOICES, default="Waiting")
     created_at = models.DateTimeField(auto_now_add=True)
     made_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.owner.username + self.id
+        return self.owner + self.status
 
 class SearchedRoute(models.Model):
     origin = models.CharField(max_length=3)
