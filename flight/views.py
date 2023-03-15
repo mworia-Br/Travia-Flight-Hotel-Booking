@@ -105,11 +105,10 @@ def book_flight(req):
        return JsonResponse({"error": "Invalid request method"})
 
 @login_required
-def add_to_cart():
+def add_to_cart(request):
     item = CartItem.objects.create(owner=request.user, flight_data=flight_data, quantity=1)
     item.save()
     print(item)
-
 
 @login_required
 def flight_checkout(req):
