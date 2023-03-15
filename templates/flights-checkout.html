@@ -251,7 +251,7 @@
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
                   <a class="breadcrumbs__link" href=" {% static 'stays-product.html' %} "
-                    >Spectacular views of Queenstown</a
+                    >Spectacular views of {{ short_destination }}</a
                   >
                 </li>
                 <li class="breadcrumbs__item">Confirm and pay</li>
@@ -413,15 +413,11 @@
                         <div class="checkout__el">
                           <div class="checkout__datepicker">
                             <div class="checkout__label">Dates</div>
-                            <input
-                              class="checkout__input js-date-single"
-                              data-format="MMM DD, YYYY"
-                              data-container=".checkout__datepicker"
-                              data-single="true"
-                              type="text"
-                              readonly=""
-                              value="Aug 15, 2021"
-                            />
+                            <div
+                                class="travelers__value js-travelers-content"
+                              >
+                                {{ departure_date }}
+                              </div>
                             <div class="checkout__controls">
                               <button class="checkout__edit js-date-open">
                                 <svg class="icon icon-edit">
@@ -845,11 +841,11 @@
                         <div class="checkout__el">
                           <div class="travelers travelers_down js-travelers">
                             <div class="travelers__top">
-                              <div class="travelers__label">Guests</div>
+                              <div class="travelers__label">Travelers</div>
                               <div
                                 class="travelers__value js-travelers-content"
                               >
-                                1 guest
+                                {{ travelers }} traveler
                               </div>
                               <button class="travelers__edit js-travelers-head">
                                 <svg class="icon icon-edit">
@@ -1249,11 +1245,19 @@
                   <div class="price__stage">Price details</div>
                   <div class="price__table">
                     <div class="price__row">
-                      <div class="price__cell">Base fare x 7 nights</div>
+                      <div class="price__cell">Base fare</div>
                       <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
-                      <div class="price__cell">Adults (-)</div>
+                      <div class="price__cell">Adults ({{ adults_count }})</div>
+                      <div class="price__cell">$ -</div>
+                    </div>
+                    <div class="price__row">
+                      <div class="price__cell">Children ({{ children_count }})</div>
+                      <div class="price__cell">$ -</div>
+                    </div>
+                    <div class="price__row">
+                      <div class="price__cell">Infants ({{ infants_count }})</div>
                       <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
