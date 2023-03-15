@@ -5,8 +5,8 @@ from django.contrib import admin
 # Create your models here.
 
 class CartItem(models.Model):
-    owner=models.ForeignKey(User, on_delete=models.CASCADE)
-    id = models.CharField(max_length=1000, primary_key=True)
+    #owner=models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.CharField(max_length=100, null=True, blank=True)
     flight_data = models.JSONField()
     quantity = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)

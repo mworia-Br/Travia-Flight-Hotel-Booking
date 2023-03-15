@@ -104,11 +104,15 @@ def book_flight(req):
     else:
        return JsonResponse({"error": "Invalid request method"})
 
-@login_required
-def add_to_cart(request, flight_data):
-    item = CartItem.objects.create(owner=request.User, flight_data=flight_data, quantity=1)
-    item.save()
-    print(item)
+def addCartItem(request, flight_data):
+    try:
+        cart_item = CartItem(owner=request.user, flight_data=flight_data, quantity=1)
+        cart_item.save()
+        return JsonResponse({"success": "Item added to cart"})
+    except:
+        pass
+        return JsonResponse({"error": "Item not added to cart"})
+
 
 @login_required
 def flight_checkout(req):
@@ -152,7 +156,9 @@ def flight_checkout(req):
                 'travelers': traveler_s,
                 'flight_total': flight_Total
             }
-            add_to_cart(flight_data)
+            # Add the flight to the cart
+            new_item = CartItem.objects.create(owner=req.user, flight_data=flight_data, quantity=1)
+            #addCartItem(flight_data)
             return render(req, 'flights-checkout.html', flight_data)
         
         except:
