@@ -53,10 +53,9 @@ def signup(request):
             user.set_password(password)
             user.save()
             login(request, user)
-            messages.success(request, "Registration successful.")
             return redirect('index')
         else:
-            messages.error(request, "Please correct the errors below.")
+            return redirect('signup')
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
