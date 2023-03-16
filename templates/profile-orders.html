@@ -359,24 +359,26 @@
                             <div class="contact__user__item">
                               <div class="item__subtitle">Order status</div>
                             </div>
-                            {% for cart_item in cart_items %}
-                              <div class="contact__user__item">
-                                <div class="item__content">{{ cart_item.flight_data.short_origin }} - {{ cart_item.flight_data.short_destination }}</div>
-                              </div>
-                              <div class="contact__user__item">
-                                <div class="item__content">{{ cart_item.flight_data.departure_date }}</div>
-                              </div>
-                              <div class="contact__user__item">
-                                <div class="item__content">{{ cart_item.flight_data.travelers }}</div>
-                              </div>
-                              <div class="contact__user__item">
-                                <div class="item__content">{{ cart_item.flight_data.flight_total }}</div>
-                              </div>
-                              <div class="contact__user__item">
-                                <div class="item__content">{{ cart_item.status }}</div>
-                              </div>
-                            {% endfor %}
                           </div>
+                          {% for cart_item in cart_items %}
+                            <div class="contact__body">
+                                <div class="contact__user__item">
+                                  <div class="item__content">{{ cart_item.flight_data.short_origin }} - {{ cart_item.flight_data.short_destination }}</div>
+                                </div>
+                                <div class="contact__user__item">
+                                  <div class="item__content">{{ cart_item.flight_data.departure_date }}</div>
+                                </div>
+                                <div class="contact__user__item">
+                                  <div class="item__content">{{ cart_item.flight_data.travelers }}</div>
+                                </div>
+                                <div class="contact__user__item">
+                                  <div class="item__content">{{ cart_item.flight_data.flight_total }}</div>
+                                </div>
+                                <div class="contact__user__item">
+                                  <div class="item__content">{{ cart_item.status }}</div>
+                                </div>
+                            </div>
+                          {% endfor %}
                         </div>
                       </div>
                     </div>
