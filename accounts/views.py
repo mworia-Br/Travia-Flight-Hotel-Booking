@@ -19,6 +19,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from flight.models import CartItem
 
 amadeus = Client(
     client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
@@ -135,7 +136,17 @@ def profile(req):
 
 @login_required
 def profile_orders(req):
-    return render(req, 'profile-orders.html', {})
+    # retrieve the CartItem object with the specified primary key
+    cart_items = CartItem.objects.filter(owner=req.user)
+    if not cart_items:
+        # create an empty list if there are no cart items
+        cart_items = []
+
+    # render the data in the order details page
+    context = {
+        'cart_items': cart_items,
+    }
+    return render(req, 'profile-orders.html', context)
 
 @login_required
 def profile_travelers(req):
