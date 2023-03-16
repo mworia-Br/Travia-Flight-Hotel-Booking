@@ -297,7 +297,7 @@
                         </div>
                         <div class="flight__details">
                           <div class="flight__box">
-                            <div class="flight__title">${originCode}</div>
+                            <div class="flight__title">${flight.itineraries[0].segments[0].departure.iataCode}</div>
                             <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
                           </div>
                           <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
