@@ -155,6 +155,8 @@
       function handleFindHotel() {
         checkInDate = document.getElementById("checkInDate").value;
         checkOutDate = document.getElementById("checkOutDate").value;
+        adultsPerRoom = document.getElementById("adults").value;
+        childrenPerRoom = document.getElementById("children").value;
         let hotelEl = "";
         const hotelData = document.getElementById("hotelData");
 
@@ -169,31 +171,39 @@
                 const imageUrl = `https://s1.travix.com/hotels/${hotel.hotelId}.jpg`;
                 hotelEl +=
                   `
-                  <div class="hotel">
-                    <div class="hotel__wrap">
-                      <div class="hotel__item">
-                        <div class="hotel__image">
-                          <img src="${imageUrl}" alt="${hotel.name}" />
+                  <a class="travels__card" href="{% static 'stays-product.html' %}">
+                    <div class="travels__preview">
+                      <img srcset="{% static 'img/content/catalog-pic-4.jpg' %} 2x" src="{% static 'img/content/catalog-pic-4@2x.jpg' %}" alt="Card" />
+                    </div>
+                    <div class="travels__body">
+                      <div class="travels__line">
+                        <div class="travels__details">
+                          <div class="travels__subtitle">${hotel.name}</div>
+                          <div class="travels__location">${hotel.address.cityName}, ${hotel.address.countryCode}</div>
                         </div>
-                        <div class="hotel__details">
-                          <div class="hotel__box">
-                            <div class="hotel__name">${hotel.name}</div>
-                            <div class="hotel__location">${hotel.address.cityName}, ${hotel.address.countryCode}</div>
-                            <div class="hotel__price">${hotel.price.total} ${hotel.price.currency}</div>
-                          </div>
+                        <div class="travels__price">
+                          <div class="travels__old">${hotel.price.total + 100} USD</div>
+                          <div class="travels__actual">${hotel.price.total} ${hotel.price.currency}</div>
+                        </div>
+                      </div>
+                      <div class="travels__line">
+                        <div class="travels__date">${checkInDate} - ${checkOutDate}</div>
+                        <div class="travels__rating">
+                          <svg class="icon icon-star"><use xlink:href="{% static '#icon-star' %}"></use></svg>
+                          4.9
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </a>
                   `;
-                  });
-                  hotelData.innerHTML = hotelEl;
-              } else {
-                hotelData.innerHTML = "No hotels found";
-              }
-            })
-            .catch((error) => console.log(error));
-      }
+              });
+              hotelData.innerHTML = hotelEl;
+            } else {
+              hotelData.innerHTML = "No hotels found";
+            }
+          })
+          .catch((error) => console.log(error));
+}
 
       document.addEventListener("DOMContentLoaded", () => {
       const findHotelBtn = document.getElementById("findHotelBtn");
@@ -477,7 +487,7 @@
                     <div class="travelers__head js-travelers-head">
                       <div class="travelers__icon">
                         <svg class="icon icon-user">
-                          <use xlink:href=" {% static '#icon-user' %} "></use>
+                          <use xlink:href="#icon-user"></use>
                         </svg>
                       </div>
                       <div class="travelers__content js-travelers-content">
@@ -497,7 +507,7 @@
                             type="button"
                           >
                             <svg class="icon icon-minus-circle">
-                              <use xlink:href=" {% static '#icon-minus-circle' %} "></use>
+                              <use xlink:href="#icon-minus-circle"></use>
                             </svg>
                           </button>
                           <div class="counter__value js-counter-value"></div>
@@ -506,11 +516,13 @@
                             type="button"
                           >
                             <svg class="icon icon-plus-circle">
-                              <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                              <use xlink:href="#icon-plus-circle"></use>
                             </svg>
                           </button>
                           <input
+                            id="adults"
                             class="js-counter-input js-counter-result js-counter-adults"
+                            name="adults"
                             type="hidden"
                           />
                         </div>
@@ -526,7 +538,7 @@
                             type="button"
                           >
                             <svg class="icon icon-minus-circle">
-                              <use xlink:href=" {% static '#icon-minus-circle' %} "></use>
+                              <use xlink:href="#icon-minus-circle"></use>
                             </svg>
                           </button>
                           <div class="counter__value js-counter-value"></div>
@@ -535,11 +547,13 @@
                             type="button"
                           >
                             <svg class="icon icon-plus-circle">
-                              <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                              <use xlink:href="#icon-plus-circle"></use>
                             </svg>
                           </button>
                           <input
+                            id="children"
                             class="js-counter-input js-counter-result js-counter-children"
+                            name="children"
                             type="hidden"
                           />
                         </div>
@@ -555,7 +569,7 @@
                             type="button"
                           >
                             <svg class="icon icon-minus-circle">
-                              <use xlink:href=" {% static '#icon-minus-circle' %} "></use>
+                              <use xlink:href="#icon-minus-circle"></use>
                             </svg>
                           </button>
                           <div class="counter__value js-counter-value"></div>
@@ -564,11 +578,13 @@
                             type="button"
                           >
                             <svg class="icon icon-plus-circle">
-                              <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                              <use xlink:href="#icon-plus-circle"></use>
                             </svg>
                           </button>
                           <input
+                            id="infants"
                             class="js-counter-input js-counter-result js-counter-babies"
+                            name="infants"
                             type="hidden"
                           />
                         </div>
@@ -582,6 +598,22 @@
                     <span>Search</span>
                   </a>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section travels">
+          <div class="travels__center center">
+            <div class="travels__wrapper">
+              <h2 class="travels__title h2">Go somewhere</h2>
+              <div class="travels__info info">Hotel search results</div>
+              <div class="travels__list">
+                <div id="hotelData"></div>
+              </div>
+              <div class="travels__btns">
+                <a class="button-stroke button-small" href=" {% static 'stays-category.html' %} "
+                  >View all</a
+                >
               </div>
             </div>
           </div>
@@ -818,281 +850,6 @@
                     easy to use.
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="section travels">
-          <div class="travels__center center">
-            <div class="travels__wrapper">
-              <h2 class="travels__title h2">Go somewhere</h2>
-              <div class="travels__info info">Let’s go on an adventure</div>
-              <div class="travels__sorting">
-                <div class="nav">
-                  <a class="nav__link active" href="#">
-                    <svg class="icon icon-coin">
-                      <use xlink:href=" {% static '#icon-coin' %} "></use></svg
-                    >Featured</a
-                  ><a class="nav__link" href="#">
-                    <svg class="icon icon-coin">
-                      <use xlink:href=" {% static '#icon-coin' %} "></use></svg
-                    >Family-friendly</a
-                  ><a class="nav__link" href="#">
-                    <svg class="icon icon-coin">
-                      <use xlink:href=" {% static '#icon-coin' %} "></use></svg
-                    >On sale</a
-                  ><a class="nav__link" href="#">
-                    <svg class="icon icon-coin">
-                      <use xlink:href=" {% static '#icon-coin' %} "></use></svg
-                    >Sub nav</a
-                  >
-                </div>
-                <div class="travels__select tablet-show">
-                  <select class="select">
-                    <option>Featured</option>
-                    <option>Family-friendly</option>
-                    <option>On sale</option>
-                    <option>Sub nav</option>
-                  </select>
-                </div>
-                <div class="travels__select">
-                  <select class="select">
-                    <option>Recently added</option>
-                    <option>Long added</option>
-                  </select>
-                </div>
-              </div>
-              <div class="travels__list">
-                <a class="travels__card" href=" {% static 'stays-product.html' %} ">
-                  <div class="travels__preview">
-                    <img
-                      srcse {% static 't="img/cont' %} ent/catalog-pic-1.jpg 2x"
-                      src=" {% static 'img/content/catalog-pic-1@2x.jpg' %} "
-                      alt="Card"
-                    />
-                  </div>
-                  <div class="travels__body">
-                    <div class="travels__line">
-                      <div class="travels__details">
-                        <div class="travels__subtitle">The grand resort</div>
-                        <div class="travels__location">Karineside</div>
-                      </div>
-                      <div class="travels__price">
-                        <div class="travels__old">$356</div>
-                        <div class="travels__actual">$267</div>
-                      </div>
-                    </div>
-                    <div class="travels__line">
-                      <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
-                      <div class="travels__rating">
-                        <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
-                        >4.9
-                      </div>
-                    </div>
-                  </div></a
-                ><a class="travels__card" href=" {% static 'stays-product.html' %} ">
-                  <div class="travels__preview">
-                    <img
-                      srcse {% static 't="img/cont' %} ent/catalog-pic-2.jpg 2x"
-                      src=" {% static 'img/content/catalog-pic-2@2x.jpg' %} "
-                      alt="Card"
-                    />
-                  </div>
-                  <div class="travels__body">
-                    <div class="travels__line">
-                      <div class="travels__details">
-                        <div class="travels__subtitle">The grand resort</div>
-                        <div class="travels__location">East Barrett</div>
-                      </div>
-                      <div class="travels__price">
-                        <div class="travels__old">$356</div>
-                        <div class="travels__actual">$267</div>
-                      </div>
-                    </div>
-                    <div class="travels__line">
-                      <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
-                      <div class="travels__rating">
-                        <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
-                        >4.9
-                      </div>
-                    </div>
-                  </div></a
-                ><a class="travels__card" href=" {% static 'stays-product.html' %} ">
-                  <div class="travels__preview">
-                    <img
-                      srcse {% static 't="img/cont' %} ent/catalog-pic-3.jpg 2x"
-                      src=" {% static 'img/content/catalog-pic-3@2x.jpg' %} "
-                      alt="Card"
-                    />
-                  </div>
-                  <div class="travels__body">
-                    <div class="travels__line">
-                      <div class="travels__details">
-                        <div class="travels__subtitle">The grand resort</div>
-                        <div class="travels__location">Steuberbury</div>
-                      </div>
-                      <div class="travels__price">
-                        <div class="travels__old">$356</div>
-                        <div class="travels__actual">$267</div>
-                      </div>
-                    </div>
-                    <div class="travels__line">
-                      <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
-                      <div class="travels__rating">
-                        <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
-                        >4.9
-                      </div>
-                    </div>
-                  </div></a
-                ><a class="travels__card" href=" {% static 'stays-product.html' %} ">
-                  <div class="travels__preview">
-                    <img
-                      srcse {% static 't="img/cont' %} ent/catalog-pic-4.jpg 2x"
-                      src=" {% static 'img/content/catalog-pic-4@2x.jpg' %} "
-                      alt="Card"
-                    />
-                  </div>
-                  <div class="travels__body">
-                    <div class="travels__line">
-                      <div class="travels__details">
-                        <div class="travels__subtitle">The grand resort</div>
-                        <div class="travels__location">Idaview</div>
-                      </div>
-                      <div class="travels__price">
-                        <div class="travels__old">$356</div>
-                        <div class="travels__actual">$267</div>
-                      </div>
-                    </div>
-                    <div class="travels__line">
-                      <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
-                      <div class="travels__rating">
-                        <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
-                        >4.9
-                      </div>
-                    </div>
-                  </div></a
-                ><a class="travels__card" href=" {% static 'stays-product.html' %} ">
-                  <div class="travels__preview">
-                    <img
-                      srcse {% static 't="img/cont' %} ent/catalog-pic-5.jpg 2x"
-                      src=" {% static 'img/content/catalog-pic-5@2x.jpg' %} "
-                      alt="Card"
-                    />
-                  </div>
-                  <div class="travels__body">
-                    <div class="travels__line">
-                      <div class="travels__details">
-                        <div class="travels__subtitle">The grand resort</div>
-                        <div class="travels__location">Yasminfurt</div>
-                      </div>
-                      <div class="travels__price">
-                        <div class="travels__old">$356</div>
-                        <div class="travels__actual">$267</div>
-                      </div>
-                    </div>
-                    <div class="travels__line">
-                      <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
-                      <div class="travels__rating">
-                        <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
-                        >4.9
-                      </div>
-                    </div>
-                  </div></a
-                ><a class="travels__card" href=" {% static 'stays-product.html' %} ">
-                  <div class="travels__preview">
-                    <img
-                      srcse {% static 't="img/cont' %} ent/catalog-pic-6.jpg 2x"
-                      src=" {% static 'img/content/catalog-pic-6@2x.jpg' %} "
-                      alt="Card"
-                    />
-                  </div>
-                  <div class="travels__body">
-                    <div class="travels__line">
-                      <div class="travels__details">
-                        <div class="travels__subtitle">The grand resort</div>
-                        <div class="travels__location">North Edenshire</div>
-                      </div>
-                      <div class="travels__price">
-                        <div class="travels__old">$356</div>
-                        <div class="travels__actual">$267</div>
-                      </div>
-                    </div>
-                    <div class="travels__line">
-                      <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
-                      <div class="travels__rating">
-                        <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
-                        >4.9
-                      </div>
-                    </div>
-                  </div></a
-                ><a class="travels__card" href=" {% static 'stays-product.html' %} ">
-                  <div class="travels__preview">
-                    <img
-                      srcse {% static 't="img/cont' %} ent/catalog-pic-7.jpg 2x"
-                      src=" {% static 'img/content/catalog-pic-7@2x.jpg' %} "
-                      alt="Card"
-                    />
-                  </div>
-                  <div class="travels__body">
-                    <div class="travels__line">
-                      <div class="travels__details">
-                        <div class="travels__subtitle">The grand resort</div>
-                        <div class="travels__location">Archibaldtown</div>
-                      </div>
-                      <div class="travels__price">
-                        <div class="travels__old">$356</div>
-                        <div class="travels__actual">$267</div>
-                      </div>
-                    </div>
-                    <div class="travels__line">
-                      <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
-                      <div class="travels__rating">
-                        <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
-                        >4.9
-                      </div>
-                    </div>
-                  </div></a
-                ><a class="travels__card" href=" {% static 'stays-product.html' %} ">
-                  <div class="travels__preview">
-                    <img
-                      srcse {% static 't="img/cont' %} ent/catalog-pic-1.jpg 2x"
-                      src=" {% static 'img/content/catalog-pic-1@2x.jpg' %} "
-                      alt="Card"
-                    />
-                  </div>
-                  <div class="travels__body">
-                    <div class="travels__line">
-                      <div class="travels__details">
-                        <div class="travels__subtitle">The grand resort</div>
-                        <div class="travels__location">West Gregoria</div>
-                      </div>
-                      <div class="travels__price">
-                        <div class="travels__old">$356</div>
-                        <div class="travels__actual">$267</div>
-                      </div>
-                    </div>
-                    <div class="travels__line">
-                      <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
-                      <div class="travels__rating">
-                        <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
-                        >4.9
-                      </div>
-                    </div>
-                  </div></a
-                >
-              </div>
-              <div class="travels__btns">
-                <a class="button-stroke button-small" href=" {% static 'stays-category.html' %} "
-                  >View all</a
-                >
               </div>
             </div>
           </div>
