@@ -288,24 +288,24 @@
                 flightEl +=
                   `
                   <div class="flight">
+                    <form method="post">
+                      {% csrf_token %}
                     <div class="flight__wrap">
-                    <div class="flight__item">
-                    <div class="flight__logo">
-                      <img src="${logoUrl}" alt="${airlineCode}" />
-                    </div>
-                    <div class="flight__details">
-                      <div class="flight__box">
-                      <div class="flight__title">${originCode}</div>
-                      <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
-                    </div>
-                    <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
-                    <div class="flight__box">
-                      <div class="flight__title">${destinationCode}</div>
-                        <div class="flight__time">${flight.itineraries[0].segments[0].arrival.at.split("T")[1].substring(0, 5)}</div>                
-                    `;
-
+                      <div class="flight__item">
+                        <div class="flight__logo">
+                          <img src="${logoUrl}" alt="${airlineCode}" />
+                        </div>
+                        <div class="flight__details">
+                          <div class="flight__box">
+                            <div class="flight__title">${originCode}</div>
+                            <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
+                          </div>
+                          <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
+                `;
+      
                 for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
-
+                  arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
+                  arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
                   flightEl +=
                     `
                     <div class="flight__box">
@@ -314,69 +314,40 @@
                     </div>
                     `;
                 }
-
+                checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&flightTotal=${flightTotal}&children=${children}&infants=${infants}`;
                 flightEl +=
                   `
-                          </div>
                         </div>
                       </div>
-                    <div class="flight__item">
-                    <div class="flight__logo">
-                      <img src="${returnlogoUrl}" alt="${returnairlineCode}" />
                     </div>
-                    <div class="flight__details">
-                      <div class="flight__box">
-                      <div class="flight__title">${destinationCode}</div>
-                      <div class="flight__time">${flight.itineraries[1].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
-                    </div>
-                    <div class="flight__note">${flight.itineraries[1].segments.length} stops</div>
-                    <div class="flight__box">
-                      <div class="flight__title">${originCode}</div>
-                        <div class="flight__time">${flight.itineraries[1].segments[0].arrival.at.split("T")[1].substring(0, 5)}</div>                
-                  `;
-
-                for (let i = 1; i < flight.itineraries[1].segments.length; i++) {
-                  flightEl +=
-                    `
-                    <div class="flight__box">
-                      <div class="flight__title">${flight.itineraries[1].segments[i].arrival.iataCode}</div>
-                      <div class="flight__time">${flight.itineraries[1].segments[i].arrival.at.split("T")[1].substring(0, 5)}</div>
-                    </div>
-                    `;
-                }
-                checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&children=${children}&infants=${infants}&flightTotal=${flightTotal}`;
-                flightEl +=
-                  `
-                          </div>
-                        </div>
+                    <div class="flight__control">
+                      <div class="flight__info">
+                        <svg class="icon icon-tick">
+                          <use xlink:href="#icon-tick"></use>
+                        </svg>
+                        ${flight.price.currency}
                       </div>
-                          <div class="flight__control">
-                          <div class="flight__info">
-                            <svg class="icon icon-tick">
-                              <use xlink:href="#icon-tick"></use>
-                            </svg>
-                            ${flight.price.currency}
-                          </div>
-                          <button class="button-stroke flight__button" onclick="setDataFlight()">
-                                <span class="flight__price"> ${flight.price.currency} ${flight.price.total}</span>
-                                <span class="flight__more">
-                                  <span>View deal</span>
-                                  <svg class="icon icon-arrow-next">
-                                    <use xlink:href="#icon-arrow-next"></use>
-                                  </svg>
-                                </span>
-                              </button>
-                            </div>
-                          </div>
-                    `;
-                  });
-                  flightData.innerHTML = flightEl;
-                }
-                   else {
-                  flightData.innerHTML = "<p>No flights found.</p>";
-                }
-              })
-              .catch((error) => console.error(error));
+                      <button class="button-stroke flight__button" onclick="setDataFlight()">
+      
+                        <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
+                        <span class="flight__more">
+                          <span>View deal</span>
+                          <svg class="icon icon-arrow-next">
+                            <use xlink:href="#icon-arrow-next"></use>
+                          </svg>
+                        </span>
+                    </button>
+                    </div>
+                  </div>
+                  `;  
+              });
+              flightData.innerHTML = flightEl;
+      
+            } else {
+              alert("No flight Data found");
+            }
+          })
+          .catch((error) => console.log(error));
       }
       
       function setDataFlight() {
