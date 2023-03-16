@@ -90,6 +90,7 @@ WSGI_APPLICATION = 'BookingApp.wsgi.application'
 
 
 #local database settings
+
 """
 DATABASES = {
     'default': {
@@ -108,7 +109,6 @@ DATABASES = {
         'PASSWORD': os.environ.get('DBPASS'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

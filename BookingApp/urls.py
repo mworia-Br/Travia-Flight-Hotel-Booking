@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+admin.site.site_header  =  "Airtravia admin"  
+admin.site.site_title  =  "Airtravia admin site"
+admin.site.index_title  =  "Airtravia Admin"
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('dashboard/', admin.site.urls),
     path('api/v1/flight/', include('flight.urls')),
     path('booking/', include('frontend.urls')),
     path('', include('accounts.urls')),

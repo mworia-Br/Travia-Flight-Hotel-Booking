@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+   {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -99,14 +100,14 @@
       <!-- header-->
       <header class="header js-header header_border">
         <div class="header__center center">
-          <a class="header__logo" href=" {% static 'index.html' %} ">
+          <a class="header__logo" href=" {% url 'index' %} ">
             <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href=" {% static './index.html' %} ">Flights</a>
-            <a class="header__item" href="#">Hotels</a>
+            <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
+            <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
             <a class="header__item" href="#">Promo</a>
-            <a class="header__item me__auto" href="#">Orders</a>
+            <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
             <a class="header__item" href=" {% static 'support.html' %} ">Support</a>
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
@@ -250,35 +251,35 @@
             <div class="setting__menu">
               <button class="setting__link close__menu__button active" #>
                 <svg class="icon icon-close">
-                  <use xlink:href=" {% static '#icon-close' %} "></use>
+                  <use xlink:href=" {% url 'profile' %} "></use>
                 </svg>
                 Close Menu
               </button>
-              <a class="setting__link" href=" {% static './profile.html' %} ">
+              <a class="setting__link" href=" {% url 'profile' %} ">
                 <svg class="icon icon-user">
                   <use xlink:href=" {% static '#icon-user' %} "></use>
                 </svg>
                 Profile
               </a>
-              <a class="setting__link" href=" {% static './profile-password.html' %} ">
+              <a class="setting__link" href=" {% url 'change_password' %} ">
                 <svg class="icon icon-lock">
                   <use xlink:href=" {% static '#icon-lock' %} "></use>
                 </svg>
                 Change Password
               </a>
-              <a class="setting__link" href=" {% static './profile-contact.html' %} ">
+              <a class="setting__link" href=" {% url 'profile' %} ">
                 <svg class="icon icon-contact">
                   <use xlink:href=" {% static '#icon-contact' %} "></use>
                 </svg>
                 Contact List
               </a>
-              <a class="setting__link" href=" {% static './profile-traveler.html' %} ">
+              <a class="setting__link" href=" {% url 'travelers' %} ">
                 <svg class="icon icon-list">
                   <use xlink:href=" {% static '#icon-list' %} "></use>
                 </svg>
                 Traveler List
               </a>
-              <a class="setting__link" href=" {% static './profile-orders.html' %} ">
+              <a class="setting__link" href=" {% url 'orders' %} ">
                 <svg class="icon icon-order">
                   <use xlink:href=" {% static '#icon-order' %} "></use>
                 </svg>
@@ -292,7 +293,7 @@
               </a>
               <a class="setting__link" href="#">
                 <svg class="icon icon-logout">
-                  <use xlink:href=" {% static '#icon-logout' %} "></use>
+                  <use xlink:href=" {% url 'logout' %} "></use>
                 </svg>
                 Sign Out
               </a>
@@ -395,7 +396,7 @@
         <div class="footer__center center">
           <div class="footer__row">
             <div class="footer__col">
-              <a class="footer__logo" href=" {% static 'index.html' %} "
+              <a class="footer__logo" href=" {% url 'index' %} "
                 ><img
                   class="some-icon"
                   src=" {% static 'img/logo-light.svg' %} "
@@ -450,7 +451,7 @@
               <div class="footer__menu__widget">
                 <div class="footer__menu">
                   <h5 class="footer__subtitle">Airtravia</h5>
-                  <a class="footer__link" href=" {% static 'index.html' %} ">Home</a>
+                  <a class="footer__link" href=" {% url 'index' %} ">Home</a>
                   <a class="footer__link" href="#">About Us</a>
                   <a class="footer__link" href="#">Promo</a>
                   <a class="footer__link" href="#">Airline Information</a>

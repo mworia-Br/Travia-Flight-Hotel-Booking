@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -87,19 +88,19 @@
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href=" {% static 'index.html' %} ">
-            <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
+          <a class="header__logo" href="{% url 'index' %}">
+            <img class="some-icon" src="{% static 'img/logo-light.svg' %}" alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href=" {% static './index.html' %} ">Flights</a>
-            <a class="header__item" href="#">Hotels</a>
+            <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
+            <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
             <a class="header__item" href="#">Promo</a>
-            <a class="header__item me__auto" href="#">Orders</a>
-            <a class="header__item" href=" {% static 'support.html' %} ">Support</a>
+            <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
+            <a class="header__item" href="support.html">Support</a>
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-globe">
-                  <use xlink:href=" {% static '#icon-globe' %} "></use></svg
+                  <use xlink:href="#icon-globe"></use></svg
                 >Language
               </button>
               <div class="header__body js-header-body">
@@ -123,7 +124,7 @@
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-coin">
-                  <use xlink:href=" {% static '#icon-coin' %} "></use>
+                  <use xlink:href="#icon-coin"></use>
                 </svg>
                 BDT
               </button>
@@ -149,15 +150,15 @@
           <div class="header__item header__item_notification js-header-item">
             <button class="header__head js-header-head active">
               <svg class="icon icon-notification">
-                <use xlink:href=" {% static '#icon-notification' %} "></use>
+                <use xlink:href="#icon-notification"></use>
               </svg>
             </button>
             <div class="header__body js-header-body">
               <div class="header__title">Notification</div>
               <div class="header__notifications">
-                <a class="header__notification" href=" {% static 'message-center.html' %} ">
+                <a class="header__notification" href="message-center.html">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -167,9 +168,9 @@
                       class="header__status"
                       style="background-color: #3b71fe"
                     ></div></div></a
-                ><a class="header__notification" href=" {% static 'message-center.html' %} ">
+                ><a class="header__notification" href="message-center.html">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -183,43 +184,38 @@
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            class="status login__status js-popup-open"
-            href=" {% static '#popup-login' %} "
-            data-effect="mfp-zoom-in"
-          >
-            Login
+          <a class="button-stroke button-small header__button" href="{% url 'logout' %}">Logout</a>
           </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
-              <img src=" {% static 'img/content/avatar-2.jpg' %} " alt="Avatar" />
+              <img src="{% static 'img/content/avatar-2.jpg' %}" alt="Avatar" />
+              
             </button>
             <div class="header__body js-header-body">
               <div class="header__group">
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'message-center.html' %} ">
+                  <a class="header__link" href="message-center.html">
                     <svg class="icon icon-comment">
-                      <use xlink:href=" {% static '#icon-comment' %} "></use></svg
+                      <use xlink:href="#icon-comment"></use></svg
                     >Messages</a
-                  ><a class="header__link" href=" {% static 'bookings-list.html' %} ">
+                  ><a class="header__link" href="bookings-list.html">
                     <svg class="icon icon-home">
-                      <use xlink:href=" {% static '#icon-home' %} "></use></svg
+                      <use xlink:href="#icon-home"></use></svg
                     >Bookings</a
-                  ><a class="header__link" href=" {% static 'wishlists.html' %} ">
+                  ><a class="header__link" href="wishlists.html">
                     <svg class="icon icon-email">
-                      <use xlink:href=" {% static '#icon-email' %} "></use></svg
+                      <use xlink:href="#icon-email"></use></svg
                     >Wishlists</a
                   >
                 </div>
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'list-your-property.html' %} ">
+                  <a class="header__link" href="list-your-property.html">
                     <svg class="icon icon-building">
-                      <use xlink:href=" {% static '#icon-building' %} "></use></svg
+                      <use xlink:href="#icon-building"></use></svg
                     >List your property</a
-                  ><a class="header__link" href=" {% static 'host-an-experience.html' %} ">
+                  ><a class="header__link" href="host-an-experience.html">
                     <svg class="icon icon-flag">
-                      <use xlink:href=" {% static '#icon-flag' %} "></use></svg
+                      <use xlink:href="#icon-flag"></use></svg
                     >Host an experience</a
                   >
                 </div>
@@ -227,7 +223,7 @@
               <div class="header__btns">
                 <a
                   class="button button-small header__button"
-                  href=" {% static 'account-setting.html' %} "
+                  href="account-setting.html"
                   >Account</a
                 >
                 <button class="button-stroke button-small header__button">
@@ -255,7 +251,7 @@
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
                   <a class="breadcrumbs__link" href=" {% static 'stays-product.html' %} "
-                    >Spectacular views of Queenstown</a
+                    >Spectacular views of {{ short_destination }}</a
                   >
                 </li>
                 <li class="breadcrumbs__item">Confirm and pay</li>
@@ -272,7 +268,7 @@
                         <div class="ticket__details__box">
                           <div class="ticket__details__top">
                             <div class="travel__destination">
-                              Dhaka - Abu Dhabi
+                              {{ short_origin }} - {{ short_destination }}
                             </div>
                             <div class="travel__baggage">
                               Baggage & Fare Rule
@@ -282,16 +278,15 @@
                             <div class="travel__detination__item">
                               <div class="flight__logo wide">
                                 <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
+                                  src="{{ logo_url }}"
+                                  alt="{{ airline_code }} logo"
                                 />
                               </div>
                               <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div>{{ departure_date }}</div>
+                                <div class="flight__number">{{ origin_code }} {{ departure_time }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ long_origin }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -332,21 +327,20 @@
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <span class="duration">2h 30m</span>
+                              <span class="duration">{{ flight_duration }}</span>
                             </div>
                             <div class="travel__detination__item">
                               <div class="flight__logo wide">
                                 <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
+                                  src="{{ logo_url }}"
+                                  alt="{{ airline_code }} logo"
                                 />
                               </div>
                               <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div>{{ arrival_date }}</div>
+                                <div class="flight__number">{{ destination_code }} {{ arrival_time }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ long_destination }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -383,6 +377,34 @@
                           15 Kgs (1 piece only) Check-In, 7 Kgs (1 piece only)
                           Cabin
                         </div>
+                        <div class="ticket__details__card__footer">
+                          <svg
+                            class="icon"
+                            width="20"
+                            height="18"
+                            viewBox="0 0 20 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clip-path="url( {% static '#clip0_131_3726' %} )">
+                              <path
+                                d="M3.37474 16.3622V4.18538H2.29105C1.43421 4.18591 0.691053 4.90591 0.69 5.77485L0.690526 10.2627V14.7385C0.691053 15.7085 1.39632 16.3612 2.29105 16.3627H3.37474V16.3622ZM3.71947 17.0522H2.29053C1.02632 17.0501 0.00157895 16.1017 0.000526316 14.7385V14.0775V12.4238V10.2627L0 5.78696C0.00105263 4.51959 1.05789 3.49696 2.29053 3.49591H4.06368V17.0517H3.71895L3.71947 17.0522ZM15.68 3.51801V17.0743H4.34158V3.51801H6.94632V2.0138C6.94474 1.16327 7.68631 0.580116 8.61052 0.581169L8.64631 0.580642L8.73579 0.580116L9.05053 0.57959H10.0058L10.6705 0.580642L11.1847 0.581695L11.3874 0.582221C12.3195 0.575379 13.0605 1.16064 13.0532 2.0138V3.51854H15.6795L15.68 3.51801ZM12.3642 4.20748V2.01064C12.3679 1.58012 11.9716 1.26696 11.3895 1.27117L11.1837 1.27064L10.6695 1.26959L10.0426 1.26906L8.61842 1.27117C8.03947 1.26696 7.63474 1.58327 7.63579 2.01327V4.20748H5.03105V16.3843H14.99V4.20748H12.3637H12.3642ZM11.3863 3.51801V2.30433H8.5921V3.51801H11.3863ZM7.9021 4.20748V1.61433H12.0758V4.20748H7.9021ZM15.9468 17.0522V3.49591H17.7205C18.9479 3.49696 20.0026 4.52222 19.9974 5.75064C20.0011 5.7838 20.0011 6.47696 20.0005 10.2627L20 12.4238L19.9995 14.0775V14.738C20.0026 16.0991 18.9795 17.0501 17.7205 17.0522H15.9474H15.9468ZM17.7195 16.3622C18.6084 16.3606 19.3116 15.707 19.3095 14.738V14.077L19.31 12.4233L19.3105 10.2622C19.3111 8.4738 19.3105 5.8138 19.3095 5.78591C19.3116 4.90643 18.5705 4.18591 17.72 4.18485H16.6363V16.3617H17.7195V16.3622Z"
+                                fill="#9B9B9B"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_131_3726">
+                                <rect
+                                  width="20"
+                                  height="16.8421"
+                                  fill="white"
+                                  transform="translate(0 0.579102)"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                          Ticketing Closes: {{ last_ticketing }}, Seats Available: {{ bookable_seats }}
+                        </div>
                       </div>
                     </div>
                     <div class="checkout__box">
@@ -391,15 +413,11 @@
                         <div class="checkout__el">
                           <div class="checkout__datepicker">
                             <div class="checkout__label">Dates</div>
-                            <input
-                              class="checkout__input js-date-single"
-                              data-format="MMM DD, YYYY"
-                              data-container=".checkout__datepicker"
-                              data-single="true"
-                              type="text"
-                              readonly=""
-                              value="Aug 15, 2021"
-                            />
+                            <div
+                                class="travelers__value js-travelers-content"
+                              >
+                                {{ departure_date }}
+                              </div>
                             <div class="checkout__controls">
                               <button class="checkout__edit js-date-open">
                                 <svg class="icon icon-edit">
@@ -823,11 +841,11 @@
                         <div class="checkout__el">
                           <div class="travelers travelers_down js-travelers">
                             <div class="travelers__top">
-                              <div class="travelers__label">Guests</div>
+                              <div class="travelers__label">Travelers</div>
                               <div
                                 class="travelers__value js-travelers-content"
                               >
-                                1 guest
+                                {{ travelers }} traveler
                               </div>
                               <button class="travelers__edit js-travelers-head">
                                 <svg class="icon icon-edit">
@@ -1227,24 +1245,32 @@
                   <div class="price__stage">Price details</div>
                   <div class="price__table">
                     <div class="price__row">
-                      <div class="price__cell">Base fare x 7 nights</div>
-                      <div class="price__cell">$833</div>
+                      <div class="price__cell">Base fare</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
-                      <div class="price__cell">Adults (2 x $450)</div>
-                      <div class="price__cell">$900</div>
+                      <div class="price__cell">Adults ({{ adults_count }})</div>
+                      <div class="price__cell">$ -</div>
+                    </div>
+                    <div class="price__row">
+                      <div class="price__cell">Children ({{ children_count }})</div>
+                      <div class="price__cell">$ -</div>
+                    </div>
+                    <div class="price__row">
+                      <div class="price__cell">Infants ({{ infants_count }})</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Service fee</div>
-                      <div class="price__cell">$103</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Promo code discount</div>
-                      <div class="price__cell">-$103</div>
+                      <div class="price__cell">-$0.00</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Total (USD)</div>
-                      <div class="price__cell">$833</div>
+                      <div class="price__cell">{{ flight_total }}</div>
                     </div>
                   </div>
                 </div>
@@ -1258,7 +1284,7 @@
         <div class="footer__center center">
           <div class="footer__row">
             <div class="footer__col">
-              <a class="footer__logo" href=" {% static 'index.html' %} "
+              <a class="footer__logo" href=" {% url 'index' %} "
                 ><img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet"
               /></a>
               <div class="footer__social">
@@ -1310,7 +1336,7 @@
               <div class="footer__menu__widget">
                 <div class="footer__menu">
                   <h5 class="footer__subtitle">Airtravia</h5>
-                  <a class="footer__link" href=" {% static 'index.html' %} ">Home</a>
+                  <a class="footer__link" href=" {% url 'index' %} ">Home</a>
                   <a class="footer__link" href="#">About Us</a>
                   <a class="footer__link" href="#">Promo</a>
                   <a class="footer__link" href="#">Airline Information</a>

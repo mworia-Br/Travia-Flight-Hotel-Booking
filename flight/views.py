@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 from django.views.decorators.csrf import csrf_exempt
 import json
+from .models import CartItem, SearchedRoute
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from amadeus import Client, ResponseError, Location
 
@@ -32,13 +35,25 @@ def search_offers(req):
             origin_code = req.GET["originCode"]
             destination_code = req.GET["destinationCode"]
             departure_date = req.GET["departureDate"]
-            print(origin_code, destination_code, departure_date)
+            adults = req.GET["adults"]
+            children = req.GET["children"]
+            infants = req.GET["infants"]
+            #currencyCode = USD
             response = amadeus.shopping.flight_offers_search.get(
                 originLocationCode=origin_code, destinationLocationCode=destination_code, 
-                departureDate=departure_date, adults=1)
+                departureDate=departure_date, adults=adults, children=children, infants=infants)
             context = {
                 "data": response.data
             }
+            # Create a new SearchedRoute object and save it to the database
+            route = SearchedRoute.objects.create(
+                origin=origin_code, 
+                destination=destination_code, 
+                departure_date=departure_date,
+                adults_count=adults,
+                children_count=children,
+                infants_count=infants
+            )
             return JsonResponse(context)
 
         except ResponseError as error:
@@ -96,17 +111,76 @@ def book_flight(req):
     else:
        return JsonResponse({"error": "Invalid request method"})
 
+def addCartItem(request, flight_data):
+    try:
+        cart_item = CartItem.objects.create(owner=request.user, flight_data=flight_data, quantity=1)
+        print("run")
+        return JsonResponse({"success": "Item added to cart"})
+    except:
+        return JsonResponse({"error": "Item not added to cart"})
+
+
+@login_required
 def flight_checkout(req):
-    if req.method == "POST":
-        try: 
-            data = json.loads(req.POST.get('dataflight'))
-            flight = data.get('flight')
-            return render(req, 'flightcheckout.html', {'flight': flight})
-        except json.JSONDecodeError as error:
-            return JsonResponse({"error": str(error)})
+    if req.method == "GET":
+        try:
+            origin_code = req.GET["originCode"]
+            destination_code = req.GET["destinationCode"] 
+            short_Origin = req.GET["shortOrigin"]
+            short_Destination = req.GET["shortDestination"]
+            long_Origin = req.GET["longOrigin"]
+            long_Destination = req.GET["longDestination"]
+            departure_date = req.GET["departureDate"]
+            arrival_date = req.GET["arrivalDate"]
+            departure_Time = req.GET["departureTime"]
+            arrival_Time = req.GET["arrivalTime"]
+            flight_Duration = req.GET["flightDuration"]
+            air_lineCode = req.GET["airlineCode"]
+            logo_Url = req.GET["logoUrl"]
+            bookable_Seats = req.GET["bookableSeats"]
+            last_Ticketing = req.GET["lastTicketing"]
+            adults_count = req.GET["adults"]
+            children_count = req.GET["children"]
+            infants_count = req.GET["infants"]
+            flight_Total = req.GET["flightTotal"]
+            traveler_s = adults_count + children_count + infants_count
+
+            # Create a dictionary of flight details to pass to the template
+            flight_data = {
+                'origin_code': origin_code,
+                'destination_code': destination_code,
+                'short_origin': short_Origin,
+                'short_destination': short_Destination,
+                'long_origin': long_Origin,
+                'long_destination': long_Destination,
+                'departure_date': departure_date,
+                'arrival_date': arrival_date,
+                'departure_time': departure_Time,
+                'arrival_time': arrival_Time,
+                'flight_duration': flight_Duration,
+                'airline_code': air_lineCode,
+                'logo_url': logo_Url,
+                'bookable_seats': bookable_Seats,
+                'last_ticketing': last_Ticketing,
+                'travelers': traveler_s,
+                'adults_count': adults_count,
+                'children_count': children_count,
+                'infants_count': infants_count,
+                'flight_total': flight_Total
+            }
+            # Add the flight to the cart
+            new_item = CartItem.objects.create(owner=req.user, flight_data=flight_data, quantity=1)
+            owner=req.user
+            print(owner)
+            #addCartItem(flight_data)
+            return render(req, 'flights-checkout.html', flight_data)
+        
+        except:
+            # Handle the exception appropriately
+            print("errorincheckout")
     else:
-        flight = req.GET['flight']
-        return render(req, 'flightcheckout.html', {'flight': flight})
+        return render(req, 'flights-checkout.html')
+
 
 # Hotel views.py
 

@@ -84,22 +84,50 @@
     <script>
       let originCode = "";
       let destinationCode = "";
+      let shortOrigin = "";
+      let shortDestination = "";
+      let longOrigin = "";
+      let longDestination = "";
       let departureDate = "";
       let returnDate = "";
+      let returnTime = "";
+      let arrivalDate = "";
+      let departureTime = "";
+      let arrivalTime = "";
+      let flightDuration = "";
+      let flightNumber = "";
+      let returnflightNumber = "";
+      let flightId = "";
+      let returnflightId = "";
+      let depTerminal = "";
+      let arrTerminal = "";
+      let returnarrivalDate = "";
+      let returnarrivalTime = "";
+      let returnflightDuration = "";
+      let flightTotal = "";
+      let airlineCode = "";
+      let returnairlineCode = "";
+      let logoUrl = "";
+      let returnlogoUrl = "";
+      let bookableSeats = "";
+      let lastTicketing = "";
+      let checkout_url = ``;
       let adults = 1;
       let children = 0;
+      let infants = 0;
       let fromLocationArray = [];
       let toLocationArray = [];
       let flights = [];
-
+      let flightCosts = [];
+      
       const fromLocationData = document.getElementById("fromLocationData");
       const toLocationData = document.getElementById("toLocationData");
       const flightData = document.getElementById("flightData");
-
+      
       function handleFromLocation() {
         const fromInput = document.getElementById("from");
         const fromLocationData = document.getElementById("fromLocationData");
-
+      
         if (fromInput && fromLocationData) {
           const fromInputValue = fromInput.value.trim();
           if (fromInputValue.length > 1) {
@@ -116,7 +144,7 @@
                     locationItem.classList.add("js-location-item");
                     locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
                     locationItem.onclick = () => {
-                      fromInput.value = location.iataCode;
+                      fromInput.value = location.name;
                       originCode = location.iataCode;
                       fromLocationData.style.display = "none";
                     };
@@ -134,32 +162,32 @@
           }
         }
       }
-
+      
       document.addEventListener("DOMContentLoaded", () => {
         const fromInput = document.getElementById("from");
         const fromLocationData = document.getElementById("fromLocationData");
-
+      
         if (fromInput) {
           fromInput.addEventListener("input", handleFromLocation);
         }
-
+      
         if (fromLocationData) {
           fromLocationData.addEventListener("mouseleave", () => {
             fromLocationData.style.display = "none";
           });
         }
       });
-
-
+      
+      
       function getFromLocation(originCode) {
         console.log(originCode);
         fromLocationData.style.display = "none";
       }
-
+      
       function handleToLocation() {
         const toInput = document.getElementById("to");
         const toLocationData = document.getElementById("toLocationData");
-
+      
         if (toInput && toLocationData) {
           const toInputValue = toInput.value.trim();
           if (toInputValue.length > 1) {
@@ -176,7 +204,7 @@
                     locationItem.classList.add("js-location-item");
                     locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
                     locationItem.onclick = () => {
-                      toInput.value = location.iataCode;
+                      toInput.value = location.name;
                       destinationCode = location.iataCode;
                       toLocationData.style.display = "none";
                     };
@@ -194,49 +222,74 @@
           }
         }
       }
-
+      
       document.addEventListener("DOMContentLoaded", () => {
         const toInput = document.getElementById("to");
         const toLocationData = document.getElementById("toLocationData");
-
+      
         if (toInput) {
           toInput.addEventListener("input", handleToLocation);
         }
-
+      
         if (toLocationData) {
           toLocationData.addEventListener("mouseleave", () => {
             toLocationData.style.display = "none";
           });
         }
       });
-
+      
       function getToLocation(destinationCode) {
         console.log(destinationCode);
         toLocationData.style.display = "none";
       }
-
+      
       function handleFindFlight() {
         departureDate = document.getElementById("date").value;
+        adults = document.getElementById("adults").value;
+        children = document.getElementById("children").value;
+        infants = document.getElementById("infants").value;
         returnDate = document.getElementById("returndate").value;
         let flightEl = "";
         const flightData = document.getElementById("flightData");
-
-        fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_roundtrip/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}`)
+      
+        fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_roundtrip/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&infants=${infants}`)
           .then((response) => response.json())
           .then((data) => {
             flights = data.data;
-            console.log(flights);
-
+      
             if (flights) {
               flights.map((flight) => {
                 // Extract the validating airline code from the flight object
-                const airlineCode = flight.validatingAirlineCodes[0];
+                airlineCode = flight.validatingAirlineCodes[0];
+                returnairlineCode = flight.validatingAirlineCodes[1];
                 
                 // Construct the URL of the airline logo based on the airline code
-                const logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
+                logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
+                returnlogoUrl = `https://s1.apideeplink.com/images/airlines/${returnairlineCode}.png`;
+                // Define constants to pass to checkout view          
+                flightDuration = flight.itineraries[0].duration;
+                flightTotal = flight.price.total;
+                lastTicketing = flight.lastTicketingDate;
+                bookableSeats = flight.numberOfBookableSeats;
+                departureDate = flight.itineraries[0].segments[0].departure.at.split("T")[0];
+                departureTime = flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5);
+                arrivalTime = flight.itineraries[0].segments[0].arrival.at.split("T")[1].substring(0, 5);
+                arrivalDate = flight.itineraries[0].segments[0].arrival.at.split("T")[0];
+                returnDate = flight.itineraries[1].segments[0].departure.at.split("T")[0];
+                returnTime = flight.itineraries[1].segments[0].departure.at.split("T")[1].substring(0, 5);
+                returnarrivalTime = flight.itineraries[1].segments[0].arrival.at.split("T")[1].substring(0, 5);
+                returnarrivalDate = flight.itineraries[1].segments[0].arrival.at.split("T")[0];
+                flightId = flight.id;
+                flightNumber = flight.itineraries[0].segments[0].number;
+                returnflightNumber = flight.itineraries[1].segments[0].number;
+                flightDuration = flight.itineraries[0].duration;
+                returnflightDuration = flight.itineraries[1].duration;
+
                 flightEl +=
                   `
                   <div class="flight">
+                    <form method="post">
+                      {% csrf_token %}
                     <div class="flight__wrap">
                       <div class="flight__item">
                         <div class="flight__logo">
@@ -249,8 +302,10 @@
                           </div>
                           <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
                 `;
-
+      
                 for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
+                  arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
+                  arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
                   flightEl +=
                     `
                     <div class="flight__box">
@@ -259,7 +314,7 @@
                     </div>
                     `;
                 }
-
+                checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&flightTotal=${flightTotal}&children=${children}&infants=${infants}`;
                 flightEl +=
                   `
                         </div>
@@ -272,7 +327,8 @@
                         </svg>
                         ${flight.price.currency}
                       </div>
-                      <button class="button-stroke flight__button" id="flightdata" data-flight='${JSON.stringify(flight)}'>
+                      <button class="button-stroke flight__button" onclick="setDataFlight()">
+      
                         <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
                         <span class="flight__more">
                           <span>View deal</span>
@@ -280,81 +336,23 @@
                             <use xlink:href="#icon-arrow-next"></use>
                           </svg>
                         </span>
-                      </button>
+                    </button>
                     </div>
                   </div>
-                  `;
+                  `;  
               });
               flightData.innerHTML = flightEl;
-              const viewDealButtons = document.querySelectorAll(".flight__button");
-              Array.from(viewDealButtons).forEach((button) => {
-                button.addEventListener("click", () => {
-                  const flightData = JSON.parse(button.getAttribute("data-flight"));
-                  FlightCheckout(flightData);
-                });
-              });
-
+      
             } else {
               alert("No flight Data found");
             }
           })
           .catch((error) => console.log(error));
       }
-
-      function BookFlight(flight) {
-        const first = document.getElementById("first").value;
-        const last = document.getElementById("last").value;
-
-        fetch("https://traviabooking.azurewebsites.net/api/v1/flight/price_offers", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            flight,
-          }),
-        })
-          .then((response) => response.json())
-          .then((dataObject) => {
-            console.log("Success:", dataObject);
-
-            fetch("https://traviabooking.azurewebsites.net/api/v1/flight/book_flight/", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                flight,
-                traveler: { first, last },
-              }),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                console.log("Success:", data);
-                flights = [];
-              })
-              .catch((error) => {
-                alert(error);
-              });
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            alert(error);
-          });
+      
+      function setDataFlight() {
+        window.location.href = checkout_url;
       }
-
-      function FlightCheckout(flightData) {
-        fetch("https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            flightData,
-          }),
-        })
-      }
-
       //const adults = document.getElementById('adultsCount').textContent;
     </script>
   </head>
@@ -369,9 +367,9 @@
           </a>
           <div class="header__wrapper js-header-wrapper">
             <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
-            <a class="header__item" href="#">Hotels</a>
+            <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
             <a class="header__item" href="#">Promo</a>
-            <a class="header__item me__auto" href="#">Orders</a>
+            <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
             <a class="header__item" href="support.html">Support</a>
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
@@ -635,6 +633,114 @@
                         </div>
                       </div>
                     </div>
+                    <div class="travelers js-travelers panel__item__rounded">
+                      <div class="travelers__head js-travelers-head">
+                        <div class="travelers__icon">
+                          <svg class="icon icon-user">
+                            <use xlink:href="#icon-user"></use>
+                          </svg>
+                        </div>
+                        <div class="travelers__content js-travelers-content">
+                          Travelers
+                        </div>
+                        <div class="travelers__description">Travelers</div>
+                      </div>
+                      <div class="travelers__body js-travelers-body">
+                        <div class="travelers__item">
+                          <div class="travelers__details">
+                            <div class="travelers__category">Adults</div>
+                            <div class="travelers__text">Ages 13 or above</div>
+                          </div>
+                          <div class="counter js-counter" data-min="0">
+                            <button
+                              class="counter__button js-counter-button js-counter-minus disabled"
+                              type="button"
+                            >
+                              <svg class="icon icon-minus-circle">
+                                <use xlink:href="#icon-minus-circle"></use>
+                              </svg>
+                            </button>
+                            <div class="counter__value js-counter-value"></div>
+                            <button
+                              class="counter__button js-counter-button js-counter-plus"
+                              type="button"
+                            >
+                              <svg class="icon icon-plus-circle">
+                                <use xlink:href="#icon-plus-circle"></use>
+                              </svg>
+                            </button>
+                            <input
+                              id="adults"
+                              class="js-counter-input js-counter-result js-counter-adults"
+                              name="adults"
+                              type="hidden"
+                            />
+                          </div>
+                        </div>
+                        <div class="travelers__item">
+                          <div class="travelers__details">
+                            <div class="travelers__category">Children</div>
+                            <div class="travelers__text">Ages 2 - 12</div>
+                          </div>
+                          <div class="counter js-counter" data-min="0">
+                            <button
+                              class="counter__button js-counter-button js-counter-minus disabled"
+                              type="button"
+                            >
+                              <svg class="icon icon-minus-circle">
+                                <use xlink:href="#icon-minus-circle"></use>
+                              </svg>
+                            </button>
+                            <div class="counter__value js-counter-value"></div>
+                            <button
+                              class="counter__button js-counter-button js-counter-plus"
+                              type="button"
+                            >
+                              <svg class="icon icon-plus-circle">
+                                <use xlink:href="#icon-plus-circle"></use>
+                              </svg>
+                            </button>
+                            <input
+                              id="children"
+                              class="js-counter-input js-counter-result js-counter-children"
+                              name="children"
+                              type="hidden"
+                            />
+                          </div>
+                        </div>
+                        <div class="travelers__item">
+                          <div class="travelers__details">
+                            <div class="travelers__category">Adults</div>
+                            <div class="travelers__text">Under 2</div>
+                          </div>
+                          <div class="counter js-counter" data-min="0">
+                            <button
+                              class="counter__button js-counter-button js-counter-minus disabled"
+                              type="button"
+                            >
+                              <svg class="icon icon-minus-circle">
+                                <use xlink:href="#icon-minus-circle"></use>
+                              </svg>
+                            </button>
+                            <div class="counter__value js-counter-value"></div>
+                            <button
+                              class="counter__button js-counter-button js-counter-plus"
+                              type="button"
+                            >
+                              <svg class="icon icon-plus-circle">
+                                <use xlink:href="#icon-plus-circle"></use>
+                              </svg>
+                            </button>
+                            <input
+                              id="infants"
+                              class="js-counter-input js-counter-result js-counter-babies"
+                              name="infants"
+                              type="hidden"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <a class="panel__search" onclick="handleFindFlight()">
                       <svg class="icon icon-search">
                         <use xlink:href="#icon-search"></use>
@@ -652,15 +758,16 @@
             <div class="control">
               <a
                 class="button-stroke button-small control__button"
-                href=" {% static 'flights.html' %} "
+                href="{% url 'oneway_flight' %}"
               >
                 <svg class="icon icon-arrow-left">
-                  <use xlink:href=" {% static '#icon-arrow-left' %} "></use></svg
-                ><span>Go home</span></a
+                  <use xlink:href='#icon-arrow-left'></use>
+                </svg>
+                <span>Go home</span></a
               >
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
-                  <a class="breadcrumbs__link" href=" {% static 'flights.html' %} ">Home</a>
+                  <a class="breadcrumbs__link" href="{% url 'oneway_flight' %}">Home</a>
                 </li>
                 <li class="breadcrumbs__item">Flights</li>
               </ul>
@@ -716,7 +823,7 @@
                     <div class="collapsible__header" data-target="#collapse1">
                       <div class="range__label">Cost options</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
+                        <use xlink:href='#icon-arrow-down'></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse1">
@@ -768,7 +875,7 @@
                     <div class="collapsible__header" data-target="#collapse2">
                       <div class="range__label">Stops</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
+                        <use xlink:href='#icon-arrow-down'></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse2">
@@ -814,7 +921,7 @@
                     <div class="collapsible__header" data-target="#collapse3">
                       <div class="range__label">Baggage</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
+                        <use xlink:href='#icon-arrow-down'></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse3">
@@ -860,7 +967,7 @@
                     <div class="collapsible__header" data-target="#collapse4">
                       <div class="range__label">Flight Number</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
+                        <use xlink:href='#icon-arrow-down'></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse4">
@@ -877,7 +984,7 @@
                     <div class="collapsible__header" data-target="#collapse5">
                       <div class="range__label">Times</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
+                        <use xlink:href='#icon-arrow-down'></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse5">
@@ -955,7 +1062,7 @@
                     <div class="collapsible__header" data-target="#collapse6">
                       <div class="range__label">Airlines</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
+                        <use xlink:href='#icon-arrow-down'></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse6">
@@ -1091,7 +1198,7 @@
                     <div class="collapsible__header" data-target="#collapse7">
                       <div class="range__label">Duration of stop</div>
                       <svg class="icon icon-arrow-down">
-                        <use xlink:href=" {% static '#icon-arrow-down' %} "></use>
+                        <use xlink:href='#icon-arrow-down'></use>
                       </svg>
                     </div>
                     <div class="collapsible__body" id="collapse7">
@@ -1359,8 +1466,9 @@
                 </div>
                 <button class="flights__reset">
                   <svg class="icon icon-close-circle-fill">
-                    <use xlink:href=" {% static '#icon-close-circle-fill' %} "></use></svg
-                  >Reset filter
+                    <use xlink:href=" {% static '#icon-close-circle-fill' %} "></use>
+                  </svg>
+                  Reset filter
                 </button>
               </div>
               <div class="flights__container">
@@ -1630,7 +1738,7 @@
         <div class="footer__center center">
           <div class="footer__row">
             <div class="footer__col">
-              <a class="footer__logo" href=" {% static 'index.html' %} "
+              <a class="footer__logo" href=" {% url 'index' %} "
                 ><img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet"
               /></a>
               <div class="footer__social">
@@ -1682,7 +1790,7 @@
               <div class="footer__menu__widget">
                 <div class="footer__menu">
                   <h5 class="footer__subtitle">Airtravia</h5>
-                  <a class="footer__link" href=" {% static 'index.html' %} ">Home</a>
+                  <a class="footer__link" href=" {% url 'index' %} ">Home</a>
                   <a class="footer__link" href="#">About Us</a>
                   <a class="footer__link" href="#">Promo</a>
                   <a class="footer__link" href="#">Airline Information</a>
