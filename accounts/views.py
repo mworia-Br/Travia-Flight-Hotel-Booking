@@ -117,24 +117,31 @@ def password_reset_confirm(request, uidb64, token):
     else:
         return render(request, 'password_reset_invalid.html')
 
+@login_required
 def oneway_view(req):
     return render(req, 'flights-category.html', {})
 
+@login_required
 def roundtrip_view(req):
     return render(req, 'flights-category-round.html', {})
 
+@login_required
 def hotels_view(req):
     return render(req, 'hotels.html', {})
 
+@login_required
 def profile(req):
     return render(req, 'profile.html', {})
 
+@login_required
 def profile_orders(req):
     return render(req, 'profile-orders.html', {})
 
+@login_required
 def profile_travelers(req):
     return render(req, 'profile-traveler.html', {})
 
+@login_required
 def profile_traveleradd(req):
     return render(req, 'profile-traveler-new.html', {})
 
