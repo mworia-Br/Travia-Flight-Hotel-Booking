@@ -141,12 +141,13 @@ def profile_orders(req):
     if not cart_items:
         # create an empty list if there are no cart items
         cart_items = []
-
-    # render the data in the order details page
-    context = {
-        'cart_items': cart_items,
-    }
-    return render(req, 'profile-orders.html', context)
+        return render(req, 'profile-orders.html', context)
+    else:       
+        # render the data in the order details page
+        context = {
+            'cart_items': cart_items,
+        }
+        return render(req, 'profile-orders.html', context)
 
 @login_required
 def profile_travelers(req):
