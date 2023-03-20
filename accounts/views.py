@@ -38,9 +38,14 @@ def emailsend(recipient, emailbody):
     sending = msg.send()
     print(sending)
 
-@login_required(login_url='login')
 def Index(req):
-    return render(req, 'index.html')
+    if req.user.is_authenticated:
+        return render(req, 'index.html')
+    else:
+        return redirect('home')
+
+def Home(req):
+    return render(req, 'home.html')
 
 def signup(request):
     if request.method == 'POST':

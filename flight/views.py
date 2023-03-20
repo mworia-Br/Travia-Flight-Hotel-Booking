@@ -222,6 +222,7 @@ def search_hotels(req):
         cityCode = req.GET["locationCode"]
         adults = req.GET["adultsPerRoom"]
         children = req.GET["childrenPerRoom"]
+        rooms = req.GET["rooms"]
 
         if cityCode and checkin and checkout:
             try:
