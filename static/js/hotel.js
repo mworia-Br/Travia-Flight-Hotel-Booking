@@ -78,7 +78,8 @@ function handleFindHotel() {
     .then((response) => response.json())
     .then((data) => {
       hotels = data.data;
-
+      console.log(hotels);
+      
       if (hotels) {
         hotels.map((hotel) => {
           // Construct the URL of the hotel image based on the hotel ID
