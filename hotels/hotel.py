@@ -10,6 +10,7 @@ class Hotel:
             offer['price'] = self.hotel['offers'][0]['price']['total']
             offer['name'] = self.hotel['hotel']['name']
             offer['hotelID'] = self.hotel['hotel']['hotelId']
+            offer['rating'] = self.hotel['hotel']['rating']
             address = geocoder.osm(
                 [self.hotel['hotel']['latitude'], self.hotel['hotel']['longitude']], 
                 method='reverse'

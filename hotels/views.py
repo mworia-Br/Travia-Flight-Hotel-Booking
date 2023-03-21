@@ -49,7 +49,7 @@ def search_hotels(req):
                     hotel_offers.append(offer)
                     response = zip(hotel_offers, search_hotels.data)
 
-                return render(req, 'hotelsresults.html', {'response': response,
+                return render(req, 'stayhotels.html', {'response': response,
                                                             'origin': origin,
                                                             'departureDate': checkinDate,
                                                             'returnDate': checkoutDate,
