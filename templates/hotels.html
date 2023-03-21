@@ -100,7 +100,7 @@
         if (locationInput && locationData) {
           const locationInputValue = locationInput.value.trim();
           if (locationInputValue.length > 1) {
-              fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${locationInputValue}`)
+              fetch(`https://${checkoutHost}/api/v1/flight/select_destination/${locationInputValue}`)
               .then((response) => response.json())
               .then((data) => {
                 const locationArray = data.data;
@@ -157,7 +157,7 @@
         checkOutDate = document.getElementById("checkOutDate").value;
         adultsPerRoom = document.getElementById("adults").value;
         childrenPerRoom = document.getElementById("children").value;
-        const checkoutHost = window.location.host; // Get the domain name
+         
         const hotelresults_URL = `https://${checkoutHost}/api/v1/hotel/search_hotels/?locationCode=${locationCode}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`;
         window.location.href = hotelresults_URL;
       }
@@ -170,7 +170,7 @@
         let hotelEl = "";
         const hotelData = document.getElementById("hotelData");
 
-        fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_hotels/?locationCode=${locationCode}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&rooms=${rooms}&adultsPerRoom=${adultsPerRoom}&childrenPerRoom=${childrenPerRoom}`)
+        fetch(`https://${checkoutHost}/api/v1/flight/search_hotels/?locationCode=${locationCode}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&rooms=${rooms}&adultsPerRoom=${adultsPerRoom}&childrenPerRoom=${childrenPerRoom}`)
           .then((response) => response.json())
           .then((data) => {
             hotels = data.data;

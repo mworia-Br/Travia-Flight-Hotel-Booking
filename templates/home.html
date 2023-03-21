@@ -89,7 +89,7 @@
       }
     </script>
     <script>
-      let originCode = "";
+      let originCode = ""; let checkoutHost = window.location.host;
       let destinationCode = "";
       let shortOrigin = "";
       let shortDestination = "";
@@ -127,7 +127,7 @@
         if (fromInput && fromLocationData) {
           const fromInputValue = fromInput.value.trim();
           if (fromInputValue.length > 1) {
-            fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInputValue}`)
+            fetch(`https://${checkoutHost}/api/v1/flight/select_destination/${fromInputValue}`)
               .then((response) => response.json())
               .then((data) => {
                 fromLocationArray = data.data;
@@ -188,7 +188,7 @@
         if (toInput && toLocationData) {
           const toInputValue = toInput.value.trim();
           if (toInputValue.length > 1) {
-            fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${toInputValue}`)
+            fetch(`https://${checkoutHost}/api/v1/flight/select_destination/${toInputValue}`)
               .then((response) => response.json())
               .then((data) => {
                 toLocationArray = data.data;
@@ -250,7 +250,7 @@
         let flightEl = "";
         const flightData = document.getElementById("flightData");
       
-        fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}`)
+        fetch(`https://${checkoutHost}/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}`)
           .then((response) => response.json())
           .then((data) => {
             flights = data.data;
@@ -298,7 +298,7 @@
                     </div>
                     `;
                 }
-                checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&flightTotal=${flightTotal}&children=${children}&infants=${infants}`;
+                checkout_url = `https://${checkoutHost}/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&flightTotal=${flightTotal}&children=${children}&infants=${infants}`;
                 flightEl +=
                   `
                         </div>

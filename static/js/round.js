@@ -1,4 +1,4 @@
-let originCode = "";
+let originCode = ""; let checkoutHost = window.location.host;
 let destinationCode = "";
 let shortOrigin = "";
 let shortDestination = "";
@@ -47,7 +47,7 @@ function handleFromLocation() {
   if (fromInput && fromLocationData) {
     const fromInputValue = fromInput.value.trim();
     if (fromInputValue.length > 1) {
-      fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInputValue}`)
+      fetch(`https://${checkoutHost}/api/v1/flight/select_destination/${fromInputValue}`)
         .then((response) => response.json())
         .then((data) => {
           fromLocationArray = data.data;
@@ -107,7 +107,7 @@ function handleToLocation() {
   if (toInput && toLocationData) {
     const toInputValue = toInput.value.trim();
     if (toInputValue.length > 1) {
-      fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${toInputValue}`)
+      fetch(`https://${checkoutHost}/api/v1/flight/select_destination/${toInputValue}`)
         .then((response) => response.json())
         .then((data) => {
           toLocationArray = data.data;
@@ -167,9 +167,9 @@ function handleFindFlight() {
   returnDate = document.getElementById("returndate").value;
   let flightEl = "";
   const flightData = document.getElementById("flightData");
-  const checkoutHost = window.location.host; // Get the domain name
+   
 
-  fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_roundtrip/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&infants=${infants}`)
+  fetch(`https://${checkoutHost}/api/v1/flight/search_roundtrip/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&infants=${infants}`)
     .then((response) => response.json())
     .then((data) => {
       flights = data.data;
