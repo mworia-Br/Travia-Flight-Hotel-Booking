@@ -36,7 +36,9 @@ def search_hotels(req):
             num_hotels = 40
             kwargs = {'hotelIds': hotel_ids[0:num_hotels],
                     'checkInDate': checkinDate,
-                    'checkOutDate': checkoutDate}
+                    'checkOutDate': checkoutDate,
+                    'view': 'FULL',
+                    'currency': 'USD'}
             try:
                 # Hotel Search
                 search_hotels = amadeus.shopping.hotel_offers_search.get(**kwargs)
