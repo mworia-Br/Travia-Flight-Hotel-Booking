@@ -157,6 +157,15 @@
         checkOutDate = document.getElementById("checkOutDate").value;
         adultsPerRoom = document.getElementById("adults").value;
         childrenPerRoom = document.getElementById("children").value;
+        const hotelresults_URL = `https://traviabooking.azurewebsites.net/api/v1/hotel/search_hotels/?locationCode=${locationCode}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}}`;
+        window.location.href = hotelresults_URL;
+      }
+
+      function handleFindHotelstopped() {
+        checkInDate = document.getElementById("checkInDate").value;
+        checkOutDate = document.getElementById("checkOutDate").value;
+        adultsPerRoom = document.getElementById("adults").value;
+        childrenPerRoom = document.getElementById("children").value;
         let hotelEl = "";
         const hotelData = document.getElementById("hotelData");
 
@@ -598,22 +607,6 @@
                     <span>Search</span>
                   </a>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="section travels">
-          <div class="travels__center center">
-            <div class="travels__wrapper">
-              <h2 class="travels__title h2">Go somewhere</h2>
-              <div class="travels__info info">Hotel search results</div>
-              <div class="travels__list">
-                <div id="hotelData"></div>
-              </div>
-              <div class="travels__btns">
-                <a class="button-stroke button-small" href=" {% static 'stays-category.html' %} "
-                  >View all</a
-                >
               </div>
             </div>
           </div>

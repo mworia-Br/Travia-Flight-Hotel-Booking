@@ -71,6 +71,15 @@ function getLocation(locationCode) {
 function handleFindHotel() {
   checkInDate = document.getElementById("checkInDate").value;
   checkOutDate = document.getElementById("checkOutDate").value;
+  adultsPerRoom = document.getElementById("adults").value;
+  childrenPerRoom = document.getElementById("children").value;
+  const hotelresults_URL = `https://traviabooking.azurewebsites.net/api/v1/hotel/search_hotels/?locationCode=${locationCode}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}}`;
+  window.location.href = hotelresults_URL;
+}
+
+function handleFindHotelstopped() {
+  checkInDate = document.getElementById("checkInDate").value;
+  checkOutDate = document.getElementById("checkOutDate").value;
   let hotelEl = "";
   const hotelData = document.getElementById("hotelData");
 
