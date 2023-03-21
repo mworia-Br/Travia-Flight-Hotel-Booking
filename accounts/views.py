@@ -74,7 +74,7 @@ def login_view(request):
             login(request, user)
             loggedin_user = User.objects.get(username=username)
             recipient = loggedin_user.email
-            emailbody = "Thank you for using Travia Booking Services. You were logged in to our test servers at: https://traviabooking.azurewebsites.net"
+            emailbody = "Thank you for using Travia Booking Services. You were successfully logged in to our test servers."
             emailsend(recipient, emailbody)
             next_url = request.GET.get('next', None) # get the 'next' parameter from the GET request
             if next_url:
