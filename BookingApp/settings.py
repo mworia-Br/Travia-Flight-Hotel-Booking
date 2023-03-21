@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'flight',
+    'hotels',
     'frontend',
     'accounts',
     'anymail',
@@ -90,7 +91,7 @@ WSGI_APPLICATION = 'BookingApp.wsgi.application'
 
 
 #local database settings
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -108,7 +109,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('DBPASS'),
     }
 }
-"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
