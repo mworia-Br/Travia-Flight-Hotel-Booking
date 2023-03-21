@@ -4,58 +4,59 @@ from django.shortcuts import render
 from django.contrib import messages
 from .hotel import Hotel
 from .room import Room
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 
 amadeus = Client(
     client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
     client_secret='K95GQ2APHlRQ0R1l'
 )
 
-def search_hotels(request):
-    origin = request.POST.get('locationCode')
-    checkinDate = request.POST.get('checkInDate')
-    checkoutDate = request.POST.get('checkOutDate')
+def search_hotels(req):
+    if req.method == "GET":
+        origin = req.GET('locationCode')
+        checkinDate = req.GET('checkInDate')
+        checkoutDate = req.GET('checkOutDate')
 
-    kwargs = {'cityCode': request.POST.get('locationCode'),
-              'checkInDate': request.POST.get('checkInDate'),
-              'checkOutDate': request.POST.get('checkOutDate')}
+        kwargs = {'cityCode': req.GET('locationCode'),
+                'checkInDate': req.GET('checkInDate'),
+                'checkOutDate': req.GET('checkOutDate')}
 
-    if origin and checkinDate and checkoutDate:
-        try:
-            # Hotel List
-            hotel_list = amadeus.reference_data.locations.hotels.by_city.get(cityCode=origin)
-        except ResponseError as error:
-            messages.add_message(request, messages.ERROR, error.response.body)
-            return render(request, 'hotels.html', {})
-        hotel_offers = []
-        hotel_ids = []
-        for i in hotel_list.data:
-            hotel_ids.append(i['hotelId'])
-        num_hotels = 40
-        kwargs = {'hotelIds': hotel_ids[0:num_hotels],
-                  'checkInDate': request.POST.get('checkInDate'),
-                  'checkOutDate': request.POST.get('checkOutDate')}
-        try:
-            # Hotel Search
-            search_hotels = amadeus.shopping.hotel_offers_search.get(**kwargs)
-        except ResponseError as error:
-            messages.add_message(request, messages.ERROR, error.response.body)
-            return render(request, 'hotels.html', {})
-        try:
-            for hotel in search_hotels.data:
-                offer = Hotel(hotel).construct_hotel()
-                hotel_offers.append(offer)
-                response = zip(hotel_offers, search_hotels.data)
+        if origin and checkinDate and checkoutDate:
+            try:
+                # Hotel List
+                hotel_list = amadeus.reference_data.locations.hotels.by_city.get(cityCode=origin)
+            except ResponseError as error:
+                messages.add_message(request, messages.ERROR, error.response.body)
+                return render(request, 'hotels.html', {})
+            hotel_offers = []
+            hotel_ids = []
+            for i in hotel_list.data:
+                hotel_ids.append(i['hotelId'])
+            num_hotels = 40
+            kwargs = {'hotelIds': hotel_ids[0:num_hotels],
+                    'checkInDate': req.GET('checkInDate'),
+                    'checkOutDate': req.GET('checkOutDate')}
+            try:
+                # Hotel Search
+                search_hotels = amadeus.shopping.hotel_offers_search.get(**kwargs)
+            except ResponseError as error:
+                messages.add_message(request, messages.ERROR, error.response.body)
+                return render(request, 'hotels.html', {})
+            try:
+                for hotel in search_hotels.data:
+                    offer = Hotel(hotel).construct_hotel()
+                    hotel_offers.append(offer)
+                    response = zip(hotel_offers, search_hotels.data)
 
-            return render(request, 'hotelsresults.html', {'response': response,
-                                                         'origin': origin,
-                                                         'departureDate': checkinDate,
-                                                         'returnDate': checkoutDate,
-                                                         })
-        except UnboundLocalError:
-            messages.add_message(request, messages.ERROR, 'No hotels found.')
-            return render(request, 'hotels.html', {})
-    return render(request, 'hotels.html', {})
+                return render(request, 'hotelsresults.html', {'response': response,
+                                                            'origin': origin,
+                                                            'departureDate': checkinDate,
+                                                            'returnDate': checkoutDate,
+                                                            })
+            except UnboundLocalError:
+                messages.add_message(request, messages.ERROR, 'No hotels found.')
+                return render(request, 'hotels.html', {})
+        return render(request, 'hotels.html', {})
 
 
 def rooms_per_hotel(request, hotel, departureDate, returnDate):
