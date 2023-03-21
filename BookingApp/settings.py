@@ -27,11 +27,11 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-h&@6&n)$0li4p@j#lsw2f^*sy$p@(i4hkty)ear3*s8k)7nc8v')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+
+DEBUG = os.environ.get('DEBUG_VALUE')
 
 #ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['traviabooking.azurewebsites.net', '127.0.0.1']
+ALLOWED_HOSTS = ['traviabooking.azurewebsites.net', '127.0.0.1', 'www.airtravia.co.ke']
 
 CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net", "http://127.0.0.1"]
 
