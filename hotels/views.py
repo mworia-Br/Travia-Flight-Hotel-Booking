@@ -4,14 +4,14 @@ from django.shortcuts import render
 from django.contrib import messages
 from .hotel import Hotel
 from .room import Room
-from django.http import HttpResponse, request
+from django.http import HttpResponse, HttpRequest
 
 amadeus = Client(
     client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
     client_secret='K95GQ2APHlRQ0R1l'
 )
 
-def search_hotels(req):
+def search_hotels(req, request: HttpRequest):
     if req.method == "GET":
         origin = req.GET['locationCode']
         checkinDate = req.GET['checkInDate']
