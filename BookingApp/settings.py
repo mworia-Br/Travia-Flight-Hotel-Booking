@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-h&@6&n)$0li4p@j#lsw2f^*sy$
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.environ.get('DEBUG_VALUE')
+DEBUG = False
 
 #ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['traviabooking.azurewebsites.net', '127.0.0.1', 'www.airtravia.co.ke', 'airtravia.co.ke']
