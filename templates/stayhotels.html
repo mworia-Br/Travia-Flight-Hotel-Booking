@@ -264,7 +264,7 @@
                             </div>
                         </div>
                         <div class="travels__line">
-                            <div class="travels__date">{{ departureDate }} - {{ returnDate }}</div>
+                            <div class="travels__date">{{ departureDate|date:"D, M Y" }} - {{ returnDate|date:"D, M Y" }}</div>
                             <div class="travels__rating">
                             <svg class="icon icon-star">
                                 <use xlink:href=" {% static '#icon-star' %} "></use></svg
@@ -670,122 +670,6 @@
       </footer>
     </div>
 
-    <div class="popup popup_login mfp-hide" id="popup-login">
-      <div class="login">
-        <div class="login__item">
-          <div class="login__title h3">Sign up on Fleet</div>
-          <div class="login__info">Use Your OpenID to Sign up</div>
-          <div class="login__btns">
-            <button class="button login__button">
-              <svg class="icon icon-google">
-                <use xlink:href=" {% static '#icon-google' %} "></use></svg
-              ><span>Google</span>
-            </button>
-            <button class="button-black login__button">
-              <svg class="icon icon-apple">
-                <use xlink:href=" {% static '#icon-apple' %} "></use></svg
-              ><span>Apple</span>
-            </button>
-          </div>
-          <div class="login__note">Or continue with email</div>
-          <div class="subscription">
-            <input
-              class="subscription__input"
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              required
-            />
-            <button class="subscription__btn">
-              <svg class="icon icon-arrow-next">
-                <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
-              </svg>
-            </button>
-          </div>
-          <div class="login__foot">
-            Already have an account? <a class="login__link" href="#">Login</a>
-          </div>
-        </div>
-        <div class="login__item">
-          <div class="login__title h3">Sign in</div>
-          <div class="login__form">
-            <div class="field field_view">
-              <div class="field__wrap">
-                <input
-                  class="field__input"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  required
-                />
-                <button class="field__view">
-                  <svg class="icon icon-eye">
-                    <use xlink:href=" {% static '#icon-eye' %} "></use>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <button class="button login__button">Login</button>
-          </div>
-          <div class="login__foot">
-            <a class="login__password" href="#">Forgot password?</a>
-          </div>
-        </div>
-        <div class="login__item">
-          <div class="login__title h3">Let’s confirm it’s really you</div>
-          <div class="login__info">
-            Help us secure your account. Please complete the verifications below
-          </div>
-          <div class="login__form">
-            <div class="login__variants">
-              <label class="radio">
-                <input
-                  class="radio__input"
-                  type="radio"
-                  name="login"
-                  checked="checked"
-                /><span class="radio__inner"
-                  ><span class="radio__tick"></span
-                  ><span class="radio__text"
-                    >Get the code by text message (SM) at +1 234 567 890</span
-                  ></span
-                >
-              </label>
-              <label class="radio">
-                <input class="radio__input" type="radio" name="login" /><span
-                  class="radio__inner"
-                  ><span class="radio__tick"></span
-                  ><span class="radio__text"
-                    >Get the code by email at tranm••••••••••••@gm•••.com</span
-                  ></span
-                >
-              </label>
-            </div>
-            <button class="button login__button">Continue</button>
-          </div>
-        </div>
-        <div class="login__item">
-          <div class="login__title h3">Enter your security code</div>
-          <div class="login__info">We texted your code to +1 234 567 890</div>
-          <div class="login__form">
-            <div class="login__code">
-              <div class="login__number">
-                <input type="tel" />
-              </div>
-              <div class="login__number">
-                <input type="tel" />
-              </div>
-              <div class="login__number">
-                <input type="tel" />
-              </div>
-              <div class="login__number">
-                <input type="tel" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- scripts-->
     <script src=" {% static 'js/lib/jquery.min.js' %} "></script>
