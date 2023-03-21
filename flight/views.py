@@ -215,7 +215,7 @@ def search_hotels1(req):
         except ResponseError as error:
             print(error)
 
-def search_hotels(req):
+def search_hotelsred(req):
     if req.method == "GET":
         checkin = req.GET["checkInDate"]
         checkout = req.GET["checkout"]

@@ -8,14 +8,14 @@ from django.http import HttpResponse
 
 amadeus = Client()
 
-def Hoteloffers(request):
-    origin = request.POST.get('Origin')
-    checkinDate = request.POST.get('Checkindate')
-    checkoutDate = request.POST.get('Checkoutdate')
+def search_hotels(request):
+    origin = request.POST.get('locationCode')
+    checkinDate = request.POST.get('checkInDate')
+    checkoutDate = request.POST.get('checkOutDate')
 
-    kwargs = {'cityCode': request.POST.get('Origin'),
-              'checkInDate': request.POST.get('Checkindate'),
-              'checkOutDate': request.POST.get('Checkoutdate')}
+    kwargs = {'cityCode': request.POST.get('locationCode'),
+              'checkInDate': request.POST.get('checkInDate'),
+              'checkOutDate': request.POST.get('checkOutDate')}
 
     if origin and checkinDate and checkoutDate:
         try:
@@ -44,7 +44,7 @@ def Hoteloffers(request):
                 hotel_offers.append(offer)
                 response = zip(hotel_offers, search_hotels.data)
 
-            return render(request, 'hotelsresults.html', {'response': response,
+            return render(request, 'demo/results.html', {'response': response,
                                                          'origin': origin,
                                                          'departureDate': checkinDate,
                                                          'returnDate': checkoutDate,
