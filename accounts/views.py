@@ -134,11 +134,11 @@ def roundtrip_view(req):
 def hotels_view(req):
     return render(req, 'hotels.html', {})
 
-@login_required
+@login_required(login_url='login')
 def profile(req):
     return render(req, 'profile.html', {})
 
-@login_required
+@login_required(login_url='login')
 def profile_orders(req):
     # retrieve the CartItem object with the specified primary key
     cart_items = CartItem.objects.filter(owner=req.user)
@@ -153,11 +153,11 @@ def profile_orders(req):
         }
         return render(req, 'profile-orders.html', context)
 
-@login_required
+@login_required(login_url='login')
 def profile_travelers(req):
     return render(req, 'profile-traveler.html', {})
 
-@login_required
+@login_required(login_url='login')
 def profile_traveleradd(req):
     return render(req, 'profile-traveler-new.html', {})
 
