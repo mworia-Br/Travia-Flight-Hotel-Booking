@@ -1,5 +1,5 @@
 import secrets
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth import login,logout, authenticate, get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.models import User
@@ -69,19 +69,18 @@ def login_view(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-        print(username)
-        print(password)
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            print("User is logged in")
             loggedin_user = User.objects.get(username=username)
             recipient = loggedin_user.email
-            print(recipient)
             emailbody = "Thank you for using Travia Booking Services. You were logged in to our test servers at: https://traviabooking.azurewebsites.net"
             emailsend(recipient, emailbody)
-            return redirect('index')
-            
+            next_url = request.GET.get('next', None) # get the 'next' parameter from the GET request
+            if next_url:
+                return redirect(next_url) # redirect to the 'next' URL if it exists
+            else:
+                return redirect('index') # redirect to the index page if 'next' does not exist
         else:
             return render(request, 'login.html', {'error': 'Invalid login credentials.'})
     else:
