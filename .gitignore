@@ -2,4 +2,3 @@ venv/
 db.sqlite3
 templates/workingfrontend/
 templates/workingfrontend.zip
-.env
