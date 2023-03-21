@@ -57,6 +57,8 @@ def search_hotels(req):
                 messages.add_message(request, messages.ERROR, 'No hotels found.')
                 return render(request, 'hotels.html', {})
         return render(request, 'hotels.html', {})
+    else:
+        return render(request, 'hotels.html', {})
 
 
 def rooms_per_hotel(request, hotel, departureDate, returnDate):
