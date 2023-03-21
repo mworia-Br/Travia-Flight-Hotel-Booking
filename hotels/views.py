@@ -33,8 +33,8 @@ def search_hotels(request):
             hotel_ids.append(i['hotelId'])
         num_hotels = 40
         kwargs = {'hotelIds': hotel_ids[0:num_hotels],
-            'checkInDate': request.POST.get('Checkindate'),
-            'checkOutDate': request.POST.get('Checkoutdate')}
+                  'checkInDate': request.POST.get('checkInDate'),
+                  'checkOutDate': request.POST.get('checkOutDate')}
         try:
             # Hotel Search
             search_hotels = amadeus.shopping.hotel_offers_search.get(**kwargs)
@@ -47,7 +47,7 @@ def search_hotels(request):
                 hotel_offers.append(offer)
                 response = zip(hotel_offers, search_hotels.data)
 
-            return render(request, 'demo/results.html', {'response': response,
+            return render(request, 'hotelsresults.html', {'response': response,
                                                          'origin': origin,
                                                          'departureDate': checkinDate,
                                                          'returnDate': checkoutDate,
