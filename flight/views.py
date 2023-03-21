@@ -122,7 +122,7 @@ def addCartItem(request, flight_data):
         return JsonResponse({"error": "Item not added to cart"})
 
 
-@login_required
+@login_required(login_url='/login/')
 def flight_checkout(req):
     if req.method == "GET":
         try:
