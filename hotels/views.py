@@ -6,7 +6,10 @@ from .hotel import Hotel
 from .room import Room
 from django.http import HttpResponse
 
-amadeus = Client()
+amadeus = Client(
+    client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
+    client_secret='K95GQ2APHlRQ0R1l'
+)
 
 def search_hotels(request):
     origin = request.POST.get('locationCode')
