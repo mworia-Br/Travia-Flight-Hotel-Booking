@@ -803,15 +803,6 @@
     <script src=" {% static 'js/demo.js' %} "></script>
     <script src=" {% static 'js/app.js' %} "></script>
     <script src=" {% static 'js/hotel.js' %} "></script>
-    <script>
-        window.addEventListener('load', function() {
-            var imgTags = document.querySelectorAll('.travels__preview img');
-            for (var i = 0; i < imgTags.length; i++) {
-                var imgTag = imgTags[i];
-                imgTag.setAttribute('src', 'https://s1.travix.com/hotels/' + imgTag.getAttribute('data-hotel-id') + '.jpg');
-            }
-        });
-    </script>
     <!-- svg sprite-->
     <div style="display: none">
       <svg width="0" height="0">
