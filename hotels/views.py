@@ -13,9 +13,9 @@ amadeus = Client(
 
 def search_hotels(req):
     if req.method == "GET":
-        origin = req.GET('locationCode')
-        checkinDate = req.GET('checkInDate')
-        checkoutDate = req.GET('checkOutDate')
+        origin = req.GET['locationCode']
+        checkinDate = req.GET['checkInDate']
+        checkoutDate = req.GET['checkOutDate']
 
         kwargs = {'cityCode': origin,
                 'checkInDate': checkinDate,
