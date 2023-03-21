@@ -17,9 +17,9 @@ def search_hotels(req):
         checkinDate = req.GET('checkInDate')
         checkoutDate = req.GET('checkOutDate')
 
-        kwargs = {'cityCode': req.GET('locationCode'),
-                'checkInDate': req.GET('checkInDate'),
-                'checkOutDate': req.GET('checkOutDate')}
+        kwargs = {'cityCode': origin,
+                'checkInDate': checkinDate,
+                'checkOutDate': checkoutDate}
 
         if origin and checkinDate and checkoutDate:
             try:
@@ -34,8 +34,8 @@ def search_hotels(req):
                 hotel_ids.append(i['hotelId'])
             num_hotels = 40
             kwargs = {'hotelIds': hotel_ids[0:num_hotels],
-                    'checkInDate': req.GET('checkInDate'),
-                    'checkOutDate': req.GET('checkOutDate')}
+                    'checkInDate': checkinDate,
+                    'checkOutDate': checkoutDate}
             try:
                 # Hotel Search
                 search_hotels = amadeus.shopping.hotel_offers_search.get(**kwargs)
