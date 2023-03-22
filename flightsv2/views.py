@@ -15,8 +15,8 @@ amadeus = Client(
 def search_flights(req):
     # Retrieve data from the UI form
     origin = req.GET["originCode"]
-    departure_date = req.GET["destinationCode"]
-    departure = req.GET["departureDate"]
+    destination = req.GET["destinationCode"]
+    departure_date = req.GET["departureDate"]
     return_date = req.GET["returnDate"]
     adults = req.GET["adults"]
     children = req.GET["children"]
@@ -84,7 +84,7 @@ def search_flights(req):
 
         return render(
             req,
-            "demo/results.html",
+            "flights-category-multi.html",
             {
                 "response": response,
                 "origin": origin,
