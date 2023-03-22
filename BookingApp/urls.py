@@ -23,6 +23,7 @@ admin.site.index_title  =  "Airtravia Admin"
 urlpatterns = [
     path('dashboard/', admin.site.urls),
     path('api/v1/flight/', include('flight.urls')),
+    path('api/v2/flight/', include('flightsv2.urls')),
     path('api/v1/hotel/', include('hotels.urls')),
     path('booking/', include('frontend.urls')),
     path('', include('accounts.urls')),

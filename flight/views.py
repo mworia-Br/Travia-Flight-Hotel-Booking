@@ -145,7 +145,7 @@ def flight_checkout(req):
             children_count = req.GET["children"]
             infants_count = req.GET["infants"]
             flight_Total = req.GET["flightTotal"]
-            traveler_s = adults_count + children_count + infants_count
+            traverer_s = int(adults_count) + int(children_count)
 
             # Create a dictionary of flight details to pass to the template
             flight_data = {
