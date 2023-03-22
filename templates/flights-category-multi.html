@@ -959,91 +959,93 @@
                 </button>
               </div>
               {% if response %}
-              <div class="flights__container">
-                <div class="flights__list">
-                  {% for r, flight in response %}
+            <div class="flights__container">
+              <div class="flights__list">
+                {% for r, flight in response %}
                   <div class="flight">
-                    {% if r.0firstFlightDepartureDate %}
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src="{{ r.0firstFlightAirlineLogo }}" alt="{{ r.0firstFlightAirline }}" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">{{ r.0firstFlightDepartureAirport }}</div>
-                            <div class="flight__time">{{ r.0firstFlightDepartureDate }}</div>
+                      
+                        {% if r.0firstFlightDepartureDate %}
+                        <div class="flight__item">
+                          <div class="flight__logo">
+                            <img src="{{ r.0firstFlightAirlineLogo }}" alt="{{ r.0firstFlightAirline }}" />
                           </div>
-                          <div class="flight__note">{{ r.0stop_time }}</div>
-                          <div class="flight__box">
-                            <div class="flight__title">{{ r.0firstFlightArrivalAirport }}</div>
-                            <div class="flight__time">{{ r.0firstFlightArrivalDate }}</div>
+                          <div class="flight__details">
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.0firstFlightDepartureAirport }}</div>
+                              <div class="flight__time">{{ r.0firstFlightDepartureDate }}</div>
+                            </div>
+                            <div class="flight__note">{{ r.0stop_time }}</div>
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.0firstFlightArrivalAirport }}</div>
+                              <div class="flight__time">{{ r.0firstFlightArrivalDate }}</div>
+                            </div>
                           </div>
                         </div>
-                      </div>
                       {% endif %}
                       {% if r.0secondFlightDepartureAirport %}
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src="{{ r.0secondFlightAirlineLogo }}" alt="{{ r.0secondFlightAirline }}" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">{{ r.0secondFlightDepartureAirport }}</div>
-                            <div class="flight__time">{{ r.0secondFlightDepartureDate }}</div>
+                        <div class="flight__item">
+                          <div class="flight__logo">
+                            <img src="{{ r.0secondFlightAirlineLogo }}" alt="{{ r.0secondFlightAirline }}" />
                           </div>
-                          <div class="flight__note">{{ r.0stop_time }}</div>
-                          <div class="flight__box">
-                            <div class="flight__title">{{ r.0secondFlightArrivalAirport }}</div>
-                            <div class="flight__time">{{ r.0secondFlightArrivalDate }}</div>
+                          <div class="flight__details">
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.0secondFlightDepartureAirport }}</div>
+                              <div class="flight__time">{{ r.0secondFlightDepartureDate }}</div>
+                            </div>
+                            <div class="flight__note">{{ r.0stop_time }}</div>
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.0secondFlightArrivalAirport }}</div>
+                              <div class="flight__time">{{ r.0secondFlightArrivalDate }}</div>
+                            </div>
                           </div>
                         </div>
-                      </div>
                       {% endif %}
                       {% if r.1firstFlightDepartureAirport %}
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src="{{ r.1firstFlightAirlineLogo }}" alt="{{ r.1firstFlightAirline }}" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">{{ r.1firstFlightDepartureAirport }}</div>
-                            <div class="flight__time">{{ r.1firstFlightDepartureDate }}</div>
+                        <div class="flight__item">
+                          <div class="flight__logo">
+                            <img src="{{ r.1firstFlightAirlineLogo }}" alt="{{ r.1firstFlightAirline }}" />
                           </div>
-                          <div class="flight__note">{{ r.1stop_time }}</div>
-                          <div class="flight__box">
-                            <div class="flight__title">{{ r.1firstFlightArrivalAirport }}</div>
-                            <div class="flight__time">{{ r.1firstFlightArrivalDate }}</div>
+                          <div class="flight__details">
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.1firstFlightDepartureAirport }}</div>
+                              <div class="flight__time">{{ r.1firstFlightDepartureDate }}</div>
+                            </div>
+                            <div class="flight__note">{{ r.1stop_time }}</div>
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.1firstFlightArrivalAirport }}</div>
+                              <div class="flight__time">{{ r.1firstFlightArrivalDate }}</div>
+                            </div>
                           </div>
                         </div>
-                      </div>
                       {% endif %}
                       {% if r.1secondFlightDepartureAirport %}
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src="{{ r.1secondFlightAirlineLogo }}" alt="{{ r.1secondFlightAirline }}" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">{{ r.1secondFlightDepartureAirport }}</div>
-                            <div class="flight__time">{{ r.1secondFlightDepartureDate }}</div>
+                        <div class="flight__item">
+                          <div class="flight__logo">
+                            <img src="{{ r.1secondFlightAirlineLogo }}" alt="{{ r.1secondFlightAirline }}" />
                           </div>
-                          <div>class="flight__note">{{ r.1stop_time }}</div>
+                        
+                          <div class="flight__details">
                             <div class="flight__box">
-                              <div class="flight__title">{{ r.1secondFlightArrivalAirport }}</div>
-                              <div class="flight__time">{{ r.1secondFlightArrivalDate }}</div>
+                              <div class="flight__title">{{ r.1secondFlightDepartureAirport }}</div>
+                              <div class="flight__time">{{ r.1secondFlightDepartureDate }}</div>
+                            </div>
+                            <div>class="flight__note">{{ r.1stop_time }}</div>
+                              <div class="flight__box">
+                                <div class="flight__title">{{ r.1secondFlightArrivalAirport }}</div>
+                                <div class="flight__time">{{ r.1secondFlightArrivalDate }}</div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    {% endif %}
+                      {% endif %}
                     
                     <div class="flight__control">
                       <div class="flight__info">
                         <svg class="icon icon-tick">
                           <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >Total duration {{ r.1FlightTotalDuration }}
+                        >{{ r.0FlightTotalDuration }}
                       </div>
-                      <a href="{% url 'book_flight' flight %}"></a><button class="button-stroke flight__button">
+                      <a href="{% url 'book_flight' flight %}"><button class="button-stroke flight__button">
                         <span class="flight__price">${{ r.price }}</span
                         ><span class="flight__more"
                           ><span>View deal</span>

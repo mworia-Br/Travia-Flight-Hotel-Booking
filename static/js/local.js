@@ -5,6 +5,7 @@ let shortDestination = "";
 let longOrigin = "";
 let longDestination = "";
 let departureDate = "";
+let returnDate = "";
 let arrivalDate = "";
 let departureTime = "";
 let arrivalTime = "";
@@ -152,6 +153,14 @@ function getToLocation(destinationCode) {
 }
 
 function handleFindFlight() {
+  departureDate = document.getElementById("date").value;
+  adults = document.getElementById("adults").value;
+  children = document.getElementById("children").value;
+  const flightresults_URL = `https://${checkoutHost}/api/v2/flight/search_flights/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}`;
+  window.location.href = flightresults_URL;
+}
+
+function handleFindFlightred() {
   departureDate = document.getElementById("date").value;
   adults = document.getElementById("adults").value;
   children = document.getElementById("children").value;
