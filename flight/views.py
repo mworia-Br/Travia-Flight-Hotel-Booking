@@ -11,8 +11,8 @@ from .room import Room
 from amadeus import Client, ResponseError, Location
 
 amadeus = Client(
-    client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
-    client_secret='K95GQ2APHlRQ0R1l'
+    client_id='hLMBIHXv892WmW68fznSbddJL0s6uc3a',
+    client_secret='CFAdAR5jl3crzHBW', hostname='production'
 )
 
 def select_destination(req, param):
