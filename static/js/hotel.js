@@ -1,4 +1,4 @@
-let locationCode = "";
+let locationCode = ""; let checkoutHost = window.location.host;
 let checkInDate = "";
 let checkOutDate = "";
 let rooms = 1;
