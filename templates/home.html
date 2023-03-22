@@ -96,6 +96,7 @@
       let longOrigin = "";
       let longDestination = "";
       let departureDate = "";
+      let returnDate = "";
       let arrivalDate = "";
       let departureTime = "";
       let arrivalTime = "";
@@ -246,9 +247,18 @@
         departureDate = document.getElementById("date").value;
         adults = document.getElementById("adults").value;
         children = document.getElementById("children").value;
+        const flightresults_URL = `https://${checkoutHost}/api/v2/flight/search_flights/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}`;
+        window.location.href = flightresults_URL;
+      }
+
+      function handleFindFlightred() {
+        departureDate = document.getElementById("date").value;
+        adults = document.getElementById("adults").value;
+        children = document.getElementById("children").value;
         infants = document.getElementById("infants").value;
         let flightEl = "";
         const flightData = document.getElementById("flightData");
+         
       
         fetch(`https://${checkoutHost}/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}`)
           .then((response) => response.json())
@@ -289,7 +299,6 @@
                 for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
                   arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
                   arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
-                  
                   flightEl +=
                     `
                     <div class="flight__box">
@@ -337,6 +346,7 @@
       function setDataFlight() {
         window.location.href = checkout_url;
       }
+          
       //const adults = document.getElementById('adultsCount').textContent;
       //const children = document.getElementById('childrenCount').textContent;
       // flightNumber = flight.itineraries[0].segments[i].carrier;
