@@ -1,4 +1,5 @@
 venv/
+BookingApp/settings.py
 db.sqlite3
 templates/workingfrontend/
 templates/workingfrontend.zip
