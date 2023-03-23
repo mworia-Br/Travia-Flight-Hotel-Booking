@@ -1,10 +1,11 @@
-let originCode = "";
+let originCode = ""; let checkoutHost = window.location.host;
 let destinationCode = "";
 let shortOrigin = "";
 let shortDestination = "";
 let longOrigin = "";
 let longDestination = "";
 let departureDate = "";
+let returnDate = "";
 let arrivalDate = "";
 let departureTime = "";
 let arrivalTime = "";
@@ -36,7 +37,7 @@ function handleFromLocation() {
   if (fromInput && fromLocationData) {
     const fromInputValue = fromInput.value.trim();
     if (fromInputValue.length > 1) {
-      fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInputValue}`)
+      fetch(`https://${checkoutHost}/api/v1/flight/select_destination/${fromInputValue}`)
         .then((response) => response.json())
         .then((data) => {
           fromLocationArray = data.data;
@@ -97,7 +98,7 @@ function handleToLocation() {
   if (toInput && toLocationData) {
     const toInputValue = toInput.value.trim();
     if (toInputValue.length > 1) {
-      fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${toInputValue}`)
+      fetch(`https://${checkoutHost}/api/v1/flight/select_destination/${toInputValue}`)
         .then((response) => response.json())
         .then((data) => {
           toLocationArray = data.data;
@@ -155,11 +156,20 @@ function handleFindFlight() {
   departureDate = document.getElementById("date").value;
   adults = document.getElementById("adults").value;
   children = document.getElementById("children").value;
+  const flightresults_URL = `https://${checkoutHost}/api/v2/flight/search_flights/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}`;
+  window.location.href = flightresults_URL;
+}
+
+function handleFindFlightred() {
+  departureDate = document.getElementById("date").value;
+  adults = document.getElementById("adults").value;
+  children = document.getElementById("children").value;
   infants = document.getElementById("infants").value;
   let flightEl = "";
   const flightData = document.getElementById("flightData");
+   
 
-  fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}`)
+  fetch(`https://${checkoutHost}/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}`)
     .then((response) => response.json())
     .then((data) => {
       flights = data.data;
@@ -207,7 +217,7 @@ function handleFindFlight() {
               </div>
               `;
           }
-          checkout_url = `https://traviabooking.azurewebsites.net/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&children=${children}&infants=${infants}&flightTotal=${flightTotal}`;
+          checkout_url = `https://${checkoutHost}/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&children=${children}&infants=${infants}&flightTotal=${flightTotal}`;
 
           flightEl +=
             `

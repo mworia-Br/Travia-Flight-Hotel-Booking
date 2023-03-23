@@ -81,6 +81,62 @@
         }
       }
     </script>
+    <script>
+      let checkoutHost = window.location.host;
+      function handleFlightdata(){
+        const inputs = document.querySelectorAll('input[type="hidden"]');
+        let variables = {};
+        inputs.forEach(input => {
+          variables[input.name] = input.value;
+        });
+        // Convert the object to a URL-encoded query string
+        const queryString = Object.keys(variables).map(key => `${key}=${encodeURIComponent(variables[key])}`).join('&');
+
+        // Append the query string to the URL
+        const confirmurl = `https://${checkoutHost}/api/v2/flight/checkoutHandle/?${queryString}`;
+        window.location.href = confirmurl;
+      }
+
+      function handleFlightdatastopped(){// Get all of the flight items on the page
+        const flightItems = document.querySelectorAll('.flight');
+
+        // Create an array to store the flight data
+        const flightData = [];
+
+        // Loop through each flight item and extract the flight data from the hidden inputs
+        flightItems.forEach((flightItem) => {
+          const flight = {};
+
+          flight.firstFlightDepartureDate = flightItem.querySelector('[name="first_flight_departure_date"]').value;
+          flight.firstFlightAirlineLogo = flightItem.querySelector('[name="first_flight_airline_logo"]').value;
+          flight.firstFlightAirline = flightItem.querySelector('[name="first_flight_airline"]').value;
+          flight.firstFlightDepartureAirport = flightItem.querySelector('[name="first_flight_departure_airport"]').value;
+          flight.firstFlightArrivalAirport = flightItem.querySelector('[name="first_flight_arrival_airport"]').value;
+          flight.firstFlightArrivalDate = flightItem.querySelector('[name="first_flight_arrival_date"]').value;
+          flight.stop_time = flightItem.querySelector('[name="stop_time"]').value;
+
+          // Check if there is a second flight
+          const hasSecondFlight = flightItem.querySelector('[name="second_flight_departure_date"]');
+          if (hasSecondFlight) {
+            flight.secondFlightDepartureDate = flightItem.querySelector('[name="second_flight_departure_date"]').value;
+            flight.secondFlightAirlineLogo = flightItem.querySelector('[name="second_flight_airline_logo"]').value;
+            flight.secondFlightAirline = flightItem.querySelector('[name="second_flight_airline"]').value;
+            flight.secondFlightDepartureAirport = flightItem.querySelector('[name="second_flight_departure_airport"]').value;
+            flight.secondFlightArrivalAirport = flightItem.querySelector('[name="second_flight_arrival_airport"]').value;
+            flight.secondFlightArrivalDate = flightItem.querySelector('[name="second_flight_arrival_date"]').value;
+          }
+
+          flight.totalDuration = flightItem.querySelector('[name="flight_total_duration"]').value;
+          flight.price = flightItem.querySelector('[name="flight_price"]').value;
+
+          // Add the flight data to the array
+          flightData.push(flight);
+        });
+
+        // Do something with the flight data, such as sending it to a server or storing it in local storage
+        console.log(flightData);
+        }
+    </script>
   </head>
   <body>
     <!-- outer-->
@@ -88,19 +144,19 @@
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href=" {% url 'index' %} ">
-            <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
+          <a class="header__logo" href="{% url 'index' %}">
+            <img class="some-icon" src="{% static 'img/logo-light.svg' %}" alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
             <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
             <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
             <a class="header__item" href="#">Promo</a>
             <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
-            <a class="header__item" href=" {% static 'support.html' %} ">Support</a>
+            <a class="header__item" href="support.html">Support</a>
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-globe">
-                  <use xlink:href=" {% static '#icon-globe' %} "></use></svg
+                  <use xlink:href="#icon-globe"></use></svg
                 >Language
               </button>
               <div class="header__body js-header-body">
@@ -124,14 +180,14 @@
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-coin">
-                  <use xlink:href=" {% static '#icon-coin' %} "></use>
+                  <use xlink:href="#icon-coin"></use>
                 </svg>
-                BDT
+                USD
               </button>
               <div class="header__body js-header-body">
                 <div class="header__list">
                   <a class="header__box active" href="#">
-                    <div class="header__category">BDT</div>
+                    <div class="header__category">USD</div>
                     <div class="header__country">Bangladesh</div></a
                   ><a class="header__box" href="#">
                     <div class="header__category">USD</div>
@@ -150,15 +206,15 @@
           <div class="header__item header__item_notification js-header-item">
             <button class="header__head js-header-head active">
               <svg class="icon icon-notification">
-                <use xlink:href=" {% static '#icon-notification' %} "></use>
+                <use xlink:href="#icon-notification"></use>
               </svg>
             </button>
             <div class="header__body js-header-body">
               <div class="header__title">Notification</div>
               <div class="header__notifications">
-                <a class="header__notification" href=" {% static 'message-center.html' %} ">
+                <a class="header__notification" href="message-center.html">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -168,9 +224,9 @@
                       class="header__status"
                       style="background-color: #3b71fe"
                     ></div></div></a
-                ><a class="header__notification" href=" {% static 'message-center.html' %} ">
+                ><a class="header__notification" href="message-center.html">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -184,43 +240,38 @@
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            class="status login__status js-popup-open"
-            href=" {% static '#popup-login' %} "
-            data-effect="mfp-zoom-in"
-          >
-            Login
+          <a class="button-stroke button-small header__button" href="{% url 'logout' %}">Logout</a>
           </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
-              <img src=" {% static 'img/content/avatar-2.jpg' %} " alt="Avatar" />
+              <img src="{% static 'img/content/avatar-2.jpg' %}" alt="Avatar" />
+              
             </button>
             <div class="header__body js-header-body">
               <div class="header__group">
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'message-center.html' %} ">
+                  <a class="header__link" href="message-center.html">
                     <svg class="icon icon-comment">
-                      <use xlink:href=" {% static '#icon-comment' %} "></use></svg
+                      <use xlink:href="#icon-comment"></use></svg
                     >Messages</a
-                  ><a class="header__link" href=" {% static 'bookings-list.html' %} ">
+                  ><a class="header__link" href="bookings-list.html">
                     <svg class="icon icon-home">
-                      <use xlink:href=" {% static '#icon-home' %} "></use></svg
+                      <use xlink:href="#icon-home"></use></svg
                     >Bookings</a
-                  ><a class="header__link" href=" {% static 'wishlists.html' %} ">
+                  ><a class="header__link" href="wishlists.html">
                     <svg class="icon icon-email">
-                      <use xlink:href=" {% static '#icon-email' %} "></use></svg
+                      <use xlink:href="#icon-email"></use></svg
                     >Wishlists</a
                   >
                 </div>
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'list-your-property.html' %} ">
+                  <a class="header__link" href="list-your-property.html">
                     <svg class="icon icon-building">
-                      <use xlink:href=" {% static '#icon-building' %} "></use></svg
+                      <use xlink:href="#icon-building"></use></svg
                     >List your property</a
-                  ><a class="header__link" href=" {% static 'host-an-experience.html' %} ">
+                  ><a class="header__link" href="host-an-experience.html">
                     <svg class="icon icon-flag">
-                      <use xlink:href=" {% static '#icon-flag' %} "></use></svg
+                      <use xlink:href="#icon-flag"></use></svg
                     >Host an experience</a
                   >
                 </div>
@@ -228,7 +279,7 @@
               <div class="header__btns">
                 <a
                   class="button button-small header__button"
-                  href=" {% static 'account-setting.html' %} "
+                  href="account-setting.html"
                   >Account</a
                 >
                 <button class="button-stroke button-small header__button">
@@ -242,155 +293,6 @@
       </header>
       <!-- outer content-->
       <div class="outer__inner">
-        <div class="section main main_flights-category">
-          <div class="main__bg">
-            <img src=" {% static 'img/content/bg-flight-1.jpg' %} " alt="Flight" />
-          </div>
-          <div class="main__center center">
-            <div class="panel panel_flights-category">
-              <div class="panel__background"></div>
-              <div class="panel__controls">
-                <a
-                  href=" {% static './flights-category.html' %} "
-                  class="button-stroke button-small panel__button"
-                >
-                  One-way
-                </a>
-                <a
-                  href=" {% static './flights-category-round.html' %} "
-                  class="button-stroke button-small panel__button"
-                >
-                  Round-trip
-                </a>
-                <a
-                  href=" {% static './flights-category-multi.html' %} "
-                  class="button-stroke button-small panel__button active"
-                >
-                  Multi-destination
-                </a>
-              </div>
-              <div class="panel__body">
-                <div class="panel__row">
-                  <div class="location js-location panel__item__rounded">
-                    <div class="location__head js-location-head">
-                      <div class="location__icon">
-                        <svg class="icon icon-marker">
-                          <use xlink:href=" {% static '#icon-marker' %} "></use>
-                        </svg>
-                      </div>
-                      <input
-                        class="location__input js-location-input"
-                        type="text"
-                        name="location"
-                        autocomplete="off"
-                        placeholder="Flying from"
-                      />
-                      <div class="location__description">Leaving from</div>
-                      <button class="location__clear js-location-clear">
-                        <svg class="icon icon-close-circle">
-                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="location__body js-location-body">
-                      <div class="location__list">
-                        <a class="location__item js-location-item" href="#"
-                          >New York, NY</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New York, Manhattan</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Zealand</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Smyrna Beach, FL</a
-                        ><a class="location__item js-location-item" href="#"
-                          >Newark, NJ</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="location js-location panel__item__rounded">
-                    <div class="location__head js-location-head">
-                      <div class="location__icon">
-                        <svg class="icon icon-location">
-                          <use xlink:href=" {% static '#icon-location' %} "></use>
-                        </svg>
-                      </div>
-                      <input
-                        class="location__input js-location-input"
-                        type="text"
-                        name="location"
-                        autocomplete="off"
-                        placeholder="Flying to"
-                      />
-                      <div class="location__description">Going to</div>
-                      <button class="location__clear js-location-clear">
-                        <svg class="icon icon-close-circle">
-                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="location__body js-location-body">
-                      <div class="location__list">
-                        <a class="location__item js-location-item" href="#"
-                          >New York, NY</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New York, Manhattan</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Zealand</a
-                        ><a class="location__item js-location-item" href="#"
-                          >New Smyrna Beach, FL</a
-                        ><a class="location__item js-location-item" href="#"
-                          >Newark, NJ</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="datepicker js-date-range"
-                    data-format="ddd, MMM DD"
-                    data-container=".datepicker"
-                  >
-                    <div class="datepicker__list">
-                      <div class="datepicker__item panel__item__rounded">
-                        <input
-                          class="datepicker__input js-date-from"
-                          type="text"
-                          placeholder="Departure"
-                          readonly="readonly"
-                        />
-                        <div class="datepicker__icon">
-                          <svg class="icon icon-calendar">
-                            <use xlink:href=" {% static '#icon-calendar' %} "></use>
-                          </svg>
-                        </div>
-                        <div class="datepicker__description">Departure</div>
-                      </div>
-                      <div class="datepicker__item panel__item__rounded">
-                        <input
-                          class="datepicker__input js-date-to"
-                          type="text"
-                          placeholder="Return"
-                          readonly="readonly"
-                        />
-                        <div class="datepicker__icon">
-                          <svg class="icon icon-calendar">
-                            <use xlink:href=" {% static '#icon-calendar' %} "></use>
-                          </svg>
-                        </div>
-                        <div class="datepicker__description">return date</div>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="panel__search" href=" {% static 'flights-category.html' %} ">
-                    <svg class="icon icon-search">
-                      <use xlink:href=" {% static '#icon-search' %} "></use></svg
-                    ><span>Search</span></a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="section flights">
           <div class="flights__center center">
             <div class="control">
@@ -1107,272 +1009,138 @@
                   >Reset filter
                 </button>
               </div>
-              <div class="flights__container">
-                <div class="flights__list">
+              {% if response %}
+            <div class="flights__container">
+              <div class="flights__list">
+                {% for r, flight in response %}
                   <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
+                      
+                        {% if r.0firstFlightDepartureDate %}
+                          <input type="hidden" name="0firstFlightDepartureDate" value="{{ r.0firstFlightDepartureDate }}">
+                          <input type="hidden" name="0firstFlightAirlineLogo" value="{{ r.0firstFlightAirlineLogo }}">
+                          <input type="hidden" name="0firstFlightAirline" value="{{ r.0firstFlightAirline }}">
+                          <input type="hidden" name="0firstFlightDepartureAirport" value="{{ r.0firstFlightDepartureAirport }}">
+                          <input type="hidden" name="0firstFlightArrivalAirport" value="{{ r.0firstFlightArrivalAirport }}">
+                          <input type="hidden" name="0firstFlightArrivalDate" value="{{ r.0firstFlightArrivalDate }}">
+                          <input type="hidden" name="0stop_time" value="{{ r.0stop_time }}">
+                          <div class="flight__item">
+                          <div class="flight__logo">
+                            <img src="{{ r.0firstFlightAirlineLogo }}" alt="{{ r.0firstFlightAirline }}" />
                           </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
+                          <div class="flight__details">
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.0firstFlightDepartureAirport }}</div>
+                              <div class="flight__time">{{ r.0firstFlightDepartureDate }}</div>
+                            </div>
+                            <div class="flight__note">{{ r.0stop_time }}</div>
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.0firstFlightArrivalAirport }}</div>
+                              <div class="flight__time">{{ r.0firstFlightArrivalDate }}</div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
+                      {% endif %}
+                      {% if r.0secondFlightDepartureAirport %}
+                        <input type="hidden" name="0secondFlightDepartureDate" value="{{ r.0secondFlightDepartureDate }}">
+                        <input type="hidden" name="0secondFlightAirlineLogo" value="{{ r.0secondFlightAirlineLogo }}">
+                        <input type="hidden" name="0secondFlightAirline" value="{{ r.0secondFlightAirline }}">
+                        <input type="hidden" name="0secondFlightDepartureAirport" value="{{ r.0secondFlightDepartureAirport }}">
+                        <input type="hidden" name="0secondFlightArrivalAirport" value="{{ r.0secondFlightArrivalAirport }}">
+                        <input type="hidden" name="0secondFlightArrivalDate" value="{{ r.0secondFlightArrivalDate }}">
+                        <div class="flight__item">
+                          <div class="flight__logo">
+                            <img src="{{ r.0secondFlightAirlineLogo }}" alt="{{ r.0secondFlightAirline }}" />
+                          </div>
+                          <div class="flight__details">
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.0secondFlightDepartureAirport }}</div>
+                              <div class="flight__time">{{ r.0secondFlightDepartureDate }}</div>
+                            </div>
+                            <div class="flight__note">{{ r.0stop_time }}</div>
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.0secondFlightArrivalAirport }}</div>
+                              <div class="flight__time">{{ r.0secondFlightArrivalDate }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+                      {% if r.1firstFlightDepartureAirport %}
+                        <input type="hidden" name="1firstFlightDepartureDate" value="{{ r.1firstFlightDepartureDate }}">
+                        <input type="hidden" name="1firstFlightAirlineLogo" value="{{ r.1firstFlightAirlineLogo }}">
+                        <input type="hidden" name="1firstFlightAirline" value="{{ r.1firstFlightAirline }}">
+                        <input type="hidden" name="1firstFlightDepartureAirport" value="{{ r.1firstFlightDepartureAirport }}">
+                        <input type="hidden" name="1firstFlightArrivalAirport" value="{{ r.1firstFlightArrivalAirport }}">
+                        <input type="hidden" name="1firstFlightArrivalDate" value="{{ r.1firstFlightArrivalDate }}">
+                        <input type="hidden" name="1stop_time" value="{{ r.1stop_time }}">
+                        <div class="flight__item">
+                          <div class="flight__logo">
+                            <img src="{{ r.1firstFlightAirlineLogo }}" alt="{{ r.1firstFlightAirline }}" />
+                          </div>
+                          <div class="flight__details">
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.1firstFlightDepartureAirport }}</div>
+                              <div class="flight__time">{{ r.1firstFlightDepartureDate }}</div>
+                            </div>
+                            <div class="flight__note">{{ r.1stop_time }}</div>
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.1firstFlightArrivalAirport }}</div>
+                              <div class="flight__time">{{ r.1firstFlightArrivalDate }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+                      {% if r.1secondFlightDepartureAirport %}
+                        <input type="hidden" name="1secondFlightDepartureDate" value="{{ r.1secondFlightDepartureDate }}">
+                        <input type="hidden" name="1secondFlightAirlineLogo" value="{{ r.1secondFlightAirlineLogo }}">
+                        <input type="hidden" name="1secondFlightAirline" value="{{ r.1secondFlightAirline }}">
+                        <input type="hidden" name="1secondFlightDepartureAirport" value="{{ r.1secondFlightDepartureAirport }}">
+                        <input type="hidden" name="1secondFlightArrivalAirport" value="{{ r.1secondFlightArrivalAirport }}">
+                        <input type="hidden" name="1secondFlightArrivalDate" value="{{ r.1secondFlightArrivalDate }}">
+                        <div class="flight__item">
+                          <div class="flight__logo">
+                            <img src="{{ r.1secondFlightAirlineLogo }}" alt="{{ r.1secondFlightAirline }}" />
+                          </div>
+                        
+                          <div class="flight__details">
+                            <div class="flight__box">
+                              <div class="flight__title">{{ r.1secondFlightDepartureAirport }}</div>
+                              <div class="flight__time">{{ r.1secondFlightDepartureDate }}</div>
+                            </div>
+                            <div>class="flight__note">{{ r.1stop_time }}</div>
+                              <div class="flight__box">
+                                <div class="flight__title">{{ r.1secondFlightArrivalAirport }}</div>
+                                <div class="flight__time">{{ r.1secondFlightArrivalDate }}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+                    
                     <div class="flight__control">
+                      <input type="hidden" name="flight_total_duration" value="{{ r.0FlightTotalDuration }}">
+                      <input type="hidden" name="flight_price" value="{{ r.price }}">
                       <div class="flight__info">
                         <svg class="icon icon-tick">
                           <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
+                        >{{ r.0FlightTotalDuration }}
                       </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
+                      <input type="hidden" name="flight_dict" value="{{flight}}">
+                      <button class="button-stroke flight__button" onclick="handleFlightdata()">
+                        <span class="flight__price">${{ r.price }}</span
                         ><span class="flight__more"
                           ><span>View deal</span>
                           <svg class="icon icon-arrow-next">
                             <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
                         ></span>
-                      </button>
+                        </button>
                     </div>
                   </div>
-                  <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flight__control">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
-                      </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flight__control">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
-                      </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flight__control">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
-                      </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="flight">
-                    <div class="flight__wrap">
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">6:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">9:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flight__item">
-                        <div class="flight__logo">
-                          <img src=" {% static 'img/content/emirates.svg' %} " alt="Emirates" />
-                        </div>
-                        <div class="flight__details">
-                          <div class="flight__box">
-                            <div class="flight__title">SGN</div>
-                            <div class="flight__time">12:45 AM</div>
-                          </div>
-                          <div class="flight__note">nonstop</div>
-                          <div class="flight__box">
-                            <div class="flight__title">AKL</div>
-                            <div class="flight__time">3:45 AM</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flight__control">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >eDreams
-                      </div>
-                      <button class="button-stroke flight__button">
-                        <span class="flight__price">$3,256</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="flights__btns">
-                  <button class="button-stroke flights__button">
-                    <div class="loader"></div>
-                    <span>Show more</span>
-                  </button>
-                </div>
+                  {% endfor %}
               </div>
+              {% else %}
+              <div class="flight__title">No flights found for this search</div>    
             </div>
+            {% endif %}
           </div>
         </div>
         <div class="section-pd section-mb0 section-bg">

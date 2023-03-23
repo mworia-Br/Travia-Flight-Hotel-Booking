@@ -1,11 +1,30 @@
-let originCode = "";
+let originCode = ""; let checkoutHost = window.location.host;
 let destinationCode = "";
+let shortOrigin = "";
+let shortDestination = "";
+let longOrigin = "";
+let longDestination = "";
 let departureDate = "";
+let returnDate = "";
+let arrivalDate = "";
+let departureTime = "";
+let arrivalTime = "";
+let flightDuration = "";
+let depTerminal = "";
+let arrTerminal = "";
+let flightTotal = "";
+let airlineCode = "";
+let logoUrl = "";
+let bookableSeats = "";
+let lastTicketing = "";
+let checkout_url = ``;
 let adults = 1;
 let children = 0;
+let infants = 0;
 let fromLocationArray = [];
 let toLocationArray = [];
 let flights = [];
+let flightCosts = [];
 
 const fromLocationData = document.getElementById("fromLocationData");
 const toLocationData = document.getElementById("toLocationData");
@@ -18,7 +37,7 @@ function handleFromLocation() {
   if (fromInput && fromLocationData) {
     const fromInputValue = fromInput.value.trim();
     if (fromInputValue.length > 1) {
-      fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${fromInputValue}`)
+      fetch(`https://${checkoutHost}/api/v1/flight/select_destination/${fromInputValue}`)
         .then((response) => response.json())
         .then((data) => {
           fromLocationArray = data.data;
@@ -32,6 +51,9 @@ function handleFromLocation() {
               locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
               locationItem.onclick = () => {
                 fromInput.value = location.name;
+                originCode = location.iataCode;
+                shortOrigin = location.address.cityName;
+                longOrigin = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                 fromLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -64,9 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
-function getFromLocation(regionCode) {
-  originCode = regionCode;
+function getFromLocation(originCode) {
   console.log(originCode);
   fromLocationData.style.display = "none";
 }
@@ -78,7 +98,7 @@ function handleToLocation() {
   if (toInput && toLocationData) {
     const toInputValue = toInput.value.trim();
     if (toInputValue.length > 1) {
-      fetch(`https://traviabooking.azurewebsites.net/api/v1/flight/select_destination/${toInputValue}`)
+      fetch(`https://${checkoutHost}/api/v1/flight/select_destination/${toInputValue}`)
         .then((response) => response.json())
         .then((data) => {
           toLocationArray = data.data;
@@ -92,6 +112,9 @@ function handleToLocation() {
               locationItem.innerText = `${location.name}, ${location.subType}: ${location.address.cityName}`;
               locationItem.onclick = () => {
                 toInput.value = location.name;
+                destinationCode = location.iataCode;
+                shortDestination = location.address.cityName;
+                longDestination = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                 toLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -124,108 +147,116 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-function getToLocation(regionCode) {
-  destinationCode = regionCode;
+function getToLocation(destinationCode) {
+  console.log(destinationCode);
   toLocationData.style.display = "none";
 }
 
 function handleFindFlight() {
   departureDate = document.getElementById("date").value;
-  let flightEl = "";
+  adults = document.getElementById("adults").value;
+  children = document.getElementById("children").value;
+  const flightresults_URL = `https://${checkoutHost}/api/v2/flight/search_flights/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}`;
+  window.location.href = flightresults_URL;
+}
 
-  fetch(
-    `https://traviabooking.azurewebsites.net/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}`
-  )
+function handleFindFlightred() {
+  departureDate = document.getElementById("date").value;
+  adults = document.getElementById("adults").value;
+  children = document.getElementById("children").value;
+  infants = document.getElementById("infants").value;
+  let flightEl = "";
+  const flightData = document.getElementById("flightData");
+   
+
+  fetch(`https://${checkoutHost}/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}`)
     .then((response) => response.json())
     .then((data) => {
       flights = data.data;
 
       if (flights) {
         flights.map((flight) => {
-         console.log(flight)
+          // Extract the validating airline code from the flight object
+          airlineCode = flight.validatingAirlineCodes[0];
+          // Construct the URL of the airline logo based on the airline code
+          logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
+          // Define constants to pass to checkout view
+          departureTime = flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5);          
+          flightDuration = flight.itineraries[0].duration;
+          flightTotal = flight.price.total;
+          lastTicketing = flight.lastTicketingDate;
+          bookableSeats = flight.numberOfBookableSeats;
+          
           flightEl +=
-            '\
-         <div class="card mb-3 mt-3" >\
-         <div class="card-header">\
-           <b>Price:</b>  ' +
-            flight.price.total +
-            "  (\
-           " +
-            flight.price.currency +
-            ' )\
-         </div>\
-         <div class="card-body">\
-           Number of Seats Available:  ' +
-            flight.numberOfBookableSeats +
-            "\
-           <br />\
-           Last Ticketing Date:  " +
-            flight.lastTicketingDate +
-            "\
-           <hr />\
-           <h5>Itineraries</h5>\
-           Duration:  " +
-            flight.itineraries[0].duration +
-            ' \
-           <hr />\
-           <h5>Enter your details:</h5>\
-           <input type="text" id="first" placeholder="Your first Name" class="form-control"/>\
-           <br />\
-           <input type="text" id="last" placeholder="Your Last Name" class="form-control"/>\
-         </div>\
-         <div class="card-footer">\
-           <button class="btn btn-primary" onclick="BookFlight(flight)">Book Flight</button>\
-         </div>\
-       </div>'
+            `
+            <div class="flight">
+              <form method="post">
+                {% csrf_token %}
+              <div class="flight__wrap">
+                <div class="flight__item">
+                  <div class="flight__logo">
+                    <img src="${logoUrl}" alt="${airlineCode}" />
+                  </div>
+                  <div class="flight__details">
+                    <div class="flight__box">
+                      <div class="flight__title">${originCode}</div>
+                      <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
+                    </div>
+                    <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
+          `;
+
+          for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
+            arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
+            arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
+
+            flightEl +=
+              `
+              <div class="flight__box">
+                <div class="flight__title">${flight.itineraries[0].segments[i].arrival.iataCode}</div>
+                <div class="flight__time">${flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5)}</div>
+              </div>
+              `;
+          }
+          checkout_url = `https://${checkoutHost}/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&children=${children}&infants=${infants}&flightTotal=${flightTotal}`;
+
+          flightEl +=
+            `
+                  </div>
+                </div>
+              </div>
+              <div class="flight__control">
+                <div class="flight__info">
+                  <svg class="icon icon-tick">
+                    <use xlink:href="#icon-tick"></use>
+                  </svg>
+                  ${flight.price.currency}
+                </div>
+                <button class="button-stroke flight__button" onclick="setDataFlight()">
+
+                  <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
+                  <span class="flight__more">
+                    <span>View deal</span>
+                    <svg class="icon icon-arrow-next">
+                      <use xlink:href="#icon-arrow-next"></use>
+                    </svg>
+                  </span>
+              </button>
+              </div>
+            </div>
+            `;  
         });
         flightData.innerHTML = flightEl;
+
       } else {
         alert("No flight Data found");
       }
-    });
-}
-
-function BookFlight(flight) {
-  const first = document.getElementById("first").value;
-  const last = document.getElementById("last").value;
-
-  fetch("https://traviabooking.azurewebsites.net/api/v1/flight/price_offers", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      flight,
-    }),
-  })
-    .then((response) => response.json())
-    .then((dataObject) => {
-      console.log("Success:", dataObject);
-
-      fetch("https://traviabooking.azurewebsites.net/api/v1/flight/book_flight/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          flight,
-          traveler: { first, last },
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-          flights = [];
-        })
-        .catch((error) => {
-          alert(error);
-        });
     })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert(error);
-    });
+    .catch((error) => console.log(error));
 }
 
+function setDataFlight() {
+  window.location.href = checkout_url;
+}
 //const adults = document.getElementById('adultsCount').textContent;
 //const children = document.getElementById('childrenCount').textContent;
+// flightNumber = flight.itineraries[0].segments[i].carrier;

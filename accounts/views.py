@@ -1,5 +1,5 @@
 import secrets
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth import login,logout, authenticate, get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.models import User
@@ -22,8 +22,8 @@ import json
 from flight.models import CartItem
 
 amadeus = Client(
-    client_id='zUlxNy4Kc6l5oSALcurajPCAUaYpDq1s',
-    client_secret='K95GQ2APHlRQ0R1l'
+    client_id='hLMBIHXv892WmW68fznSbddJL0s6uc3a',
+    client_secret='CFAdAR5jl3crzHBW', hostname='production'
 )
 
 # Create your views here.
@@ -38,9 +38,14 @@ def emailsend(recipient, emailbody):
     sending = msg.send()
     print(sending)
 
-@login_required(login_url='login')
 def Index(req):
-    return render(req, 'index.html')
+    if req.user.is_authenticated:
+        return render(req, 'index.html')
+    else:
+        return redirect('home')
+
+def Home(req):
+    return render(req, 'home.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -53,10 +58,9 @@ def signup(request):
             user.set_password(password)
             user.save()
             login(request, user)
-            messages.success(request, "Registration successful.")
             return redirect('index')
         else:
-            messages.error(request, "Please correct the errors below.")
+            return redirect('signup')
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
@@ -65,19 +69,18 @@ def login_view(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-        print(username)
-        print(password)
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            print("User is logged in")
             loggedin_user = User.objects.get(username=username)
             recipient = loggedin_user.email
-            print(recipient)
-            emailbody = "Thank you for using Travia Booking Services. You were logged in to our test servers at: https://traviabooking.azurewebsites.net"
+            emailbody = "Thank you for using Travia Booking Services. You were successfully logged in to our test servers."
             emailsend(recipient, emailbody)
-            return redirect('index')
-            
+            next_url = request.GET.get('next', None) # get the 'next' parameter from the GET request
+            if next_url:
+                return redirect(next_url) # redirect to the 'next' URL if it exists
+            else:
+                return redirect('index') # redirect to the index page if 'next' does not exist
         else:
             return render(request, 'login.html', {'error': 'Invalid login credentials.'})
     else:
@@ -118,23 +121,23 @@ def password_reset_confirm(request, uidb64, token):
     else:
         return render(request, 'password_reset_invalid.html')
 
-@login_required
+@login_required(login_url='login')
 def oneway_view(req):
     return render(req, 'flights-category.html', {})
 
-@login_required
+@login_required(login_url='login')
 def roundtrip_view(req):
     return render(req, 'flights-category-round.html', {})
 
-@login_required
+@login_required(login_url='login')
 def hotels_view(req):
     return render(req, 'hotels.html', {})
 
-@login_required
+@login_required(login_url='login')
 def profile(req):
     return render(req, 'profile.html', {})
 
-@login_required
+@login_required(login_url='login')
 def profile_orders(req):
     # retrieve the CartItem object with the specified primary key
     cart_items = CartItem.objects.filter(owner=req.user)
@@ -149,11 +152,11 @@ def profile_orders(req):
         }
         return render(req, 'profile-orders.html', context)
 
-@login_required
+@login_required(login_url='login')
 def profile_travelers(req):
     return render(req, 'profile-traveler.html', {})
 
-@login_required
+@login_required(login_url='login')
 def profile_traveleradd(req):
     return render(req, 'profile-traveler-new.html', {})
 

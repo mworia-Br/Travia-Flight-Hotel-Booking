@@ -27,13 +27,13 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-h&@6&n)$0li4p@j#lsw2f^*sy$p@(i4hkty)ear3*s8k)7nc8v')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = False
 
 #ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['traviabooking.azurewebsites.net', '127.0.0.1']
+ALLOWED_HOSTS = ['traviabooking.azurewebsites.net', '127.0.0.1', 'www.airtravia.co.ke', 'airtravia.co.ke']
 
-CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net", "http://127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net", "http://127.0.0.1", "https://www.airtravia.co.ke"]
 
 
 # Application definition
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'flight',
+    'flightsv2',
+    'hotels',
     'frontend',
     'accounts',
     'anymail',
@@ -90,7 +92,6 @@ WSGI_APPLICATION = 'BookingApp.wsgi.application'
 
 
 #local database settings
-
 """
 DATABASES = {
     'default': {
