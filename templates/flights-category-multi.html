@@ -1014,8 +1014,8 @@
               <div class="flights__list">
                 {% for r, flight in response %}
                   <div class="flight">
-                      
-                        {% if r.0firstFlightDepartureDate %}
+                    <div class="flight__wrap"> 
+                      {% if r.0firstFlightDepartureDate %}
                           <input type="hidden" name="0firstFlightDepartureDate" value="{{ r.0firstFlightDepartureDate }}">
                           <input type="hidden" name="0firstFlightAirlineLogo" value="{{ r.0firstFlightAirlineLogo }}">
                           <input type="hidden" name="0firstFlightAirline" value="{{ r.0firstFlightAirline }}">
@@ -1023,7 +1023,7 @@
                           <input type="hidden" name="0firstFlightArrivalAirport" value="{{ r.0firstFlightArrivalAirport }}">
                           <input type="hidden" name="0firstFlightArrivalDate" value="{{ r.0firstFlightArrivalDate }}">
                           <input type="hidden" name="0stop_time" value="{{ r.0stop_time }}">
-                          <div class="flight__item">
+                        <div class="flight__item">
                           <div class="flight__logo">
                             <img src="{{ r.0firstFlightAirlineLogo }}" alt="{{ r.0firstFlightAirline }}" />
                           </div>
@@ -1106,7 +1106,7 @@
                               <div class="flight__title">{{ r.1secondFlightDepartureAirport }}</div>
                               <div class="flight__time">{{ r.1secondFlightDepartureDate }}</div>
                             </div>
-                            <div>class="flight__note">{{ r.1stop_time }}</div>
+                            <div class="flight__note">{{ r.1stop_time }}</div>
                               <div class="flight__box">
                                 <div class="flight__title">{{ r.1secondFlightArrivalAirport }}</div>
                                 <div class="flight__time">{{ r.1secondFlightArrivalDate }}</div>
@@ -1116,26 +1116,27 @@
                         </div>
                       {% endif %}
                     
-                    <div class="flight__control">
-                      <input type="hidden" name="flight_total_duration" value="{{ r.0FlightTotalDuration }}">
-                      <input type="hidden" name="flight_price" value="{{ r.price }}">
-                      <div class="flight__info">
-                        <svg class="icon icon-tick">
-                          <use xlink:href=" {% static '#icon-tick' %} "></use></svg
-                        >{{ r.0FlightTotalDuration }}
+                      <div class="flight__control">
+                        <input type="hidden" name="flight_total_duration" value="{{ r.0FlightTotalDuration }}">
+                        <input type="hidden" name="flight_price" value="{{ r.price }}">
+                        <div class="flight__info">
+                          <svg class="icon icon-tick">
+                            <use xlink:href=" {% static '#icon-tick' %} "></use></svg
+                          >{{ r.0FlightTotalDuration }}
+                        </div>
+                        <input type="hidden" name="flight_dict" value="{{flight}}">
+                        <button class="button-stroke flight__button" onclick="handleFlightdata()">
+                          <span class="flight__price">${{ r.price }}</span
+                          ><span class="flight__more"
+                            ><span>View deal</span>
+                            <svg class="icon icon-arrow-next">
+                              <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
+                          ></span>
+                          </button>
                       </div>
-                      <input type="hidden" name="flight_dict" value="{{flight}}">
-                      <button class="button-stroke flight__button" onclick="handleFlightdata()">
-                        <span class="flight__price">${{ r.price }}</span
-                        ><span class="flight__more"
-                          ><span>View deal</span>
-                          <svg class="icon icon-arrow-next">
-                            <use xlink:href=" {% static '#icon-arrow-next' %} "></use></svg
-                        ></span>
-                        </button>
                     </div>
                   </div>
-                  {% endfor %}
+                {% endfor %}
               </div>
               {% else %}
               <div class="flight__title">No flights found for this search</div>    

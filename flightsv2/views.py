@@ -82,7 +82,7 @@ def search_flights(req):
             country = search_flights.result['dictionaries'].get('locations').get(destination).get('countryCode')
             # Get the travel restrictions for the destination
             travel_restrictions = amadeus.duty_of_care.diseases.covid19_report.get(countryCode=country)
-            documents = travel_restrictions.data['areaAccessRestriction']['declarationDocuments']['text']
+            documents = travel_restrictions.data['areaAccessRestriction']['declarationDocuments'].get('text', None)
             covid_tests = travel_restrictions.data['areaAccessRestriction']['travelTest']['travelTestConditionsAndRules'][0]['scenarios'][0]['condition']['textualScenario']
         except ResponseError as error:
             messages.add_message(
@@ -182,4 +182,7 @@ def get_city_airport_list(data):
 
 def checkoutHandle(req):
     # Get the variables from the query parameters
+    origin1 = req.GET["0firstFlightDepartureAirport"]
+    print(origin1)
+
     return render(req, "undermaintenaice.html", {})
