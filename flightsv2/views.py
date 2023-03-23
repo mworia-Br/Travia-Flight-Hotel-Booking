@@ -8,6 +8,7 @@ from .booking import Booking
 from django.http import HttpResponse, HttpRequest
 from django.http import JsonResponse
 from urllib.parse import parse_qs
+from flight.models import CartItem, SearchedRoute
 
 amadeus = Client(
     client_id='hLMBIHXv892WmW68fznSbddJL0s6uc3a',
@@ -23,6 +24,15 @@ def search_flights(req):
     adults = req.GET["adults"]
     children = req.GET["children"]
     currency = 'USD'
+
+    # Create a new SearchedRoute object and save it to the database
+    route = SearchedRoute.objects.create(
+        origin=origin, 
+        destination=destination, 
+        departure_date=departure_date,
+        adults_count=adults,
+        children_count=children
+    )
 
     # Prepare url parameters for search
     kwargs = {
