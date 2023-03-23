@@ -6,6 +6,7 @@ from django.contrib import messages
 from .flight import Flight
 from .booking import Booking
 from django.http import HttpResponse, HttpRequest
+from django.http import JsonResponse
 from urllib.parse import parse_qs
 
 amadeus = Client(
@@ -21,6 +22,7 @@ def search_flights(req):
     return_date = req.GET["returnDate"]
     adults = req.GET["adults"]
     children = req.GET["children"]
+    currency = 'USD'
 
     # Prepare url parameters for search
     kwargs = {
@@ -29,7 +31,8 @@ def search_flights(req):
         "departureDate": departure_date,
         "adults": adults,
         "children": children,
-    }
+        #"currency": currency
+        }
 
     # For a round trip, we use AI Trip Purpose Prediction
     # to predict if it is a leisure or business trip
@@ -42,7 +45,10 @@ def search_flights(req):
             "destinationLocationCode": destination,
             "departureDate": departure_date,
             "returnDate": return_date,
-        }
+            "adults": adults,
+            "children": children,
+            #"currency": currency
+            }
         try:
             # Calls Trip Purpose Prediction API
             trip_purpose_response = amadeus.travel.predictions.trip_purpose.get(
@@ -100,14 +106,6 @@ def search_flights(req):
 
 def book_flight(req, flight):
     # Create a fake traveler profile for booking
-    flight_data = json.loads(flight)
-    print("flight")
-    print("-----------------")
-    print("-----------------")
-    print("-----------------")
-    print("-----------------")
-    print(flight_data)
-    
     traveler = {
         "id": "1",
         "dateOfBirth": "1982-01-16",
@@ -171,46 +169,7 @@ def get_city_airport_list(data):
     result = list(dict.fromkeys(result))
     return json.dumps(result)
     
-"""
-def checkout(req, flight):
-    #process flight data to display in checkout page
-    query_params = parse_qs(flight.strip('{}'))
-    flight_id = query_params['id'][0]
-    source = query_params['source'][0]
-    departure_time = query_params['itineraries'][0]['segments'][0]['departure']['at']
-    arrival_time = query_params['itineraries'][0]['segments'][-1]['arrival']['at']
-    price = query_params['price']['total']
-    destination = query_params['itineraries'][0]['segments'][-1]['arrival']['iataCode']
-    arrival_terminal = query_params['itineraries'][0]['segments'][-1]['arrival']['terminal']
-    departure_terminal = query_params['itineraries'][0]['segments'][0]['departure']['terminal']
-    adults = query_params['travelers'][0]['adults']
-    children = query_params['travelers'][0]['children']
-    cabin = query_params['travelClass']
 
-
-    # Create a fake traveler profile for booking
-    traveler = {
-        "id": "1",
-        "dateOfBirth": "1982-01-16",
-        "name": {"firstName": "JORGE", "lastName": "GONZALES"},
-        "gender": "MALE",
-        "contact": {
-            "emailAddress": "   ",
-            "phones": [ {"deviceType": "MOBILE", "countryCallingCode": "34", "number": "480080076",},]
-        },
-        "documents": [
-            {
-                "documentType": "PASSPORT",
-                "birthPlace": "Madrid",
-                "issuanceLocation": "Madrid",
-                "issuanceDate": "2015-04-14",
-                "number": "00000000",
-                "expiryDate": "2025-04-14",
-                "issuanceCountry": "ES",
-                "validityCountry": "ES",
-                "nationality": "ES",
-                "holder": True,
-            }
-        ],
-    }
- """   
+def checkoutHandle(req):
+    # Get the variables from the query parameters
+    return render(req, "undermaintenaice.html", {})

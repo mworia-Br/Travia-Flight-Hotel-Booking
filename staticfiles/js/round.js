@@ -6,15 +6,25 @@ let longOrigin = "";
 let longDestination = "";
 let departureDate = "";
 let returnDate = "";
+let returnTime = "";
 let arrivalDate = "";
 let departureTime = "";
 let arrivalTime = "";
 let flightDuration = "";
+let flightNumber = "";
+let returnflightNumber = "";
+let flightId = "";
+let returnflightId = "";
 let depTerminal = "";
 let arrTerminal = "";
+let returnarrivalDate = "";
+let returnarrivalTime = "";
+let returnflightDuration = "";
 let flightTotal = "";
 let airlineCode = "";
+let returnairlineCode = "";
 let logoUrl = "";
+let returnlogoUrl = "";
 let bookableSeats = "";
 let lastTicketing = "";
 let checkout_url = ``;
@@ -52,8 +62,6 @@ function handleFromLocation() {
               locationItem.onclick = () => {
                 fromInput.value = location.name;
                 originCode = location.iataCode;
-                shortOrigin = location.address.cityName;
-                longOrigin = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                 fromLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -86,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
 function getFromLocation(originCode) {
   console.log(originCode);
   fromLocationData.style.display = "none";
@@ -113,8 +122,6 @@ function handleToLocation() {
               locationItem.onclick = () => {
                 toInput.value = location.name;
                 destinationCode = location.iataCode;
-                shortDestination = location.address.cityName;
-                longDestination = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                 toLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -153,7 +160,8 @@ function getToLocation(destinationCode) {
 }
 
 function handleFindFlight() {
-  departureDate = document.getElementById("date").value;
+  departureDate = document.getElementById("date").value;       
+  returnDate = document.getElementById("returndate").value;
   adults = document.getElementById("adults").value;
   children = document.getElementById("children").value;
   const flightresults_URL = `https://${checkoutHost}/api/v2/flight/search_flights/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}`;
@@ -165,11 +173,12 @@ function handleFindFlightred() {
   adults = document.getElementById("adults").value;
   children = document.getElementById("children").value;
   infants = document.getElementById("infants").value;
+  returnDate = document.getElementById("returndate").value;
   let flightEl = "";
   const flightData = document.getElementById("flightData");
    
 
-  fetch(`https://${checkoutHost}/api/v1/flight/search_offers/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}`)
+  fetch(`https://${checkoutHost}/api/v1/flight/search_roundtrip/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&infants=${infants}`)
     .then((response) => response.json())
     .then((data) => {
       flights = data.data;
@@ -178,36 +187,50 @@ function handleFindFlightred() {
         flights.map((flight) => {
           // Extract the validating airline code from the flight object
           airlineCode = flight.validatingAirlineCodes[0];
+          returnairlineCode = flight.validatingAirlineCodes[1];
+          
           // Construct the URL of the airline logo based on the airline code
           logoUrl = `https://s1.apideeplink.com/images/airlines/${airlineCode}.png`;
-          // Define constants to pass to checkout view
-          departureTime = flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5);          
+          returnlogoUrl = `https://s1.apideeplink.com/images/airlines/${returnairlineCode}.png`;
+          // Define constants to pass to checkout view          
           flightDuration = flight.itineraries[0].duration;
           flightTotal = flight.price.total;
           lastTicketing = flight.lastTicketingDate;
           bookableSeats = flight.numberOfBookableSeats;
-          
+          departureDate = flight.itineraries[0].segments[0].departure.at.split("T")[0];
+          departureTime = flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5);
+          arrivalTime = flight.itineraries[0].segments[0].arrival.at.split("T")[1].substring(0, 5);
+          arrivalDate = flight.itineraries[0].segments[0].arrival.at.split("T")[0];
+          returnDate = flight.itineraries[1].segments[0].departure.at.split("T")[0];
+          returnTime = flight.itineraries[1].segments[0].departure.at.split("T")[1].substring(0, 5);
+          returnarrivalTime = flight.itineraries[1].segments[0].arrival.at.split("T")[1].substring(0, 5);
+          returnarrivalDate = flight.itineraries[1].segments[0].arrival.at.split("T")[0];
+          flightId = flight.id;
+          flightNumber = flight.itineraries[0].segments[0].number;
+          returnflightNumber = flight.itineraries[1].segments[0].number;
+          flightDuration = flight.itineraries[0].duration;
+          returnflightDuration = flight.itineraries[1].duration;
+
           flightEl +=
             `
             <div class="flight">
-              <form method="post">
-                {% csrf_token %}
               <div class="flight__wrap">
-                <div class="flight__item">
-                  <div class="flight__logo">
-                    <img src="${logoUrl}" alt="${airlineCode}" />
-                  </div>
-                  <div class="flight__details">
-                    <div class="flight__box">
-                      <div class="flight__title">${originCode}</div>
-                      <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
-                    </div>
-                    <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
-          `;
+              <div class="flight__item">
+              <div class="flight__logo">
+                <img src="${logoUrl}" alt="${airlineCode}" />
+              </div>
+              <div class="flight__details">
+                <div class="flight__box">
+                <div class="flight__title">${originCode}</div>
+                <div class="flight__time">${flight.itineraries[0].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
+              </div>
+              <div class="flight__note">${flight.itineraries[0].segments.length} stops</div>
+              <div class="flight__box">
+                <div class="flight__title">${destinationCode}</div>
+                  <div class="flight__time">${flight.itineraries[0].segments[0].arrival.at.split("T")[1].substring(0, 5)}</div>                
+              `;
 
           for (let i = 0; i < flight.itineraries[0].segments.length; i++) {
-            arrivalTime = flight.itineraries[0].segments[i].arrival.at.split("T")[1].substring(0, 5);
-            arrivalDate = flight.itineraries[0].segments[i].arrival.at.split("T")[0];
 
             flightEl +=
               `
@@ -217,46 +240,72 @@ function handleFindFlightred() {
               </div>
               `;
           }
-          checkout_url = `https://${checkoutHost}/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&children=${children}&infants=${infants}&flightTotal=${flightTotal}`;
 
           flightEl +=
             `
+                    </div>
                   </div>
                 </div>
+              <div class="flight__item">
+              <div class="flight__logo">
+                <img src="${returnlogoUrl}" alt="${returnairlineCode}" />
               </div>
-              <div class="flight__control">
-                <div class="flight__info">
-                  <svg class="icon icon-tick">
-                    <use xlink:href="#icon-tick"></use>
-                  </svg>
-                  ${flight.price.currency}
+              <div class="flight__details">
+                <div class="flight__box">
+                <div class="flight__title">${destinationCode}</div>
+                <div class="flight__time">${flight.itineraries[1].segments[0].departure.at.split("T")[1].substring(0, 5)}</div>
+              </div>
+              <div class="flight__note">${flight.itineraries[1].segments.length} stops</div>
+              <div class="flight__box">
+                <div class="flight__title">${originCode}</div>
+                  <div class="flight__time">${flight.itineraries[1].segments[0].arrival.at.split("T")[1].substring(0, 5)}</div>                
+            `;
+
+          for (let i = 1; i < flight.itineraries[1].segments.length; i++) {
+            flightEl +=
+              `
+              <div class="flight__box">
+                <div class="flight__title">${flight.itineraries[1].segments[i].arrival.iataCode}</div>
+                <div class="flight__time">${flight.itineraries[1].segments[i].arrival.at.split("T")[1].substring(0, 5)}</div>
+              </div>
+              `;
+          }
+          checkout_url = `https://${checkoutHost}/api/v1/flight/flight_checkout/?originCode=${originCode}&destinationCode=${destinationCode}&shortOrigin=${shortOrigin}&shortDestination=${shortDestination}&longOrigin=${longOrigin}&longDestination=${longDestination}&departureDate=${departureDate}&arrivalDate=${arrivalDate}&departureTime=${departureTime}&arrivalTime=${arrivalTime}&flightDuration=${flightDuration}&airlineCode=${airlineCode}&logoUrl=${logoUrl}&bookableSeats=${bookableSeats}&lastTicketing=${lastTicketing}&adults=${adults}&children=${children}&infants=${infants}&flightTotal=${flightTotal}`;
+          flightEl +=
+            `
+                    </div>
+                  </div>
                 </div>
-                <button class="button-stroke flight__button" onclick="setDataFlight()">
-
-                  <span class="flight__price">${flight.price.currency} ${flight.price.total}</span>
-                  <span class="flight__more">
-                    <span>View deal</span>
-                    <svg class="icon icon-arrow-next">
-                      <use xlink:href="#icon-arrow-next"></use>
-                    </svg>
-                  </span>
-              </button>
-              </div>
-            </div>
-            `;  
-        });
-        flightData.innerHTML = flightEl;
-
-      } else {
-        alert("No flight Data found");
-      }
-    })
-    .catch((error) => console.log(error));
+                    <div class="flight__control">
+                    <div class="flight__info">
+                      <svg class="icon icon-tick">
+                        <use xlink:href="#icon-tick"></use>
+                      </svg>
+                      ${flight.price.currency}
+                    </div>
+                    <button class="button-stroke flight__button" onclick="setDataFlight()">
+                          <span class="flight__price"> ${flight.price.currency} ${flight.price.total}</span>
+                          <span class="flight__more">
+                            <span>View deal</span>
+                            <svg class="icon icon-arrow-next">
+                              <use xlink:href="#icon-arrow-next"></use>
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+              `;
+            });
+            flightData.innerHTML = flightEl;
+          }
+             else {
+            flightData.innerHTML = "<p>No flights found.</p>";
+          }
+        })
+        .catch((error) => console.error(error));
 }
 
 function setDataFlight() {
   window.location.href = checkout_url;
 }
 //const adults = document.getElementById('adultsCount').textContent;
-//const children = document.getElementById('childrenCount').textContent;
-// flightNumber = flight.itineraries[0].segments[i].carrier;
