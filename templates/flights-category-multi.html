@@ -91,51 +91,12 @@
         });
         // Convert the object to a URL-encoded query string
         const queryString = Object.keys(variables).map(key => `${key}=${encodeURIComponent(variables[key])}`).join('&');
-
+        //console.log(queryString);
         // Append the query string to the URL
         const confirmurl = `https://${checkoutHost}/api/v2/flight/checkoutHandle/?${queryString}`;
         window.location.href = confirmurl;
       }
 
-      function handleFlightdatastopped(){// Get all of the flight items on the page
-        const flightItems = document.querySelectorAll('.flight');
-
-        // Create an array to store the flight data
-        const flightData = [];
-
-        // Loop through each flight item and extract the flight data from the hidden inputs
-        flightItems.forEach((flightItem) => {
-          const flight = {};
-
-          flight.firstFlightDepartureDate = flightItem.querySelector('[name="first_flight_departure_date"]').value;
-          flight.firstFlightAirlineLogo = flightItem.querySelector('[name="first_flight_airline_logo"]').value;
-          flight.firstFlightAirline = flightItem.querySelector('[name="first_flight_airline"]').value;
-          flight.firstFlightDepartureAirport = flightItem.querySelector('[name="first_flight_departure_airport"]').value;
-          flight.firstFlightArrivalAirport = flightItem.querySelector('[name="first_flight_arrival_airport"]').value;
-          flight.firstFlightArrivalDate = flightItem.querySelector('[name="first_flight_arrival_date"]').value;
-          flight.stop_time = flightItem.querySelector('[name="stop_time"]').value;
-
-          // Check if there is a second flight
-          const hasSecondFlight = flightItem.querySelector('[name="second_flight_departure_date"]');
-          if (hasSecondFlight) {
-            flight.secondFlightDepartureDate = flightItem.querySelector('[name="second_flight_departure_date"]').value;
-            flight.secondFlightAirlineLogo = flightItem.querySelector('[name="second_flight_airline_logo"]').value;
-            flight.secondFlightAirline = flightItem.querySelector('[name="second_flight_airline"]').value;
-            flight.secondFlightDepartureAirport = flightItem.querySelector('[name="second_flight_departure_airport"]').value;
-            flight.secondFlightArrivalAirport = flightItem.querySelector('[name="second_flight_arrival_airport"]').value;
-            flight.secondFlightArrivalDate = flightItem.querySelector('[name="second_flight_arrival_date"]').value;
-          }
-
-          flight.totalDuration = flightItem.querySelector('[name="flight_total_duration"]').value;
-          flight.price = flightItem.querySelector('[name="flight_price"]').value;
-
-          // Add the flight data to the array
-          flightData.push(flight);
-        });
-
-        // Do something with the flight data, such as sending it to a server or storing it in local storage
-        console.log(flightData);
-        }
     </script>
   </head>
   <body>

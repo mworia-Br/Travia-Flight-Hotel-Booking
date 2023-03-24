@@ -182,7 +182,67 @@ def get_city_airport_list(data):
 
 def checkoutHandle(req):
     # Get the variables from the query parameters
-    origin1 = req.GET["0firstFlightDepartureAirport"]
-    print(origin1)
+    # Extract flight variables from query parameters
+    firstFlightDepartureAirport = req.GET.get('0firstFlightDepartureAirport', None)
+    firstFlightDepartureDate = req.GET.get('0firstFlightDepartureDate', None)
+    firstFlightAirlineLogo = req.GET.get('0firstFlightAirlineLogo', None)
+    firstFlightAirline = req.GET.get('0firstFlightAirline', None)
+    firstFlightArrivalAirport = req.GET.get('0firstFlightArrivalAirport', None)
+    firstFlightArrivalDate = req.GET.get('0firstFlightArrivalDate', None)
 
-    return render(req, "undermaintenaice.html", {})
+    secondFlightDepartureAirport = req.GET.get('0secondFlightDepartureAirport', None)
+    secondFlightDepartureDate = req.GET.get('0secondFlightDepartureDate', None)
+    secondFlightAirlineLogo = req.GET.get('0secondFlightAirlineLogo', None)
+    secondFlightAirline = req.GET.get('0secondFlightAirline', None)
+    secondFlightArrivalAirport = req.GET.get('0secondFlightArrivalAirport', None)
+    secondFlightArrivalDate = req.GET.get('0secondFlightArrivalDate', None)
+
+    flight_total_duration = req.GET.get('flight_total_duration', None)
+    flight_price = req.GET.get('flight_price', None)
+
+    # Extract flight variables from query parameters
+    thirdFlightDepartureAirport = req.GET.get('1firstFlightDepartureAirport', None)
+    thirdFlightDepartureDate = req.GET.get('1firstFlightDepartureDate', None)
+    thirdFlightAirlineLogo = req.GET.get('1firstFlightAirlineLogo', None)
+    thirdFlightAirline = req.GET.get('1firstFlightAirline', None)
+    thirdFlightArrivalAirport = req.GET.get('1firstFlightArrivalAirport', None)
+    thirdFlightArrivalDate = req.GET.get('1firstFlightArrivalDate', None)
+
+    fourthFlightDepartureAirport = req.GET.get('1secondFlightDepartureAirport', None)
+    fourthFlightDepartureDate = req.GET.get('1secondFlightDepartureDate', None)
+    fourthFlightAirlineLogo = req.GET.get('1secondFlightAirlineLogo', None)
+    fourthFlightAirline = req.GET.get('1secondFlightAirline', None)
+    fourthFlightArrivalAirport = req.GET.get('1secondFlightArrivalAirport', None)
+    fourthFlightArrivalDate = req.GET.get('1secondFlightArrivalDate', None)
+    
+    # Create a dictionary of flight details to pass to the template
+    flight_data = {
+        "firstFlightDepartureAirport": firstFlightDepartureAirport,
+        "firstFlightDepartureDate": firstFlightDepartureDate,
+        "firstFlightAirlineLogo": firstFlightAirlineLogo,
+        "firstFlightAirline": firstFlightAirline,
+        "firstFlightArrivalAirport": firstFlightArrivalAirport,
+        "firstFlightArrivalDate": firstFlightArrivalDate,
+        "secondFlightDepartureAirport": secondFlightDepartureAirport,
+        "secondFlightDepartureDate": secondFlightDepartureDate,
+        "secondFlightAirlineLogo": secondFlightAirlineLogo,
+        "secondFlightAirline": secondFlightAirline,
+        "secondFlightArrivalAirport": secondFlightArrivalAirport,
+        "secondFlightArrivalDate": secondFlightArrivalDate,
+        "thirdFlightDepartureAirport": thirdFlightDepartureAirport,
+        "thirdFlightDepartureDate": thirdFlightDepartureDate,
+        "thirdFlightAirlineLogo": thirdFlightAirlineLogo,
+        "thirdFlightAirline": thirdFlightAirline,
+        "thirdFlightArrivalAirport": thirdFlightArrivalAirport,
+        "thirdFlightArrivalDate": thirdFlightArrivalDate,
+        "fourthFlightDepartureAirport": fourthFlightDepartureAirport,
+        "fourthFlightDepartureDate": fourthFlightDepartureDate,
+        "fourthFlightAirlineLogo": fourthFlightAirlineLogo,
+        "fourthFlightAirline": fourthFlightAirline,
+        "fourthFlightArrivalAirport": fourthFlightArrivalAirport,
+        "fourthFlightArrivalDate": fourthFlightArrivalDate,
+        "flight_total_duration": flight_total_duration,
+    }
+
+
+    return render(req, "flights-checkout-round.html", {})
