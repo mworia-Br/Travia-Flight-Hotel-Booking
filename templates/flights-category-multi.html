@@ -983,23 +983,24 @@
                           <input type="hidden" name="0firstFlightDepartureAirport" value="{{ r.0firstFlightDepartureAirport }}">
                           <input type="hidden" name="0firstFlightArrivalAirport" value="{{ r.0firstFlightArrivalAirport }}">
                           <input type="hidden" name="0firstFlightArrivalDate" value="{{ r.0firstFlightArrivalDate }}">
+                          <input type="hidden" name="0firstFlightArrivalDuration" value="{{ r.0firstFlightArrivalDuration }}">
                           <input type="hidden" name="0stop_time" value="{{ r.0stop_time }}">
-                        <div class="flight__item">
-                          <div class="flight__logo">
-                            <img src="{{ r.0firstFlightAirlineLogo }}" alt="{{ r.0firstFlightAirline }}" />
-                          </div>
-                          <div class="flight__details">
-                            <div class="flight__box">
-                              <div class="flight__title">{{ r.0firstFlightDepartureAirport }}</div>
-                              <div class="flight__time">{{ r.0firstFlightDepartureDate }}</div>
+                          <div class="flight__item">
+                            <div class="flight__logo">
+                              <img src="{{ r.0firstFlightAirlineLogo }}" alt="{{ r.0firstFlightAirline }}" />
                             </div>
-                            <div class="flight__note">{{ r.0stop_time }}</div>
-                            <div class="flight__box">
-                              <div class="flight__title">{{ r.0firstFlightArrivalAirport }}</div>
-                              <div class="flight__time">{{ r.0firstFlightArrivalDate }}</div>
+                            <div class="flight__details">
+                              <div class="flight__box">
+                                <div class="flight__title">{{ r.0firstFlightDepartureAirport }}</div>
+                                <div class="flight__time">{{ r.0firstFlightDepartureDate }}</div>
+                              </div>
+                              <div class="flight__note">{{ r.0firstFlightArrivalDuration }}</div>
+                              <div class="flight__box">
+                                <div class="flight__title">{{ r.0firstFlightArrivalAirport }}</div>
+                                <div class="flight__time">{{ r.0firstFlightArrivalDate }}</div>
+                              </div>
                             </div>
                           </div>
-                        </div>
                       {% endif %}
                       {% if r.0secondFlightDepartureAirport %}
                         <input type="hidden" name="0secondFlightDepartureDate" value="{{ r.0secondFlightDepartureDate }}">
@@ -1007,6 +1008,7 @@
                         <input type="hidden" name="0secondFlightAirline" value="{{ r.0secondFlightAirline }}">
                         <input type="hidden" name="0secondFlightDepartureAirport" value="{{ r.0secondFlightDepartureAirport }}">
                         <input type="hidden" name="0secondFlightArrivalAirport" value="{{ r.0secondFlightArrivalAirport }}">
+                        <input type="hidden" name="0secondFlightArrivalDuration" value="{{ r.0secondFlightArrivalDuration }}">
                         <input type="hidden" name="0secondFlightArrivalDate" value="{{ r.0secondFlightArrivalDate }}">
                         <div class="flight__item">
                           <div class="flight__logo">
@@ -1017,7 +1019,7 @@
                               <div class="flight__title">{{ r.0secondFlightDepartureAirport }}</div>
                               <div class="flight__time">{{ r.0secondFlightDepartureDate }}</div>
                             </div>
-                            <div class="flight__note">{{ r.0stop_time }}</div>
+                            <div class="flight__note">{{ r.0secondFlightArrivalDuration }}</div>
                             <div class="flight__box">
                               <div class="flight__title">{{ r.0secondFlightArrivalAirport }}</div>
                               <div class="flight__time">{{ r.0secondFlightArrivalDate }}</div>
@@ -1031,6 +1033,7 @@
                         <input type="hidden" name="1firstFlightAirline" value="{{ r.1firstFlightAirline }}">
                         <input type="hidden" name="1firstFlightDepartureAirport" value="{{ r.1firstFlightDepartureAirport }}">
                         <input type="hidden" name="1firstFlightArrivalAirport" value="{{ r.1firstFlightArrivalAirport }}">
+                        <input type="hidden" name="1firstFlightArrivalDuration" value="{{ r.1firstFlightArrivalDuration }}">
                         <input type="hidden" name="1firstFlightArrivalDate" value="{{ r.1firstFlightArrivalDate }}">
                         <input type="hidden" name="1stop_time" value="{{ r.1stop_time }}">
                         <div class="flight__item">
@@ -1042,7 +1045,7 @@
                               <div class="flight__title">{{ r.1firstFlightDepartureAirport }}</div>
                               <div class="flight__time">{{ r.1firstFlightDepartureDate }}</div>
                             </div>
-                            <div class="flight__note">{{ r.1stop_time }}</div>
+                            <div class="flight__note">{{ r.1firstFlightArrivalDuration }}</div>
                             <div class="flight__box">
                               <div class="flight__title">{{ r.1firstFlightArrivalAirport }}</div>
                               <div class="flight__time">{{ r.1firstFlightArrivalDate }}</div>
@@ -1056,6 +1059,7 @@
                         <input type="hidden" name="1secondFlightAirline" value="{{ r.1secondFlightAirline }}">
                         <input type="hidden" name="1secondFlightDepartureAirport" value="{{ r.1secondFlightDepartureAirport }}">
                         <input type="hidden" name="1secondFlightArrivalAirport" value="{{ r.1secondFlightArrivalAirport }}">
+                        <input type="hidden" name="1secondFlightArrivalDuration" value="{{ r.1secondFlightArrivalDuration }}">
                         <input type="hidden" name="1secondFlightArrivalDate" value="{{ r.1secondFlightArrivalDate }}">
                         <div class="flight__item">
                           <div class="flight__logo">
@@ -1067,7 +1071,7 @@
                               <div class="flight__title">{{ r.1secondFlightDepartureAirport }}</div>
                               <div class="flight__time">{{ r.1secondFlightDepartureDate }}</div>
                             </div>
-                            <div class="flight__note">{{ r.1stop_time }}</div>
+                            <div class="flight__note">{{ r.1secondFlightArrivalDuration }}</div>
                               <div class="flight__box">
                                 <div class="flight__title">{{ r.1secondFlightArrivalAirport }}</div>
                                 <div class="flight__time">{{ r.1secondFlightArrivalDate }}</div>
