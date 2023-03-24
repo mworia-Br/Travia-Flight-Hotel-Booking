@@ -3,14 +3,20 @@ from datetime import datetime
 
 
 class Flight:
-    def __init__(self, flight):
+    def __init__(self, flight, origin, destination, travellers):
         self.flight = flight
+        self.origin = origin
+        self.destination = destination
+        self.travellers = travellers
 
     def construct_flights(self):
         offer = {}
         index = 0
         offer['price'] = self.flight['price']['total']
         offer['id'] = self.flight['id']
+        offer['origin'] = self.flight['itineraries'][0]['segments'][0]['departure']['iataCode']
+        offer['destination'] = self.destination
+        offer['travellers'] = self.travellers
 
         for f in self.flight['itineraries']:
             # Keys starting from 0 correspond to Outbound flights and the keys starting from 1 tp Return flights

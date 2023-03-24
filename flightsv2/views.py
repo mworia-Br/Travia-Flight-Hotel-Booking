@@ -23,6 +23,7 @@ def search_flights(req):
     return_date = req.GET["returnDate"]
     adults = req.GET["adults"]
     children = req.GET["children"]
+    travellers = int(adults) + int(children)
     currency = 'USD'
 
     # Create a new SearchedRoute object and save it to the database
@@ -92,7 +93,7 @@ def search_flights(req):
         search_flights_returned = []
         response = ""
         for flight in search_flights.data:
-            offer = Flight(flight).construct_flights()
+            offer = Flight(flight, origin, destination, travellers).construct_flights()
             search_flights_returned.append(offer)
             response = zip(search_flights_returned, search_flights.data)
 
@@ -179,7 +180,6 @@ def get_city_airport_list(data):
     result = list(dict.fromkeys(result))
     return json.dumps(result)
     
-
 def checkoutHandle(req):
     # Get the variables from the query parameters
     # Extract flight variables from query parameters
@@ -189,6 +189,7 @@ def checkoutHandle(req):
     firstFlightAirline = req.GET.get('0firstFlightAirline', None)
     firstFlightArrivalAirport = req.GET.get('0firstFlightArrivalAirport', None)
     firstFlightArrivalDate = req.GET.get('0firstFlightArrivalDate', None)
+    firstFlightArrivalDuration = req.GET.get('0firstFlightArrivalDuration', None)
 
     secondFlightDepartureAirport = req.GET.get('0secondFlightDepartureAirport', None)
     secondFlightDepartureDate = req.GET.get('0secondFlightDepartureDate', None)
@@ -196,10 +197,13 @@ def checkoutHandle(req):
     secondFlightAirline = req.GET.get('0secondFlightAirline', None)
     secondFlightArrivalAirport = req.GET.get('0secondFlightArrivalAirport', None)
     secondFlightArrivalDate = req.GET.get('0secondFlightArrivalDate', None)
+    secondFlightArrivalDuration = req.GET.get('0secondFlightArrivalDuration', None)
 
     flight_total_duration = req.GET.get('flight_total_duration', None)
     flight_price = req.GET.get('flight_price', None)
-
+    origin = req.GET.get('origin', None)
+    destination = req.GET.get('destination', None)
+    travellers = req.GET.get('travellers', None)
     # Extract flight variables from query parameters
     thirdFlightDepartureAirport = req.GET.get('1firstFlightDepartureAirport', None)
     thirdFlightDepartureDate = req.GET.get('1firstFlightDepartureDate', None)
@@ -207,6 +211,7 @@ def checkoutHandle(req):
     thirdFlightAirline = req.GET.get('1firstFlightAirline', None)
     thirdFlightArrivalAirport = req.GET.get('1firstFlightArrivalAirport', None)
     thirdFlightArrivalDate = req.GET.get('1firstFlightArrivalDate', None)
+    thirdFlightArrivalDuration = req.GET.get('1firstFlightArrivalDuration', None)
 
     fourthFlightDepartureAirport = req.GET.get('1secondFlightDepartureAirport', None)
     fourthFlightDepartureDate = req.GET.get('1secondFlightDepartureDate', None)
@@ -214,6 +219,7 @@ def checkoutHandle(req):
     fourthFlightAirline = req.GET.get('1secondFlightAirline', None)
     fourthFlightArrivalAirport = req.GET.get('1secondFlightArrivalAirport', None)
     fourthFlightArrivalDate = req.GET.get('1secondFlightArrivalDate', None)
+    fourthFlightArrivalDuration = req.GET.get('1secondFlightArrivalDuration', None)
     
     # Create a dictionary of flight details to pass to the template
     flight_data = {
@@ -223,26 +229,34 @@ def checkoutHandle(req):
         "firstFlightAirline": firstFlightAirline,
         "firstFlightArrivalAirport": firstFlightArrivalAirport,
         "firstFlightArrivalDate": firstFlightArrivalDate,
+        "firstFlightArrivalDuration": firstFlightArrivalDuration,
         "secondFlightDepartureAirport": secondFlightDepartureAirport,
         "secondFlightDepartureDate": secondFlightDepartureDate,
         "secondFlightAirlineLogo": secondFlightAirlineLogo,
         "secondFlightAirline": secondFlightAirline,
         "secondFlightArrivalAirport": secondFlightArrivalAirport,
         "secondFlightArrivalDate": secondFlightArrivalDate,
+        "secondFlightArrivalDuration": secondFlightArrivalDuration,
         "thirdFlightDepartureAirport": thirdFlightDepartureAirport,
         "thirdFlightDepartureDate": thirdFlightDepartureDate,
         "thirdFlightAirlineLogo": thirdFlightAirlineLogo,
         "thirdFlightAirline": thirdFlightAirline,
         "thirdFlightArrivalAirport": thirdFlightArrivalAirport,
         "thirdFlightArrivalDate": thirdFlightArrivalDate,
+        "thirdFlightArrivalDuration": thirdFlightArrivalDuration,
         "fourthFlightDepartureAirport": fourthFlightDepartureAirport,
         "fourthFlightDepartureDate": fourthFlightDepartureDate,
         "fourthFlightAirlineLogo": fourthFlightAirlineLogo,
         "fourthFlightAirline": fourthFlightAirline,
         "fourthFlightArrivalAirport": fourthFlightArrivalAirport,
         "fourthFlightArrivalDate": fourthFlightArrivalDate,
+        "fourthFlightArrivalDuration": fourthFlightArrivalDuration,
         "flight_total_duration": flight_total_duration,
+        "flight_price": flight_price,
+        "origin": origin,
+        "destination": destination,
+        "travellers": travellers,
     }
 
 
-    return render(req, "flights-checkout-round.html", {})
+    return render(req, "flights-checkout-round.html", flight_data)

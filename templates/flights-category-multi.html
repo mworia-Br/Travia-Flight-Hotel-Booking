@@ -1084,6 +1084,9 @@
                       <div class="flight__control">
                         <input type="hidden" name="flight_total_duration" value="{{ r.0FlightTotalDuration }}">
                         <input type="hidden" name="flight_price" value="{{ r.price }}">
+                        <input type="hidden" name="origin" value="{{ r.origin }}">
+                        <input type="hidden" name="destination" value="{{ r.destination }}">
+                        <input type="hidden" name="travellers" value="{{ r.travellers }}">
                         <div class="flight__info">
                           <svg class="icon icon-tick">
                             <use xlink:href=" {% static '#icon-tick' %} "></use></svg

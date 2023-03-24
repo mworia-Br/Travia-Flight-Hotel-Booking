@@ -7,6 +7,7 @@ def checkoutHandle(req):
     firstFlightAirline = req.GET.get('0firstFlightAirline', None)
     firstFlightArrivalAirport = req.GET.get('0firstFlightArrivalAirport', None)
     firstFlightArrivalDate = req.GET.get('0firstFlightArrivalDate', None)
+    firstFlightArrivalDuration = req.GET.get('0firstFlightArrivalDuration', None)
 
     secondFlightDepartureAirport = req.GET.get('0secondFlightDepartureAirport', None)
     secondFlightDepartureDate = req.GET.get('0secondFlightDepartureDate', None)
@@ -14,6 +15,7 @@ def checkoutHandle(req):
     secondFlightAirline = req.GET.get('0secondFlightAirline', None)
     secondFlightArrivalAirport = req.GET.get('0secondFlightArrivalAirport', None)
     secondFlightArrivalDate = req.GET.get('0secondFlightArrivalDate', None)
+    secondFlightArrivalDuration = req.GET.get('0secondFlightArrivalDuration', None)
 
     flight_total_duration = req.GET.get('flight_total_duration', None)
     flight_price = req.GET.get('flight_price', None)
@@ -25,6 +27,7 @@ def checkoutHandle(req):
     thirdFlightAirline = req.GET.get('1firstFlightAirline', None)
     thirdFlightArrivalAirport = req.GET.get('1firstFlightArrivalAirport', None)
     thirdFlightArrivalDate = req.GET.get('1firstFlightArrivalDate', None)
+    thirdFlightArrivalDuration = req.GET.get('1firstFlightArrivalDuration', None)
 
     fourthFlightDepartureAirport = req.GET.get('1secondFlightDepartureAirport', None)
     fourthFlightDepartureDate = req.GET.get('1secondFlightDepartureDate', None)
@@ -32,3 +35,4 @@ def checkoutHandle(req):
     fourthFlightAirline = req.GET.get('1secondFlightAirline', None)
     fourthFlightArrivalAirport = req.GET.get('1secondFlightArrivalAirport', None)
     fourthFlightArrivalDate = req.GET.get('1secondFlightArrivalDate', None)
+    fourthFlightArrivalDuration = req.GET.get('1secondFlightArrivalDuration', None)

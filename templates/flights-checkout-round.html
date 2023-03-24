@@ -251,7 +251,7 @@
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
                   <a class="breadcrumbs__link" href=" {% static 'stays-product.html' %} "
-                    >Spectacular views of Queenstown</a
+                    >Spectacular views of {{ destination }}</a
                   >
                 </li>
                 <li class="breadcrumbs__item">Confirm and pay</li>
@@ -268,26 +268,29 @@
                         <div class="ticket__details__box">
                           <div class="ticket__details__top">
                             <div class="travel__destination">
-                              Dhaka - Abu Dhabi
+                              {{ origin }} - {{ destination }}
                             </div>
                             <div class="travel__baggage">
                               Baggage & Fare Rule
                             </div>
                           </div>
+                          {% if firstFlightDepartureDate %}
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">
+                              <div class="travel__destination">
+                                Route: {{ firstFlightDepartureAirport }} - {{ firstFlightArrivalAirport }}
+                              </div>
                               <div class="flight__logo wide">
                                 <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
+                                  src="{{ firstFlightAirlineLogo }}"
+                                  alt="{{ firstFlightAirline }}"
                                 />
                               </div>
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div class="flight__number">{{ firstFlightDepartureAirport }} {{ secondFlightDepartureDate }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ firstFlightDepartureAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -328,53 +331,38 @@
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <span class="duration">2h 30m</span>
+                              <span class="duration">{{ firstFlightArrivalDuration }}</span>
                             </div>
                             <div class="travel__detination__item">
-                              <div class="flight__logo wide">
-                                <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
-                                />
-                              </div>
                               <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div>Wed Dec 13 2022 </div>
+                                <div class="flight__number">{{ firstFlightArrivalAirport }} {{ firstFlightArrivalDate }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ firstFlightArrivalAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="ticket__details__desc">
-                          BCM (Mumbai) 2h 35m layover
-                        </div>
-                        <div class="ticket__details__box">
-                          <div class="ticket__details__top">
-                            <div class="travel__destination">
-                              Dhaka - Abu Dhabi
-                            </div>
-                            <div class="travel__baggage">
-                              Baggage & Fare Rule
-                            </div>
-                          </div>
+                          {% endif %}
+                          {% if secondFlightDepartureDate %}           
+                          <hr class="ticket__details__hr" />
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">
+                              <div class="travel__destination">
+                                Route: {{ secondFlightDepartureAirport }} - {{ secondFlightArrivalAirport }}
+                              </div>
                               <div class="flight__logo wide">
                                 <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
+                                  src="{{ secondFlightAirlineLogo }}"
+                                  alt="{{ secondFlightAirline }}"
                                 />
                               </div>
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div class="flight__number">{{ secondFlightDepartureAirport }} {{ secondFlightDepartureDate }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ secondFlightDepartureAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -415,26 +403,165 @@
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <span class="duration">2h 30m</span>
+                              <span class="duration">{{ secondFlightArrivalDuration }}</span>
                             </div>
                             <div class="travel__detination__item">
-                              <div class="flight__logo wide">
-                                <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
-                                />
-                              </div>
                               <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div>Wed Dec 13 2022 </div>
+                                <div class="flight__number">{{ secondFlightArrivalAirport }} {{ secondFlightArrivalDate }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ secondFlightArrivalAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
                             </div>
                           </div>
+                          {% endif %}
+                          {% if thirdFlightDepartureDate %}
+                          <hr class="ticket__details__hr" />
+                          <div class="travel__detination__flex">
+                            <div class="travel__detination__item">
+                              <div class="travel__destination">
+                                Route: {{ thirdFlightDepartureAirport }} - {{ thirdFlightArrivalAirport }}
+                              </div>
+                              <div class="flight__logo wide">
+                                <img
+                                  src="{{ thirdFlightAirlineLogo }}"
+                                  alt="{{ thirdFlightAirline }}"
+                                />
+                              </div>
+                              <div class="travel__destination__desc">
+                                <div>Wed Dec 13 2022</div>
+                                <div class="flight__number">{{ thirdFlightDepartureAirport }} {{ secondFlightDepartureDate }}</div>
+                                <div>
+                                  {{ thirdFlightDepartureAirport }}
+                                </div>
+                                <div>(Terminal 2)</div>
+                              </div>
+                            </div>
+                            <div class="travel__detination__duration">
+                              <svg
+                                width="96"
+                                height="10"
+                                viewBox="0 0 96 10"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <circle cx="3" cy="4" r="3" fill="#D9D9D9" />
+                                <path
+                                  d="M7 4H19"
+                                  stroke="#6F767E"
+                                  stroke-dasharray="2 2"
+                                />
+                                <g clip-path="url( {% static '#clip0_123_5091' %} )">
+                                  <path
+                                    d="M95.9837 5.08188C95.98 5.08188 95.98 5.08188 95.9837 5.08188C95.8784 5.32 95.2843 5.48813 95.2843 5.48813L92.7415 5.48438L89.9718 9.52344L89.3193 9.47656L90.589 6.07813L90.5187 5.46875L87.5225 5.46094L86.1553 6.89063L85.999 6.91031L86.4484 5.14063L86.3 5.02344L86.2646 4.99594L86.3037 4.96469L86.4521 4.85125L86.0068 3.07781L86.1631 3.0975L87.5187 4.535H90.5187L90.589 3.92563L89.3312 0.523437L89.9837 0.476562L92.7415 4.5275L95.2843 4.53125C95.2843 4.53125 96.1321 4.76938 95.9837 5.08219V5.08188Z"
+                                    fill="#2276E3"
+                                  />
+                                </g>
+                                <path
+                                  d="M72 5H84"
+                                  stroke="#6F767E"
+                                  stroke-dasharray="2 2"
+                                />
+                                <defs>
+                                  <clipPath id="clip0_123_5091">
+                                    <rect
+                                      width="10"
+                                      height="10"
+                                      fill="white"
+                                      transform="translate(86)"
+                                    />
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <span class="duration">{{ thirdFlightArrivalDuration }}</span>
+                            </div>
+                            <div class="travel__detination__item">
+                              <div class="travel__destination__desc">
+                                <div>Wed Dec 13 2022 </div>
+                                <div class="flight__number">{{ thirdFlightArrivalAirport }} {{ thirdFlightArrivalDate }}</div>
+                                <div>
+                                  {{ thirdFlightArrivalAirport }}
+                                </div>
+                                <div>(Terminal 2)</div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                          {% if fourthFlightDepartureDate %}
+                          <hr class="ticket__details__hr" />
+                          <div class="travel__detination__flex">
+                            <div class="travel__detination__item">
+                              <div class="travel__destination">
+                                Route: {{ fourthFlightDepartureAirport }} - {{ fourthFlightArrivalAirport }}
+                              </div>
+                              <div class="flight__logo wide">
+                                <img
+                                  src="{{ fourthFlightAirlineLogo }}"
+                                  alt="{{ fourthFlightAirline }}"
+                                />
+                              </div>
+                              <div class="travel__destination__desc">
+                                <div>Wed Dec 13 2022</div>
+                                <div class="flight__number">{{ fourthFlightDepartureAirport }} {{ fourthFlightDepartureDate }}</div>
+                                <div>
+                                  {{ fourthFlightDepartureAirport }}
+                                </div>
+                                <div>(Terminal 2)</div>
+                              </div>
+                            </div>
+                            <div class="travel__detination__duration">
+                              <svg
+                                width="96"
+                                height="10"
+                                viewBox="0 0 96 10"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <circle cx="3" cy="4" r="3" fill="#D9D9D9" />
+                                <path
+                                  d="M7 4H19"
+                                  stroke="#6F767E"
+                                  stroke-dasharray="2 2"
+                                />
+                                <g clip-path="url( {% static '#clip0_123_5091' %} )">
+                                  <path
+                                    d="M95.9837 5.08188C95.98 5.08188 95.98 5.08188 95.9837 5.08188C95.8784 5.32 95.2843 5.48813 95.2843 5.48813L92.7415 5.48438L89.9718 9.52344L89.3193 9.47656L90.589 6.07813L90.5187 5.46875L87.5225 5.46094L86.1553 6.89063L85.999 6.91031L86.4484 5.14063L86.3 5.02344L86.2646 4.99594L86.3037 4.96469L86.4521 4.85125L86.0068 3.07781L86.1631 3.0975L87.5187 4.535H90.5187L90.589 3.92563L89.3312 0.523437L89.9837 0.476562L92.7415 4.5275L95.2843 4.53125C95.2843 4.53125 96.1321 4.76938 95.9837 5.08219V5.08188Z"
+                                    fill="#2276E3"
+                                  />
+                                </g>
+                                <path
+                                  d="M72 5H84"
+                                  stroke="#6F767E"
+                                  stroke-dasharray="2 2"
+                                />
+                                <defs>
+                                  <clipPath id="clip0_123_5091">
+                                    <rect
+                                      width="10"
+                                      height="10"
+                                      fill="white"
+                                      transform="translate(86)"
+                                    />
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <span class="duration">{{ fourthFlightArrivalDuration }}</span>
+                            </div>
+                            <div class="travel__detination__item">
+                              <div class="travel__destination__desc">
+                                <div>Wed Dec 13 2022 </div>
+                                <div class="flight__number">{{ fourthFlightArrivalAirport }} {{ firstFlightArrivalDate }}</div>
+                                <div>
+                                  {{ fourthFlightArrivalAirport }}
+                                </div>
+                                <div>(Terminal 2)</div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endif %}
+
                         </div>
                         <hr class="ticket__details__hr" />
                         <div class="ticket__details__card__footer">
@@ -910,7 +1037,7 @@
                               <div
                                 class="travelers__value js-travelers-content"
                               >
-                                1 guest
+                              {{ travellers}} guest
                               </div>
                               <button class="travelers__edit js-travelers-head">
                                 <svg class="icon icon-edit">
@@ -1311,23 +1438,23 @@
                   <div class="price__table">
                     <div class="price__row">
                       <div class="price__cell">Base fare x 7 nights</div>
-                      <div class="price__cell">$833</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
-                      <div class="price__cell">Adults (2 x $450)</div>
-                      <div class="price__cell">$900</div>
+                      <div class="price__cell">Adults ( {{ travellers }} )</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Service fee</div>
-                      <div class="price__cell">$103</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Promo code discount</div>
-                      <div class="price__cell">-$103</div>
+                      <div class="price__cell">-$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Total (USD)</div>
-                      <div class="price__cell">$833</div>
+                      <div class="price__cell">${{ flight_price }}</div>
                     </div>
                   </div>
                 </div>
