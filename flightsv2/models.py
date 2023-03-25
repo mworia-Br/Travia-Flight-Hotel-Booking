@@ -7,4 +7,4 @@ class FlightTmp(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.user_id
+        return self.user_id + " " + self.flight_data
