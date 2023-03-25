@@ -5,8 +5,12 @@ from django.shortcuts import render
 from django.contrib import messages
 from .flight import Flight
 from .booking import Booking
+from .models import FlightTmp
 from django.http import HttpResponse, HttpRequest
 from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from urllib.parse import parse_qs
 from flight.models import CartItem, SearchedRoute
 
@@ -15,6 +19,7 @@ amadeus = Client(
     client_secret='CFAdAR5jl3crzHBW', hostname='production'
 )
 
+@login_required(login_url='login')
 def search_flights(req):
     # Retrieve data from the UI form
     origin = req.GET["originCode"]
@@ -25,6 +30,7 @@ def search_flights(req):
     children = req.GET["children"]
     travellers = int(adults) + int(children)
     currency = 'USD'
+    owner=req.user
 
     # Create a new SearchedRoute object and save it to the database
     route = SearchedRoute.objects.create(
@@ -93,7 +99,7 @@ def search_flights(req):
         search_flights_returned = []
         response = ""
         for flight in search_flights.data:
-            offer = Flight(flight, origin, destination, travellers).construct_flights()
+            offer = Flight(flight, origin, destination, travellers, owner).construct_flights()
             search_flights_returned.append(offer)
             response = zip(search_flights_returned, search_flights.data)
 
@@ -179,7 +185,8 @@ def get_city_airport_list(data):
         result.append(data[i]["iataCode"] + ", " + data[i]["name"])
     result = list(dict.fromkeys(result))
     return json.dumps(result)
-    
+
+@login_required(login_url="/login")
 def checkoutHandle(req):
     # Get the variables from the query parameters
     # Extract flight variables from query parameters
@@ -257,6 +264,21 @@ def checkoutHandle(req):
         "destination": destination,
         "travellers": travellers,
     }
-
+    # Get the latest flight from the database
+    user_id = req.user
+    latest_flight = FlightTmp.objects.filter(user_id=user_id).latest('added')
+    print(latest_flight)
 
     return render(req, "flights-checkout-round.html", flight_data)
+
+@csrf_exempt
+def pre_Checkout(req):
+    if req.method == "POST":
+        flight_data = req.POST.get('flight', None)
+        user_id = req.POST.get('user_id', None)      
+        #save to database model FlightTmp
+        print("passed")
+        newflight = FlightTmp(flight_data=flight_data, user_id=user_id)
+        newflight.save()
+        # Return a JSON response indicating success
+        return JsonResponse({'status': 'success'})

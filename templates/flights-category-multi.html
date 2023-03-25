@@ -84,18 +84,42 @@
     <script>
       let checkoutHost = window.location.host;
       function handleFlightdata(){
-        const inputs = document.querySelectorAll('input[type="hidden"]');
-        let variables = {};
-        inputs.forEach(input => {
-          variables[input.name] = input.value;
-        });
-        // Convert the object to a URL-encoded query string
-        const queryString = Object.keys(variables).map(key => `${key}=${encodeURIComponent(variables[key])}`).join('&');
-        //console.log(queryString);
-        // Append the query string to the URL
-        const confirmurl = `https://${checkoutHost}/api/v2/flight/checkoutHandle/?${queryString}`;
-        window.location.href = confirmurl;
+        const flightInput = document.querySelector('input[name="flight"]');
+        const flightData = flightInput.value;
+
+        const userIdInput = document.querySelector('input[name="user_id"]');
+        const userId = userIdInput.value;
+
+        // Send flight data and user ID to checkout view via AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `https://${checkoutHost}/api/v2/flight/pre_checkout/`);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Monitor for changes in the state of the XMLHttpRequest object
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            // The response has been received successfully, proceed with the next steps
+            const response = JSON.parse(xhr.responseText);
+
+            // Create the query string for other variables
+            const inputs = document.querySelectorAll('input[type="hidden"]');
+            let variables = {};
+            inputs.forEach(input => {
+              if (input.name !== "flight" && input.name !== "user_id") {
+                variables[input.name] = input.value;
+              }
+            });
+            const queryString = Object.keys(variables).map(key => `${key}=${encodeURIComponent(variables[key])}`).join('&');
+
+            // Append the query string to the URL
+            const confirmurl = `https://${checkoutHost}/api/v2/flight/checkoutHandle/?${queryString}`;
+            window.location.href = confirmurl;
+          }
+        };
+
+        xhr.send(`flight=${encodeURIComponent(flightData)}&user_id=${encodeURIComponent(userId)}`);
       }
+
 
     </script>
   </head>
@@ -1082,12 +1106,14 @@
                       {% endif %}
                     
                       <div class="flight__control">
-                        <input type="hidden" name="flight_total_duration" value="{{ r.0FlightTotalDuration }}">
-                        <input type="hidden" name="flight_price" value="{{ r.price }}">
-                        <input type="hidden" name="origin" value="{{ r.origin }}">
-                        <input type="hidden" name="destination" value="{{ r.destination }}">
-                        <input type="hidden" name="travellers" value="{{ r.travellers }}">
                         <div class="flight__info">
+                          <input type="hidden" name="flight_total_duration" value="{{ r.0FlightTotalDuration }}">
+                          <input type="hidden" name="flight_price" value="{{ r.price }}">
+                          <input type="hidden" name="origin" value="{{ r.origin }}">
+                          <input type="hidden" name="destination" value="{{ r.destination }}">
+                          <input type="hidden" name="travellers" value="{{ r.travellers }}">
+                          <input type="hidden" name="flight" value="{{ flight }}">
+                          <input type="hidden" name="user_id" value="{{ r.owner }}">
                           <svg class="icon icon-tick">
                             <use xlink:href=" {% static '#icon-tick' %} "></use></svg
                           >{{ r.0FlightTotalDuration }}
