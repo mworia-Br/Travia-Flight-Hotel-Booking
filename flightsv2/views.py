@@ -28,6 +28,10 @@ def search_flights(req):
     return_date = req.GET["returnDate"]
     adults = req.GET["adults"]
     children = req.GET["children"]
+    short_Origin = req.GET["shortOrigin"]
+    short_Destination = req.GET["shortDestination"]
+    long_Origin = req.GET["longOrigin"]
+    long_Destination = req.GET["longDestination"]
     travellers = int(adults) + int(children)
     currency = 'USD'
     owner=req.user
@@ -99,7 +103,7 @@ def search_flights(req):
         search_flights_returned = []
         response = ""
         for flight in search_flights.data:
-            offer = Flight(flight, origin, destination, travellers, owner).construct_flights()
+            offer = Flight(flight, origin, destination, travellers, owner, short_Origin, short_Destination, long_Destination, long_Origin).construct_flights()
             search_flights_returned.append(offer)
             response = zip(search_flights_returned, search_flights.data)
 
@@ -209,6 +213,10 @@ def checkoutHandle(req):
     flight_total_duration = req.GET.get('flight_total_duration', None)
     flight_price = req.GET.get('flight_price', None)
     origin = req.GET.get('origin', None)
+    short_Origin = req.GET.get('short_Origin', None)
+    short_Destination = req.GET.get('short_Destination', None)
+    long_Origin = req.GET.get('long_Origin', None)
+    long_Destination = req.GET.get('long_Destination', None)
     destination = req.GET.get('destination', None)
     travellers = req.GET.get('travellers', None)
     # Extract flight variables from query parameters
@@ -262,11 +270,16 @@ def checkoutHandle(req):
         "flight_price": flight_price,
         "origin": origin,
         "destination": destination,
+        "short_Origin": short_Origin,
+        "short_Destination": short_Destination,
+        "long_Origin": long_Origin,
+        "long_Destination": long_Destination,
         "travellers": travellers,
     }
     # Get the latest flight from the database
     user_id = req.user
     latest_flight = FlightTmp.objects.filter(user_id=user_id).latest('added')
+    print("---------------------------------")
     print(latest_flight)
 
     return render(req, "flights-checkout-round.html", flight_data)

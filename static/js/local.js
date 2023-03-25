@@ -160,7 +160,7 @@ function handleFindFlight() {
           adults = 1;
         }
   children = document.getElementById("children").value;
-  const flightresults_URL = `https://${checkoutHost}/api/v2/flight/search_flights/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}`;
+  const flightresults_URL = `https://${checkoutHost}/api/v2/flight/search_flights/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&shortOrigin=${shortOrigin}&longOrigin=${longOrigin}&shortDestination=${shortDestination}&longDestination=${longDestination}`;
   window.location.href = flightresults_URL;
 }
 

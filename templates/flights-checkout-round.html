@@ -251,7 +251,7 @@
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
                   <a class="breadcrumbs__link" href=" {% static 'stays-product.html' %} "
-                    >Spectacular views of {{ destination }}</a
+                    >Spectacular views of {{ short_Origin }}</a
                   >
                 </li>
                 <li class="breadcrumbs__item">Confirm and pay</li>
@@ -268,7 +268,7 @@
                         <div class="ticket__details__box">
                           <div class="ticket__details__top">
                             <div class="travel__destination">
-                              {{ origin }} - {{ destination }}
+                              {{ short_Origin }} - {{ short_Destination }}
                             </div>
                             <div class="travel__baggage">
                               Baggage & Fare Rule

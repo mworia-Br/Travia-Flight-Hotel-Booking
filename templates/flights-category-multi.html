@@ -1114,6 +1114,10 @@
                           <input type="hidden" name="travellers" value="{{ r.travellers }}">
                           <input type="hidden" name="flight" value="{{ flight }}">
                           <input type="hidden" name="user_id" value="{{ r.owner }}">
+                          <input type="hidden" name="short_Origin" value="{{ r.short_Origin }}">
+                          <input type="hidden" name="short_Destination" value="{{ r.short_Destination }}">
+                          <input type="hidden" name="long_Origin" value="{{ r.long_Origin }}">
+                          <input type="hidden" name="long_Destination" value="{{ r.long_Destination }}">
                           <svg class="icon icon-tick">
                             <use xlink:href=" {% static '#icon-tick' %} "></use></svg
                           >{{ r.0FlightTotalDuration }}
