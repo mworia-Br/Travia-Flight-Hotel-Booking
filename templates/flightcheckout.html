@@ -9,5 +9,284 @@
     <h1>Flight Checkout</h1>
     <p>Success Checkout page is rendered: Configure to change content displayed here></p>
     <p>Thank you for choosing this flight:</p>
+    <form method="post" action="{% url 'final_checkout' %}">
+        {% csrf_token %}
+          <div class="checkout__box">
+            <input type="hidden" name="travellers" value="{{ travellers }}">
+            {% for i in travellers %}
+              <div class="checkout__category">Traveler {{ i|add:1 }} Details</div>
+              <div class="checkout__row" style="margin-top: 1.5rem">
+                <div class="field">
+                  <input type="hidden" name="id" value="{{ i|add:1 }}">
+                  <div class="field__label">First Name</div>
+                  <div class="field__wrap">
+                    <input
+                      class="field__input"
+                      type="text"
+                      name="fname{{i}}"
+                      placeholder="ABC"
+                      required="True"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="field__label">Last Name</div>
+                  <div class="field__wrap">
+                    <input
+                      class="field__input"
+                      type="tel"
+                      name="lname{{i}}"
+                      placeholder="XYZ"
+                      required="True"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="checkout__row" style="margin-top: 1.5rem">
+                <div class="field">
+                  <div class="field__label">Date of Birth</div>
+                  <div class="field__wrap">
+                    <input
+                      class="field__input js-date-single"
+                      data-format="YYYY-MM-DD"
+                      data-single="data-single"
+                      data-container=".datepicker"
+                      type="text"
+                      name="dob{{i}}"
+                      placeholder="YYYY-MM-DD"
+                      readonly="readonly"
+                    />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <div class="field__label">Gender</div>
+                  <div class="field__wrap">
+                    <select class="select" name="gender{{i}}">
+                      <option value="MALE">Male</option>
+                      <option value="FEMALE">Female</option>
+                      <option value="OTHERS">Others</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="field" style="margin-top: 1.5rem">
+                <div class="field__label">Email Address</div>
+                <div class="field__wrap">
+                  <input
+                    class="field__input"
+                    type="email"
+                    name="email{{i}}"
+                    placeholder="jorge.gonzales833@telefonica.es"
+                    required="True"
+                  />
+                </div>
+              </div>
+              <div class="checkout__row" style="margin-top: 1.5rem">
+                <div class="field">
+                  <div class="field__label">Mobile Phone</div>
+                  <div class="field__wrap">
+                    <input
+                      class="field__input"
+                      type="tel"
+                      name="phone{{i}}"
+                      placeholder="480080076"
+                      required="True"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="field__label">Phone Country Code</div>
+                  <div class="field__wrap">
+                    <input
+                      class="field__input"
+                      type="tel"
+                      name="phone_country{{i}}"
+                      placeholder="34"
+                      required="True"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="field" style="margin-top: 1.5rem">
+                <div class="field__label">Document Type</div>
+                <div class="field__wrap">
+                  <select class="select" name="document_type{{i}}">
+                    <option value="PASSPORT">Passport</option>
+                    <option value="DRIVING_LICENSE">Driving License</option>
+                    <option value="ID_CARD">ID Card</option>
+                  </select>
+                </div>
+              </div>
+              <div class="checkout__row" style="margin-top: 1.5rem">
+                <div class="field">
+                  <div class="field__label">Document Number</div>
+                  <div class="field__wrap">
+                    <input
+                      class="field__input"
+                      type="text"
+                      name="document_number{{i}}"
+                      placeholder="00000000"
+                      required="True"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="field__label">Country of Issuance</div>
+                  <div class="field__wrap">
+                    <input
+                      class="field__input"
+                      type="text"
+                      name="issuance_country{{i}}"
+                      placeholder="ES"
+                      required="True"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="checkout__row" style="margin-top: 1.5rem">
+                <div class="field">
+                  <div class="field__label">Date of Issuance</div>
+                  <div class="field__wrap">
+                    <input
+                      class="field__input js-date-single"
+                      data-format="YYYY-MM-DD"
+                      data-single="data-single"
+                      data-container=".datepicker"
+                      type="text"
+                      name="issuance_date{{i}}"
+                      placeholder="YYYY-MM-DD"
+                      readonly="readonly"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="field__label">Date of Expiry</div>
+                  <div class="field__wrap">
+                    <input
+                      class="field__input js-date-single"
+                      data-format="YYYY-MM-DD"
+                      data-single="data-single"
+                      data-container=".datepicker"
+                      type="text"
+                      name="expiry_date{{i}}"
+                      placeholder="YYYY-MM-DD"
+                      readonly="readonly"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="field" style="margin-top: 1.5rem">
+                <div class="field__label">Nationality</div>
+                <div class="field__wrap">
+                  <input
+                    class="field__input"
+                    type="text"
+                    name="nationality{{i}}"
+                    placeholder="ES"
+                    required="True"
+                  />
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="checkout__box">
+            <div class="checkout__top">
+              <div class="checkout__category">Pay with</div>
+              <div class="nav">
+                <a class="nav__link js-tabs-link" href="#"
+                  >Credit Card</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="checkout__section">
+          <form class="checkout__item js-tabs-item" style="display: block">
+            <div class="checkout__line">
+              <div class="checkout__subtitle">Credit Card</div>
+              <div class="checkout__cards">
+                <div class="checkout__card">
+                  <img src="{% static 'img/content/visa.svg' %}" alt="Visa" />
+                </div>
+                <div class="checkout__card">
+                  <img src="{% static 'img/content/master-card.svg' %}" alt="Master Card" />
+                </div>
+              </div>
+            </div>
+            <div class="checkout__fieldset">
+              <div class="field">
+                <div class="field__label">card number</div>
+                <div class="field__wrap">
+                  <input class="field__input" type="tel" name="card" placeholder="XXXX XXXX XXXX XXXX" required="True" />
+                </div>
+              </div>
+              <div class="field">
+                <div class="field__label">card holder</div>
+                <div class="field__wrap">
+                  <input class="field__input" type="text" name="holder" placeholder="TRAN MAU TRI TAM" required="True" />
+                </div>
+              </div>
+              <div class="checkout__row">
+                <div class="field">
+                  <div class="field__label">EXPIRATION DATE</div>
+                  <div class="field__wrap">
+                    <input class="field__input" type="tel" name="ccdate" placeholder="MM / YY" required="True" />
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="field__label">CVC</div>
+                  <div class="field__wrap">
+                    <input class="field__input" type="tel" name="cvc" placeholder="CVC" required="True" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" checked="checked" />
+              <span class="checkbox__inner">
+                <span class="checkbox__tick"></span>
+                <span class="checkbox__text">Save Card</span>
+              </span>
+            </label>
+            <div class="checkout__message">
+              <div class="checkout__category">Message the host</div>
+              <div class="field">
+                <div class="field__wrap">
+                  <textarea class="field__textarea" name="message" placeholder="I will be late about 1 hour, please wait..." required=""></textarea>
+                </div>
+              </div>
+            </div>
+            <a class="button checkout__button" type="submit">Confirm and pay</a>
+            </div>
+            </div>
+            <div class="checkout__control">
+              <a class="button checkout__button" href="#"
+                >Confirm and pay</a
+              >
+              <div class="checkout__verified">
+                <img
+                  src=" {% static 'img/content/paypal-verified.png' %} "
+                  alt="PayPal"
+                />
+        </div>
+            <div class="checkout__control">
+              <a class="button checkout__button" href="#"
+                >Confirm and pay</a
+              >
+              <div class="checkout__verified">
+                <img
+                  src=" {% static 'img/content/paypal-verified.png' %} "
+                  alt="PayPal"
+                />
+      </div>
+    </div>
+          </form>
+          </form>
+        </div>
+      </div>
+    </div>
+</form>
 </body>
 </html>

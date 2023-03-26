@@ -363,16 +363,16 @@
                           {% for cart_item in cart_items %}
                             <div class="contact__body">
                                 <div class="contact__user__item">
-                                  <div class="item__content">{{ cart_item.flight_data.short_origin }} - {{ cart_item.flight_data.short_destination }}</div>
+                                  <div class="item__content">{{ cart_item.flight_data.short_Origin }} - {{ cart_item.flight_data.short_Destination }}</div>
                                 </div>
                                 <div class="contact__user__item">
-                                  <div class="item__content">{{ cart_item.flight_data.departure_date }}</div>
+                                  <div class="item__content">{{ cart_item.flight_data.firstFlightDepartureDate }}</div>
                                 </div>
                                 <div class="contact__user__item">
-                                  <div class="item__content">{{ cart_item.flight_data.travelers }}</div>
+                                  <div class="item__content">{{ cart_item.flight_data.travellers }}</div>
                                 </div>
                                 <div class="contact__user__item">
-                                  <div class="item__content">{{ cart_item.flight_data.flight_total }}</div>
+                                  <div class="item__content">{{ cart_item.flight_data.flight_price }}</div>
                                 </div>
                                 <div class="contact__user__item">
                                   <div class="item__content">{{ cart_item.status }}</div>

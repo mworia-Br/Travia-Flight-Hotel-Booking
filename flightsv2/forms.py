@@ -38,3 +38,74 @@ class TravelerForm(forms.Form):
     doc_validity_country = forms.CharField(max_length=50)
     doc_nationality = forms.CharField(max_length=50)
     doc_holder = forms.BooleanField(required=False)
+
+class CheckoutForm(forms.Form):
+    card_number = forms.CharField(
+        label='Card number',
+        max_length=16,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'field__input',
+                'type': 'tel',
+                'placeholder': 'XXXX XXXX XXXX XXXX',
+                'required': True,
+            }
+        )
+    )
+    card_holder = forms.CharField(
+        label='Card holder',
+        max_length=255,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'field__input',
+                'type': 'text',
+                'placeholder': 'TRAN MAU TRI TAM',
+                'required': True,
+            }
+        )
+    )
+    expiration_date = forms.CharField(
+        label='Expiration date',
+        max_length=5,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'field__input',
+                'type': 'tel',
+                'placeholder': 'MM / YY',
+                'required': True,
+            }
+        )
+    )
+    cvc = forms.CharField(
+        label='CVC',
+        max_length=3,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'field__input',
+                'type': 'tel',
+                'placeholder': 'CVC',
+                'required': True,
+            }
+        )
+    )
+    save_card = forms.BooleanField(
+        label='Save Card',
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'checkbox__input',
+                'checked': True,
+            }
+        )
+    )
+    message = forms.CharField(
+        label='Message',
+        widget=forms.Textarea(
+            attrs={
+                'class': 'field__textarea',
+                'name': 'message',
+                'placeholder': 'I will be late about 1 hour, please wait...',
+                'required': True,
+            }
+        )
+    )

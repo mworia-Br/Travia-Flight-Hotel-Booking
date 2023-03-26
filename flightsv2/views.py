@@ -281,7 +281,8 @@ def checkoutHandle(req):
     latest_flight = FlightTmp.objects.filter(user_id=user_id).latest('added')
     print("---------------------------------")
     print(latest_flight)
-
+    # Add the flight to the cart
+    new_item = CartItem.objects.create(owner=req.user, flight_data=flight_data, quantity=1)
     return render(req, "flights-checkout-round.html", flight_data)
 
 @csrf_exempt
@@ -295,3 +296,62 @@ def pre_Checkout(req):
         newflight.save()
         # Return a JSON response indicating success
         return JsonResponse({'status': 'success'})
+
+def final_checkout(req):
+    if req.method == 'POST':
+        cardNumber = req.POST.get('card')
+        cardHolder = req.POST.get('holder')
+        expirationDate = req.POST.get('ccdate')
+        cvc = req.POST.get('cvc')
+        saveCard = req.POST.get('save_card', False)
+        
+         # Extract message for the host
+        traveler_message = req.POST.get('message')
+        # Initialize an empty list to hold all the traveler dictionaries
+        traveler_list = []
+        # Get the number of travelers from the form
+        num_travelers = int(req.POST.get('travellers'))
+        # Loop over the range of the number of travelers to extract data for each one
+        for i in range(num_travelers):
+            # Initialize an empty dictionary for each traveler
+            traveler = {}
+            # Extract the data from the form for this traveler and populate the dictionary
+            traveler['id'] = req.POST.get('id')
+            traveler['name'] = {
+                'firstName': req.POST.get('fname{}'.format(i)),
+                'lastName': req.POST.get('lname{}'.format(i))
+            }
+            traveler['dateOfBirth'] = req.POST.get('dob{}'.format(i))
+            traveler['gender'] = req.POST.get('gender{}'.format(i))
+            traveler['contact'] = {
+                'emailAddress': req.POST.get('email{}'.format(i)),
+                'phones': [
+                    {
+                        'deviceType': 'MOBILE',
+                        'countryCallingCode': req.POST.get('phone_country{}'.format(i)),
+                        'number': req.POST.get('phone{}'.format(i))
+                    }
+                ]
+            }
+            traveler['documents'] = [
+                {
+                    'documentType': req.POST.get('document_type{}'.format(i)),
+                    'birthPlace': '',
+                    'issuanceLocation': '',
+                    'issuanceDate': '',
+                    'number': req.POST.get('document_number{}'.format(i)),
+                    'expiryDate': '',
+                    'issuanceCountry': '',
+                    'validityCountry': '',
+                    'nationality': '',
+                    'holder': True,
+                }
+            ]
+            # Add this traveler's dictionary to the list
+            traveler_list.append(traveler)
+        # Return the traveler list as a response
+        print("handling")
+        return render(req, 'index.html')
+    else:
+        # If the req method is not POST, render the template
+        return render(req, 'index.html')

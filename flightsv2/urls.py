@@ -7,4 +7,5 @@ urlpatterns = [
     path('book_flight/<str:flight>/', views.book_flight, name='book_flight'),
     path('checkoutHandle/', views.checkoutHandle, name='checkoutHandle'),
     path('pre_checkout/', views.pre_Checkout, name='pre_checkout'),
+    path('final_checkout/', views.final_checkout, name='final_checkout'),
 ]
