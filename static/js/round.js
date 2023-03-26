@@ -163,14 +163,22 @@ function handleFindFlight() {
   departureDate = document.getElementById("date").value;       
   returnDate = document.getElementById("returndate").value;
   adults = document.getElementById("adults").value;
+        // check if adults is greater than 1, if not set it to 1
+        if(adults < 1){
+          adults = 1;
+        }
   children = document.getElementById("children").value;
-  const flightresults_URL = `https://${checkoutHost}/api/v2/flight/search_flights/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}`;
+  const flightresults_URL = `https://${checkoutHost}/api/v2/flight/search_flights/?originCode=${originCode}&destinationCode=${destinationCode}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&shortOrigin=${shortOrigin}&longOrigin=${longOrigin}&shortDestination=${shortDestination}&longDestination=${longDestination}`;
   window.location.href = flightresults_URL;
 }
 
 function handleFindFlightred() {
   departureDate = document.getElementById("date").value;
   adults = document.getElementById("adults").value;
+        // check if adults is greater than 1, if not set it to 1
+        if(adults < 1){
+          adults = 1;
+        }
   children = document.getElementById("children").value;
   infants = document.getElementById("infants").value;
   returnDate = document.getElementById("returndate").value;

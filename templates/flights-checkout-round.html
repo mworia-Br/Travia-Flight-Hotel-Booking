@@ -88,19 +88,19 @@
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href=" {% url 'index' %} ">
-            <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
+          <a class="header__logo" href="{% url 'index' %}">
+            <img class="some-icon" src="{% static 'img/logo-light.svg' %}" alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
             <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
             <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
             <a class="header__item" href="#">Promo</a>
             <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
-            <a class="header__item" href=" {% static 'support.html' %} ">Support</a>
+            <a class="header__item" href="support.html">Support</a>
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-globe">
-                  <use xlink:href=" {% static '#icon-globe' %} "></use></svg
+                  <use xlink:href="#icon-globe"></use></svg
                 >Language
               </button>
               <div class="header__body js-header-body">
@@ -124,7 +124,7 @@
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-coin">
-                  <use xlink:href=" {% static '#icon-coin' %} "></use>
+                  <use xlink:href="#icon-coin"></use>
                 </svg>
                 USD
               </button>
@@ -150,15 +150,15 @@
           <div class="header__item header__item_notification js-header-item">
             <button class="header__head js-header-head active">
               <svg class="icon icon-notification">
-                <use xlink:href=" {% static '#icon-notification' %} "></use>
+                <use xlink:href="#icon-notification"></use>
               </svg>
             </button>
             <div class="header__body js-header-body">
               <div class="header__title">Notification</div>
               <div class="header__notifications">
-                <a class="header__notification" href=" {% static 'message-center.html' %} ">
+                <a class="header__notification" href="message-center.html">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -168,9 +168,9 @@
                       class="header__status"
                       style="background-color: #3b71fe"
                     ></div></div></a
-                ><a class="header__notification" href=" {% static 'message-center.html' %} ">
+                ><a class="header__notification" href="message-center.html">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -184,43 +184,38 @@
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            class="status login__status js-popup-open"
-            href=" {% static '#popup-login' %} "
-            data-effect="mfp-zoom-in"
-          >
-            Login
+          <a class="button-stroke button-small header__button" href="{% url 'logout' %}">Logout</a>
           </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
-              <img src=" {% static 'img/content/avatar-2.jpg' %} " alt="Avatar" />
+              <img src="{% static 'img/content/avatar-2.jpg' %}" alt="Avatar" />
+              
             </button>
             <div class="header__body js-header-body">
               <div class="header__group">
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'message-center.html' %} ">
+                  <a class="header__link" href="message-center.html">
                     <svg class="icon icon-comment">
-                      <use xlink:href=" {% static '#icon-comment' %} "></use></svg
+                      <use xlink:href="#icon-comment"></use></svg
                     >Messages</a
-                  ><a class="header__link" href=" {% static 'bookings-list.html' %} ">
+                  ><a class="header__link" href="bookings-list.html">
                     <svg class="icon icon-home">
-                      <use xlink:href=" {% static '#icon-home' %} "></use></svg
+                      <use xlink:href="#icon-home"></use></svg
                     >Bookings</a
-                  ><a class="header__link" href=" {% static 'wishlists.html' %} ">
+                  ><a class="header__link" href="wishlists.html">
                     <svg class="icon icon-email">
-                      <use xlink:href=" {% static '#icon-email' %} "></use></svg
+                      <use xlink:href="#icon-email"></use></svg
                     >Wishlists</a
                   >
                 </div>
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'list-your-property.html' %} ">
+                  <a class="header__link" href="list-your-property.html">
                     <svg class="icon icon-building">
-                      <use xlink:href=" {% static '#icon-building' %} "></use></svg
+                      <use xlink:href="#icon-building"></use></svg
                     >List your property</a
-                  ><a class="header__link" href=" {% static 'host-an-experience.html' %} ">
+                  ><a class="header__link" href="host-an-experience.html">
                     <svg class="icon icon-flag">
-                      <use xlink:href=" {% static '#icon-flag' %} "></use></svg
+                      <use xlink:href="#icon-flag"></use></svg
                     >Host an experience</a
                   >
                 </div>
@@ -228,7 +223,7 @@
               <div class="header__btns">
                 <a
                   class="button button-small header__button"
-                  href=" {% static 'account-setting.html' %} "
+                  href="account-setting.html"
                   >Account</a
                 >
                 <button class="button-stroke button-small header__button">
@@ -256,7 +251,7 @@
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
                   <a class="breadcrumbs__link" href=" {% static 'stays-product.html' %} "
-                    >Spectacular views of Queenstown</a
+                    >Spectacular views of {{ short_Destination }}</a
                   >
                 </li>
                 <li class="breadcrumbs__item">Confirm and pay</li>
@@ -273,26 +268,29 @@
                         <div class="ticket__details__box">
                           <div class="ticket__details__top">
                             <div class="travel__destination">
-                              Dhaka - Abu Dhabi
+                              {{ short_Origin }} - {{ short_Destination }}
                             </div>
                             <div class="travel__baggage">
                               Baggage & Fare Rule
                             </div>
                           </div>
+                          {% if firstFlightDepartureDate %}
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">
+                              <div class="travel__destination">
+                                Route: {{ firstFlightDepartureAirport }} - {{ firstFlightArrivalAirport }}
+                              </div>
                               <div class="flight__logo wide">
                                 <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
+                                  src="{{ firstFlightAirlineLogo }}"
+                                  alt="{{ firstFlightAirline }}"
                                 />
                               </div>
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div class="flight__number">{{ firstFlightDepartureAirport }} {{ secondFlightDepartureDate }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ firstFlightDepartureAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -333,53 +331,38 @@
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <span class="duration">2h 30m</span>
+                              <span class="duration">{{ firstFlightArrivalDuration }}</span>
                             </div>
                             <div class="travel__detination__item">
-                              <div class="flight__logo wide">
-                                <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
-                                />
-                              </div>
                               <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div>Wed Dec 13 2022 </div>
+                                <div class="flight__number">{{ firstFlightArrivalAirport }} {{ firstFlightArrivalDate }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ firstFlightArrivalAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="ticket__details__desc">
-                          BCM (Mumbai) 2h 35m layover
-                        </div>
-                        <div class="ticket__details__box">
-                          <div class="ticket__details__top">
-                            <div class="travel__destination">
-                              Dhaka - Abu Dhabi
-                            </div>
-                            <div class="travel__baggage">
-                              Baggage & Fare Rule
-                            </div>
-                          </div>
+                          {% endif %}
+                          {% if secondFlightDepartureDate %}           
+                          <hr class="ticket__details__hr" />
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">
+                              <div class="travel__destination">
+                                Route: {{ secondFlightDepartureAirport }} - {{ secondFlightArrivalAirport }}
+                              </div>
                               <div class="flight__logo wide">
                                 <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
+                                  src="{{ secondFlightAirlineLogo }}"
+                                  alt="{{ secondFlightAirline }}"
                                 />
                               </div>
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div class="flight__number">{{ secondFlightDepartureAirport }} {{ secondFlightDepartureDate }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ secondFlightDepartureAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -420,26 +403,165 @@
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <span class="duration">2h 30m</span>
+                              <span class="duration">{{ secondFlightArrivalDuration }}</span>
                             </div>
                             <div class="travel__detination__item">
-                              <div class="flight__logo wide">
-                                <img
-                                  src=" {% static 'img/content/emirates.svg' %} "
-                                  alt="Emirates"
-                                />
-                              </div>
                               <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">DAC 20:30</div>
+                                <div>Wed Dec 13 2022 </div>
+                                <div class="flight__number">{{ secondFlightArrivalAirport }} {{ secondFlightArrivalDate }}</div>
                                 <div>
-                                  Hazrat Shahjalal International Airport,Dhaka,
-                                  Bangladesh
+                                  {{ secondFlightArrivalAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
                             </div>
                           </div>
+                          {% endif %}
+                          {% if thirdFlightDepartureDate %}
+                          <hr class="ticket__details__hr" />
+                          <div class="travel__detination__flex">
+                            <div class="travel__detination__item">
+                              <div class="travel__destination">
+                                Route: {{ thirdFlightDepartureAirport }} - {{ thirdFlightArrivalAirport }}
+                              </div>
+                              <div class="flight__logo wide">
+                                <img
+                                  src="{{ thirdFlightAirlineLogo }}"
+                                  alt="{{ thirdFlightAirline }}"
+                                />
+                              </div>
+                              <div class="travel__destination__desc">
+                                <div>Wed Dec 13 2022</div>
+                                <div class="flight__number">{{ thirdFlightDepartureAirport }} {{ secondFlightDepartureDate }}</div>
+                                <div>
+                                  {{ thirdFlightDepartureAirport }}
+                                </div>
+                                <div>(Terminal 2)</div>
+                              </div>
+                            </div>
+                            <div class="travel__detination__duration">
+                              <svg
+                                width="96"
+                                height="10"
+                                viewBox="0 0 96 10"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <circle cx="3" cy="4" r="3" fill="#D9D9D9" />
+                                <path
+                                  d="M7 4H19"
+                                  stroke="#6F767E"
+                                  stroke-dasharray="2 2"
+                                />
+                                <g clip-path="url( {% static '#clip0_123_5091' %} )">
+                                  <path
+                                    d="M95.9837 5.08188C95.98 5.08188 95.98 5.08188 95.9837 5.08188C95.8784 5.32 95.2843 5.48813 95.2843 5.48813L92.7415 5.48438L89.9718 9.52344L89.3193 9.47656L90.589 6.07813L90.5187 5.46875L87.5225 5.46094L86.1553 6.89063L85.999 6.91031L86.4484 5.14063L86.3 5.02344L86.2646 4.99594L86.3037 4.96469L86.4521 4.85125L86.0068 3.07781L86.1631 3.0975L87.5187 4.535H90.5187L90.589 3.92563L89.3312 0.523437L89.9837 0.476562L92.7415 4.5275L95.2843 4.53125C95.2843 4.53125 96.1321 4.76938 95.9837 5.08219V5.08188Z"
+                                    fill="#2276E3"
+                                  />
+                                </g>
+                                <path
+                                  d="M72 5H84"
+                                  stroke="#6F767E"
+                                  stroke-dasharray="2 2"
+                                />
+                                <defs>
+                                  <clipPath id="clip0_123_5091">
+                                    <rect
+                                      width="10"
+                                      height="10"
+                                      fill="white"
+                                      transform="translate(86)"
+                                    />
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <span class="duration">{{ thirdFlightArrivalDuration }}</span>
+                            </div>
+                            <div class="travel__detination__item">
+                              <div class="travel__destination__desc">
+                                <div>Wed Dec 13 2022 </div>
+                                <div class="flight__number">{{ thirdFlightArrivalAirport }} {{ thirdFlightArrivalDate }}</div>
+                                <div>
+                                  {{ thirdFlightArrivalAirport }}
+                                </div>
+                                <div>(Terminal 2)</div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                          {% if fourthFlightDepartureDate %}
+                          <hr class="ticket__details__hr" />
+                          <div class="travel__detination__flex">
+                            <div class="travel__detination__item">
+                              <div class="travel__destination">
+                                Route: {{ fourthFlightDepartureAirport }} - {{ fourthFlightArrivalAirport }}
+                              </div>
+                              <div class="flight__logo wide">
+                                <img
+                                  src="{{ fourthFlightAirlineLogo }}"
+                                  alt="{{ fourthFlightAirline }}"
+                                />
+                              </div>
+                              <div class="travel__destination__desc">
+                                <div>Wed Dec 13 2022</div>
+                                <div class="flight__number">{{ fourthFlightDepartureAirport }} {{ fourthFlightDepartureDate }}</div>
+                                <div>
+                                  {{ fourthFlightDepartureAirport }}
+                                </div>
+                                <div>(Terminal 2)</div>
+                              </div>
+                            </div>
+                            <div class="travel__detination__duration">
+                              <svg
+                                width="96"
+                                height="10"
+                                viewBox="0 0 96 10"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <circle cx="3" cy="4" r="3" fill="#D9D9D9" />
+                                <path
+                                  d="M7 4H19"
+                                  stroke="#6F767E"
+                                  stroke-dasharray="2 2"
+                                />
+                                <g clip-path="url( {% static '#clip0_123_5091' %} )">
+                                  <path
+                                    d="M95.9837 5.08188C95.98 5.08188 95.98 5.08188 95.9837 5.08188C95.8784 5.32 95.2843 5.48813 95.2843 5.48813L92.7415 5.48438L89.9718 9.52344L89.3193 9.47656L90.589 6.07813L90.5187 5.46875L87.5225 5.46094L86.1553 6.89063L85.999 6.91031L86.4484 5.14063L86.3 5.02344L86.2646 4.99594L86.3037 4.96469L86.4521 4.85125L86.0068 3.07781L86.1631 3.0975L87.5187 4.535H90.5187L90.589 3.92563L89.3312 0.523437L89.9837 0.476562L92.7415 4.5275L95.2843 4.53125C95.2843 4.53125 96.1321 4.76938 95.9837 5.08219V5.08188Z"
+                                    fill="#2276E3"
+                                  />
+                                </g>
+                                <path
+                                  d="M72 5H84"
+                                  stroke="#6F767E"
+                                  stroke-dasharray="2 2"
+                                />
+                                <defs>
+                                  <clipPath id="clip0_123_5091">
+                                    <rect
+                                      width="10"
+                                      height="10"
+                                      fill="white"
+                                      transform="translate(86)"
+                                    />
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <span class="duration">{{ fourthFlightArrivalDuration }}</span>
+                            </div>
+                            <div class="travel__detination__item">
+                              <div class="travel__destination__desc">
+                                <div>Wed Dec 13 2022 </div>
+                                <div class="flight__number">{{ fourthFlightArrivalAirport }} {{ firstFlightArrivalDate }}</div>
+                                <div>
+                                  {{ fourthFlightArrivalAirport }}
+                                </div>
+                                <div>(Terminal 2)</div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endif %}
+
                         </div>
                         <hr class="ticket__details__hr" />
                         <div class="ticket__details__card__footer">
@@ -915,7 +1037,7 @@
                               <div
                                 class="travelers__value js-travelers-content"
                               >
-                                1 guest
+                              {{ travellers }} guest
                               </div>
                               <button class="travelers__edit js-travelers-head">
                                 <svg class="icon icon-edit">
@@ -1033,280 +1155,10 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> 
+                      <hr class="ticket__details__hr" />    
+                      <a class="button checkout__button" href="#">Confirm and pay</a>
                     </div>
-                    <div class="checkout__box">
-                      <div class="checkout__category">Traveler Details</div>
-                      <div class="checkout__row" style="margin-top: 1.5rem">
-                        <div class="field">
-                          <div class="field__label">First Name</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              type="text"
-                              name="fname"
-                              placeholder="ABC"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="field">
-                          <div class="field__label">Last Name</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              type="tel"
-                              name="lname"
-                              placeholder="XYZ"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="checkout__row" style="margin-top: 1.5rem">
-                        <div class="field">
-                          <div class="field__label">Date of Birth</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input js-date-single"
-                              data-format="MMM DD, YYYY"
-                              data-single="data-single"
-                              data-container=".datepicker"
-                              type="text"
-                              placeholder="May 16, 1987"
-                              readonly="readonly"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="field">
-                          <div class="field__label">Gender</div>
-                          <div class="field__wrap">
-                            <select class="select">
-                              <option>Male</option>
-                              <option>Female</option>
-                              <option>Others</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="field" style="margin-top: 1.5rem">
-                        <div class="field__label">Guests Citizenship</div>
-                        <div class="field__wrap">
-                          <select class="select">
-                            <option>United States</option>
-                            <option>United Kingdom</option>
-                            <option>Turkey</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="checkout__row" style="margin-top: 1.5rem">
-                        <div class="field">
-                          <div class="field__label">Document Number</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              type="tel"
-                              name="lname"
-                              placeholder="12234567"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="field">
-                          <div class="field__label">Exp. Date</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input js-date-single"
-                              data-format="MMM DD, YYYY"
-                              data-single="data-single"
-                              data-container=".datepicker"
-                              type="text"
-                              placeholder="May 16, 2024"
-                              readonly="readonly"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="checkout__box">
-                      <div class="checkout__top">
-                        <div class="checkout__category">Pay with</div>
-                        <div class="nav">
-                          <a class="nav__link js-tabs-link" href="#"
-                            >Credit Card</a
-                          ><a class="nav__link js-tabs-link" href="#">Paypal</a>
-                        </div>
-                      </div>
-                      <div class="field">
-                        <div class="field__label">saved contact info</div>
-                        <div class="field__wrap">
-                          <select class="select">
-                            <option>tam@ui8.net</option>
-                            <option>vova@ui8.net</option>
-                            <option>john@ui8.net</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="checkout__section">
-                    <form
-                      class="checkout__item js-tabs-item"
-                      style="display: block"
-                    >
-                      <div class="checkout__line">
-                        <div class="checkout__subtitle">Credit Card</div>
-                        <div class="checkout__cards">
-                          <div class="checkout__card">
-                            <img src=" {% static 'img/content/visa.svg' %} " alt="Visa" />
-                          </div>
-                          <div class="checkout__card">
-                            <img
-                              src=" {% static 'img/content/master-card.svg' %} "
-                              alt="Master Card"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="checkout__fieldset">
-                        <div class="field">
-                          <div class="field__label">card number</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              type="tel"
-                              name="card"
-                              placeholder="XXXX XXXX XXXX XXXX"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="field">
-                          <div class="field__label">card holder</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              type="text"
-                              name="holder"
-                              placeholder="TRAN MAU TRI TAM"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="checkout__row">
-                          <div class="field">
-                            <div class="field__label">EXPIRATION DATE</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="tel"
-                                name="date"
-                                placeholder="MM / YY"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="field">
-                            <div class="field__label">CVC</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="tel"
-                                name="cvc"
-                                placeholder="CVC"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <label class="checkbox">
-                        <input
-                          class="checkbox__input"
-                          type="checkbox"
-                          checked="checked"
-                        /><span class="checkbox__inner"
-                          ><span class="checkbox__tick"></span
-                          ><span class="checkbox__text">Save Card</span></span
-                        >
-                      </label>
-                      <div class="checkout__message">
-                        <div class="checkout__category">Message the host</div>
-                        <div class="field">
-                          <div class="field__wrap">
-                            <textarea
-                              class="field__textarea"
-                              name="message"
-                              placeholder="I will be late about 1 hour, please wait..."
-                              required=""
-                            ></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <a class="button checkout__button" href="#"
-                        >Confirm and pay</a
-                      >
-                    </form>
-                    <form
-                      class="checkout__item js-tabs-item"
-                      style="display: none"
-                    >
-                      <div class="checkout__line">
-                        <div class="checkout__subtitle">PayPal</div>
-                        <div class="checkout__logo">
-                          <img src=" {% static 'img/content/paypal.svg' %} " alt="PayPal" />
-                        </div>
-                      </div>
-                      <div class="checkout__fieldset">
-                        <div class="field">
-                          <div class="field__label">email or phone number</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              type="text"
-                              name="login"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="field">
-                          <div class="field__label">Password</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              type="password"
-                              name="password"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="checkout__control">
-                        <a class="button checkout__button" href="#"
-                          >Confirm and pay</a
-                        >
-                        <div class="checkout__verified">
-                          <img
-                            src=" {% static 'img/content/paypal-verified.png' %} "
-                            alt="PayPal"
-                          />
-                        </div>
-                      </div>
-                      <label class="checkbox">
-                        <input
-                          class="checkbox__input"
-                          type="checkbox"
-                          checked="checked"
-                        /><span class="checkbox__inner"
-                          ><span class="checkbox__tick"></span
-                          ><span class="checkbox__text"
-                            >Save Paypal Account</span
-                          ></span
-                        >
-                      </label>
-                    </form>
                   </div>
                 </div>
               </div>
@@ -1316,23 +1168,23 @@
                   <div class="price__table">
                     <div class="price__row">
                       <div class="price__cell">Base fare x 7 nights</div>
-                      <div class="price__cell">$833</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
-                      <div class="price__cell">Adults (2 x $450)</div>
-                      <div class="price__cell">$900</div>
+                      <div class="price__cell">Adults ( {{ travellers }} )</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Service fee</div>
-                      <div class="price__cell">$103</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Promo code discount</div>
-                      <div class="price__cell">-$103</div>
+                      <div class="price__cell">-$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Total (USD)</div>
-                      <div class="price__cell">$833</div>
+                      <div class="price__cell">${{ flight_price }}</div>
                     </div>
                   </div>
                 </div>
@@ -1447,123 +1299,6 @@
           </div>
         </div>
       </footer>
-    </div>
-
-    <div class="popup popup_login mfp-hide" id="popup-login">
-      <div class="login">
-        <div class="login__item">
-          <div class="login__title h3">Sign up on Fleet</div>
-          <div class="login__info">Use Your OpenID to Sign up</div>
-          <div class="login__btns">
-            <button class="button login__button">
-              <svg class="icon icon-google">
-                <use xlink:href=" {% static '#icon-google' %} "></use></svg
-              ><span>Google</span>
-            </button>
-            <button class="button-black login__button">
-              <svg class="icon icon-apple">
-                <use xlink:href=" {% static '#icon-apple' %} "></use></svg
-              ><span>Apple</span>
-            </button>
-          </div>
-          <div class="login__note">Or continue with email</div>
-          <div class="subscription">
-            <input
-              class="subscription__input"
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              required
-            />
-            <button class="subscription__btn">
-              <svg class="icon icon-arrow-next">
-                <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
-              </svg>
-            </button>
-          </div>
-          <div class="login__foot">
-            Already have an account? <a class="login__link" href="#">Login</a>
-          </div>
-        </div>
-        <div class="login__item">
-          <div class="login__title h3">Sign in</div>
-          <div class="login__form">
-            <div class="field field_view">
-              <div class="field__wrap">
-                <input
-                  class="field__input"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  required
-                />
-                <button class="field__view">
-                  <svg class="icon icon-eye">
-                    <use xlink:href=" {% static '#icon-eye' %} "></use>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <button class="button login__button">Login</button>
-          </div>
-          <div class="login__foot">
-            <a class="login__password" href="#">Forgot password?</a>
-          </div>
-        </div>
-        <div class="login__item">
-          <div class="login__title h3">Let’s confirm it’s really you</div>
-          <div class="login__info">
-            Help us secure your account. Please complete the verifications below
-          </div>
-          <div class="login__form">
-            <div class="login__variants">
-              <label class="radio">
-                <input
-                  class="radio__input"
-                  type="radio"
-                  name="login"
-                  checked="checked"
-                /><span class="radio__inner"
-                  ><span class="radio__tick"></span
-                  ><span class="radio__text"
-                    >Get the code by text message (SM) at +1 234 567 890</span
-                  ></span
-                >
-              </label>
-              <label class="radio">
-                <input class="radio__input" type="radio" name="login" /><span
-                  class="radio__inner"
-                  ><span class="radio__tick"></span
-                  ><span class="radio__text"
-                    >Get the code by email at tranm••••••••••••@gm•••.com</span
-                  ></span
-                >
-              </label>
-            </div>
-            <button class="button login__button">Continue</button>
-          </div>
-        </div>
-        <div class="login__item">
-          <div class="login__title h3">Enter your security code</div>
-          <div class="login__info">We texted your code to +1 234 567 890</div>
-          <div class="login__form">
-            <div class="login__code">
-              <div class="login__number">
-                <input type="tel" />
-              </div>
-              <div class="login__number">
-                <input type="tel" />
-              </div>
-              <div class="login__number">
-                <input type="tel" />
-              </div>
-              <div class="login__number">
-                <input type="tel" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- scripts-->
