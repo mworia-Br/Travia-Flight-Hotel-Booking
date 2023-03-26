@@ -133,11 +133,11 @@ AUTH_PASSWORD_VALIDATORS = [
 EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
 
 ANYMAIL = {
-    "MAILJET_API_KEY": 'c8624fb9a345ba333f4bc9bb285350ff',
-    "MAILJET_SECRET_KEY": 'd6ea4acfdae75ec3a3b3cd656fd0b9bc',
+    "MAILJET_API_KEY": '',
+    "MAILJET_SECRET_KEY": '',
 }
 
-DEFAULT_FROM_EMAIL = 'orderprocessing@humpbackfieldsolutions.xyz'
+DEFAULT_FROM_EMAIL = ''
 
 
 # Internationalization
