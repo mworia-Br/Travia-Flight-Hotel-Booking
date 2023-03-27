@@ -387,7 +387,7 @@
             <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
             <a class="header__item" href="#">Promo</a>
             <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
-            <a class="header__item" href="support.html">Support</a>
+            <a class="header__item" href="{% url 'index' %}">Support</a>
             <div class="header__item header__item_language js-header-item">
               <button class="header__head js-header-head">
                 <svg class="icon icon-globe">
@@ -447,7 +447,7 @@
             <div class="header__body js-header-body">
               <div class="header__title">Notification</div>
               <div class="header__notifications">
-                <a class="header__notification" href="message-center.html">
+                <a class="header__notification" href="{% url 'index' %}">
                   <div class="header__avatar">
                     <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
@@ -459,7 +459,7 @@
                       class="header__status"
                       style="background-color: #3b71fe"
                     ></div></div></a
-                ><a class="header__notification" href="message-center.html">
+                ><a class="header__notification" href="{% url 'index' %}">
                   <div class="header__avatar">
                     <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
@@ -485,15 +485,15 @@
             <div class="header__body js-header-body">
               <div class="header__group">
                 <div class="header__menu">
-                  <a class="header__link" href="message-center.html">
+                  <a class="header__link" href="{% url 'index' %}">
                     <svg class="icon icon-comment">
                       <use xlink:href="#icon-comment"></use></svg
                     >Messages</a
-                  ><a class="header__link" href="bookings-list.html">
+                  ><a class="header__link" href="{% url 'profile' %}">
                     <svg class="icon icon-home">
                       <use xlink:href="#icon-home"></use></svg
                     >Bookings</a
-                  ><a class="header__link" href="wishlists.html">
+                  ><a class="header__link" href="{% url 'profile' %}">
                     <svg class="icon icon-email">
                       <use xlink:href="#icon-email"></use></svg
                     >Wishlists</a
@@ -504,7 +504,7 @@
                     <svg class="icon icon-building">
                       <use xlink:href="#icon-building"></use></svg
                     >List your property</a
-                  ><a class="header__link" href="host-an-experience.html">
+                  ><a class="header__link" href="{% url 'profile' %}">
                     <svg class="icon icon-flag">
                       <use xlink:href="#icon-flag"></use></svg
                     >Host an experience</a
@@ -514,7 +514,7 @@
               <div class="header__btns">
                 <a
                   class="button button-small header__button"
-                  href="account-setting.html"
+                  href="{% url 'profile' %}"
                   >Account</a
                 >
                 <button class="button-stroke button-small header__button">
