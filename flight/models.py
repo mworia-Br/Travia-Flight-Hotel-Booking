@@ -7,7 +7,7 @@ from django.contrib import admin
 class CartItem(models.Model):
     #owner=models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     owner = models.CharField(max_length=100, null=True, blank=True)
-    flight_data = models.JSONField(default=dict)
+    flight_data = models.JSONField(blank=True, null=True)
     quantity = models.PositiveIntegerField(default=1)
     STATUS_CHOICES = [
         ('Waiting', 'Waiting'),
