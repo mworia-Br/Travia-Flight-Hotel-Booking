@@ -300,8 +300,8 @@
             </div>
             <div class="setting__container">
               <div class="setting__item">
-                <form class="setting__form" method="post" action="{% url 'profile' %}">
-                  {% csrf_token %}>
+                <form class="setting__form" method="post" action="{% url 'profile_edit' %}">
+                  {% csrf_token %}
                   <div class="setting__head">
                     <h2 class="setting__title h2">Personal info</h2>
                     <button

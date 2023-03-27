@@ -12,6 +12,7 @@ urlpatterns = [
     path('roundtrip-flight/', views.roundtrip_view, name='roundtrip_flight'),
     path('hotels/', views.hotels_view, name='hotels'),
     path('profile/', views.profile, name='profile'),
+    path('profile-edit/', views.profile_edit, name='profile_edit'),
     path('forgot-password/',views.forgot_password_view, name='forgot_password'),
     path('change-password/', views.change_password_view, name='change_password'),
     path('set-password/<str:uidb64>/<str:token>/', views.set_password, name='set_password'),
