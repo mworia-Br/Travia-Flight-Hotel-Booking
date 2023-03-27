@@ -300,7 +300,8 @@
             </div>
             <div class="setting__container">
               <div class="setting__item">
-                <form class="setting__form">
+                <form class="setting__form" method="post" action="{% url 'profile' %}">
+                  {% csrf_token %}>
                   <div class="setting__head">
                     <h2 class="setting__title h2">Personal info</h2>
                     <button
@@ -321,21 +322,21 @@
                               class="field__input"
                               type="text"
                               name="display-title"
-                              placeholder="Enter your title"
-                              required
+                              placeholder="{{ personal_info.title }}"
+                              required ="True"
                             />
                           </div>
                         </div>
                         <div class="setting__row">
                           <div class="field">
-                            <div class="field__label">Name</div>
+                            <div class="field__label">First name</div>
                             <div class="field__wrap">
                               <input
                                 class="field__input"
                                 type="text"
                                 name="display-name"
-                                placeholder="Enter your name"
-                                required
+                                placeholder="{{ personal_info.name }}"
+                                required ="True"
                               />
                             </div>
                           </div>
@@ -346,8 +347,8 @@
                                 class="field__input"
                                 type="text"
                                 name="real-name"
-                                placeholder="Enter your surname"
-                                required
+                                placeholder="{{ personal_info.surname }}"
+                                required ="True"
                               />
                             </div>
                           </div>
@@ -360,8 +361,8 @@
                                 class="field__input"
                                 type="tel"
                                 name="phone"
-                                placeholder="Phone number"
-                                required
+                                placeholder="{{ personal_info.phone }}"
+                                required ="True"
                               />
                             </div>
                           </div>
@@ -372,8 +373,8 @@
                                 class="field__input"
                                 type="email"
                                 name="email"
-                                placeholder="Email"
-                                required
+                                placeholder="{{ personal_info.email }}"
+                                required ="True"
                               />
                             </div>
                           </div>
@@ -386,8 +387,8 @@
                                 class="field__input"
                                 type="text"
                                 name="city"
-                                placeholder="Enter your city"
-                                required
+                                placeholder="{{ personal_info.city }}"
+                                required="True"
                               />
                             </div>
                           </div>
@@ -398,8 +399,8 @@
                                 class="field__input"
                                 type="text"
                                 name="nationality"
-                                placeholder="Enter your nationality"
-                                required
+                                placeholder="{{ personal_info.natianality }}"
+                                required ="True"
                               />
                             </div>
                           </div>
@@ -410,18 +411,19 @@
                             <textarea
                               class="field__textarea"
                               name="bio"
-                              placeholder="About yourself in a few words"
+                              placeholder="{{ personal_info.bio }}"
                               required
                             ></textarea>
                           </div>
                         </div>
-                      </div>
+                      </div>                   
                     </div>
                   </div>
                   <div class="setting__controls">
-                    <button class="button setting__button">
+                    <button class="button setting__button" type="submit">
                       Update profile
                     </button>
+
                     <button class="setting__clear">
                       <svg class="icon icon-close">
                         <use xlink:href=" {% url 'profile' %} "></use></svg

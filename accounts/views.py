@@ -19,6 +19,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from .models import Personal_Info, Traveler, HotelSearch, Payment
 from flight.models import CartItem
 
 amadeus = Client(
@@ -135,7 +136,25 @@ def hotels_view(req):
 
 @login_required(login_url='login')
 def profile(req):
-    return render(req, 'profile.html', {})
+    if req.method == 'POST':
+        title = req.POST.get('display-title')
+        first_name = req.POST.get('display-name')
+        surname = req.POST.get('real-name')
+        email = req.POST.get('email')
+        phone = req.POST.get('phone')
+        city = req.POST.get('city')
+        nationality = req.POST.get('nationality')
+        bio = req.POST.get('bio')
+        #save the data to the database as personal info
+        new_personal_info = Personal_Info.objects.create(user=req.user,title=title, name=first_name, surname=surname,phone=phone,email=email,city=city,natianality=nationality,bio=bio)
+        render(req, 'profile-orders.html', {})
+    else:
+        # retrieve the CartItem object with the specified primary key
+        personal_info = Personal_Info.objects.filter(user=req.user).latest('updated')
+        context={
+            'personal_info': personal_info,
+        }
+        return render(req, 'profile.html', context)
 
 @login_required(login_url='login')
 def profile_orders(req):

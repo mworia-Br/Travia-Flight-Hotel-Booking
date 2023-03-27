@@ -4,7 +4,7 @@ from django.contrib import admin
 
 # Create your models here.
 class Personal_Info(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    user= models.CharField(max_length=100, null=True, blank=True)
     title = models.CharField(max_length=10, blank=True, null=True)
     name = models.CharField(max_length=50, blank=False, null=True)
     surname = models.CharField(max_length=50, blank=False, null=True)
@@ -12,7 +12,9 @@ class Personal_Info(models.Model):
     email = models.EmailField(max_length=254, blank=False, null=True)
     city = models.CharField(max_length=50, blank=False, null=True)
     natianality = models.CharField(max_length=50, blank=False, null=True)
-    
+    bio = models.TextField(blank=True, null=True)
+    updated = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.name + self.surname + self.natianality
 
