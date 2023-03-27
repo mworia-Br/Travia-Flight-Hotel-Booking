@@ -283,7 +283,7 @@
             <div class="control">
               <a
                 class="button-stroke button-small control__button"
-                href=" {% static 'flights.html' %} "
+                href="{% url 'oneway_flight' %}"
               >
                 <svg class="icon icon-arrow-left">
                   <use xlink:href=" {% static '#icon-arrow-left' %} "></use></svg
@@ -291,7 +291,7 @@
               >
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
-                  <a class="breadcrumbs__link" href=" {% static 'flights.html' %} ">Home</a>
+                  <a class="breadcrumbs__link" href="{% url 'oneway_flight' %}">Home</a>
                 </li>
                 <li class="breadcrumbs__item">Flights</li>
               </ul>
