@@ -60,6 +60,7 @@ class CustomSetPasswordForm(SetPasswordForm):
     new_password2 = forms.CharField(max_length=30, required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Confirm New Password'}))
 
     class Meta:
+        model = User
         fields = ('new_password1', 'new_password2')
 
 class CustomAuthenticationForm(AuthenticationForm):

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth import login,logout, authenticate, get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.models import User
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse_lazy
@@ -171,9 +172,7 @@ def profile_orders(req):
     # retrieve the CartItem object with the specified primary key
     cart_items = CartItem.objects.filter(owner=req.user)
     if not cart_items:
-        # create an empty list if there are no cart items
-        cart_items = []
-        return render(req, 'profile-orders.html', context)
+        return render(req, 'profile-orders.html', {})
     else:       
         # render the data in the order details page
         context = {
@@ -189,6 +188,7 @@ def profile_travelers(req):
 def profile_traveleradd(req):
     return render(req, 'profile-traveler-new.html', {})
 
+@login_required(login_url='login')
 def change_password_view(req):
     if req.method == 'POST':
         form = PasswordChangeForm(req.user, req.POST)
