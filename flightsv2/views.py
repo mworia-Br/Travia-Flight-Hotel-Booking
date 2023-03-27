@@ -90,15 +90,25 @@ def search_flights(req):
             return render(req, "home.html", {})
 
         try:
-            country = search_flights.result['dictionaries'].get('locations').get(destination).get('countryCode')
-            # Get the travel restrictions for the destination
-            travel_restrictions = amadeus.duty_of_care.diseases.covid19_report.get(countryCode=country)
-            documents = travel_restrictions.data['areaAccessRestriction']['declarationDocuments'].get('text', None)
-            covid_tests = travel_restrictions.data['areaAccessRestriction']['travelTest']['travelTestConditionsAndRules'][0]['scenarios'][0]['condition']['textualScenario']
-        except ResponseError as error:
-            messages.add_message(
-                req, messages.ERROR, error.response.result["errors"][0]["detail"]
-            )
+            if 'dictionaries' in search_flights.result:
+                # Get the country code for the destination location
+                country = search_flights.result['dictionaries'].get('locations').get(destination).get('countryCode')
+                # Get the travel restrictions for the destination
+                travel_restrictions = amadeus.duty_of_care.diseases.covid19_report.get(countryCode=country)
+                documents = travel_restrictions.data['areaAccessRestriction']['declarationDocuments'].get('text', None)
+                covid_tests = travel_restrictions.data['areaAccessRestriction']['travelTest']['travelTestConditionsAndRules'][0]['scenarios'][0]['condition']['textualScenario']
+            else:
+                # Handle the case where 'dictionaries' key is not present in search_flights.result
+                country = None # or whatever value is appropriate for your use case
+                # Get the travel restrictions for the destination
+                travel_restrictions = None
+                documents = None
+                covid_tests = None
+            
+        except ResponseError as error:#handle the error here
+            #messages.add_message(
+            #    req, messages.ERROR, error.response.result["errors"][0]["detail"]
+            #)
             return render(req, "home.html", {})
         search_flights_returned = []
         response = ""
