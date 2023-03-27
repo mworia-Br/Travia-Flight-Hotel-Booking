@@ -170,7 +170,7 @@ def profile_edit(req):
 @login_required(login_url='login')
 def profile_orders(req):
     # retrieve the CartItem object with the specified primary key
-    cart_items = CartItem.objects.filter(owner=req.user)
+    cart_items = CartItem.objects.filter(owner=req.user).order_by('-created_at')
     if not cart_items:
         return render(req, 'profile-orders.html', {})
     else:       
