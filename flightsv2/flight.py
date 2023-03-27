@@ -20,6 +20,9 @@ class Flight:
         offer['price'] = self.flight['price']['total']
         offer['id'] = self.flight['id']
         offer['origin'] = self.flight['itineraries'][0]['segments'][0]['departure']['iataCode']
+        offer['flightDate'] = self.flight["itineraries"][0]["segments"][0]["departure"]["at"].split("T")[0]
+        offer['lastTicketingDate'] = self.flight['lastTicketingDate']
+        offer['bookableSeats'] = self.flight['numberOfBookableSeats']
         offer['destination'] = self.destination
         offer['travellers'] = self.travellers
         offer['owner'] = self.owner

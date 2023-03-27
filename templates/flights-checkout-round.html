@@ -81,6 +81,11 @@
         }
       }
     </script>
+    <script>
+      const flight_info = JSON.parse('{{ flight_info_json|escapejs }}');
+      console.log(flight_info);
+      console.log(flight_info['type']); // Output: flight-offer
+    </script>
   </head>
   <body>
     <!-- outer-->
@@ -251,7 +256,7 @@
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
                   <a class="breadcrumbs__link" href=" {% static 'stays-product.html' %} "
-                    >Spectacular views of {{ short_Destination }}</a
+                    >Spectacular views of {{ flight_data.short_Destination }}</a
                   >
                 </li>
                 <li class="breadcrumbs__item">Confirm and pay</li>
@@ -259,7 +264,7 @@
             </div>
             <div class="checkout__wrapper">
               <div class="checkout__inner js-tabs">
-                <h2 class="checkout__title h2">Confirm and pay</h2>
+                <h2 class="checkout__title h2">Confirm details</h2>
                 <div class="checkout__list">
                   <div class="checkout__section">
                     <div class="checkout__box">
@@ -268,29 +273,29 @@
                         <div class="ticket__details__box">
                           <div class="ticket__details__top">
                             <div class="travel__destination">
-                              {{ short_Origin }} - {{ short_Destination }}
+                              {{ flight_data.short_Origin }} - {{ flight_data.short_Destination }}
                             </div>
                             <div class="travel__baggage">
                               Baggage & Fare Rule
                             </div>
                           </div>
-                          {% if firstFlightDepartureDate %}
+                          {% if flight_data.firstFlightDepartureDate %}
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">
                               <div class="travel__destination">
-                                Route: {{ firstFlightDepartureAirport }} - {{ firstFlightArrivalAirport }}
+                                Route: {{ flight_data.firstFlightDepartureAirport }} - {{ flight_data.firstFlightArrivalAirport }}
                               </div>
                               <div class="flight__logo wide">
                                 <img
-                                  src="{{ firstFlightAirlineLogo }}"
-                                  alt="{{ firstFlightAirline }}"
+                                  src="{{ flight_data.firstFlightAirlineLogo }}"
+                                  alt="{{ flight_data.firstFlightAirline }}"
                                 />
                               </div>
                               <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">{{ firstFlightDepartureAirport }} {{ secondFlightDepartureDate }}</div>
+                                <div>{{ flight_data.flightDate }}</div>
+                                <div class="flight__number">{{ flight_data.firstFlightDepartureAirport }} {{ flight_data.secondFlightDepartureDate }}</div>
                                 <div>
-                                  {{ firstFlightDepartureAirport }}
+                                  {{ flight_data.firstFlightDepartureAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -331,38 +336,38 @@
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <span class="duration">{{ firstFlightArrivalDuration }}</span>
+                              <span class="duration">{{ flight_data.firstFlightArrivalDuration }}</span>
                             </div>
                             <div class="travel__detination__item">
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022 </div>
-                                <div class="flight__number">{{ firstFlightArrivalAirport }} {{ firstFlightArrivalDate }}</div>
+                                <div class="flight__number">{{ flight_data.firstFlightArrivalAirport }} {{ flight_data.firstFlightArrivalDate }}</div>
                                 <div>
-                                  {{ firstFlightArrivalAirport }}
+                                  {{ flight_data.firstFlightArrivalAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
                             </div>
                           </div>
                           {% endif %}
-                          {% if secondFlightDepartureDate %}           
+                          {% if flight_data.secondFlightDepartureDate %}           
                           <hr class="ticket__details__hr" />
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">
                               <div class="travel__destination">
-                                Route: {{ secondFlightDepartureAirport }} - {{ secondFlightArrivalAirport }}
+                                Route: {{ flight_data.secondFlightDepartureAirport }} - {{ flight_data.secondFlightArrivalAirport }}
                               </div>
                               <div class="flight__logo wide">
                                 <img
-                                  src="{{ secondFlightAirlineLogo }}"
-                                  alt="{{ secondFlightAirline }}"
+                                  src="{{ flight_data.secondFlightAirlineLogo }}"
+                                  alt="{{ flight_data.secondFlightAirline }}"
                                 />
                               </div>
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">{{ secondFlightDepartureAirport }} {{ secondFlightDepartureDate }}</div>
+                                <div class="flight__number">{{ flight_data.secondFlightDepartureAirport }} {{ flight_data.secondFlightDepartureDate }}</div>
                                 <div>
-                                  {{ secondFlightDepartureAirport }}
+                                  {{ flight_data.secondFlightDepartureAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -403,38 +408,38 @@
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <span class="duration">{{ secondFlightArrivalDuration }}</span>
+                              <span class="duration">{{ flight_data.secondFlightArrivalDuration }}</span>
                             </div>
                             <div class="travel__detination__item">
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022 </div>
-                                <div class="flight__number">{{ secondFlightArrivalAirport }} {{ secondFlightArrivalDate }}</div>
+                                <div class="flight__number">{{ flight_data.secondFlightArrivalAirport }} {{ flight_data.secondFlightArrivalDate }}</div>
                                 <div>
-                                  {{ secondFlightArrivalAirport }}
+                                  {{ flight_data.secondFlightArrivalAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
                             </div>
                           </div>
                           {% endif %}
-                          {% if thirdFlightDepartureDate %}
+                          {% if flight_data.thirdFlightDepartureDate %}
                           <hr class="ticket__details__hr" />
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">
                               <div class="travel__destination">
-                                Route: {{ thirdFlightDepartureAirport }} - {{ thirdFlightArrivalAirport }}
+                                Route: {{ flight_data.thirdFlightDepartureAirport }} - {{ flight_data.thirdFlightArrivalAirport }}
                               </div>
                               <div class="flight__logo wide">
                                 <img
-                                  src="{{ thirdFlightAirlineLogo }}"
-                                  alt="{{ thirdFlightAirline }}"
+                                  src="{{ flight_data.thirdFlightAirlineLogo }}"
+                                  alt="{{ flight_data.thirdFlightAirline }}"
                                 />
                               </div>
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">{{ thirdFlightDepartureAirport }} {{ secondFlightDepartureDate }}</div>
+                                <div class="flight__number">{{ flight_data.thirdFlightDepartureAirport }} {{ flight_data.secondFlightDepartureDate }}</div>
                                 <div>
-                                  {{ thirdFlightDepartureAirport }}
+                                  {{ flight_data.thirdFlightDepartureAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -475,38 +480,38 @@
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <span class="duration">{{ thirdFlightArrivalDuration }}</span>
+                              <span class="duration">{{ flight_data.thirdFlightArrivalDuration }}</span>
                             </div>
                             <div class="travel__detination__item">
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022 </div>
-                                <div class="flight__number">{{ thirdFlightArrivalAirport }} {{ thirdFlightArrivalDate }}</div>
+                                <div class="flight__number">{{ flight_data.thirdFlightArrivalAirport }} {{ flight_data.thirdFlightArrivalDate }}</div>
                                 <div>
-                                  {{ thirdFlightArrivalAirport }}
+                                  {{ flight_data.thirdFlightArrivalAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
                             </div>
                           </div>
                           {% endif %}
-                          {% if fourthFlightDepartureDate %}
+                          {% if flight_data.fourthFlightDepartureDate %}
                           <hr class="ticket__details__hr" />
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">
                               <div class="travel__destination">
-                                Route: {{ fourthFlightDepartureAirport }} - {{ fourthFlightArrivalAirport }}
+                                Route: {{ flight_data.fourthFlightDepartureAirport }} - {{ flight_data.fourthFlightArrivalAirport }}
                               </div>
                               <div class="flight__logo wide">
                                 <img
-                                  src="{{ fourthFlightAirlineLogo }}"
-                                  alt="{{ fourthFlightAirline }}"
+                                  src="{{ flight_data.fourthFlightAirlineLogo }}"
+                                  alt="{{ flight_data.fourthFlightAirline }}"
                                 />
                               </div>
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">{{ fourthFlightDepartureAirport }} {{ fourthFlightDepartureDate }}</div>
+                                <div class="flight__number">{{ flight_data.fourthFlightDepartureAirport }} {{ flight_data.fourthFlightDepartureDate }}</div>
                                 <div>
-                                  {{ fourthFlightDepartureAirport }}
+                                  {{ flight_data.fourthFlightDepartureAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -547,14 +552,14 @@
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <span class="duration">{{ fourthFlightArrivalDuration }}</span>
+                              <span class="duration">{{ flight_data.fourthFlightArrivalDuration }}</span>
                             </div>
                             <div class="travel__detination__item">
                               <div class="travel__destination__desc">
                                 <div>Wed Dec 13 2022 </div>
-                                <div class="flight__number">{{ fourthFlightArrivalAirport }} {{ firstFlightArrivalDate }}</div>
+                                <div class="flight__number">{{ flight_data.fourthFlightArrivalAirport }} {{ flight_data.firstFlightArrivalDate }}</div>
                                 <div>
-                                  {{ fourthFlightArrivalAirport }}
+                                  {{ flight_data.fourthFlightArrivalAirport }}
                                 </div>
                                 <div>(Terminal 2)</div>
                               </div>
@@ -593,6 +598,34 @@
                           15 Kgs (1 piece only) Check-In, 7 Kgs (1 piece only)
                           Cabin
                         </div>
+                        <div class="ticket__details__card__footer">
+                          <svg
+                            class="icon"
+                            width="20"
+                            height="18"
+                            viewBox="0 0 20 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clip-path="url( {% static '#clip0_131_3726' %} )">
+                              <path
+                                d="M3.37474 16.3622V4.18538H2.29105C1.43421 4.18591 0.691053 4.90591 0.69 5.77485L0.690526 10.2627V14.7385C0.691053 15.7085 1.39632 16.3612 2.29105 16.3627H3.37474V16.3622ZM3.71947 17.0522H2.29053C1.02632 17.0501 0.00157895 16.1017 0.000526316 14.7385V14.0775V12.4238V10.2627L0 5.78696C0.00105263 4.51959 1.05789 3.49696 2.29053 3.49591H4.06368V17.0517H3.71895L3.71947 17.0522ZM15.68 3.51801V17.0743H4.34158V3.51801H6.94632V2.0138C6.94474 1.16327 7.68631 0.580116 8.61052 0.581169L8.64631 0.580642L8.73579 0.580116L9.05053 0.57959H10.0058L10.6705 0.580642L11.1847 0.581695L11.3874 0.582221C12.3195 0.575379 13.0605 1.16064 13.0532 2.0138V3.51854H15.6795L15.68 3.51801ZM12.3642 4.20748V2.01064C12.3679 1.58012 11.9716 1.26696 11.3895 1.27117L11.1837 1.27064L10.6695 1.26959L10.0426 1.26906L8.61842 1.27117C8.03947 1.26696 7.63474 1.58327 7.63579 2.01327V4.20748H5.03105V16.3843H14.99V4.20748H12.3637H12.3642ZM11.3863 3.51801V2.30433H8.5921V3.51801H11.3863ZM7.9021 4.20748V1.61433H12.0758V4.20748H7.9021ZM15.9468 17.0522V3.49591H17.7205C18.9479 3.49696 20.0026 4.52222 19.9974 5.75064C20.0011 5.7838 20.0011 6.47696 20.0005 10.2627L20 12.4238L19.9995 14.0775V14.738C20.0026 16.0991 18.9795 17.0501 17.7205 17.0522H15.9474H15.9468ZM17.7195 16.3622C18.6084 16.3606 19.3116 15.707 19.3095 14.738V14.077L19.31 12.4233L19.3105 10.2622C19.3111 8.4738 19.3105 5.8138 19.3095 5.78591C19.3116 4.90643 18.5705 4.18591 17.72 4.18485H16.6363V16.3617H17.7195V16.3622Z"
+                                fill="#9B9B9B"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_131_3726">
+                                <rect
+                                  width="20"
+                                  height="16.8421"
+                                  fill="white"
+                                  transform="translate(0 0.579102)"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                          Ticketing Closes: {{ flight_data.lastTicketingDate }}, Seats Available: {{ flight_data.bookableSeats }}
+                        </div>
                       </div>
                     </div>
                     <div class="checkout__box">
@@ -601,15 +634,11 @@
                         <div class="checkout__el">
                           <div class="checkout__datepicker">
                             <div class="checkout__label">Dates</div>
-                            <input
-                              class="checkout__input js-date-single"
-                              data-format="MMM DD, YYYY"
-                              data-container=".checkout__datepicker"
-                              data-single="true"
-                              type="text"
-                              readonly=""
-                              value="Aug 15, 2021"
-                            />
+                            <div
+                                class="travelers__value js-travelers-content"
+                              >
+                                {{ flight_data.flightDate }}
+                              </div>
                             <div class="checkout__controls">
                               <button class="checkout__edit js-date-open">
                                 <svg class="icon icon-edit">
@@ -1037,7 +1066,7 @@
                               <div
                                 class="travelers__value js-travelers-content"
                               >
-                              {{ travellers }} guest
+                              {{ flight_data.travellers }} guest
                               </div>
                               <button class="travelers__edit js-travelers-head">
                                 <svg class="icon icon-edit">
@@ -1156,8 +1185,12 @@
                           </div>
                         </div>
                       </div> 
-                      <hr class="ticket__details__hr" />    
-                      <a class="button checkout__button" href="#">Confirm and pay</a>
+                      <form method="post" action="{% url 'checkout_step2' %}">
+                        {% csrf_token %}
+                        <hr class="ticket__details__hr" /> 
+                        <input type="hidden" name="flight_info_json" value="{{ flight_info_json }}">   
+                        <a><button class="button checkout__button" type="submit">Proceed to pay</button></a>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -1171,7 +1204,7 @@
                       <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
-                      <div class="price__cell">Adults ( {{ travellers }} )</div>
+                      <div class="price__cell">Adults ( {{ flight_data.travellers }} )</div>
                       <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
@@ -1184,7 +1217,7 @@
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Total (USD)</div>
-                      <div class="price__cell">${{ flight_price }}</div>
+                      <div class="price__cell">${{ flight_data.flight_price }}</div>
                     </div>
                   </div>
                 </div>

@@ -219,6 +219,10 @@ def checkoutHandle(req):
     long_Destination = req.GET.get('long_Destination', None)
     destination = req.GET.get('destination', None)
     travellers = req.GET.get('travellers', None)
+    flightDate = req.GET.get('flightDate', None)
+    lastTicketingDate = req.GET.get('lastTicketingDate', None)
+    bookableSeats = req.GET.get('bookableSeats', None)
+
     # Extract flight variables from query parameters
     thirdFlightDepartureAirport = req.GET.get('1firstFlightDepartureAirport', None)
     thirdFlightDepartureDate = req.GET.get('1firstFlightDepartureDate', None)
@@ -275,15 +279,20 @@ def checkoutHandle(req):
         "long_Origin": long_Origin,
         "long_Destination": long_Destination,
         "travellers": travellers,
+        "flightDate": flightDate,
+        "lastTicketingDate": lastTicketingDate,
+        "bookableSeats": bookableSeats,
     }
     # Get the latest flight from the database
     user_id = req.user
     latest_flight = FlightTmp.objects.filter(user_id=user_id).latest('added')
     print("---------------------------------")
-    print(latest_flight)
+    flight_info = latest_flight.flight_data
+    flight_info_json = json.dumps(flight_info)
+    context = {'flight_info_json': flight_info_json, 'flight_data': flight_data}
     # Add the flight to the cart
     new_item = CartItem.objects.create(owner=req.user, flight_data=flight_data, quantity=1)
-    return render(req, "flights-checkout-round.html", flight_data)
+    return render(req, "flights-checkout-round.html", context)
 
 @csrf_exempt
 def pre_Checkout(req):
@@ -297,7 +306,12 @@ def pre_Checkout(req):
         # Return a JSON response indicating success
         return JsonResponse({'status': 'success'})
 
-def final_checkout(req):
+def checkout_step2(req):
+    if req.method == 'POST':
+        flight_info_json = req.POST.get('flight_info_json', None)
+        return render(req, 'index.html')
+
+def checkout_step3(req):
     if req.method == 'POST':
         cardNumber = req.POST.get('card')
         cardHolder = req.POST.get('holder')
@@ -351,7 +365,4 @@ def final_checkout(req):
             traveler_list.append(traveler)
         # Return the traveler list as a response
         print("handling")
-        return render(req, 'index.html')
-    else:
-        # If the req method is not POST, render the template
         return render(req, 'index.html')
