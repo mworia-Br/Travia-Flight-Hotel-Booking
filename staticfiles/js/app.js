@@ -166,7 +166,7 @@ if (isTouchDevice()) {
     button = counters.find(".js-counter-button");
   head.on("click", function (e) {
     e.stopPropagation();
-    travelers.toggleClass("active");
+    $(this).closest(travelers).toggleClass("active");
     $(".js-location").removeClass("active");
 
     if ($(".js-date-range").length) {
@@ -190,11 +190,22 @@ if (isTouchDevice()) {
     var adults = Number($(".js-counter-adults").val()),
       children = Number($(".js-counter-children").val()),
       babies = Number($(".js-counter-babies").val());
-    var sum = adults + children + babies;
+    var contentStr = "";
+
+    if (adults > 0) {
+      contentStr += `${adults} Adults`;
+    }
+    if (children > 0) {
+      contentStr +=
+        adults > 0 ? `, ${children} Children` : `${children} Children`;
+    }
+    if (babies > 0) {
+      contentStr +=
+        children > 0 || adults > 0 ? `, ${babies} Infant` : `${babies} Infant`;
+    }
+
     adults > 0 || children > 0 || babies > 0
-      ? sum > 1
-        ? content.text(sum + " guests")
-        : content.text(sum + " guest")
+      ? content.text(contentStr)
       : content.text("Travelers");
   });
 })(); // guests
@@ -511,6 +522,7 @@ $(document).ready(function () {
       },
     ],
   }); // slider main preview
+
   $(".js-slider-main-preview").slick({
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -518,6 +530,33 @@ $(document).ready(function () {
     prevArrow: prevArrow,
     nextArrow: nextArrow,
     dots: false,
+    speed: 500,
+  }); // slider sponsor
+
+  $(".js-slider-sponsor").slick({
+    speed: 5000,
+    autoplay: true,
+    autoplaySpeed: 0,
+    centerMode: true,
+    cssEase: "linear",
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    variableWidth: true,
+    infinite: true,
+    initialSlide: 1,
+    arrows: false,
+    buttons: false,
+    pauseOnFocus: false,
+  });
+
+  $(".js-slider-packages").slick({
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    arrows: true,
+    prevArrow: prevArrow,
+    nextArrow: nextArrow,
+    dots: false,
+    infinite: false,
     speed: 500,
   });
 
@@ -949,5 +988,83 @@ document.documentElement.style.setProperty("--vh", "".concat(vh, "px")); // togg
 
     $(id).slideToggle();
     $(this).toggleClass("collapsed");
+  });
+})(); // language toggle
+
+(function () {
+  $(".js-toggle-box").click(function (e) {
+    e.preventDefault();
+    const code = $(this).attr("href");
+    const text = $(this).find(".header__category").text();
+    const langContainer = $(this).closest(".header__item");
+    const symbolItem = $(langContainer).find(".symbol");
+    const textItem = $(langContainer).find(".toggle__text");
+
+    $(langContainer).removeClass("active");
+
+    if ($(symbolItem).hasClass("fi")) {
+      $(symbolItem).removeClass();
+      $(symbolItem).addClass(`fi fi-${code} symbol`);
+    }
+
+    if ($(symbolItem).hasClass("fa-solid")) {
+      $(symbolItem).removeClass();
+      $(symbolItem).addClass(`fa-solid fa-${code}-sign symbol`);
+    }
+
+    $(textItem).text(text);
+    $(".js-toggle-box").removeClass("active");
+    $(this).addClass("active");
+  });
+})(); // tab buttons
+
+(function () {
+  $(".tab__button").click(function () {
+    $(".tab__button").removeClass("active");
+    $(this).addClass("active");
+  });
+})(); // navtabs
+
+// (function () {
+//   $(".nav-tabs-link").click(function () {
+//     const target = $(this).attr("href") || $(this).data("target");
+//     const navtabs = $(this).closest(".navtabs");
+
+//     navtabs.find(".nav-tabs-link").removeClass("active");
+//     navtabs.find(".tabpane").fadeOut();
+//     $(this).addClass("active");
+//     $(target).fadeIn();
+//   });
+// })();
+
+// remove disabled class from panel inputs
+(function () {
+  $("#editButton").click(function () {
+    const panel = $(this).closest(".panel");
+
+    panel.find("input").removeAttr("disabled");
+    panel.find('[aria-disabled="true"]').attr("aria-disabled", "false");
+  });
+})(); // accordion
+
+(function () {
+  const resetAccordionActiveState = function (accordions = []) {
+    $(accordions).each(function () {
+      $(this).removeClass("active");
+    });
+  };
+
+  $(".js-accordion-item .accordion__head").click(function () {
+    const accordion = $(this).closest(".js-accordion");
+    const currentAccordion = $(this).closest(".js-accordion-item");
+    const accordions = $(accordion).find(".js-accordion-item");
+
+    if ($(currentAccordion).hasClass("active")) {
+      $(currentAccordion).removeClass("active");
+      return;
+    }
+
+    resetAccordionActiveState(accordions);
+    $(currentAccordion).addClass("active");
   });
 })();

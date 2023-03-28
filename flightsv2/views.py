@@ -115,7 +115,7 @@ def search_flights(req):
             #messages.add_message(
             #    req, messages.ERROR, error.response.result["errors"][0]["detail"]
             #)
-            return render(req, "home.html", {})
+            return render(req, "flights-category-multi.html", {})
         search_flights_returned = []
         response = ""
         for flight in search_flights.data:
@@ -138,7 +138,7 @@ def search_flights(req):
                 "covid_tests": covid_tests
             },
         )
-    return render(req, "home.html", {})
+    return render(req, "flights-category-multi.html", {})
 
 
 def book_flight(req, flight):
