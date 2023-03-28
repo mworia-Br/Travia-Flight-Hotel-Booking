@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    {% load static %}
+   {% load socialaccount %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -273,6 +274,21 @@
           {% block content %}
           <div class="login__item">
             <div class="login__title h3">Sign in</div>
+            <div class="login__info">Use Your OpenID to Sign up</div>
+            <div class="login__btns">
+              <a href="{% provider_login_url 'google' %}">
+              <button class="button login__button">
+                <svg class="icon icon-google">
+                  <use xlink:href=" {% static '#icon-google' %} "></use></svg
+                ><span>Google</span>
+              </button></a>
+              <button class="button-black login__button">
+                <svg class="icon icon-apple">
+                  <use xlink:href=" {% static '#icon-apple' %} "></use></svg
+                ><span>Apple</span>
+              </button>
+            </div>
+          <div class="login__note">Or continue with username</div>
             <form method="post">
               {% csrf_token %}
               <div class="login__form">
@@ -294,9 +310,9 @@
                   <div class="field__wrap">
                     <input 
                       class="field__input"
+                      type="{{ form.password.field.widget.input_type }}"
                       id="{{ form.password.id_for_label }}"
                       name="password"
-                      type="{{ form.password.field.widget.input_type }}"
                       placeholder="Password"
                       required
                     />
