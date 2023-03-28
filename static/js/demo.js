@@ -6,11 +6,11 @@ $(".live__button").on("click", function () {
   $(".live__item").show();
 }); // nav
 
-$(".nav__link").on("click", function (e) {
-  e.preventDefault();
-  $(".nav__link").removeClass("active");
-  $(this).addClass("active");
-}); // messages
+// $(".nav__link").on("click", function (e) {
+//   e.preventDefault();
+//   $(".nav__link").removeClass("active");
+//   $(this).addClass("active");
+// }); // messages
 
 $(".messages__item").on("click", function (e) {
   e.preventDefault();
@@ -49,7 +49,7 @@ $(".header__btns .header__button:nth-child(2)").on("click", function () {
   $(".header").addClass("authorization");
 }); // panel flights
 
-$(".panel__button").on("click", function () {
+$(".panel__button:not(.js-travelers-head)").on("click", function () {
   $(".panel__button").removeClass("active");
   $(this).addClass("active");
 }); // show filters for mobile

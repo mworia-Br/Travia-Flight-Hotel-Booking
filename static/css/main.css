@@ -1,5 +1,14 @@
+html {
+  scroll-padding-top: 2rem;
+  scroll-behavior: smooth;
+}
+
 .header__wrapper {
   border-left-color: transparent;
+}
+
+.header__logo img {
+  width: 116px;
 }
 
 .login__status {
@@ -47,11 +56,6 @@
   box-shadow: inset 0 0 0 1px #23262f;
 }
 
-.panel_stays .panel__item__rounded.datepicker__item {
-  flex: 0 0 calc(50% - 0.25rem);
-  width: calc(50% - 0.25rem);
-}
-
 .browse__info {
   max-width: 500px;
 }
@@ -70,6 +74,7 @@
 
 .browse__content .icon {
   fill: #ffffff;
+  margin: 0;
 }
 
 .planing__buttons {
@@ -105,22 +110,37 @@
   flex-direction: column;
   margin-top: 0;
   gap: 0.5rem;
+  height: 100%;
 }
 
 .footer__link {
   margin: 0.25rem 0;
-  flex: 1;
   width: auto;
   font-weight: 400;
 }
 
+.footer__row {
+  gap: 2rem;
+}
+
+.footer__col:first-child {
+  width: 160px;
+}
+
 .footer__col:nth-child(3) {
-  width: 256px;
-  padding-left: 2rem;
+  width: 212px;
+  padding-left: 1rem;
 }
 
 .footer__logo {
   margin-top: 0;
+}
+
+.footer__logo > * {
+  width: 124px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .footer__social {
@@ -128,6 +148,10 @@
   align-items: center;
   gap: 0.625rem;
   margin-bottom: 0.625rem;
+}
+
+.footer__col .footer__social {
+  margin-top: auto;
 }
 
 .social__link {
@@ -172,22 +196,21 @@
   gap: 0.5rem;
 }
 
+.payment__methods .footer__link {
+  flex: 0 0 auto;
+}
+
 .header__item[href] {
   margin-left: 0;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: 1rem;
 }
 
 .me__auto {
   margin-right: auto !important;
 }
 
-.header__wrapper {
-  padding-left: 0;
-}
-
 .header__item_language {
-  margin-left: 1.5rem;
+  margin-left: auto;
 }
 
 .setting__item {
@@ -307,13 +330,14 @@
   gap: 0.5rem 0.25rem;
 }
 
+.panel_flights-category .panel__row,
 .panel_flights .panel__row {
-  padding-right: 0;
+  padding-right: 3.75rem;
 }
 
 .panel_flights-category .panel__row > div,
 .panel_flights .panel__row > div {
-  flex: 0 0 calc(25% - 0.25rem) !important;
+  flex: 0 0 calc(25% - 0.5rem) !important;
 }
 
 .panel_flights-category .panel__row > .datepicker:not(.datepicker__single),
@@ -322,11 +346,18 @@
 }
 
 .panel__row .datepicker__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.25rem;
+}
+
+.datepicker__list .datepicker__item {
+  width: auto;
 }
 
 .panel__search {
   right: 0.5rem;
+  z-index: 3;
 }
 
 .travelers__content {
@@ -379,9 +410,1449 @@
   top: calc(100% + 1rem) !important;
 }
 
+.header__dropdown__toggle {
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.header__dropdown__toggle::after {
+  display: inline-block;
+  content: "";
+  vertical-align: -0.125em;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  transition: 300ms;
+}
+
+.active .header__dropdown__toggle::after {
+  transform: rotate(180deg);
+}
+
+.header__item_currency {
+  margin-left: 1.5rem;
+}
+
+.header__item_currency .symbol {
+  font-size: 0.75rem;
+  border-radius: 0.375rem;
+  background-color: #23262f;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.header__item_dropdown {
+  margin-right: 0;
+}
+
+.header__logo {
+  margin-right: 0;
+}
+
+.header__item_user {
+  flex: 0 0 7rem;
+}
+
+.setting__link i {
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.main_tasks-category .main__wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.tab__button:not(:last-of-type) {
+  margin-right: 0.5rem;
+}
+
+.text {
+  margin-bottom: 1rem;
+}
+
+.section__flex {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  gap: 3rem;
+}
+
+.work__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem 8rem;
+}
+
+.work__item {
+  flex: 0 0 auto;
+}
+
+.partners__inner {
+  background: #f4f5f6;
+  border-radius: 24px;
+  padding: 5rem;
+}
+
+.partners__head {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.img__fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.partners__wrapper {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.partners__item {
+  padding: 3rem;
+  border: 1px solid #e6e8ec;
+}
+
+.partners__item:nth-of-type(1),
+.partners__item:nth-of-type(2),
+.partners__item:nth-of-type(3) {
+  border-block-width: 0;
+}
+
+.partners__item:nth-last-of-type(1),
+.partners__item:nth-last-of-type(2),
+.partners__item:nth-last-of-type(3) {
+  border-bottom-width: 0;
+}
+
+.partners__item:nth-of-type(1) {
+  border-inline-width: 0;
+}
+
+.partners__item:nth-of-type(3n) {
+  border-inline-width: 0;
+}
+
+.partners__item:nth-last-of-type(3n) {
+  border-inline-width: 0;
+}
+
+.partners__btns {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.main_tasks-category .main__preview {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.promo__desc {
+  text-align: center;
+}
+
+.promo__title {
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+}
+
+.promo__date {
+  font-size: 0.75rem;
+  padding-inline: 1rem;
+  display: block;
+}
+
+.vr__line {
+  width: 1px;
+  background-color: #e6e8ec;
+}
+
+.promo__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(352px, 1fr));
+  gap: 2rem;
+  padding-block: 1.5rem;
+}
+
+.single__promo__title {
+  font-size: 1.5rem;
+  margin-block: 4rem 1.25rem;
+}
+
+.discount__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.discount__item {
+  background: #fcfcfd;
+  border: 1px solid #e6e8ec;
+  box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.08);
+  border-radius: 24px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.discount__item:hover {
+  border-color: #9099ad;
+}
+
+.discount__title {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.discount__group {
+  background: #f4f5f6;
+  border-radius: 20px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.discount__group .text {
+  font-weight: 600;
+  color: #141416;
+  margin-bottom: 0;
+  margin-left: 1rem;
+}
+
+.discount__group .button {
+  border-radius: 0.875rem;
+  background-color: #118df0;
+  flex: 0 0 45%;
+}
+
+.terms__title {
+  color: #777e90;
+  margin-bottom: 1.5rem;
+}
+
+.ordered__list {
+  counter-reset: orderedList;
+  color: #777e90;
+  display: grid;
+  gap: 1rem;
+}
+
+.ordered__list li::before {
+  counter-increment: orderedList;
+  content: counter(orderedList) ". ";
+}
+
+.popular__blog__flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search__box .field__input {
+  padding-left: 2.25rem;
+  background-image: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 16.3203L13.5834 13.4036M15.6667 8.40365C15.6667 12.3157 12.4954 15.487 8.58333 15.487C4.67132 15.487 1.5 12.3157 1.5 8.40365C1.5 4.49163 4.67132 1.32031 8.58333 1.32031C12.4954 1.32031 15.6667 4.49163 15.6667 8.40365Z" stroke="%23667085" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  background-repeat: no-repeat;
+  background-size: 1rem 1rem;
+  background-position: 0.625rem center;
+}
+
+.popular__blog__gallery {
+  display: grid;
+  grid-template-columns: 1fr 0.875fr;
+  gap: 1.5rem;
+}
+
+.popular__blog__card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #f4f5f6;
+  height: 100%;
+  display: block;
+  text-decoration: none;
+}
+
+.popular__blog__row {
+  flex-direction: row;
+}
+
+.popular__blog__gallery__alt {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.popular__blog__gallery__alt .popular__blog__card {
+  display: flex;
+}
+
+.blog__thumbnail {
+  overflow: hidden;
+  height: 242px;
+}
+
+.popular__blog__card.active .blog__thumbnail {
+  height: auto;
+}
+
+.popular__blog__gallery__alt .blog__thumbnail {
+  flex: 0 0 190px;
+  width: 190px;
+  height: auto;
+}
+
+.blog__thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 300ms ease-out;
+}
+
+.popular__blog__card:hover .blog__thumbnail img {
+  transform: scale(1.125);
+}
+
+.blog__desc {
+  padding: 1rem;
+  color: #475467;
+}
+
+.blog__date {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #118df0;
+  margin-bottom: 0.5rem;
+}
+
+.blog__title {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: #101828;
+}
+
+.line__clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line__clamp-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.popular__blog__card.active .blog__date {
+  color: #6941c6;
+}
+
+.popular__blog__gallery__all {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.popular__blog__gallery__all .blog__desc {
+  flex: 1;
+}
+
+.airline__select {
+  flex: 0 0 300px;
+  width: 300px;
+}
+
+.airlines__title {
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 1.875rem;
+  line-height: 1.125;
+  color: #100024;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.airlines__count {
+  padding: 0.5rem 0.75rem;
+  background: #e2e2e8;
+  border-radius: 0.375rem;
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #100024;
+}
+
+.airlines__wrapper {
+  display: grid;
+  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.airlines__item {
+  background: #f4f5f6;
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  gap: 1rem;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #100024;
+  transition: 300ms;
+  height: 100%;
+  position: relative;
+}
+
+.airlines__item:hover {
+  background-color: #e6e8ec;
+}
+
+.airlines__anouncement {
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.625rem;
+  line-height: 1.5;
+  letter-spacing: 0.462582px;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 0.25rem 0.875rem;
+  background: #1da1f2;
+  border-radius: 3.70066px 0px 0px 3.70066px;
+  position: absolute;
+  bottom: 1rem;
+  right: 0;
+}
+
+.faq__title {
+  font-size: 4rem;
+}
+
+.panel_faq {
+  margin-bottom: 2.5rem;
+  margin-top: -164px;
+  max-width: 80%;
+  margin-inline: auto;
+}
+
+.panel_faq .panel__search {
+  position: static;
+  flex-shrink: 0;
+  transform: none;
+  width: 3.125rem;
+  height: 3.125rem;
+}
+
+.panel_faq .panel__row {
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tab__controls {
+  gap: 0.5rem;
+}
+
+.navtabs__menu {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 300px;
+  padding: 1.5rem 0.5rem;
+  border-radius: 16px;
+  box-shadow: 0px 32px 32px -12px rgb(15 15 15 / 8%);
+  text-decoration: none;
+  border: 1px solid #e6e8ec;
+}
+
+.navtab__link {
+  padding: 0.75rem 1rem;
+  width: 100%;
+  color: #777e90;
+  transition: 200ms;
+}
+
+.navtab__link:not(:last-of-type) {
+  margin-bottom: 1rem;
+}
+
+.navtab__link:hover,
+.navtab__link.active {
+  background: rgba(244, 245, 246, 0.98);
+  border-radius: 0.5rem;
+  color: #23262f;
+}
+
+.faq__col:nth-child(1) {
+  width: auto;
+}
+
+.faq__col:nth-child(2) {
+  padding-left: 4rem;
+}
+
+.terms__box {
+  margin-bottom: 2rem;
+}
+
+.termsof__title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #141416;
+  margin-bottom: 1.5rem;
+}
+
+.terms__text {
+  color: #33383f;
+}
+
+.contact__box {
+  max-width: 476px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  align-items: start;
+  gap: 1rem;
+}
+
+.contact__head {
+  text-align: center;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact__title {
+  margin-bottom: 1rem;
+}
+
+.contact__text {
+  font-size: 1.25rem;
+  color: #475467;
+  margin-bottom: 2rem;
+}
+
+.contact__row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.contact__box .field__label {
+  color: #344054;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.d__grid {
+  display: grid;
+}
+
+.contact__info__box {
+  background: #f4f5f6;
+  border-radius: 1rem;
+  padding: 5rem;
+}
+
+.contact__info__box .contact__title {
+  max-width: 576px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2.25rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contact__info__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contact__info__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.contact__info__icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1da1f2;
+  flex-shrink: 0;
+}
+
+.contact__info__icon svg {
+  fill: #ffffff;
+  width: 1.375rem;
+  height: auto;
+}
+
+.contact__info__title {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #141416;
+  margin-bottom: 0.5rem;
+}
+
+.contact__info__text {
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: #777e91;
+  line-height: 1;
+}
+
+.guide__row {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+}
+
+.guide__title {
+  text-align: center;
+  margin-block: 3rem 4rem;
+  font-size: 2.5rem;
+}
+
+.guide__nav {
+  box-shadow: none;
+  border: 0;
+  padding: 0;
+}
+
+.guide__link {
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -0.02em;
+  color: #777e90;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  border-right: 0.1875rem solid #e3e4e8;
+  transition: 300ms;
+}
+
+.guide__link:hover,
+.guide__link.active {
+  color: #23262f;
+  border-right-color: #1da1f2;
+}
+
+.guide__item {
+  display: grid;
+  grid-template-columns: 1fr 0.875fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.guide__text {
+  color: #777e90;
+}
+
+.travelers .link-strech {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.travelers__body {
+  width: 350px;
+  left: -24px;
+}
+
+.sponsers-wrapper {
+  padding-block-start: 4rem;
+}
+
+.sponsers-wrapper .slick-track {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sponsor__item {
+  flex-shrink: 0;
+  display: inline-flex !important;
+  margin: 1rem 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel_flights-category .panel__controls {
+  z-index: 4;
+}
+
+.close__menu__button {
+  display: none;
+}
+
+.checkout__category {
+  margin-bottom: 1rem;
+}
+
+.ticket__details__card {
+  border: 2px solid #e6e8ec;
+  border-radius: 12px;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  color: #777e90;
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.ticket__details__card {
+  margin-top: 1.5rem;
+}
+
+.ticket__details__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e6e8ec;
+  color: #23262f;
+  font-size: 0.875rem;
+}
+
+.travel__detination__flex {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ticket__details__card .flight__logo {
+  height: auto;
+  padding: 0.75rem;
+}
+
+.ticket__details__card .flight__logo.wide {
+  width: 100%;
+}
+
+.travel__detination__item {
+  display: grid;
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.travel__destination__desc {
+  display: grid;
+  align-items: start;
+  gap: 0.375rem;
+}
+
+.flight__number {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 170%;
+  color: #323232;
+}
+
+.travel__detination__duration {
+  position: relative;
+  z-index: 0;
+}
+
+.travel__detination__duration .duration {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-58%, -50%);
+}
+
+.ticket__details__hr {
+  margin-block: 1rem;
+  border: 0;
+  border-bottom: 1px solid #e6e8ec;
+}
+
+.ticket__details__card__footer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.checkout__card {
+  background: #ffffff;
+  border: 1px solid #e6e8ec;
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.checkout__card__content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.checkout__card__content .icon__box {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f5f6;
+  border-radius: 50rem;
+}
+
+.checkout__card__content .icon__box i {
+  font-size: 1.5rem;
+  color: #777e90;
+}
+
+.checkout__card__content .icon__box .icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.checkout__card__content .checkout__category {
+  margin-bottom: 0.5rem;
+}
+
+.checkout__card__content .checkout__text {
+  color: #777e90;
+}
+
+.button__square {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button__square .icon {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 !important;
+}
+
+.checkout__card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.checkout__text__lg {
+  color: #23262f;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.checkout__card__footer .checkout__text__lg span {
+  color: #b1b5c3;
+}
+
+.button-light {
+  background-color: #e3e5e8;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.button-light:hover {
+  background-color: #b1b5c3;
+}
+
+.button-light svg {
+  fill: rgba(0, 0, 0, 0.5) !important;
+}
+
+.button-light:hover svg {
+  fill: #e3e5e8 !important;
+}
+
+.checkout__cards {
+  gap: 0.5rem;
+}
+
+.checkout__cards .checkout__card {
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.25rem;
+}
+
+.checkout__fieldset {
+  display: grid;
+  align-items: start;
+  gap: 2rem;
+}
+
+.checkout__fieldset > * {
+  margin-bottom: 0 !important;
+}
+
+.checkout__top {
+  flex-wrap: wrap;
+}
+
+.tabpane:not(:first-of-type) {
+  display: none;
+}
+
+.checkout .control {
+  margin-bottom: 1rem;
+}
+
+.alert {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  color: #23262f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.alert svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.alert__warning {
+  background-color: #fde6c3;
+}
+
+.checkout__wrapper {
+  margin-top: 5rem;
+}
+
+#editButton {
+  margin-left: auto;
+}
+
+input:disabled {
+  background-color: #f4f5f7;
+  pointer-events: none;
+}
+
+[aria-disabled="true"] {
+  pointer-events: none;
+}
+
+.popup_reservation {
+  max-width: 1024px;
+  margin-bottom: 2rem;
+}
+
+.reservation__seats {
+  padding: 3.5rem;
+}
+
+.reservation__flex {
+  background: #f4f5f6;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.reservation__flex .client {
+  color: #777e90;
+}
+
+.reservation__flex strong {
+  color: #23262f;
+  text-transform: uppercase;
+}
+
+.seat__selected {
+  color: #118df0;
+}
+
+.reservation__seat__wrapper {
+  display: grid;
+  grid-template-columns: 55% 1fr;
+  gap: 2rem 4rem;
+}
+
+.table__responsive {
+  overflow-x: auto;
+}
+
+.reservation__table {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.875rem;
+  color: #141416;
+}
+
+.reservation__table th,
+.reservation__table td {
+  padding: 0.5rem;
+}
+
+.reservation__seats .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.reservation__table .icon path {
+  fill: #c6c9cb;
+}
+
+.reservation__seat__btn.green .icon path {
+  fill: #58c27d;
+}
+
+.reservation__seat__btn.orange .icon path {
+  fill: #f68a3c;
+}
+
+.reservation__seat__btn.blue .icon path {
+  fill: #118df0;
+}
+
+.reservation__seat__wrapper .right {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.reservation__seat__wrapper .button {
+  margin-left: auto;
+}
+
+.reservation__card {
+  background: #fcfcfd;
+  border: 1px solid #e6e8ec;
+  box-shadow: 0px 40px 32px -24px rgba(15, 15, 15, 0.12);
+  border-radius: 24px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.revervation__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #23262f;
+  margin-bottom: 1.5rem;
+}
+
+.reservation__card__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #777e90;
+}
+
+.reservation__card__item:last-of-type {
+  margin-bottom: 0;
+}
+
+.ticket__details__timeline {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #23262f;
+  padding: 0.5rem;
+  text-align: center;
+  background-color: #fafafa;
+}
+
+.panel__multi__flights {
+  margin-bottom: 8rem;
+}
+
+.panel__multi__flights .panel__body {
+  display: grid;
+  align-content: start;
+  gap: 1.5rem 0.75rem;
+  padding-bottom: 2rem;
+}
+
+.panel__multi__flights .panel__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-right: 5rem !important;
+}
+
+.panel__delete {
+  background-color: transparent;
+}
+
+.panel__delete:hover {
+  background-color: #f4f5f6;
+}
+
+.fancy__add__icon .panel__search {
+  position: static;
+  transform: none;
+  width: 3rem !important;
+  height: 3rem !important;
+}
+
+.fancy__add__icon {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 0;
+  transform: translate(-50%, -11%);
+  background-color: #ffffff;
+  border-radius: 50rem;
+  width: 7rem;
+  height: 7rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+  box-shadow: 0px 40px 64px -32px rgb(15 15 15 / 10%);
+}
+
+.fancy__add__icon::before,
+.fancy__add__icon::after {
+  content: "";
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50rem;
+  background-color: transparent;
+  position: absolute;
+  top: 45%;
+  z-index: 3;
+  opacity: 0.9;
+}
+
+.fancy__add__icon::before {
+  right: 100%;
+  box-shadow: 12px -24px #fcfcfc;
+}
+
+.fancy__add__icon::after {
+  left: 98%;
+  box-shadow: -12px -24px #fcfcfc;
+}
+
+.fancy__add__icon .icon {
+  display: inline-block !important;
+}
+
+.flight {
+  align-items: center;
+}
+
+.main_stays-category .main__wrap > *,
+.main_tasks .main__wrap > *,
+.main_cars .main__wrap > * {
+  filter: drop-shadow(0.5rem 0.5rem 0.875rem rgba(255, 255, 255, 0.5));
+}
+
+.catalog__cards__list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.catalog__cards__list .card {
+  display: flex;
+  flex: 0 0 100%;
+  width: auto;
+  margin: 0;
+}
+
+.catalog__cards__list .card__preview {
+  flex-shrink: 0;
+  width: 256px;
+}
+
+.catelog__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.text__normal {
+  font-size: 1rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.button .icon {
+  margin: 0 !important;
+  flex-shrink: 0;
+}
+
+.category__button__group {
+  display: flex;
+  gap: 0.75em;
+}
+
+.category-green {
+  background-color: #58c27d;
+  color: #ffffff;
+}
+
+.card__flex {
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.product__card {
+  background: #f3f7ff;
+  border-radius: 12px;
+  padding: 2.5rem;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.product__card .price__block {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: #777e90;
+}
+
+.product__card .price__block .amount {
+  color: #23262f;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.product__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.product__overviews__table {
+  margin-top: 3rem;
+  border-radius: 1rem;
+  border: 1px solid #e6e8ec;
+  overflow: hidden;
+}
+
+.product__overviews__table .overview__head {
+  background-color: #118df0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  line-height: 1.25;
+}
+
+.product__overviews__table .overview__body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  position: relative;
+}
+
+.product__overviews__table .overview__body::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 1px;
+  background-color: #e6e8ec;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.product__overviews__table .overview__item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  position: relative;
+}
+
+.product__overviews__table .overview__item:not(:first-of-type)::after {
+  content: "";
+  display: block;
+  width: 200%;
+  height: 1px;
+  background-color: #e6e8ec;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.product__overviews__table
+  .overview__item:not(:first-of-type):nth-of-type(even)::after {
+  display: none;
+}
+
+.product__overviews__table .overview__day {
+  padding: 1rem;
+  color: #777e90;
+  background-color: #f3f7ff;
+}
+
+.product__overviews__table .number__of__days {
+  color: #23262f;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.product__overviews__table .overview__desc {
+  padding: 1rem;
+  color: #777e90;
+}
+
+.product__overviews__table .overview__list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.gallery__small .gallery__list_stays {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+}
+
+.gallery__small .gallery__list_stays .gallery__preview:first-child {
+  grid-row: 1 / 3;
+}
+
+.accordion__body {
+  display: grid;
+  gap: 2rem;
+}
+
+.accordion__item:not(.active) .accordion__body {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.accordion__head {
+  background-color: #f2f2f2;
+  border-radius: 50rem;
+  padding: 0.5rem 0.625rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+}
+
+.accordion__head::after {
+  display: inline-block;
+  content: "";
+  vertical-align: -0.125em;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23fff" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
+  background-repeat: no-repeat;
+  background-size: 0.875rem 0.875rem;
+  background-position: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #3b71fe;
+  border-radius: 50rem;
+  transition: 300ms;
+}
+
+.accordion__item.active .accordion__head::after {
+  transform: rotate(180deg);
+}
+
+.accordion__head__text {
+  margin-right: auto;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #141416;
+  line-height: 1.25;
+}
+
+.accordion__item .description {
+  padding-bottom: 0;
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+.button-green {
+  background-color: #58c27d;
+  white-space: nowrap;
+}
+
+.select-day {
+  width: 320px;
+  max-width: 100%;
+}
+
+.map__body {
+  border-radius: 1rem;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  position: relative;
+}
+
+.map__body iframe {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+
 @media only screen and (max-width: 1339px) {
   .panel__row {
     margin: 0;
+  }
+
+  .faq__title {
+    font-size: 3.75rem;
   }
 }
 
@@ -405,6 +1876,36 @@
   .panel__search {
     width: 3rem;
     height: 3rem;
+  }
+
+  .work__list {
+    gap: 4rem 7rem;
+  }
+
+  .popular__blog__gallery {
+    grid-template-columns: 1fr 1.25fr;
+  }
+
+  .faq__title {
+    font-size: 3.5rem;
+  }
+
+  .panel_faq {
+    margin-top: -140px;
+  }
+
+  .contact__info__row {
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .panel__multi__flights .panel__body {
+    padding-bottom: 3.5rem;
+  }
+
+  .fancy__add__icon {
+    top: 100%;
+    transform: translate(-50%, -25%);
   }
 }
 
@@ -449,11 +1950,14 @@
   }
 
   .footer__logo {
-    margin-right: auto;
+    margin-right: 0;
+    margin-bottom: 0;
   }
 
   .footer__col:first-child {
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     margin-bottom: 48px;
   }
@@ -462,10 +1966,6 @@
     margin-right: auto;
     flex: 0 0 65%;
     margin-bottom: 48px;
-  }
-
-  .footer__col:nth-child(3) {
-    width: 212px;
   }
 
   .footer__menu {
@@ -504,9 +2004,104 @@
   .show__menu__button {
     display: inline-block;
   }
+
+  .work__list {
+    gap: 4rem;
+  }
+
+  .partners__inner {
+    padding: 3rem;
+  }
+
+  .partners__head {
+    margin-bottom: 2.5rem;
+  }
+
+  .partners__item {
+    padding: 2rem;
+  }
+
+  .popular__blog__gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .popular__blog__card.active .blog__thumbnail {
+    height: 50vw;
+  }
+
+  .popular__blog__gallery__all .blog__thumbnail {
+    height: 30vw;
+  }
+
+  .faq__title {
+    font-size: 3.25rem;
+  }
+
+  .navtabs__menu {
+    width: 264px;
+  }
+
+  .guide__item {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .guide__title {
+    font-size: 2rem;
+  }
+
+  .close__menu__button {
+    display: flex;
+  }
+
+  .reservation__seats {
+    padding: 3rem;
+  }
+
+  .reservation__card {
+    padding: 1.5rem;
+  }
+
+  .catalog__cards__list .card {
+    display: block;
+  }
+
+  .catalog__cards__list .card__preview {
+    width: 100%;
+  }
+
+  .product__card {
+    padding: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .product__overviews__table .overview__item {
+    grid-template-columns: 1fr;
+  }
+
+  .product__overviews__table .overview__head {
+    font-size: 1.25rem;
+  }
+
+  .product__overviews__table .number__of__days {
+    font-size: 1.125rem;
+  }
 }
 
 @media only screen and (max-width: 767px) {
+  .header__logo {
+    margin-right: auto;
+  }
+
+  .header__item.header__item_dropdown {
+    display: none;
+  }
+
+  .header__item[href] {
+    margin: 0 -2rem;
+    padding-left: 2rem;
+  }
+
   .main_stays .main__title,
   .main_flights .main__title {
     margin-left: auto;
@@ -550,17 +2145,8 @@
     object-position: 50% 65%;
   }
 
-  .header__item[href] {
-    margin-left: 2rem;
-  }
-
   .header__wrapper {
     justify-content: flex-start;
-  }
-
-  .panel_stays .panel__item__rounded.datepicker__item {
-    flex: 1;
-    width: 100%;
   }
 
   .panel__row {
@@ -573,10 +2159,6 @@
     flex: 0 0 100% !important;
   }
 
-  .datepicker__list {
-    margin-top: 0;
-  }
-
   .panel_flights-category .panel__row > .datepicker:not(.datepicker__single),
   .panel_flights .panel__row > .datepicker:not(.datepicker__single) {
     flex: 0 0 100% !important;
@@ -584,6 +2166,220 @@
 
   .panel_flights-category .panel__row > div {
     flex: 0 0 100% !important;
+  }
+
+  .section__flex {
+    grid-template-columns: 1fr;
+  }
+
+  .work__list {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .partners__wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .partners__item:first-of-type {
+    border-right-width: 1px;
+  }
+
+  .partners__item:nth-of-type(2) {
+    border-width: 0;
+  }
+
+  .partners__item:not(:first-of-type):nth-of-type(odd) {
+    border-width: 1px 1px 0 0;
+  }
+
+  .main__wrap {
+    padding-block: 2.5em;
+  }
+
+  .main_tasks-category .main__preview img {
+    height: 300px;
+  }
+
+  [class^="section"] {
+    margin-bottom: 5rem;
+  }
+
+  .discount__item {
+    padding: 1.25rem;
+  }
+
+  .discount__title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .places__title {
+    font-size: 2rem;
+  }
+
+  .popular__blog__title {
+    font-size: 2rem;
+  }
+
+  .popular__blog__gallery__all .blog__thumbnail {
+    height: 45vw;
+  }
+
+  .airline__select {
+    flex: 1;
+    width: auto;
+  }
+
+  .airlines__title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .faq__title {
+    font-size: 3rem;
+  }
+
+  .panel_faq {
+    margin-top: -110px;
+  }
+
+  .faq__col:first-child {
+    display: block;
+  }
+
+  .faq__col:nth-child(2) {
+    padding-left: 0;
+  }
+
+  .navtabs__menu {
+    width: auto;
+    margin-bottom: 4rem;
+  }
+
+  .contact__info__box {
+    padding: 4rem;
+  }
+
+  .contact__info__row {
+    flex-direction: column;
+  }
+
+  .contact__info__item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .guide__row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .guide__title {
+    font-size: 1.75rem;
+  }
+
+  .travelers__body {
+    width: 260px;
+    left: auto;
+    bottom: calc(100% + 1rem);
+    padding-inline: 1rem;
+  }
+
+  .travelers__details {
+    padding-right: 0.5rem;
+  }
+
+  .panel_flights-category .panel__row,
+  .panel_flights .panel__row {
+    padding-right: 0;
+  }
+
+  .header__item_user {
+    flex: 0 0 auto;
+  }
+
+  .header__item_user .username,
+  .header__item_user .header__dropdown__toggle::after {
+    display: none;
+  }
+
+  .reservation__seats {
+    padding: 2.5rem;
+  }
+
+  .reservation__flex {
+    padding: 1rem;
+  }
+
+  .reservation__seat__wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .reservation__table th,
+  .reservation__table td {
+    padding: 0.5rem 0.625rem;
+  }
+
+  .panel__multi__flights .panel__row {
+    padding-right: 0 !important;
+    border-top: 1px solid #e3e4e8;
+    padding-top: 1.5rem;
+  }
+
+  .panel__delete {
+    background-color: #f68a3c;
+  }
+
+  .panel__delete:hover {
+    background-color: #dd270f;
+  }
+
+  .panel__multi__flights .panel__body {
+    margin-bottom: 5rem;
+  }
+
+  .panel__search__float {
+    position: absolute !important;
+    top: 100%;
+    transform: translateY(-50%);
+  }
+
+  .panel__multi__flights .panel__row {
+    position: static;
+    grid-template-columns: 1fr;
+  }
+
+  .fancy__add__icon {
+    transform: translate(-50%, 46%);
+  }
+
+  .product__card {
+    padding: 1.5rem;
+  }
+
+  .gallery__small .gallery__list_stays .gallery__preview:first-child {
+    grid-column: span 4;
+    grid-row: span 1;
+  }
+
+  .gallery__small .gallery__list_stays .gallery__preview:nth-child(2) {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .gallery__small .gallery__list_stays .gallery__preview:nth-child(3) {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .accordion__head__text {
+    font-size: 1.125rem;
+  }
+
+  .product__tabs {
+    gap: 0.5rem;
   }
 }
 
@@ -603,6 +2399,177 @@
   }
 
   .footer__social__lg {
+    display: none;
+  }
+
+  .partners__inner {
+    padding: 1.5rem;
+  }
+
+  .partners__head {
+    margin-bottom: 2rem;
+  }
+
+  .partners__item {
+    padding: 1.5rem;
+  }
+
+  .promo__grid {
+    grid-template-columns: repeat(auto-fit, minmax(252px, 1fr));
+  }
+
+  .main_tasks .main__title,
+  .main_tasks-category .main__title,
+  .main_cars .main__title {
+    font-size: 2.75rem;
+  }
+
+  .popular__blog__card {
+    flex-direction: column;
+  }
+
+  .popular__blog__flex {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .popular__blog__card {
+    display: block;
+  }
+
+  .popular__blog__gallery__alt .blog__thumbnail {
+    width: 100%;
+  }
+
+  .airlines__wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .faq__title {
+    font-size: 2.75rem;
+  }
+
+  .panel_faq {
+    margin-top: 0;
+    max-width: 100%;
+  }
+
+  .termsof__title {
+    font-size: 1.125rem;
+  }
+
+  .contact__title {
+    font-size: 2rem;
+  }
+
+  .contact__row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__text {
+    font-size: 1rem;
+  }
+
+  .contact__info__box {
+    padding: 2rem;
+  }
+
+  .travelers__body {
+    width: 196px;
+    left: -24px;
+  }
+
+  .counter {
+    width: 5rem;
+  }
+
+  .counter__value {
+    padding-inline: 0.5rem;
+  }
+
+  .travel__detination__flex {
+    flex-direction: column;
+  }
+
+  .ticket__details__card__footer {
+    justify-content: center;
+  }
+
+  .checkout__card__content .icon__box {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .checkout__card__content .icon__box .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .checkout__category {
+    font-size: 18px;
+  }
+
+  .checkout__card__content {
+    gap: 0.75rem;
+  }
+
+  .checkout__card {
+    padding: 1.25rem;
+  }
+
+  .checkout__text__lg {
+    font-size: 1rem;
+  }
+
+  .alert {
+    font-size: 0.875rem;
+  }
+
+  .alert svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .reservation__seats {
+    padding: 2rem;
+  }
+
+  .reservation__card {
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+
+  .panel__row .datepicker__list {
+    grid-template-columns: 1fr;
+  }
+
+  .product__card {
+    padding: 1rem;
+  }
+
+  .product__card .price__block {
+    flex-wrap: wrap;
+  }
+
+  .product__overviews__table .overview__body {
+    grid-template-columns: 1fr;
+  }
+
+  .product__overviews__table .overview__body::after {
+    display: none;
+  }
+
+  .product__overviews__table
+    .overview__item:not(:first-of-type):nth-of-type(even)::after {
+    display: block;
+  }
+
+  .accordion__head__text {
+    font-size: 1rem;
+  }
+
+  .accordion__head .button-small {
     display: none;
   }
 }

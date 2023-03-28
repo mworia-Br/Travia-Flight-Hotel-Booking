@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-   {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -62,6 +61,17 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"
+    />
     <link rel="stylesheet" media="all" href=" {% static 'css/app.min.css' %} " />
     <link rel="stylesheet" media="all" href=" {% static 'css/main.css' %} " />
     <script>
@@ -83,75 +93,72 @@
     </script>
   </head>
   <body>
-    <script>
-      console.log(localStorage.getItem("darkMode"));
-      if (localStorage.getItem("darkMode") === "on") {
-        document.body.classList.add("dark");
-        document.addEventListener("DOMContentLoaded", function () {
-          document.querySelector(".js-theme input").checked = true;
-        });
-      }
-    </script>
     <!-- outer-->
     <div class="outer">
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href=" {% url 'index' %} ">
+          <a class="header__logo" href=" {% static 'index.html' %} ">
             <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
-            <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
+            <a class="header__item" href=" {% static './index.html' %} ">Flights</a>
+            <a class="header__item" href="#">Hotels</a>
             <a class="header__item" href="#">Promo</a>
-            <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
-            <a class="header__item" href=" {% static 'support.html' %} ">Support</a>
+            <a class="header__item me__auto" href="#">Orders</a>
             <div class="header__item header__item_language js-header-item">
-              <button class="header__head js-header-head">
-                <svg class="icon icon-globe">
-                  <use xlink:href=" {% static '#icon-globe' %} "></use></svg
-                >Language
+              <button
+                class="header__head header__dropdown__toggle js-header-head"
+              >
+                <span class="fi fi-us symbol"></span>
+                <span class="toggle__text">English</span>
               </button>
               <div class="header__body js-header-body">
                 <div class="header__list">
-                  <a class="header__box active" href="#">
+                  <a class="header__box js-toggle-box active" href=" {% static 'us' %} ">
                     <div class="header__category">English</div>
-                    <div class="header__country">United States</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">United States</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'vn' %} ">
                     <div class="header__category">Vietnamese</div>
-                    <div class="header__country">Vietnamese</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">Viet Nam</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'fr' %} ">
                     <div class="header__category">Français</div>
-                    <div class="header__country">Belgique</div></a
-                  ><a class="header__box" href="#">
-                    <div class="header__category">Français</div>
-                    <div class="header__country">Canada</div></a
-                  >
+                    <div class="header__country">France</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'ca' %} ">
+                    <div class="header__category">Canada</div>
+                    <div class="header__country">Canada</div>
+                  </a>
                 </div>
               </div>
             </div>
-            <div class="header__item header__item_language js-header-item">
-              <button class="header__head js-header-head">
-                <svg class="icon icon-coin">
-                  <use xlink:href=" {% static '#icon-coin' %} "></use>
-                </svg>
-                USD
+            <div class="header__item header__item_dropdown js-header-item">
+              <button
+                class="header__head js-header-head header__item_currency header__dropdown__toggle"
+              >
+                <i class="fa-solid fa-dollar-sign symbol currency__icon"></i>
+                <span class="toggle__text">USD</span>
               </button>
               <div class="header__body js-header-body">
                 <div class="header__list">
-                  <a class="header__box active" href="#">
+                  <a class="header__box js-toggle-box active" href=" {% static 'dollar' %} ">
                     <div class="header__category">USD</div>
-                    <div class="header__country">Bangladesh</div></a
-                  ><a class="header__box" href="#">
-                    <div class="header__category">USD</div>
-                    <div class="header__country">United States</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">United States</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'bangladeshi-taka' %} ">
+                    <div class="header__category">BDT</div>
+                    <div class="header__country">Bangladesh</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'turkish-lira' %} ">
                     <div class="header__category">Lira</div>
-                    <div class="header__country">Turkey</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">Turkey</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'euro' %} ">
                     <div class="header__category">EURO</div>
-                    <div class="header__country">Austria</div></a
-                  >
+                    <div class="header__country">Austria</div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -269,7 +276,7 @@
                   <div class="main__info info">
                     Find and book a great experience.
                   </div>
-                  <a class="button main__button" href="{% url 'hotels' %}"
+                  <a class="button main__button" href=" {% static 'stays-category.html' %} "
                     >Start your search</a
                   >
                 </div>
@@ -287,16 +294,16 @@
                   <div class="main__info info">
                     Find and book a great experience.
                   </div>
-                  <a class="button main__button" href="{% url 'hotels' %}"
+                  <a class="button main__button" href=" {% static 'stays-category.html' %} "
                     >Start your search</a
                   >
                 </div>
               </div>
             </div>
-            <div class="panel panel_flights">
+            <div class="panel panel_flights panel__multi__flights">
               <div class="panel__background"></div>
               <div class="panel__nav">
-                <a class="panel__link active" href=" {% url 'index' %} ">Flights</a
+                <a class="panel__link active" href=" {% static 'index.html' %} ">Flights</a
                 ><a class="panel__link" href=" {% static 'hotels.html' %} ">Hotels</a
                 ><a class="panel__link" href=" {% static 'holidays.html' %} ">Holidays</a>
               </div>
@@ -319,6 +326,106 @@
                 >
                   Multi-destination
                 </a>
+
+                <div class="travelers js-travelers">
+                  <button
+                    type="button"
+                    class="button-stroke button-small panel__button js-travelers-head"
+                  >
+                    <span class="js-travelers-content header__dropdown__toggle">
+                      Travelers
+                    </span>
+                  </button>
+                  <div class="travelers__body js-travelers-body">
+                    <div class="travelers__item">
+                      <div class="travelers__details">
+                        <div class="travelers__category">Adults</div>
+                        <div class="travelers__text">Ages 13 or above</div>
+                      </div>
+                      <div class="counter js-counter" data-min="0">
+                        <button
+                          class="counter__button js-counter-button js-counter-minus disabled"
+                          type="button"
+                        >
+                          <svg class="icon icon-minus-circle">
+                            <use xlink:href=" {% static '#icon-minus-circle' %} "></use>
+                          </svg>
+                        </button>
+                        <div class="counter__value js-counter-value"></div>
+                        <button
+                          class="counter__button js-counter-button js-counter-plus"
+                          type="button"
+                        >
+                          <svg class="icon icon-plus-circle">
+                            <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                          </svg>
+                        </button>
+                        <input
+                          class="js-counter-input js-counter-result js-counter-adults"
+                          type="hidden"
+                        />
+                      </div>
+                    </div>
+                    <div class="travelers__item">
+                      <div class="travelers__details">
+                        <div class="travelers__category">Children</div>
+                        <div class="travelers__text">Ages 2 - 12</div>
+                      </div>
+                      <div class="counter js-counter" data-min="0">
+                        <button
+                          class="counter__button js-counter-button js-counter-minus disabled"
+                          type="button"
+                        >
+                          <svg class="icon icon-minus-circle">
+                            <use xlink:href=" {% static '#icon-minus-circle' %} "></use>
+                          </svg>
+                        </button>
+                        <div class="counter__value js-counter-value"></div>
+                        <button
+                          class="counter__button js-counter-button js-counter-plus"
+                          type="button"
+                        >
+                          <svg class="icon icon-plus-circle">
+                            <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                          </svg>
+                        </button>
+                        <input
+                          class="js-counter-input js-counter-result js-counter-children"
+                          type="hidden"
+                        />
+                      </div>
+                    </div>
+                    <div class="travelers__item">
+                      <div class="travelers__details">
+                        <div class="travelers__category">Infant</div>
+                        <div class="travelers__text">Under 2</div>
+                      </div>
+                      <div class="counter js-counter" data-min="0">
+                        <button
+                          class="counter__button js-counter-button js-counter-minus disabled"
+                          type="button"
+                        >
+                          <svg class="icon icon-minus-circle">
+                            <use xlink:href=" {% static '#icon-minus-circle' %} "></use>
+                          </svg>
+                        </button>
+                        <div class="counter__value js-counter-value"></div>
+                        <button
+                          class="counter__button js-counter-button js-counter-plus"
+                          type="button"
+                        >
+                          <svg class="icon icon-plus-circle">
+                            <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                          </svg>
+                        </button>
+                        <input
+                          class="js-counter-input js-counter-result js-counter-babies"
+                          type="hidden"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="panel__body">
                 <div class="panel__row">
@@ -396,47 +503,296 @@
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="datepicker js-date-range"
-                    data-format="ddd, MMM DD"
-                    data-container=".datepicker"
-                  >
-                    <div class="datepicker__list">
-                      <div class="datepicker__item panel__item__rounded">
-                        <input
-                          class="datepicker__input js-date-from"
-                          type="text"
-                          placeholder="Departure"
-                          readonly="readonly"
-                        />
-                        <div class="datepicker__icon">
-                          <svg class="icon icon-calendar">
-                            <use xlink:href=" {% static '#icon-calendar' %} "></use>
-                          </svg>
-                        </div>
-                        <div class="datepicker__description">Departure</div>
+                  <div class="datepicker datepicker__single">
+                    <div class="datepicker__item panel__item__rounded">
+                      <input
+                        class="datepicker__input js-date-single"
+                        data-format="MMM DD, YYYY"
+                        data-single="data-single"
+                        data-container=".datepicker"
+                        type="text"
+                        placeholder="Date"
+                        readonly="readonly"
+                      />
+                      <div class="datepicker__icon">
+                        <svg class="icon icon-calendar">
+                          <use xlink:href=" {% static '#icon-calendar' %} "></use>
+                        </svg>
                       </div>
-                      <div class="datepicker__item panel__item__rounded">
-                        <input
-                          class="datepicker__input js-date-to"
-                          type="text"
-                          placeholder="Return"
-                          readonly="readonly"
-                        />
-                        <div class="datepicker__icon">
-                          <svg class="icon icon-calendar">
-                            <use xlink:href=" {% static '#icon-calendar' %} "></use>
-                          </svg>
-                        </div>
-                        <div class="datepicker__description">return date</div>
-                      </div>
+                      <div class="datepicker__description">Add date</div>
                     </div>
                   </div>
-                  <a class="panel__search" href=" {% static 'flights-category.html' %} ">
+                  <a
+                    class="panel__search panel__search__float"
+                    href=" {% static 'flights-category-multi.html' %} "
+                  >
                     <svg class="icon icon-search">
                       <use xlink:href=" {% static '#icon-search' %} "></use></svg
                     ><span>Search</span></a
                   >
+                </div>
+                <div class="panel__row">
+                  <div class="location js-location panel__item__rounded">
+                    <div class="location__head js-location-head">
+                      <div class="location__icon">
+                        <svg class="icon icon-marker">
+                          <use xlink:href=" {% static '#icon-marker' %} "></use>
+                        </svg>
+                      </div>
+                      <input
+                        class="location__input js-location-input"
+                        type="text"
+                        name="location"
+                        autocomplete="off"
+                        placeholder="Flying from"
+                      />
+                      <div class="location__description">Leaving from</div>
+                      <button class="location__clear js-location-clear">
+                        <svg class="icon icon-close-circle">
+                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="location__body js-location-body">
+                      <div class="location__list">
+                        <a class="location__item js-location-item" href="#"
+                          >New York, NY</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New York, Manhattan</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New Zealand</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New Smyrna Beach, FL</a
+                        ><a class="location__item js-location-item" href="#"
+                          >Newark, NJ</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="location js-location panel__item__rounded">
+                    <div class="location__head js-location-head">
+                      <div class="location__icon">
+                        <svg class="icon icon-location">
+                          <use xlink:href=" {% static '#icon-location' %} "></use>
+                        </svg>
+                      </div>
+                      <input
+                        class="location__input js-location-input"
+                        type="text"
+                        name="location"
+                        autocomplete="off"
+                        placeholder="Flying to"
+                      />
+                      <div class="location__description">Going to</div>
+                      <button class="location__clear js-location-clear">
+                        <svg class="icon icon-close-circle">
+                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="location__body js-location-body">
+                      <div class="location__list">
+                        <a class="location__item js-location-item" href="#"
+                          >New York, NY</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New York, Manhattan</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New Zealand</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New Smyrna Beach, FL</a
+                        ><a class="location__item js-location-item" href="#"
+                          >Newark, NJ</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="datepicker datepicker__single">
+                    <div class="datepicker__item panel__item__rounded">
+                      <input
+                        class="datepicker__input js-date-single"
+                        data-format="MMM DD, YYYY"
+                        data-single="data-single"
+                        data-container=".datepicker"
+                        type="text"
+                        placeholder="Date"
+                        readonly="readonly"
+                      />
+                      <div class="datepicker__icon">
+                        <svg class="icon icon-calendar">
+                          <use xlink:href=" {% static '#icon-calendar' %} "></use>
+                        </svg>
+                      </div>
+                      <div class="datepicker__description">Add date</div>
+                    </div>
+                  </div>
+                  <a
+                    class="panel__search panel__delete"
+                    href=" {% static 'flights-category.html' %} "
+                  >
+                    <svg
+                      class="icon"
+                      width="32"
+                      height="33"
+                      viewBox="0 0 32 33"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M16.0003 27.4138C21.8914 27.4138 26.667 22.6382 26.667 16.7472C26.667 10.8561 21.8914 6.08049 16.0003 6.08049C10.1093 6.08049 5.33366 10.8561 5.33366 16.7472C5.33366 22.6382 10.1093 27.4138 16.0003 27.4138ZM16.0003 30.0805C23.3641 30.0805 29.3337 24.1109 29.3337 16.7472C29.3337 9.38336 23.3641 3.41382 16.0003 3.41382C8.63653 3.41382 2.66699 9.38336 2.66699 16.7472C2.66699 24.1109 8.63653 30.0805 16.0003 30.0805Z"
+                        fill="#777E91"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M11.0575 11.8043C11.5782 11.2836 12.4224 11.2836 12.9431 11.8043L16.0003 14.8615L19.0575 11.8043C19.5782 11.2836 20.4224 11.2836 20.9431 11.8043C21.4638 12.325 21.4638 13.1693 20.9431 13.69L17.8859 16.7472L20.9431 19.8043C21.4638 20.325 21.4638 21.1693 20.9431 21.69C20.4224 22.2107 19.5782 22.2107 19.0575 21.69L16.0003 18.6328L12.9431 21.69C12.4224 22.2107 11.5782 22.2107 11.0575 21.69C10.5368 21.1693 10.5368 20.325 11.0575 19.8043L14.1147 16.7472L11.0575 13.69C10.5368 13.1693 10.5368 12.325 11.0575 11.8043Z"
+                        fill="#777E91"
+                      />
+                    </svg>
+                    <span>Delete</span></a
+                  >
+                </div>
+                <div class="panel__row">
+                  <div class="location js-location panel__item__rounded">
+                    <div class="location__head js-location-head">
+                      <div class="location__icon">
+                        <svg class="icon icon-marker">
+                          <use xlink:href=" {% static '#icon-marker' %} "></use>
+                        </svg>
+                      </div>
+                      <input
+                        class="location__input js-location-input"
+                        type="text"
+                        name="location"
+                        autocomplete="off"
+                        placeholder="Flying from"
+                      />
+                      <div class="location__description">Leaving from</div>
+                      <button class="location__clear js-location-clear">
+                        <svg class="icon icon-close-circle">
+                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="location__body js-location-body">
+                      <div class="location__list">
+                        <a class="location__item js-location-item" href="#"
+                          >New York, NY</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New York, Manhattan</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New Zealand</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New Smyrna Beach, FL</a
+                        ><a class="location__item js-location-item" href="#"
+                          >Newark, NJ</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="location js-location panel__item__rounded">
+                    <div class="location__head js-location-head">
+                      <div class="location__icon">
+                        <svg class="icon icon-location">
+                          <use xlink:href=" {% static '#icon-location' %} "></use>
+                        </svg>
+                      </div>
+                      <input
+                        class="location__input js-location-input"
+                        type="text"
+                        name="location"
+                        autocomplete="off"
+                        placeholder="Flying to"
+                      />
+                      <div class="location__description">Going to</div>
+                      <button class="location__clear js-location-clear">
+                        <svg class="icon icon-close-circle">
+                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="location__body js-location-body">
+                      <div class="location__list">
+                        <a class="location__item js-location-item" href="#"
+                          >New York, NY</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New York, Manhattan</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New Zealand</a
+                        ><a class="location__item js-location-item" href="#"
+                          >New Smyrna Beach, FL</a
+                        ><a class="location__item js-location-item" href="#"
+                          >Newark, NJ</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="datepicker datepicker__single">
+                    <div class="datepicker__item panel__item__rounded">
+                      <input
+                        class="datepicker__input js-date-single"
+                        data-format="MMM DD, YYYY"
+                        data-single="data-single"
+                        data-container=".datepicker"
+                        type="text"
+                        placeholder="Date"
+                        readonly="readonly"
+                      />
+                      <div class="datepicker__icon">
+                        <svg class="icon icon-calendar">
+                          <use xlink:href=" {% static '#icon-calendar' %} "></use>
+                        </svg>
+                      </div>
+                      <div class="datepicker__description">Add date</div>
+                    </div>
+                  </div>
+                  <a
+                    class="panel__search panel__delete"
+                    href=" {% static 'flights-category.html' %} "
+                  >
+                    <svg
+                      class="icon"
+                      width="32"
+                      height="33"
+                      viewBox="0 0 32 33"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M16.0003 27.4138C21.8914 27.4138 26.667 22.6382 26.667 16.7472C26.667 10.8561 21.8914 6.08049 16.0003 6.08049C10.1093 6.08049 5.33366 10.8561 5.33366 16.7472C5.33366 22.6382 10.1093 27.4138 16.0003 27.4138ZM16.0003 30.0805C23.3641 30.0805 29.3337 24.1109 29.3337 16.7472C29.3337 9.38336 23.3641 3.41382 16.0003 3.41382C8.63653 3.41382 2.66699 9.38336 2.66699 16.7472C2.66699 24.1109 8.63653 30.0805 16.0003 30.0805Z"
+                        fill="#777E91"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M11.0575 11.8043C11.5782 11.2836 12.4224 11.2836 12.9431 11.8043L16.0003 14.8615L19.0575 11.8043C19.5782 11.2836 20.4224 11.2836 20.9431 11.8043C21.4638 12.325 21.4638 13.1693 20.9431 13.69L17.8859 16.7472L20.9431 19.8043C21.4638 20.325 21.4638 21.1693 20.9431 21.69C20.4224 22.2107 19.5782 22.2107 19.0575 21.69L16.0003 18.6328L12.9431 21.69C12.4224 22.2107 11.5782 22.2107 11.0575 21.69C10.5368 21.1693 10.5368 20.325 11.0575 19.8043L14.1147 16.7472L11.0575 13.69C10.5368 13.1693 10.5368 12.325 11.0575 11.8043Z"
+                        fill="#777E91"
+                      />
+                    </svg>
+                    <span>Delete</span></a
+                  >
+                </div>
+                <div class="fancy__add__icon">
+                  <button type="button" id="addFlight" class="panel__search">
+                    <svg
+                      class="icon"
+                      width="20"
+                      height="21"
+                      viewBox="0 0 20 21"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M11 1.99658C11 1.4443 10.5523 0.996582 10 0.996582C9.44771 0.996582 9 1.4443 9 1.99658V9.74658H1.25C0.697715 9.74658 0.25 10.1943 0.25 10.7466C0.25 11.2989 0.697715 11.7466 1.25 11.7466H9V19.4966C9 20.0489 9.44771 20.4966 10 20.4966C10.5523 20.4966 11 20.0489 11 19.4966V11.7466H18.75C19.3023 11.7466 19.75 11.2989 19.75 10.7466C19.75 10.1943 19.3023 9.74658 18.75 9.74658H11V1.99658Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -456,7 +812,7 @@
                 <div class="browse__slider js-slider-browse">
                   <a
                     class="browse__card browse__card__alt"
-                    href="{% url 'hotels' %}"
+                    href=" {% static 'stays-category.html' %} "
                   >
                     <div class="browse__preview">
                       <img
@@ -480,7 +836,7 @@
                   </a>
                   <a
                     class="browse__card browse__card__alt"
-                    href="{% url 'hotels' %}"
+                    href=" {% static 'stays-category.html' %} "
                   >
                     <div class="browse__preview">
                       <img
@@ -504,7 +860,7 @@
                   </a>
                   <a
                     class="browse__card browse__card__alt"
-                    href="{% url 'hotels' %}"
+                    href=" {% static 'stays-category.html' %} "
                   >
                     <div class="browse__preview">
                       <img
@@ -528,7 +884,7 @@
                   </a>
                   <a
                     class="browse__card browse__card__alt"
-                    href="{% url 'hotels' %}"
+                    href=" {% static 'stays-category.html' %} "
                   >
                     <div class="browse__preview">
                       <img
@@ -552,7 +908,7 @@
                   </a>
                   <a
                     class="browse__card browse__card__alt"
-                    href="{% url 'hotels' %}"
+                    href=" {% static 'stays-category.html' %} "
                   >
                     <div class="browse__preview">
                       <img
@@ -576,7 +932,7 @@
                   </a>
                   <a
                     class="browse__card browse__card__alt"
-                    href="{% url 'hotels' %}"
+                    href=" {% static 'stays-category.html' %} "
                   >
                     <div class="browse__preview">
                       <img
@@ -946,7 +1302,7 @@
                 >
               </div>
               <div class="travels__btns">
-                <a class="button-stroke button-small" href="{% url 'hotels' %}"
+                <a class="button-stroke button-small" href=" {% static 'stays-category.html' %} "
                   >View all</a
                 >
               </div>
@@ -999,64 +1355,98 @@
       <!-- footer-->
       <footer class="footer">
         <div class="footer__center center">
+          <div class="sponsers-wrapper">
+            <div class="js-slider-sponsor">
+              <a class="sponsor__item" href="#">
+                <img
+                  src=" {% static './img/content/sponsor-1.png' %} "
+                  alt=""
+                  width="86"
+                  height="32"
+                  class="img__fluid"
+                />
+              </a>
+              <a class="sponsor__item" href="#">
+                <img
+                  src=" {% static './img/content/sponsor-2.png' %} "
+                  alt=""
+                  width="86"
+                  height="32"
+                  class="img__fluid"
+                />
+              </a>
+              <a class="sponsor__item" href="#">
+                <img
+                  src=" {% static './img/content/sponsor-3.png' %} "
+                  alt=""
+                  width="86"
+                  height="32"
+                  class="img__fluid"
+                />
+              </a>
+              <a class="sponsor__item" href="#">
+                <img
+                  src=" {% static './img/content/sponsor-4.png' %} "
+                  alt=""
+                  width="86"
+                  height="32"
+                  class="img__fluid"
+                />
+              </a>
+              <a class="sponsor__item" href="#">
+                <img
+                  src=" {% static './img/content/sponsor-5.png' %} "
+                  alt=""
+                  width="86"
+                  height="32"
+                  class="img__fluid"
+                />
+              </a>
+              <a class="sponsor__item" href="#">
+                <img
+                  src=" {% static './img/content/sponsor-6.png' %} "
+                  alt=""
+                  width="86"
+                  height="32"
+                  class="img__fluid"
+                />
+              </a>
+              <a class="sponsor__item" href="#">
+                <img
+                  src=" {% static './img/content/sponsor-7.png' %} "
+                  alt=""
+                  width="86"
+                  height="32"
+                  class="img__fluid"
+                />
+              </a>
+            </div>
+          </div>
           <div class="footer__row">
             <div class="footer__col">
-              <a class="footer__logo" href=" {% url 'index' %} "
-                ><img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet"
-              /></a>
-              <div class="footer__social">
-                <a href="#" class="social__link">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                    <path
-                      d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
-                    />
-                  </svg>
-                </a>
-                <a href="#" class="social__link">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path
-                      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
-                    />
-                  </svg>
-                </a>
-                <a href="#" class="social__link">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path
-                      d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
-                    />
-                  </svg>
-                </a>
-                <a href="#" class="social__link">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                    <path
-                      d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"
-                    />
-                  </svg>
-                </a>
-                <a href="#" class="social__link">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path
-                      d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
-                    />
-                  </svg>
-                </a>
-                <a href="#" class="social__link">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path
-                      d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
-                    />
-                  </svg>
-                </a>
-              </div>
+              <a class="footer__logo" href=" {% static 'index.html' %} ">
+                <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
+              </a>
+              <a class="footer__logo" href="#">
+                <img
+                  class="some-icon"
+                  src=" {% static 'img/content/ssl icon.png' %} "
+                  alt="SSL"
+                />
+              </a>
             </div>
             <div class="footer__col">
               <div class="footer__menu__widget">
                 <div class="footer__menu">
                   <h5 class="footer__subtitle">Airtravia</h5>
-                  <a class="footer__link" href=" {% url 'index' %} ">Home</a>
-                  <a class="footer__link" href="#">About Us</a>
-                  <a class="footer__link" href="#">Promo</a>
-                  <a class="footer__link" href="#">Airline Information</a>
+                  <a class="footer__link" href=" {% static 'index.html' %} ">Home</a>
+                  <a class="footer__link" href=" {% static './about-us.html' %} ">About Us</a>
+                  <a class="footer__link" href=" {% static './promo.html' %} ">Promo</a>
+                  <a class="footer__link" href=" {% static './blog.html' %} ">Blog</a>
+                  <a class="footer__link" href=" {% static './airline-info.html' %} "
+                    >Airline Information</a
+                  >
+                  <a class="footer__link" href=" {% static './contact.html' %} ">Contact Us</a>
                 </div>
                 <div class="footer__menu">
                   <h5 class="footer__subtitle">Account</h5>
@@ -1064,14 +1454,16 @@
                   <a class="footer__link" href="#">Forgot Password</a>
                 </div>
                 <div class="footer__menu">
-                  <h5 class="footer__subtitle">Support</h5>
-                  <a class="footer__link" href="#">Airtravia Guide</a>
-                  <a class="footer__link" href="#">FAQ</a>
+                  <a class="footer__link" href=" {% static './guide.html' %} "
+                    >Airtravia Guide</a
+                  >
+                  <a class="footer__link" href=" {% static './faq.html' %} ">FAQ</a>
                   <a class="footer__link" href="#">How to Book</a>
                   <a class="footer__link" href="#">Help Center</a>
-                  <a class="footer__link" href="#">Terms Of Use</a>
-                  <a class="footer__link" href="#">Terms & Conditions</a>
-                  <a class="footer__link" href="#">Contact Us</a>
+                  <a class="footer__link" href=" {% static './terms.html' %} ">Terms Of Use</a>
+                  <a class="footer__link" href=" {% static './terms-conditions.html' %} "
+                    >Terms & Conditions</a
+                  >
                 </div>
               </div>
             </div>
@@ -1085,11 +1477,58 @@
                   <a class="footer__link" href="#">
                     <img src=" {% static './img/content/master-card.svg' %} " alt="" />
                   </a>
-                  <a class="footer__link" href="#">
-                    <img src=" {% static './img/content/visa.svg' %} " alt="" />
+                </div>
+
+                <div class="footer__social">
+                  <a href="#" class="social__link">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+                      />
+                    </svg>
                   </a>
-                  <a class="footer__link" href="#">
-                    <img src=" {% static './img/content/master-card.svg' %} " alt="" />
+                  <a href="#" class="social__link">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512"
+                    >
+                      <path
+                        d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                      />
+                    </svg>
+                  </a>
+                  <a href="#" class="social__link">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                    >
+                      <path
+                        d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
+                      />
+                    </svg>
+                  </a>
+                  <a href="#" class="social__link">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                    >
+                      <path
+                        d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"
+                      />
+                    </svg>
+                  </a>
+                  <a href="#" class="social__link">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                    >
+                      <path
+                        d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                      />
+                    </svg>
                   </a>
                 </div>
               </div>
@@ -1097,7 +1536,7 @@
           </div>
           <div class="footer__bottom">
             <div class="footer__copyright">
-              Copyright © 2023 UI8 LLC. All rights reserved
+              Copyright © 2021 UI8 LLC. All rights reserved
             </div>
           </div>
         </div>
