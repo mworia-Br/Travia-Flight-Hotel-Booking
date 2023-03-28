@@ -1,7 +1,5 @@
 from . import views
 from django.urls import path, include
-from django.views.generic import TemplateView
-from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', views.Index, name="index"),
@@ -9,8 +7,6 @@ urlpatterns = [
     path('login/', views.login_view, name="login"),
     path('signup/', views.signup, name="signup"),
     path('signout/', views.logout_view, name='logout'),
-    path('accounts/', include('allauth.urls')),
-    path('logout', LogoutView.as_view()),
     path('password-reset/', views.password_reset, name='password_reset'),
     path('oneway-flight/', views.oneway_view, name='oneway_flight'),
     path('roundtrip-flight/', views.roundtrip_view, name='roundtrip_flight'),

@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
+from django.contrib.auth.views import LogoutView
 
 admin.site.site_header  =  "Airtravia admin"  
 admin.site.site_title  =  "Airtravia admin site"
@@ -27,4 +29,6 @@ urlpatterns = [
     path('api/v1/hotel/', include('hotels.urls')),
     path('booking/', include('frontend.urls')),
     path('', include('accounts.urls')),
+    path('singleauth/', include('allauth.urls')),
+    path('logout', LogoutView.as_view()),
 ]
