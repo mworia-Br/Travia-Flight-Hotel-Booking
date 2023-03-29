@@ -99,14 +99,14 @@
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href=" {% static 'index.html' %} ">
+          <a class="header__logo" href=" {% url 'index' %} ">
             <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href=" {% static './index.html' %} ">Flights</a>
-            <a class="header__item" href="#">Hotels</a>
+            <a class="header__item" href=" {% url 'oneway_flight' %} ">Flights</a>
+            <a class="header__item" href=" {% url 'hotels' %} ">Hotels</a>
             <a class="header__item" href="#">Promo</a>
-            <a class="header__item" href="#">Orders</a>
+            <a class="header__item" href=" {% url 'orders' %} ">Orders</a>
             <div class="header__item header__item_language js-header-item">
               <button
                 class="header__head header__dropdown__toggle js-header-head"
@@ -277,18 +277,18 @@
             <div class="faq__row">
               <div class="faq__col">
                 <div class="navtabs__menu">
-                  <a class="navtab__link" href=" {% static '#item1' %} ">
+                  <a class="navtab__link" href="#item1">
                     About Terms and Conditions
                   </a>
-                  <a class="navtab__link" href=" {% static '#item2' %} "> About Our Services </a>
-                  <a class="navtab__link" href=" {% static '#item3' %} ">
+                  <a class="navtab__link" href="#item2"> About Our Services </a>
+                  <a class="navtab__link" href="#item3">
                     Registration and Membership
                   </a>
-                  <a class="navtab__link" href=" {% static '#item4' %} ">Applicability</a>
-                  <a class="navtab__link" href=" {% static '#item5' %} "
+                  <a class="navtab__link" href="#item4">Applicability</a>
+                  <a class="navtab__link" href="#item5"
                     >E-Tickets /Booking Code</a
                   >
-                  <a class="navtab__link" href=" {% static '#item6' %} ">Fares</a>
+                  <a class="navtab__link" href="#item6">Fares</a>
                 </div>
               </div>
               <div class="faq__col">

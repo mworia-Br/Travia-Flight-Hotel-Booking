@@ -5,17 +5,24 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
-
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
-
+<div class="popup popup_login mfp-zoom-in">
+  <div class="login">
+    {% block content %}
+    <div class="login__item">
+      <div class="login__title h3">Sign up</div>
+      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="button login__button" type="submit">{% trans "Sign Up" %} &raquo;</button>
+      </form>
+      <div class="login__foot">
+        <a class="login__password" href="{% url 'login' %}">I already have an account</a>
+      </div>
+    </div>
+    {% endblock %}
+  </div>
+</div>
 {% endblock %}
