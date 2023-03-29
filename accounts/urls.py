@@ -19,4 +19,6 @@ urlpatterns = [
     path('orders/', views.profile_orders, name='orders'),
     path('travelers/', views.profile_travelers, name='travelers'),
     path('add-traveler/', views.profile_traveleradd, name='add_traveler'),
+    path('terms/', views.terms_view, name='terms'),
+    path('terms-conditions/', views.terms_conditions_view, name='terms_conditions'),
 ]

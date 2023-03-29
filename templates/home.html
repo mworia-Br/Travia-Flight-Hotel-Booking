@@ -382,57 +382,63 @@
             <img class="some-icon" src="{% static 'img/logo-light.svg' %}" alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
-            <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
+            <a class="header__item" href=" {% url 'oneway_flight' %} ">Flights</a>
+            <a class="header__item" href=" {% url 'hotels' %} ">Hotels</a>
             <a class="header__item" href="#">Promo</a>
-            <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
-            <a class="header__item" href="{% url 'index' %}">Support</a>
+            <a class="header__item" href=" {% url 'orders' %} ">Orders</a>
             <div class="header__item header__item_language js-header-item">
-              <button class="header__head js-header-head">
-                <svg class="icon icon-globe">
-                  <use xlink:href="#icon-globe"></use></svg
-                >Language
+              <button
+                class="header__head header__dropdown__toggle js-header-head"
+              >
+                <span class="fi fi-us symbol"></span>
+                <span class="toggle__text">English</span>
               </button>
               <div class="header__body js-header-body">
                 <div class="header__list">
-                  <a class="header__box active" href="#">
+                  <a class="header__box js-toggle-box active" href=" {% static 'us' %} ">
                     <div class="header__category">English</div>
-                    <div class="header__country">United States</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">United States</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'vn' %} ">
                     <div class="header__category">Vietnamese</div>
-                    <div class="header__country">Vietnamese</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">Viet Nam</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'fr' %} ">
                     <div class="header__category">Français</div>
-                    <div class="header__country">Belgique</div></a
-                  ><a class="header__box" href="#">
-                    <div class="header__category">Français</div>
-                    <div class="header__country">Canada</div></a
-                  >
+                    <div class="header__country">France</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'ca' %} ">
+                    <div class="header__category">Canada</div>
+                    <div class="header__country">Canada</div>
+                  </a>
                 </div>
               </div>
             </div>
-            <div class="header__item header__item_language js-header-item">
-              <button class="header__head js-header-head">
-                <svg class="icon icon-coin">
-                  <use xlink:href="#icon-coin"></use>
-                </svg>
-                USD
+            <div class="header__item header__item_dropdown js-header-item">
+              <button
+                class="header__head js-header-head header__item_currency header__dropdown__toggle"
+              >
+                <i class="fa-solid fa-dollar-sign symbol currency__icon"></i>
+                <span class="toggle__text">USD</span>
               </button>
               <div class="header__body js-header-body">
                 <div class="header__list">
-                  <a class="header__box active" href="#">
+                  <a class="header__box js-toggle-box active" href=" {% static 'dollar' %} ">
                     <div class="header__category">USD</div>
-                    <div class="header__country">Bangladesh</div></a
-                  ><a class="header__box" href="#">
-                    <div class="header__category">USD</div>
-                    <div class="header__country">United States</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">United States</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'bangladeshi-taka' %} ">
+                    <div class="header__category">BDT</div>
+                    <div class="header__country">Bangladesh</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'turkish-lira' %} ">
                     <div class="header__category">Lira</div>
-                    <div class="header__country">Turkey</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">Turkey</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'euro' %} ">
                     <div class="header__category">EURO</div>
-                    <div class="header__country">Austria</div></a
-                  >
+                    <div class="header__country">Austria</div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1182,8 +1188,8 @@
                   <a class="footer__link" href=" {% static './faq.html' %} ">FAQ</a>
                   <a class="footer__link" href="#">How to Book</a>
                   <a class="footer__link" href="#">Help Center</a>
-                  <a class="footer__link" href=" {% static './terms.html' %} ">Terms Of Use</a>
-                  <a class="footer__link" href=" {% static './terms-conditions.html' %} "
+                  <a class="footer__link" href="{% url 'terms' %}">Terms Of Use</a>
+                  <a class="footer__link" href="{% url 'terms_conditions' %}"
                     >Terms & Conditions</a
                   >
                 </div>
@@ -1258,7 +1264,7 @@
           </div>
           <div class="footer__bottom">
             <div class="footer__copyright">
-              Copyright © 2021 UI8 LLC. All rights reserved
+              Copyright © 2023 UI8 LLC. All rights reserved
             </div>
           </div>
         </div>

@@ -260,3 +260,10 @@ def set_password(request, uidb64, token):
         return render(request, 'set_password.html', {'form': form})
     else:
         return render(request, 'set_password_error.html')
+
+# Other pages
+def terms_view(req):
+    return render(req, 'terms.html', {})
+
+def terms_conditions_view(req):
+    return render(req, 'terms-conditions.html', {})

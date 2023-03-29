@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+   {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -1460,8 +1461,8 @@
                   <a class="footer__link" href=" {% static './faq.html' %} ">FAQ</a>
                   <a class="footer__link" href="#">How to Book</a>
                   <a class="footer__link" href="#">Help Center</a>
-                  <a class="footer__link" href=" {% static './terms.html' %} ">Terms Of Use</a>
-                  <a class="footer__link" href=" {% static './terms-conditions.html' %} "
+                  <a class="footer__link" href="{% url 'terms' %}">Terms Of Use</a>
+                  <a class="footer__link" href="{% url 'terms_conditions' %}"
                     >Terms & Conditions</a
                   >
                 </div>
@@ -1536,7 +1537,7 @@
           </div>
           <div class="footer__bottom">
             <div class="footer__copyright">
-              Copyright © 2021 UI8 LLC. All rights reserved
+              Copyright © 2023 UI8 LLC. All rights reserved
             </div>
           </div>
         </div>
