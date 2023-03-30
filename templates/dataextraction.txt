@@ -1,0 +1,76 @@
+// Extracting variables from flight_info
+const type = flight_info.type;
+const id = flight_info.id;
+const source = flight_info.source;
+const instantTicketingRequired = flight_info.instantTicketingRequired;
+const nonHomogeneous = flight_info.nonHomogeneous;
+const oneWay = flight_info.oneWay;
+const lastTicketingDate = flight_info.lastTicketingDate;
+const numberOfBookableSeats = flight_info.numberOfBookableSeats;
+const itineraries = flight_info.itineraries;
+const price = flight_info.price;
+const pricingOptions = flight_info.pricingOptions;
+const validatingAirlineCodes = flight_info.validatingAirlineCodes;
+const travelerPricings = flight_info.travelerPricings;
+
+// Extracting variables from the first itinerary
+const firstItinerary = itineraries[0];
+const firstItineraryDuration = firstItinerary.duration;
+const firstItinerarySegments = firstItinerary.segments;
+
+// Extracting variables from the first segment of the first itinerary
+const firstSegmentOfFirstItinerary = firstItinerarySegments[0];
+const firstSegmentOfFirstItineraryDeparture = firstSegmentOfFirstItinerary.departure;
+const firstSegmentOfFirstItineraryArrival = firstSegmentOfFirstItinerary.arrival;
+const firstSegmentOfFirstItineraryCarrierCode = firstSegmentOfFirstItinerary.carrierCode;
+const firstSegmentOfFirstItineraryNumber = firstSegmentOfFirstItinerary.number;
+const firstSegmentOfFirstItineraryAircraft = firstSegmentOfFirstItinerary.aircraft;
+const firstSegmentOfFirstItineraryOperating = firstSegmentOfFirstItinerary.operating;
+const firstSegmentOfFirstItineraryDuration = firstSegmentOfFirstItinerary.duration;
+const firstSegmentOfFirstItineraryId = firstSegmentOfFirstItinerary.id;
+const firstSegmentOfFirstItineraryNumberOfStops = firstSegmentOfFirstItinerary.numberOfStops;
+const firstSegmentOfFirstItineraryBlacklistedInEU = firstSegmentOfFirstItinerary.blacklistedInEU;
+
+// Extracting variables from the second segment of the first itinerary
+const secondSegmentOfFirstItinerary = firstItinerarySegments[1];
+const secondSegmentOfFirstItineraryDeparture = secondSegmentOfFirstItinerary.departure;
+const secondSegmentOfFirstItineraryArrival = secondSegmentOfFirstItinerary.arrival;
+const secondSegmentOfFirstItineraryCarrierCode = secondSegmentOfFirstItinerary.carrierCode;
+const secondSegmentOfFirstItineraryNumber = secondSegmentOfFirstItinerary.number;
+const secondSegmentOfFirstItineraryAircraft = secondSegmentOfFirstItinerary.aircraft;
+const secondSegmentOfFirstItineraryOperating = secondSegmentOfFirstItinerary.operating;
+const secondSegmentOfFirstItineraryDuration = secondSegmentOfFirstItinerary.duration;
+const secondSegmentOfFirstItineraryId = secondSegmentOfFirstItinerary.id;
+const secondSegmentOfFirstItineraryNumberOfStops = secondSegmentOfFirstItinerary.numberOfStops;
+const secondSegmentOfFirstItineraryBlacklistedInEU = secondSegmentOfFirstItinerary.blacklistedInEU;
+
+// Extracting variables from the second itinerary
+const secondItinerary = itineraries[1];
+const secondItineraryDuration = secondItinerary.duration;
+const secondItinerarySegments = secondItinerary.segments;
+
+// Extracting variables from the first segment of the second itinerary
+const firstSegmentOfSecondItinerary = secondItinerarySegments[0];
+const firstSegmentOfSecondItineraryDeparture = firstSegmentOfSecondItinerary.departure;
+const firstSegmentOfSecondItineraryArrival = firstSegmentOfSecondItinerary.arrival;
+const firstSegmentOfSecondItineraryCarrierCode = firstSegmentOfSecondItinerary.carrierCode;
+const firstSegmentOfSecondItineraryNumber = firstSegmentOfSecondItinerary.number;
+const firstSegmentOfSecondItineraryAircraft = firstSegmentOfSecondItinerary.aircraft;
+const firstSegmentOfSecondItineraryOperating = firstSegmentOfSecondItinerary.operating;
+const firstSegmentOfSecondItineraryDuration = firstSegmentOfSecondItinerary.duration;
+const firstSegmentOfSecondItineraryId = firstSegmentOfSecondItinerary.id;
+const firstSegmentOfSecondItineraryNumberOfStops = firstSegmentOfSecondItinerary.numberOfStops;
+const firstSegmentOfSecondItineraryBlacklistedInEU = firstSegmentOfSecondItinerary.blacklistedInEU;
+
+// Extracting variables from the second segment of the second itinerary
+const secondSegmentOfSecondItinerary = secondItinerarySegments[1];
+const secondSegmentOfSecondItineraryDeparture = secondSegmentOfSecondItinerary.departure;
+const secondSegmentOfSecondItineraryArrival = secondSegmentOfSecondItinerary.arrival;
+const secondSegmentOfSecondItineraryCarrierCode = secondSegmentOfSecondItinerary.carrierCode;
+const secondSegmentOfSecondItineraryNumber = secondSegmentOfSecondItinerary.number;
+const secondSegmentOfSecondItineraryAircraft = secondSegmentOfSecondItinerary.aircraft;
+const secondSegmentOfSecondItineraryOperating = secondSegmentOfSecondItinerary.operating;
+const secondSegmentOfSecondItineraryDuration = secondSegmentOfSecondItinerary.duration;
+const secondSegmentOfSecondItineraryId = secondSegmentOfSecondItinerary.id;
+const secondSegmentOfSecondItineraryNumberOfStops = secondSegmentOfSecondItinerary.numberOfStops;
+const secondSegmentOfSecondItineraryBlacklistedInEU = secondSegmentOfSecondItinerary.blacklistedInEU;

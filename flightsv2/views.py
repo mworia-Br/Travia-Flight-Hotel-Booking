@@ -1,4 +1,5 @@
 import json
+import io
 import ast
 from amadeus import Client, ResponseError, Location
 from django.shortcuts import render
@@ -304,9 +305,18 @@ def checkoutHandle(req):
     latest_flight = FlightTmp.objects.filter(user_id=user_id).latest('added')
     print("---------------------------------")
     flight_info = latest_flight.flight_data
-    flight_info_json = json.dumps(flight_info)
+    print(type(flight_info))
+    cleaned_flight1 = str(flight_info).replace("'", '"')
+    cleaned_flight2 = str(cleaned_flight1).replace("False", 'false')
+    cleaned_flight = str(cleaned_flight2).replace("True", 'true')
+    print(cleaned_flight)
+    buffer = io.StringIO()
+    json.dump(cleaned_flight, buffer)
+    print(type(buffer))
+    buffer.seek(0)
+    flight_info_json = json.load(buffer)   
     context = {'flight_info_json': flight_info_json, 'flight_data': flight_data}
-    # Add the flight to the cart
+    # Add the flight to cart
     new_item = CartItem.objects.create(owner=req.user, flight_data=flight_data, quantity=1)
     return render(req, "flights-checkout-round.html", context)
 
@@ -315,7 +325,7 @@ def pre_Checkout(req):
     if req.method == "POST":
         flight_data = req.POST.get('flight', None)
         user_id = req.POST.get('user_id', None)      
-        #save to database model FlightTmp
+        # save to database model FlightTmp
         print("passed")
         newflight = FlightTmp(flight_data=flight_data, user_id=user_id)
         newflight.save()

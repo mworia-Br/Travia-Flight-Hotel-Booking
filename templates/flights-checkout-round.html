@@ -95,13 +95,67 @@
     <script>
       const flight_info = JSON.parse('{{ flight_info_json|escapejs }}');
       console.log(flight_info);
-      console.log(flight_info['type']); // Output: flight-offer
+      console.log(flight_info.type); // Output: flight-offer
+
+      // Extracting variables from the first itinerary
+      const firstItinerary = flight_info.itineraries[0];
+      const firstItineraryDuration = firstItinerary.duration;
+      const firstItinerarySegments = firstItinerary.segments;
+
+      // Extracting variables from the first segment of the first itinerary
+      const firstSegmentOfFirstItinerary = firstItinerarySegments[0];
+
+      // Extracting variables from the second segment of the first itinerary
+      const secondSegmentOfFirstItinerary = firstItinerarySegments[1];
+
+      // Extracting variables from the second itinerary
+      const secondItinerary = flight_info.itineraries[1];
+      const secondItineraryDuration = secondItinerary ? secondItinerary.duration : undefined;
+      const secondItinerarySegments = secondItinerary ? secondItinerary.segments : undefined;
+
+      // Extracting variables from the first segment of the second itinerary
+      const firstSegmentOfSecondItinerary = secondItinerarySegments ? secondItinerarySegments[0] : undefined;
+
+      // Extracting variables from the second segment of the second itinerary
+      const secondSegmentOfSecondItinerary = secondItinerarySegments ? secondItinerarySegments[1] : undefined;
+
+      console.log(firstSegmentOfFirstItinerary.arrival.terminal);
+
+      // Display the flight information in the HTML
+      if (firstSegmentOfFirstItinerary && firstSegmentOfFirstItinerary.arrival && firstSegmentOfFirstItinerary.arrival.terminal) {
+        document.getElementById("arr_terminal1").textContent = firstSegmentOfFirstItinerary.arrival.terminal;
+      } else {
+        document.getElementById("arr_terminal1").textContent = "none";
+      }
+
+      if (secondSegmentOfFirstItinerary && secondSegmentOfFirstItinerary.arrival && secondSegmentOfFirstItinerary.arrival.terminal) {
+        document.getElementById("arr_terminal2").textContent = secondSegmentOfFirstItinerary.arrival.terminal;
+      } else {
+        document.getElementById("arr_terminal2").textContent = "none";
+      }
+
+      if (firstSegmentOfSecondItinerary && firstSegmentOfSecondItinerary.arrival && firstSegmentOfSecondItinerary.arrival.terminal) {
+        document.getElementById("arr_terminal3").textContent = firstSegmentOfSecondItinerary.arrival.terminal;
+      } else {
+        document.getElementById("arr_terminal3").textContent = "none";
+      }
+
+      if (secondSegmentOfSecondItinerary && secondSegmentOfSecondItinerary.arrival && secondSegmentOfSecondItinerary.arrival.terminal) {
+        document.getElementById("arr_terminal4").textContent = secondSegmentOfSecondItinerary.arrival.terminal;
+      } else {
+        document.getElementById("arr_terminal4").textContent = "none";
+      }
     </script>
   </head>
   <body>
     <!-- outer-->
     <div class="outer">
       <!-- header-->
+      <input type="hidden" id="arr_terminal1" value="">
+      <input type="hidden" id="arr_terminal2" value="">
+      <input type="hidden" id="arr_terminal3" value="">
+      <input type="hidden" id="arr_terminal4" value="">
+
       <header class="header js-header authorization">
         <div class="header__center center">
           <a class="header__logo" href="{% url 'index' %}">
@@ -362,7 +416,7 @@
                                 <div>
                                   {{ flight_data.firstFlightArrivalAirport }}
                                 </div>
-                                <div>(Terminal 2)</div>
+                                <div>(Terminal <span id="arr_terminal1"></span>)</div>
                               </div>
                             </div>
                           </div>
