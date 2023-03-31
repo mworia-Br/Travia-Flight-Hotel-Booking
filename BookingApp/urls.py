@@ -30,5 +30,6 @@ urlpatterns = [
     path('booking/', include('frontend.urls')),
     path('', include('accounts.urls')),
     path('singleauth/', include('allauth.urls')),
+    path('payment/', include('payments.urls')),
     path('logout', LogoutView.as_view()),
 ]

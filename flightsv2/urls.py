@@ -8,5 +8,5 @@ urlpatterns = [
     path('checkoutHandle/', views.checkoutHandle, name='checkoutHandle'),
     path('pre_checkout/', views.pre_Checkout, name='pre_checkout'),
     path('checkout_step2/', views.checkout_step2, name='checkout_step2'),
-    path('checkout_step3/', views.checkout_step3, name='checkout_step3'),
+    path('checkout_traveler/', views.checkout_traveler, name='checkout_traveler'),
 ]

@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from urllib.parse import parse_qs
 from flight.models import CartItem, SearchedRoute
+from payments.views import create_checkout_session
 
 amadeus = Client(
     client_id='hLMBIHXv892WmW68fznSbddJL0s6uc3a',
@@ -305,7 +306,8 @@ def checkoutHandle(req):
     latest_flight = FlightTmp.objects.filter(user_id=user_id).latest('added')
     print("---------------------------------")
     flight_info = latest_flight.flight_data
-    print(type(flight_info))
+    # save cart item with flight data
+    new_item = CartItem.objects.create(owner=req.user, flight_data=flight_data, quantity=1)
     cleaned_flight1 = str(flight_info).replace("'", '"')
     cleaned_flight2 = str(cleaned_flight1).replace("False", 'false')
     cleaned_flight = str(cleaned_flight2).replace("True", 'true')
@@ -314,10 +316,23 @@ def checkoutHandle(req):
     json.dump(cleaned_flight, buffer)
     print(type(buffer))
     buffer.seek(0)
-    flight_info_json = json.load(buffer)   
-    context = {'flight_info_json': flight_info_json, 'flight_data': flight_data}
-    # Add the flight to cart
-    new_item = CartItem.objects.create(owner=req.user, flight_data=flight_data, quantity=1)
+    flight_info_json = json.load(buffer)
+    # end of saving cart item && getting flight info
+    print("---------------------------------")
+    travelers = int(flight_data['travellers'])
+    alltravelers = []
+    for i in range(travelers):
+        traveleritems = []
+        # fill traveleritems = [] with a letters in the alphabet for each traveler
+        traveleritems.append(chr(65 + i))
+        alltravelers.append(traveleritems)
+
+    print(alltravelers)
+
+    context = {'flight_info_json': flight_info_json,
+        'flight_data': flight_data,
+        'traveleritems': alltravelers
+    }
     return render(req, "flights-checkout-round.html", context)
 
 @csrf_exempt
@@ -332,6 +347,7 @@ def pre_Checkout(req):
         # Return a JSON response indicating success
         return JsonResponse({'status': 'success'})
 
+@login_required(login_url="/login")
 def checkout_step2(req):
     flight = CartItem.objects.filter(owner=req.user).latest('made_on')
     flight_data = flight.flight_data
@@ -348,20 +364,16 @@ def checkout_step2(req):
     context = {'flight_data': flight_data, 'traveleritems': alltravelers}
     return render(req, 'flights-checkout-step2.html', context)
 
-def checkout_step3(req):
+@login_required(login_url="/login")
+def checkout_traveler(req):
     if req.method == 'POST':
-        cardNumber = req.POST.get('card')
-        cardHolder = req.POST.get('holder')
-        expirationDate = req.POST.get('ccdate')
-        cvc = req.POST.get('cvc')
-        saveCard = req.POST.get('save_card', False)
-        
+        flight = CartItem.objects.filter(owner=req.user).latest('made_on')
+        get_id = flight.id
+        num_travelers = int(flight.flight_data['travellers'])
          # Extract message for the host
         traveler_message = req.POST.get('message')
         # Initialize an empty list to hold all the traveler dictionaries
         traveler_list = []
-        # Get the number of travelers from the form
-        num_travelers = int(req.POST.get('travellers'))
         # Loop over the range of the number of travelers to extract data for each one
         for i in range(num_travelers):
             # Initialize an empty dictionary for each traveler
@@ -402,4 +414,13 @@ def checkout_step3(req):
             traveler_list.append(traveler)
         # Return the traveler list as a response
         print("handling")
-        return render(req, 'index.html')
+        new_travellerinfo = Traveller_Info.objects.create(owner=req.user, flight_id=get_id, traveler_message=traveler_message, traveler_list=traveler_list)
+        print('traveler_list processed')
+        
+        #data to be sent to the payment_view
+        customer_email = req.user.email
+        payment_method_types=['card']
+        product_name = flight.flight_data['short_Origin'] + " - " + flight.flight_data['short_Destination']
+        unit_amount = int(flight.flight_data['flight_price']) * 100
+        # pass data to payment_view
+        return redirect('create_checkout_session', customer_email=customer_email, payment_method_types=payment_method_types, product_name=product_name, unit_amount=unit_amount, get_id=get_id)
