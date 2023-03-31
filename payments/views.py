@@ -55,3 +55,9 @@ def create_checkout_session(req, customer_email, payment_method_types, product_n
         'flight_data': flight_data,
         'session_id': session.id,
     })
+
+def success(req):
+    return render(req, 'index.html')
+
+def failed(req):
+    return render(req, 'hotels.html')
