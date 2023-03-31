@@ -33,7 +33,7 @@ DEBUG = False
 #ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['traviabooking.azurewebsites.net', '127.0.0.1', 'www.airtravia.co.ke', 'airtravia.co.ke']
 
-CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net", "http://127.0.0.1", "https://www.airtravia.co.ke", "https://d13d-2c0f-fe38-2328-5d27-fd0b-51b4-95fd-ba7b.ngrok.io"]
+CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net", "http://127.0.0.1", "https://www.airtravia.co.ke", "https://f1b5-2c0f-fe38-2182-311-81d2-16a2-dbeb-ab31.ngrok.io"]
 
 
 # Application definition
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'hotels',
     'frontend',
     'accounts',
+    'payments',
     #...
     'allauth',
     'allauth.account',
@@ -173,6 +174,7 @@ STATIC_ROOT = Path(BASE_DIR,'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#allauth authentication settings
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
@@ -194,3 +196,7 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+#stripe settings
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51JvQDXKO7bEwzNWD1k5BZmNotKYDgmitXX7s9H9Hiv1pkhVao5OYuLU98wn2qco4t3ieYCuUlOBo6CJKm8niyRhC00T9g1hMqe'
+STRIPE_SECRET_KEY = 'sk_test_51JvQDXKO7bEwzNWD3NIfobGg7oILLrQPKvLqf0BrEB42vckm1iK9vDTOiJLlZ9ezA7LXv0JJJsMawrjvVWvRNgFT00BFM2hbwP'

@@ -7,14 +7,17 @@ from django.contrib import messages
 from .flight import Flight
 from .booking import Booking
 from .models import FlightTmp
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from urllib.parse import parse_qs
 from flight.models import CartItem, SearchedRoute
+from django.shortcuts import redirect
+from accounts.models import Traveller_Info
 from payments.views import create_checkout_session
+from django.urls import reverse
 
 amadeus = Client(
     client_id='hLMBIHXv892WmW68fznSbddJL0s6uc3a',
@@ -367,9 +370,9 @@ def checkout_step2(req):
 @login_required(login_url="/login")
 def checkout_traveler(req):
     if req.method == 'POST':
-        flight = CartItem.objects.filter(owner=req.user).latest('made_on')
-        get_id = flight.id
-        num_travelers = int(flight.flight_data['travellers'])
+        cartitem = CartItem.objects.filter(owner=req.user).latest('made_on')
+        get_id = cartitem.id
+        num_travelers = int(cartitem.flight_data['travellers'])
          # Extract message for the host
         traveler_message = req.POST.get('message')
         # Initialize an empty list to hold all the traveler dictionaries
@@ -420,7 +423,18 @@ def checkout_traveler(req):
         #data to be sent to the payment_view
         customer_email = req.user.email
         payment_method_types=['card']
-        product_name = flight.flight_data['short_Origin'] + " - " + flight.flight_data['short_Destination']
-        unit_amount = int(flight.flight_data['flight_price']) * 100
+        product_name = cartitem.flight_data['short_Origin'] + " - " + cartitem.flight_data['short_Destination']
+        unit_amount_f = float(cartitem.flight_data['flight_price']) * 100
+        unit_amount = int(unit_amount_f)
         # pass data to payment_view
-        return redirect('create_checkout_session', customer_email=customer_email, payment_method_types=payment_method_types, product_name=product_name, unit_amount=unit_amount, get_id=get_id)
+        get_id = get_id
+        # Save the data in the session
+        req.session['get_id'] = get_id
+        req.session['customer_email'] = customer_email
+        req.session['payment_method_types'] = payment_method_types
+        req.session['product_name'] = product_name
+        req.session['unit_amount'] = unit_amount
+
+        # Redirect to the other view
+        url = reverse('start_payment')
+        return redirect(url)

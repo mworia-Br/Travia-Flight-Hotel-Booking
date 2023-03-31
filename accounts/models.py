@@ -71,7 +71,7 @@ class Payment(models.Model):
         return self.user + self.method + self.vendorCode
 
 class Traveller_Info(models.Model):
-    user=models.CharField(max_length=100, null=True, blank=True)
+    owner=models.CharField(max_length=100, null=True, blank=True)
     flight_id = models.CharField(max_length=50, blank=False, null=True)
     traveler_message = models.CharField(max_length=50, blank=False, null=True)
     traveler_list = models.CharField(max_length=5000, blank=False, null=True)

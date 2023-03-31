@@ -19,7 +19,7 @@ class CartItem(models.Model):
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, default="Waiting")
     created_at = models.DateTimeField(auto_now_add=True)
     made_on = models.DateTimeField(auto_now_add=True)
-    stripe_payment_intent = models.CharField(max_length=200)
+    stripe_payment_intent = models.CharField(max_length=200, blank=True, null=True)
     updated_on = models.DateTimeField(blank=True, null=True)
 
     # This field can be changed as status

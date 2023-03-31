@@ -94,28 +94,30 @@
     </script>
     <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
-      // Create an instance of the Stripe object with your publishable API key
-      var stripe = Stripe('{{ stripe_publishable_key }}');
-      var checkoutButton = document.getElementById('checkout-button');
+      // Wait for the document to finish loading
+      document.addEventListener('DOMContentLoaded', function () {
+          // Create an instance of the Stripe object with your publishable API key
+          var stripe = Stripe('pk_test_51JvQDXKO7bEwzNWD1k5BZmNotKYDgmitXX7s9H9Hiv1pkhVao5OYuLU98wn2qco4t3ieYCuUlOBo6CJKm8niyRhC00T9g1hMqe');
+          var checkoutButton = document.getElementById('checkout-button');
   
-      checkoutButton.addEventListener('click', function () {
+          checkoutButton.addEventListener('click', function () {
   
-          // Redirect the customer to the Stripe checkout page using the session ID
-          stripe.redirectToCheckout({ sessionId: '{{ session_id }}' })
-              .then(function (result) {
-                  // If `redirectToCheckout` fails due to a browser or network
-                  // error, you should display the localized error message to your
-                  // customer using `error.message`.
-                  if (result.error) {
-                      alert(result.error.message);
-                  }
-              })
-              .catch(function (error) {
-                  console.error('Error:', error);
-              });
+              // Redirect the customer to the Stripe checkout page using the session ID
+              stripe.redirectToCheckout({ sessionId: '{{ session_id }}' })
+                  .then(function (result) {
+                      // If `redirectToCheckout` fails due to a browser or network
+                      // error, you should display the localized error message to your
+                      // customer using `error.message`.
+                      if (result.error) {
+                          alert(result.error.message);
+                      }
+                  })
+                  .catch(function (error) {
+                      console.error('Error:', error);
+                  });
+          });
       });
-  </script>
-  
+  </script> 
   </head>
   <body>
     <!-- outer-->
@@ -123,14 +125,14 @@
       <!-- header-->
       <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href=" {% static 'index.html' %} ">
-            <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
+          <a class="header__logo" href="{% url 'index' %}">
+            <img class="some-icon" src="{% static 'img/logo-light.svg' %}" alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href=" {% static './index.html' %} ">Flights</a>
-            <a class="header__item" href="#">Hotels</a>
+            <a class="header__item" href=" {% url 'oneway_flight' %} ">Flights</a>
+            <a class="header__item" href=" {% url 'hotels' %} ">Hotels</a>
             <a class="header__item" href="#">Promo</a>
-            <a class="header__item me__auto" href="#">Orders</a>
+            <a class="header__item" href=" {% url 'orders' %} ">Orders</a>
             <div class="header__item header__item_language js-header-item">
               <button
                 class="header__head header__dropdown__toggle js-header-head"
@@ -191,15 +193,15 @@
           <div class="header__item header__item_notification js-header-item">
             <button class="header__head js-header-head active">
               <svg class="icon icon-notification">
-                <use xlink:href=" {% static '#icon-notification' %} "></use>
+                <use xlink:href="#icon-notification"></use>
               </svg>
             </button>
             <div class="header__body js-header-body">
               <div class="header__title">Notification</div>
               <div class="header__notifications">
-                <a class="header__notification" href=" {% static 'message-center.html' %} ">
+                <a class="header__notification" href="{% url 'index' %}">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -209,9 +211,9 @@
                       class="header__status"
                       style="background-color: #3b71fe"
                     ></div></div></a
-                ><a class="header__notification" href=" {% static 'message-center.html' %} ">
+                ><a class="header__notification" href="{% url 'index' %}">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -225,43 +227,38 @@
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            class="status login__status js-popup-open"
-            href=" {% static '#popup-login' %} "
-            data-effect="mfp-zoom-in"
-          >
-            Login
+          <a class="button-stroke button-small header__button" href="{% url 'logout' %}">Logout</a>
           </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
-              <img src=" {% static 'img/content/avatar-2.jpg' %} " alt="Avatar" />
+              <img src="{% static 'img/content/avatar-2.jpg' %}" alt="Avatar" />
+              
             </button>
             <div class="header__body js-header-body">
               <div class="header__group">
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'message-center.html' %} ">
+                  <a class="header__link" href="{% url 'index' %}">
                     <svg class="icon icon-comment">
-                      <use xlink:href=" {% static '#icon-comment' %} "></use></svg
+                      <use xlink:href="#icon-comment"></use></svg
                     >Messages</a
-                  ><a class="header__link" href=" {% static 'bookings-list.html' %} ">
+                  ><a class="header__link" href="{% url 'profile' %}">
                     <svg class="icon icon-home">
-                      <use xlink:href=" {% static '#icon-home' %} "></use></svg
+                      <use xlink:href="#icon-home"></use></svg
                     >Bookings</a
-                  ><a class="header__link" href=" {% static 'wishlists.html' %} ">
+                  ><a class="header__link" href="{% url 'profile' %}">
                     <svg class="icon icon-email">
-                      <use xlink:href=" {% static '#icon-email' %} "></use></svg
+                      <use xlink:href="#icon-email"></use></svg
                     >Wishlists</a
                   >
                 </div>
                 <div class="header__menu">
-                  <a class="header__link" href=" {% static 'list-your-property.html' %} ">
+                  <a class="header__link" href="list-your-property.html">
                     <svg class="icon icon-building">
-                      <use xlink:href=" {% static '#icon-building' %} "></use></svg
+                      <use xlink:href="#icon-building"></use></svg
                     >List your property</a
-                  ><a class="header__link" href=" {% static 'host-an-experience.html' %} ">
+                  ><a class="header__link" href="{% url 'profile' %}">
                     <svg class="icon icon-flag">
-                      <use xlink:href=" {% static '#icon-flag' %} "></use></svg
+                      <use xlink:href="#icon-flag"></use></svg
                     >Host an experience</a
                   >
                 </div>
@@ -269,7 +266,7 @@
               <div class="header__btns">
                 <a
                   class="button button-small header__button"
-                  href=" {% static 'account-setting.html' %} "
+                  href="{% url 'profile' %}"
                   >Account</a
                 >
                 <button class="button-stroke button-small header__button">
@@ -297,7 +294,7 @@
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
                   <a class="breadcrumbs__link" href=" {% static 'stays-product.html' %} "
-                    >Spectacular views of Queenstown</a
+                    >Spectacular views of {{ flight_data.short_Destination }}</a
                   >
                 </li>
                 <li class="breadcrumbs__item">Confirm and pay</li>
@@ -334,628 +331,13 @@
                   <div class="js-tabs">
                     <div class="checkout__section">
                       <div class="checkout__box">
-                        <div class="checkout__top">
-                          <div class="checkout__category">Pay with</div>
-                          <div class="nav">
-                            <a class="nav__link js-tabs-link" href="#">
-                              Credit Card
-                            </a>
-                            <a class="nav__link js-tabs-link" href="#"
-                              >Paypal</a
-                            >
-                            <a class="nav__link js-tabs-link" href="#"
-                              >Wallet</a
-                            >
-                          </div>
-                        </div>
-                        <div class="field">
-                          <div class="field__label">saved contact info</div>
-                          <div class="field__wrap">
-                            <select class="select">
-                              <option>tam@ui8.net</option>
-                              <option>vova@ui8.net</option>
-                              <option>john@ui8.net</option>
-                            </select>
-                          </div>
-                        </div>
                       </div>
                     </div>
-                    <div class="checkout__section">
-                      <form
-                        class="checkout__item js-tabs-item"
-                        style="display: block"
-                      >
-                        <div class="checkout__line">
-                          <div class="checkout__subtitle">Credit Card</div>
-                          <div class="checkout__cards">
-                            <div class="checkout__card">
-                              <img src=" {% static 'img/content/visa.svg' %} " alt="Visa" />
-                            </div>
-                            <div class="checkout__card">
-                              <img
-                                src=" {% static 'img/content/master-card.svg' %} "
-                                alt="Master Card"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="checkout__fieldset">
-                          <div class="field">
-                            <div class="field__label">card number</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="tel"
-                                name="card"
-                                placeholder="XXXX XXXX XXXX XXXX"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="field">
-                            <div class="field__label">card holder</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="text"
-                                name="holder"
-                                placeholder="TRAN MAU TRI TAM"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">EXPIRATION DATE</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="tel"
-                                  name="date"
-                                  placeholder="MM / YY"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">CVC</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="tel"
-                                  name="cvc"
-                                  placeholder="CVC"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <label class="checkbox">
-                          <input class="checkbox__input" type="checkbox" /><span
-                            class="checkbox__inner"
-                            ><span class="checkbox__tick"></span
-                            ><span class="checkbox__text">Save Card</span></span
-                          >
-                        </label>
-                        <div class="checkout__message">
-                          <div class="checkout__category">Message the host</div>
-                          <div class="field">
-                            <div class="field__wrap">
-                              <textarea
-                                class="field__textarea"
-                                name="message"
-                                placeholder="I will be late about 1 hour, please wait..."
-                                required=""
-                              ></textarea>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                      <form
-                        class="checkout__item js-tabs-item"
-                        style="display: none"
-                      >
-                        <div class="checkout__line">
-                          <div class="checkout__subtitle">PayPal</div>
-                          <div class="checkout__logo">
-                            <img src=" {% static 'img/content/paypal.svg' %} " alt="PayPal" />
-                          </div>
-                        </div>
-                        <div class="checkout__fieldset">
-                          <div class="field">
-                            <div class="field__label">
-                              email or phone number
-                            </div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="text"
-                                name="login"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="field">
-                            <div class="field__label">Password</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="password"
-                                name="password"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="checkout__control">
-                          <div class="checkout__verified">
-                            <img
-                              src=" {% static 'img/content/paypal-verified.png' %} "
-                              alt="PayPal"
-                            />
-                          </div>
-                        </div>
-                        <label class="checkbox">
-                          <input class="checkbox__input" type="checkbox" /><span
-                            class="checkbox__inner"
-                            ><span class="checkbox__tick"></span
-                            ><span class="checkbox__text"
-                              >Save Paypal Account</span
-                            ></span
-                          >
-                        </label>
-                      </form>
-                      <form
-                        class="checkout__item js-tabs-item"
-                        style="display: block"
-                      >
-                        <div class="checkout__line">
-                          <div class="checkout__subtitle">Credit Card</div>
-                          <div class="checkout__cards">
-                            <div class="checkout__card">
-                              <img src=" {% static 'img/content/visa.svg' %} " alt="Visa" />
-                            </div>
-                            <div class="checkout__card">
-                              <img
-                                src=" {% static 'img/content/master-card.svg' %} "
-                                alt="Master Card"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="checkout__fieldset">
-                          <div class="field">
-                            <div class="field__label">card number</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="tel"
-                                name="card"
-                                placeholder="XXXX XXXX XXXX XXXX"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="field">
-                            <div class="field__label">card holder</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="text"
-                                name="holder"
-                                placeholder="TRAN MAU TRI TAM"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">EXPIRATION DATE</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="tel"
-                                  name="date"
-                                  placeholder="MM / YY"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">CVC</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="tel"
-                                  name="cvc"
-                                  placeholder="CVC"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <label class="checkbox">
-                          <input class="checkbox__input" type="checkbox" /><span
-                            class="checkbox__inner"
-                            ><span class="checkbox__tick"></span
-                            ><span class="checkbox__text">Save Card</span></span
-                          >
-                        </label>
-                        <div class="checkout__message">
-                          <div class="checkout__category">Message the host</div>
-                          <div class="field">
-                            <div class="field__wrap">
-                              <textarea
-                                class="field__textarea"
-                                name="message"
-                                placeholder="I will be late about 1 hour, please wait..."
-                                required=""
-                              ></textarea>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                  <div class="js-tabs">
-                    <div class="checkout__section">
-                      <div class="checkout__box">
-                        <div class="checkout__top">
-                          <div class="checkout__category">
-                            Billing Information
-                          </div>
-                        </div>
-                        <div class="nav">
-                          <a class="nav__link js-tabs-link" href="#">
-                            No invoice
-                          </a>
-                          <a class="nav__link js-tabs-link" href="#">Person</a>
-                          <a class="nav__link js-tabs-link" href="#">Company</a>
-                          <a class="nav__link js-tabs-link" href="#">
-                            Sole Proprietorship
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="checkout__section">
-                      <div class="js-tabs-item"></div>
-                      <form
-                        class="checkout__item js-tabs-item"
-                        style="display: block"
-                      >
-                        <div class="checkout__fieldset">
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">First Name</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="XYZ"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">Last Name</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="ABC"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="field">
-                            <div class="field__label">Country</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="tel"
-                                placeholder="XXXX"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">City</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="Turkey"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">Street</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="Bostanci"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">State</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="Istambul"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">Zip Code</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="14520"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="field">
-                            <div class="field__label">Tax Office</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="text"
-                                name="holder"
-                                placeholder="Istanbul"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <label class="checkbox">
-                          <input class="checkbox__input" type="checkbox" /><span
-                            class="checkbox__inner"
-                          >
-                            <span class="checkbox__tick"></span>
-                            <span class="checkbox__text">
-                              Not a Turkish
-                            </span></span
-                          >
-                        </label>
-                      </form>
-                      <form class="checkout__item js-tabs-item">
-                        <div class="checkout__fieldset">
-                          <div class="field">
-                            <div class="field__label">Country</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="tel"
-                                placeholder="XXXX"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">City</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="Turkey"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">Street</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="Bostanci"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">State</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="Istambul"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">Zip Code</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="14520"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="field">
-                            <div class="field__label">Company Name</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="text"
-                                name="holder"
-                                placeholder="ABC"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">Tax Office</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="BCD"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">Tax Number</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="14520021254"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <label class="checkbox">
-                          <input class="checkbox__input" type="checkbox" /><span
-                            class="checkbox__inner"
-                          >
-                            <span class="checkbox__tick"></span>
-                            <span class="checkbox__text">
-                              Not a Turkish
-                            </span></span
-                          >
-                        </label>
-                      </form>
-                      <form class="checkout__item js-tabs-item">
-                        <div class="checkout__fieldset">
-                          <div class="field">
-                            <div class="field__label">Country</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="tel"
-                                placeholder="XXXX"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">City</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="Turkey"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">Street</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="Bostanci"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">State</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="Istambul"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">Zip Code</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="14520"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="field">
-                            <div class="field__label">Company Name</div>
-                            <div class="field__wrap">
-                              <input
-                                class="field__input"
-                                type="text"
-                                name="holder"
-                                placeholder="ABC"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="checkout__row">
-                            <div class="field">
-                              <div class="field__label">Tax Office</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="BCD"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                            <div class="field">
-                              <div class="field__label">Tax Number</div>
-                              <div class="field__wrap">
-                                <input
-                                  class="field__input"
-                                  type="text"
-                                  placeholder="14520021254"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <label class="checkbox">
-                          <input class="checkbox__input" type="checkbox" /><span
-                            class="checkbox__inner"
-                          >
-                            <span class="checkbox__tick"></span>
-                            <span class="checkbox__text">
-                              Not a Turkish
-                            </span></span
-                          >
-                        </label>
-                      </form>
-                    </div>
+
                   </div>
                   <div style="margin-top: 3rem">
                     <a class="button checkout__button" id="checkout-button" >
-                      Confirm and pay
+                      Book now
                     </a>
                   </div>
                 </div>
@@ -966,23 +348,23 @@
                   <div class="price__table">
                     <div class="price__row">
                       <div class="price__cell">Base fare x 7 nights</div>
-                      <div class="price__cell">$833</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
-                      <div class="price__cell">Adults (2 x $450)</div>
-                      <div class="price__cell">$900</div>
+                      <div class="price__cell">Adults ( {{ flight_data.travellers }} )</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Service fee</div>
-                      <div class="price__cell">$103</div>
+                      <div class="price__cell">$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Promo code discount</div>
-                      <div class="price__cell">-$103</div>
+                      <div class="price__cell">-$ -</div>
                     </div>
                     <div class="price__row">
                       <div class="price__cell">Total (USD)</div>
-                      <div class="price__cell">$833</div>
+                      <div class="price__cell">${{ flight_data.flight_price }}</div>
                     </div>
                   </div>
                 </div>
