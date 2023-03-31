@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from urllib.parse import parse_qs
 from flight.models import CartItem, SearchedRoute
+from django.views.generic import ListView, CreateView, DetailView, TemplateView
 
 # Create your views here.
 def detailView(req):
@@ -56,8 +57,22 @@ def create_checkout_session(req, customer_email, payment_method_types, product_n
         'session_id': session.id,
     })
 
-def success(req):
-    return render(req, 'index.html')
+class PaymentSuccessView(TemplateView):
+    template_name = "payment_success.html"
 
-def failed(req):
-    return render(req, 'hotels.html')
+    def get(self, request, *args, **kwargs):
+        session_id = request.GET.get('session_id')
+        if session_id is None:
+            return HttpResponseNotFound()
+        
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        session = stripe.checkout.Session.retrieve(session_id)
+
+        #order = get_object_or_404(OrderDetail, stripe_payment_intent=session.payment_intent)
+        order = CartItem.objects.get(stripe_payment_intent=session.payment_intent)
+        order.has_paid = True
+        order.save()
+        return render(request, self.template_name)
+
+class PaymentFailedView(TemplateView):
+    template_name = "payment_failed.html"
