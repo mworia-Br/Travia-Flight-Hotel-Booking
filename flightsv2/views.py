@@ -333,9 +333,20 @@ def pre_Checkout(req):
         return JsonResponse({'status': 'success'})
 
 def checkout_step2(req):
-    if req.method == 'POST':
-        flight_info_json = req.POST.get('flight_info_json', None)
-        return render(req, 'index.html')
+    flight = CartItem.objects.filter(owner=req.user).latest('made_on')
+    flight_data = flight.flight_data
+    travelers = int(flight.flight_data['travellers'])
+    print(flight.flight_data['travellers'])
+    alltravelers = []
+    for i in range(travelers):
+        traveleritems = []
+        # fill traveleritems = [] with a letters in the alphabet for each traveler
+        traveleritems.append(chr(65 + i))
+        alltravelers.append(traveleritems)
+
+    print(alltravelers)
+    context = {'flight_data': flight_data, 'traveleritems': alltravelers}
+    return render(req, 'flights-checkout-step2.html', context)
 
 def checkout_step3(req):
     if req.method == 'POST':

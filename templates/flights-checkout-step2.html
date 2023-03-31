@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-   {% load static %}
+  {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Airtravia</title>
@@ -93,57 +93,22 @@
       }
     </script>
     <script>
-      const flight_info = JSON.parse('{{ flight_info_json|escapejs }}');
-      console.log(flight_info);
-      console.log(flight_info.type); // Output: flight-offer
-
-      // Extracting variables from the first itinerary
-      const firstItinerary = flight_info.itineraries[0];
-      const firstItineraryDuration = firstItinerary.duration;
-      const firstItinerarySegments = firstItinerary.segments;
-
-      // Extracting variables from the first segment of the first itinerary
-      const firstSegmentOfFirstItinerary = firstItinerarySegments[0];
-
-      // Extracting variables from the second segment of the first itinerary
-      const secondSegmentOfFirstItinerary = firstItinerarySegments[1];
-
-      // Extracting variables from the second itinerary
-      const secondItinerary = flight_info.itineraries[1];
-      const secondItineraryDuration = secondItinerary ? secondItinerary.duration : undefined;
-      const secondItinerarySegments = secondItinerary ? secondItinerary.segments : undefined;
-
-      // Extracting variables from the first segment of the second itinerary
-      const firstSegmentOfSecondItinerary = secondItinerarySegments ? secondItinerarySegments[0] : undefined;
-
-      // Extracting variables from the second segment of the second itinerary
-      const secondSegmentOfSecondItinerary = secondItinerarySegments ? secondItinerarySegments[1] : undefined;
-
-      console.log(firstSegmentOfFirstItinerary.arrival.terminal);
-
-      // Display the flight information in the HTML
-      if (firstSegmentOfFirstItinerary && firstSegmentOfFirstItinerary.arrival && firstSegmentOfFirstItinerary.arrival.terminal) {
-        document.getElementById("arr_terminal1").textContent = firstSegmentOfFirstItinerary.arrival.terminal;
-      } else {
-        document.getElementById("arr_terminal1").textContent = "none";
+      function showtravelerdataForm() {
+        var travelerdataForm = document.getElementById("travelerdata-form");
+        var continueButton = document.getElementById("continue-button");
+        var cardForm = document.getElementById("card-form");
+        travelerdataForm.style.display = "block";
+        continueButton.style.display = "none";
+        cardForm.style.display = "none";
       }
-
-      if (secondSegmentOfFirstItinerary && secondSegmentOfFirstItinerary.arrival && secondSegmentOfFirstItinerary.arrival.terminal) {
-        document.getElementById("arr_terminal2").textContent = secondSegmentOfFirstItinerary.arrival.terminal;
-      } else {
-        document.getElementById("arr_terminal2").textContent = "none";
-      }
-
-      if (firstSegmentOfSecondItinerary && firstSegmentOfSecondItinerary.arrival && firstSegmentOfSecondItinerary.arrival.terminal) {
-        document.getElementById("arr_terminal3").textContent = firstSegmentOfSecondItinerary.arrival.terminal;
-      } else {
-        document.getElementById("arr_terminal3").textContent = "none";
-      }
-
-      if (secondSegmentOfSecondItinerary && secondSegmentOfSecondItinerary.arrival && secondSegmentOfSecondItinerary.arrival.terminal) {
-        document.getElementById("arr_terminal4").textContent = secondSegmentOfSecondItinerary.arrival.terminal;
-      } else {
-        document.getElementById("arr_terminal4").textContent = "none";
+    
+      function showCardForm() {
+        var travelerdataForm = document.getElementById("travelerdata-form");
+        var continueButton = document.getElementById("continue-button");
+        var cardForm = document.getElementById("card-form");
+        travelerdataForm.style.display = "none";
+        continueButton.style.display = "none";
+        cardForm.style.display = "block";
       }
     </script>
   </head>
@@ -151,11 +116,6 @@
     <!-- outer-->
     <div class="outer">
       <!-- header-->
-      <input type="hidden" id="arr_terminal1" value="">
-      <input type="hidden" id="arr_terminal2" value="">
-      <input type="hidden" id="arr_terminal3" value="">
-      <input type="hidden" id="arr_terminal4" value="">
-
       <header class="header js-header authorization">
         <div class="header__center center">
           <a class="header__logo" href="{% url 'index' %}">
@@ -318,7 +278,7 @@
             <div class="control">
               <a
                 class="button-stroke button-small control__button"
-                href=" {% static 'stays-product.html' %} "
+                href=" {% static './index.html' %} "
               >
                 <svg class="icon icon-arrow-left">
                   <use xlink:href=" {% static '#icon-arrow-left' %} "></use></svg
@@ -326,7 +286,7 @@
               >
               <ul class="breadcrumbs">
                 <li class="breadcrumbs__item">
-                  <a class="breadcrumbs__link" href=" {% static 'stays-product.html' %} "
+                  <a class="breadcrumbs__link" href=" {% static './flights-category.html' %} "
                     >Spectacular views of {{ flight_data.short_Destination }}</a
                   >
                 </li>
@@ -334,369 +294,23 @@
               </ul>
             </div>
             <div class="checkout__wrapper">
-              <div class="checkout__inner js-tabs">
-                <h2 class="checkout__title h2">Confirm details</h2>
+              <div class="checkout__inner">
+                <h2 class="checkout__title h2">Confirm and pay</h2>
                 <div class="checkout__list">
                   <div class="checkout__section">
                     <div class="checkout__box">
                       <div class="checkout__category">Ticket Details</div>
                       <div class="ticket__details__card">
-                        <div class="ticket__details__box">
-                          <div class="ticket__details__top">
-                            <div class="travel__destination">
-                              {{ flight_data.short_Origin }} - {{ flight_data.short_Destination }}
-                            </div>
-                            <div class="travel__baggage">
-                              Baggage & Fare Rule
-                            </div>
-                          </div>
-                          {% if flight_data.firstFlightDepartureDate %}
-                          <div class="travel__detination__flex">
-                            <div class="travel__detination__item">
+                        <div class="ticket__details__item">
+                          <div class="ticket__details__box">
+                            <div class="ticket__details__top">
                               <div class="travel__destination">
-                                Route: {{ flight_data.firstFlightDepartureAirport }} - {{ flight_data.firstFlightArrivalAirport }}
+                                {{ flight_data.short_Origin }} - {{ flight_data.short_Destination }}
                               </div>
-                              <div class="flight__logo wide">
-                                <img
-                                  src="{{ flight_data.firstFlightAirlineLogo }}"
-                                  alt="{{ flight_data.firstFlightAirline }}"
-                                />
-                              </div>
-                              <div class="travel__destination__desc">
-                                <div>{{ flight_data.flightDate }}</div>
-                                <div class="flight__number">{{ flight_data.firstFlightDepartureAirport }} {{ flight_data.secondFlightDepartureDate }}</div>
-                                <div>
-                                  {{ flight_data.firstFlightDepartureAirport }}
-                                </div>
-                                <div>(Terminal 2)</div>
+                              <div class="travel__baggage">
+                                Baggage & Fare Rule
                               </div>
                             </div>
-                            <div class="travel__detination__duration">
-                              <svg
-                                width="96"
-                                height="10"
-                                viewBox="0 0 96 10"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <circle cx="3" cy="4" r="3" fill="#D9D9D9" />
-                                <path
-                                  d="M7 4H19"
-                                  stroke="#6F767E"
-                                  stroke-dasharray="2 2"
-                                />
-                                <g clip-path="url( {% static '#clip0_123_5091' %} )">
-                                  <path
-                                    d="M95.9837 5.08188C95.98 5.08188 95.98 5.08188 95.9837 5.08188C95.8784 5.32 95.2843 5.48813 95.2843 5.48813L92.7415 5.48438L89.9718 9.52344L89.3193 9.47656L90.589 6.07813L90.5187 5.46875L87.5225 5.46094L86.1553 6.89063L85.999 6.91031L86.4484 5.14063L86.3 5.02344L86.2646 4.99594L86.3037 4.96469L86.4521 4.85125L86.0068 3.07781L86.1631 3.0975L87.5187 4.535H90.5187L90.589 3.92563L89.3312 0.523437L89.9837 0.476562L92.7415 4.5275L95.2843 4.53125C95.2843 4.53125 96.1321 4.76938 95.9837 5.08219V5.08188Z"
-                                    fill="#2276E3"
-                                  />
-                                </g>
-                                <path
-                                  d="M72 5H84"
-                                  stroke="#6F767E"
-                                  stroke-dasharray="2 2"
-                                />
-                                <defs>
-                                  <clipPath id="clip0_123_5091">
-                                    <rect
-                                      width="10"
-                                      height="10"
-                                      fill="white"
-                                      transform="translate(86)"
-                                    />
-                                  </clipPath>
-                                </defs>
-                              </svg>
-                              <span class="duration">{{ flight_data.firstFlightArrivalDuration }}</span>
-                            </div>
-                            <div class="travel__detination__item">
-                              <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022 </div>
-                                <div class="flight__number">{{ flight_data.firstFlightArrivalAirport }} {{ flight_data.firstFlightArrivalDate }}</div>
-                                <div>
-                                  {{ flight_data.firstFlightArrivalAirport }}
-                                </div>
-                                <div>(Terminal <span id="arr_terminal1"></span>)</div>
-                              </div>
-                            </div>
-                          </div>
-                          {% endif %}
-                          {% if flight_data.secondFlightDepartureDate %}           
-                          <hr class="ticket__details__hr" />
-                          <div class="travel__detination__flex">
-                            <div class="travel__detination__item">
-                              <div class="travel__destination">
-                                Route: {{ flight_data.secondFlightDepartureAirport }} - {{ flight_data.secondFlightArrivalAirport }}
-                              </div>
-                              <div class="flight__logo wide">
-                                <img
-                                  src="{{ flight_data.secondFlightAirlineLogo }}"
-                                  alt="{{ flight_data.secondFlightAirline }}"
-                                />
-                              </div>
-                              <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">{{ flight_data.secondFlightDepartureAirport }} {{ flight_data.secondFlightDepartureDate }}</div>
-                                <div>
-                                  {{ flight_data.secondFlightDepartureAirport }}
-                                </div>
-                                <div>(Terminal 2)</div>
-                              </div>
-                            </div>
-                            <div class="travel__detination__duration">
-                              <svg
-                                width="96"
-                                height="10"
-                                viewBox="0 0 96 10"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <circle cx="3" cy="4" r="3" fill="#D9D9D9" />
-                                <path
-                                  d="M7 4H19"
-                                  stroke="#6F767E"
-                                  stroke-dasharray="2 2"
-                                />
-                                <g clip-path="url( {% static '#clip0_123_5091' %} )">
-                                  <path
-                                    d="M95.9837 5.08188C95.98 5.08188 95.98 5.08188 95.9837 5.08188C95.8784 5.32 95.2843 5.48813 95.2843 5.48813L92.7415 5.48438L89.9718 9.52344L89.3193 9.47656L90.589 6.07813L90.5187 5.46875L87.5225 5.46094L86.1553 6.89063L85.999 6.91031L86.4484 5.14063L86.3 5.02344L86.2646 4.99594L86.3037 4.96469L86.4521 4.85125L86.0068 3.07781L86.1631 3.0975L87.5187 4.535H90.5187L90.589 3.92563L89.3312 0.523437L89.9837 0.476562L92.7415 4.5275L95.2843 4.53125C95.2843 4.53125 96.1321 4.76938 95.9837 5.08219V5.08188Z"
-                                    fill="#2276E3"
-                                  />
-                                </g>
-                                <path
-                                  d="M72 5H84"
-                                  stroke="#6F767E"
-                                  stroke-dasharray="2 2"
-                                />
-                                <defs>
-                                  <clipPath id="clip0_123_5091">
-                                    <rect
-                                      width="10"
-                                      height="10"
-                                      fill="white"
-                                      transform="translate(86)"
-                                    />
-                                  </clipPath>
-                                </defs>
-                              </svg>
-                              <span class="duration">{{ flight_data.secondFlightArrivalDuration }}</span>
-                            </div>
-                            <div class="travel__detination__item">
-                              <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022 </div>
-                                <div class="flight__number">{{ flight_data.secondFlightArrivalAirport }} {{ flight_data.secondFlightArrivalDate }}</div>
-                                <div>
-                                  {{ flight_data.secondFlightArrivalAirport }}
-                                </div>
-                                <div>(Terminal 2)</div>
-                              </div>
-                            </div>
-                          </div>
-                          {% endif %}
-                          {% if flight_data.thirdFlightDepartureDate %}
-                          <hr class="ticket__details__hr" />
-                          <div class="travel__detination__flex">
-                            <div class="travel__detination__item">
-                              <div class="travel__destination">
-                                Route: {{ flight_data.thirdFlightDepartureAirport }} - {{ flight_data.thirdFlightArrivalAirport }}
-                              </div>
-                              <div class="flight__logo wide">
-                                <img
-                                  src="{{ flight_data.thirdFlightAirlineLogo }}"
-                                  alt="{{ flight_data.thirdFlightAirline }}"
-                                />
-                              </div>
-                              <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">{{ flight_data.thirdFlightDepartureAirport }} {{ flight_data.secondFlightDepartureDate }}</div>
-                                <div>
-                                  {{ flight_data.thirdFlightDepartureAirport }}
-                                </div>
-                                <div>(Terminal 2)</div>
-                              </div>
-                            </div>
-                            <div class="travel__detination__duration">
-                              <svg
-                                width="96"
-                                height="10"
-                                viewBox="0 0 96 10"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <circle cx="3" cy="4" r="3" fill="#D9D9D9" />
-                                <path
-                                  d="M7 4H19"
-                                  stroke="#6F767E"
-                                  stroke-dasharray="2 2"
-                                />
-                                <g clip-path="url( {% static '#clip0_123_5091' %} )">
-                                  <path
-                                    d="M95.9837 5.08188C95.98 5.08188 95.98 5.08188 95.9837 5.08188C95.8784 5.32 95.2843 5.48813 95.2843 5.48813L92.7415 5.48438L89.9718 9.52344L89.3193 9.47656L90.589 6.07813L90.5187 5.46875L87.5225 5.46094L86.1553 6.89063L85.999 6.91031L86.4484 5.14063L86.3 5.02344L86.2646 4.99594L86.3037 4.96469L86.4521 4.85125L86.0068 3.07781L86.1631 3.0975L87.5187 4.535H90.5187L90.589 3.92563L89.3312 0.523437L89.9837 0.476562L92.7415 4.5275L95.2843 4.53125C95.2843 4.53125 96.1321 4.76938 95.9837 5.08219V5.08188Z"
-                                    fill="#2276E3"
-                                  />
-                                </g>
-                                <path
-                                  d="M72 5H84"
-                                  stroke="#6F767E"
-                                  stroke-dasharray="2 2"
-                                />
-                                <defs>
-                                  <clipPath id="clip0_123_5091">
-                                    <rect
-                                      width="10"
-                                      height="10"
-                                      fill="white"
-                                      transform="translate(86)"
-                                    />
-                                  </clipPath>
-                                </defs>
-                              </svg>
-                              <span class="duration">{{ flight_data.thirdFlightArrivalDuration }}</span>
-                            </div>
-                            <div class="travel__detination__item">
-                              <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022 </div>
-                                <div class="flight__number">{{ flight_data.thirdFlightArrivalAirport }} {{ flight_data.thirdFlightArrivalDate }}</div>
-                                <div>
-                                  {{ flight_data.thirdFlightArrivalAirport }}
-                                </div>
-                                <div>(Terminal 2)</div>
-                              </div>
-                            </div>
-                          </div>
-                          {% endif %}
-                          {% if flight_data.fourthFlightDepartureDate %}
-                          <hr class="ticket__details__hr" />
-                          <div class="travel__detination__flex">
-                            <div class="travel__detination__item">
-                              <div class="travel__destination">
-                                Route: {{ flight_data.fourthFlightDepartureAirport }} - {{ flight_data.fourthFlightArrivalAirport }}
-                              </div>
-                              <div class="flight__logo wide">
-                                <img
-                                  src="{{ flight_data.fourthFlightAirlineLogo }}"
-                                  alt="{{ flight_data.fourthFlightAirline }}"
-                                />
-                              </div>
-                              <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022</div>
-                                <div class="flight__number">{{ flight_data.fourthFlightDepartureAirport }} {{ flight_data.fourthFlightDepartureDate }}</div>
-                                <div>
-                                  {{ flight_data.fourthFlightDepartureAirport }}
-                                </div>
-                                <div>(Terminal 2)</div>
-                              </div>
-                            </div>
-                            <div class="travel__detination__duration">
-                              <svg
-                                width="96"
-                                height="10"
-                                viewBox="0 0 96 10"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <circle cx="3" cy="4" r="3" fill="#D9D9D9" />
-                                <path
-                                  d="M7 4H19"
-                                  stroke="#6F767E"
-                                  stroke-dasharray="2 2"
-                                />
-                                <g clip-path="url( {% static '#clip0_123_5091' %} )">
-                                  <path
-                                    d="M95.9837 5.08188C95.98 5.08188 95.98 5.08188 95.9837 5.08188C95.8784 5.32 95.2843 5.48813 95.2843 5.48813L92.7415 5.48438L89.9718 9.52344L89.3193 9.47656L90.589 6.07813L90.5187 5.46875L87.5225 5.46094L86.1553 6.89063L85.999 6.91031L86.4484 5.14063L86.3 5.02344L86.2646 4.99594L86.3037 4.96469L86.4521 4.85125L86.0068 3.07781L86.1631 3.0975L87.5187 4.535H90.5187L90.589 3.92563L89.3312 0.523437L89.9837 0.476562L92.7415 4.5275L95.2843 4.53125C95.2843 4.53125 96.1321 4.76938 95.9837 5.08219V5.08188Z"
-                                    fill="#2276E3"
-                                  />
-                                </g>
-                                <path
-                                  d="M72 5H84"
-                                  stroke="#6F767E"
-                                  stroke-dasharray="2 2"
-                                />
-                                <defs>
-                                  <clipPath id="clip0_123_5091">
-                                    <rect
-                                      width="10"
-                                      height="10"
-                                      fill="white"
-                                      transform="translate(86)"
-                                    />
-                                  </clipPath>
-                                </defs>
-                              </svg>
-                              <span class="duration">{{ flight_data.fourthFlightArrivalDuration }}</span>
-                            </div>
-                            <div class="travel__detination__item">
-                              <div class="travel__destination__desc">
-                                <div>Wed Dec 13 2022 </div>
-                                <div class="flight__number">{{ flight_data.fourthFlightArrivalAirport }} {{ flight_data.firstFlightArrivalDate }}</div>
-                                <div>
-                                  {{ flight_data.fourthFlightArrivalAirport }}
-                                </div>
-                                <div>(Terminal 2)</div>
-                              </div>
-                            </div>
-                          </div>
-                          {% endif %}
-
-                        </div>
-                        <hr class="ticket__details__hr" />
-                        <div class="ticket__details__card__footer">
-                          <svg
-                            class="icon"
-                            width="20"
-                            height="18"
-                            viewBox="0 0 20 18"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g clip-path="url( {% static '#clip0_131_3726' %} )">
-                              <path
-                                d="M3.37474 16.3622V4.18538H2.29105C1.43421 4.18591 0.691053 4.90591 0.69 5.77485L0.690526 10.2627V14.7385C0.691053 15.7085 1.39632 16.3612 2.29105 16.3627H3.37474V16.3622ZM3.71947 17.0522H2.29053C1.02632 17.0501 0.00157895 16.1017 0.000526316 14.7385V14.0775V12.4238V10.2627L0 5.78696C0.00105263 4.51959 1.05789 3.49696 2.29053 3.49591H4.06368V17.0517H3.71895L3.71947 17.0522ZM15.68 3.51801V17.0743H4.34158V3.51801H6.94632V2.0138C6.94474 1.16327 7.68631 0.580116 8.61052 0.581169L8.64631 0.580642L8.73579 0.580116L9.05053 0.57959H10.0058L10.6705 0.580642L11.1847 0.581695L11.3874 0.582221C12.3195 0.575379 13.0605 1.16064 13.0532 2.0138V3.51854H15.6795L15.68 3.51801ZM12.3642 4.20748V2.01064C12.3679 1.58012 11.9716 1.26696 11.3895 1.27117L11.1837 1.27064L10.6695 1.26959L10.0426 1.26906L8.61842 1.27117C8.03947 1.26696 7.63474 1.58327 7.63579 2.01327V4.20748H5.03105V16.3843H14.99V4.20748H12.3637H12.3642ZM11.3863 3.51801V2.30433H8.5921V3.51801H11.3863ZM7.9021 4.20748V1.61433H12.0758V4.20748H7.9021ZM15.9468 17.0522V3.49591H17.7205C18.9479 3.49696 20.0026 4.52222 19.9974 5.75064C20.0011 5.7838 20.0011 6.47696 20.0005 10.2627L20 12.4238L19.9995 14.0775V14.738C20.0026 16.0991 18.9795 17.0501 17.7205 17.0522H15.9474H15.9468ZM17.7195 16.3622C18.6084 16.3606 19.3116 15.707 19.3095 14.738V14.077L19.31 12.4233L19.3105 10.2622C19.3111 8.4738 19.3105 5.8138 19.3095 5.78591C19.3116 4.90643 18.5705 4.18591 17.72 4.18485H16.6363V16.3617H17.7195V16.3622Z"
-                                fill="#9B9B9B"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_131_3726">
-                                <rect
-                                  width="20"
-                                  height="16.8421"
-                                  fill="white"
-                                  transform="translate(0 0.579102)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                          15 Kgs (1 piece only) Check-In, 7 Kgs (1 piece only)
-                          Cabin
-                        </div>
-                        <div class="ticket__details__card__footer">
-                          <svg
-                            class="icon"
-                            width="20"
-                            height="18"
-                            viewBox="0 0 20 18"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g clip-path="url( {% static '#clip0_131_3726' %} )">
-                              <path
-                                d="M3.37474 16.3622V4.18538H2.29105C1.43421 4.18591 0.691053 4.90591 0.69 5.77485L0.690526 10.2627V14.7385C0.691053 15.7085 1.39632 16.3612 2.29105 16.3627H3.37474V16.3622ZM3.71947 17.0522H2.29053C1.02632 17.0501 0.00157895 16.1017 0.000526316 14.7385V14.0775V12.4238V10.2627L0 5.78696C0.00105263 4.51959 1.05789 3.49696 2.29053 3.49591H4.06368V17.0517H3.71895L3.71947 17.0522ZM15.68 3.51801V17.0743H4.34158V3.51801H6.94632V2.0138C6.94474 1.16327 7.68631 0.580116 8.61052 0.581169L8.64631 0.580642L8.73579 0.580116L9.05053 0.57959H10.0058L10.6705 0.580642L11.1847 0.581695L11.3874 0.582221C12.3195 0.575379 13.0605 1.16064 13.0532 2.0138V3.51854H15.6795L15.68 3.51801ZM12.3642 4.20748V2.01064C12.3679 1.58012 11.9716 1.26696 11.3895 1.27117L11.1837 1.27064L10.6695 1.26959L10.0426 1.26906L8.61842 1.27117C8.03947 1.26696 7.63474 1.58327 7.63579 2.01327V4.20748H5.03105V16.3843H14.99V4.20748H12.3637H12.3642ZM11.3863 3.51801V2.30433H8.5921V3.51801H11.3863ZM7.9021 4.20748V1.61433H12.0758V4.20748H7.9021ZM15.9468 17.0522V3.49591H17.7205C18.9479 3.49696 20.0026 4.52222 19.9974 5.75064C20.0011 5.7838 20.0011 6.47696 20.0005 10.2627L20 12.4238L19.9995 14.0775V14.738C20.0026 16.0991 18.9795 17.0501 17.7205 17.0522H15.9474H15.9468ZM17.7195 16.3622C18.6084 16.3606 19.3116 15.707 19.3095 14.738V14.077L19.31 12.4233L19.3105 10.2622C19.3111 8.4738 19.3105 5.8138 19.3095 5.78591C19.3116 4.90643 18.5705 4.18591 17.72 4.18485H16.6363V16.3617H17.7195V16.3622Z"
-                                fill="#9B9B9B"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_131_3726">
-                                <rect
-                                  width="20"
-                                  height="16.8421"
-                                  fill="white"
-                                  transform="translate(0 0.579102)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                          Ticketing Closes: {{ flight_data.lastTicketingDate }}, Seats Available: {{ flight_data.bookableSeats }}
-                        </div>
                       </div>
                     </div>
                     <div class="checkout__box">
@@ -705,20 +319,24 @@
                         <div class="checkout__el">
                           <div class="checkout__datepicker">
                             <div class="checkout__label">Dates</div>
-                            <div
-                                class="travelers__value js-travelers-content"
-                              >
-                                {{ flight_data.flightDate }}
-                              </div>
+                            <input
+                              class="checkout__input js-date-single"
+                              data-format="MMM DD, YYYY"
+                              data-container=".checkout__datepicker"
+                              data-single="true"
+                              type="text"
+                              readonly=""
+                              value="Aug 15, 2021"
+                            />
                             <div class="checkout__controls">
                               <button class="checkout__edit js-date-open">
                                 <svg class="icon icon-edit">
-                                  <use xlink:href=" {% static '#icon-edit' %} "></use>
+                                  <use xlink:href="#icon-edit"></use>
                                 </svg>
                               </button>
                               <button class="checkout__edit js-date-close">
                                 <svg class="icon icon-edit">
-                                  <use xlink:href=" {% static '#icon-edit' %} "></use>
+                                  <use xlink:href="#icon-edit"></use>
                                 </svg>
                               </button>
                             </div>
@@ -1137,11 +755,11 @@
                               <div
                                 class="travelers__value js-travelers-content"
                               >
-                              {{ flight_data.travellers }} guest
+                                1 guest
                               </div>
                               <button class="travelers__edit js-travelers-head">
                                 <svg class="icon icon-edit">
-                                  <use xlink:href=" {% static '#icon-edit' %} "></use>
+                                  <use xlink:href="#icon-edit"></use>
                                 </svg>
                               </button>
                             </div>
@@ -1160,7 +778,7 @@
                                   >
                                     <svg class="icon icon-minus-circle">
                                       <use
-                                        xlink:href=" {% static '#icon-minus-circle' %} "
+                                        xlink:href="#icon-minus-circle"
                                       ></use>
                                     </svg>
                                   </button>
@@ -1172,7 +790,7 @@
                                     type="button"
                                   >
                                     <svg class="icon icon-plus-circle">
-                                      <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                                      <use xlink:href="#icon-plus-circle"></use>
                                     </svg>
                                   </button>
                                   <input
@@ -1196,7 +814,7 @@
                                   >
                                     <svg class="icon icon-minus-circle">
                                       <use
-                                        xlink:href=" {% static '#icon-minus-circle' %} "
+                                        xlink:href="#icon-minus-circle"
                                       ></use>
                                     </svg>
                                   </button>
@@ -1208,7 +826,7 @@
                                     type="button"
                                   >
                                     <svg class="icon icon-plus-circle">
-                                      <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                                      <use xlink:href="#icon-plus-circle"></use>
                                     </svg>
                                   </button>
                                   <input
@@ -1230,7 +848,7 @@
                                   >
                                     <svg class="icon icon-minus-circle">
                                       <use
-                                        xlink:href=" {% static '#icon-minus-circle' %} "
+                                        xlink:href="#icon-minus-circle"
                                       ></use>
                                     </svg>
                                   </button>
@@ -1242,7 +860,7 @@
                                     type="button"
                                   >
                                     <svg class="icon icon-plus-circle">
-                                      <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                                      <use xlink:href="#icon-plus-circle"></use>
                                     </svg>
                                   </button>
                                   <input
@@ -1256,9 +874,202 @@
                           </div>
                         </div>
                       </div>
-                        <hr class="ticket__details__hr" />  
-                        <a href="{% url 'checkout_step2' %}"><button class="button checkout__button">Proceed to pay</button></a>
+                    </div>
+                    <form method="post">
+                      {% csrf_token %}
+                      <div id="travelerdata-form">
+                      {% for traveleritem in traveleritems%}
+                        {% with i=forloop.counter0 %}
+                          <div class="checkout__box">
+                            <div class="checkout__category">Traveler {{ i|add:1 }} Details</div>
+                            <div class="checkout__row" style="margin-top: 1.5rem">
+                              <div class="field">
+                                <input type="hidden" name="id" value="{{ i|add:1 }}">
+                                <div class="field__label">First Name</div>
+                                <div class="field__wrap">
+                                  <input class="field__input" type="text" name="fname{{i}}" placeholder="ABC" required="True" />
+                                </div>
+                              </div>
+                              <div class="field">
+                                <div class="field__label">Last Name</div>
+                                <div class="field__wrap">
+                                  <input class="field__input" type="tel" name="lname{{i}}" placeholder="XYZ" required="True" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="checkout__row" style="margin-top: 1.5rem">
+                              <div class="field">
+                                <div class="field__label">Date of Birth</div>
+                                <div class="field__wrap">
+                                  <input class="field__input js-date-single" data-format="YYYY-MM-DD" data-single="data-single"
+                                    data-container=".datepicker" type="text" name="dob{{i}}" placeholder="YYYY-MM-DD" readonly="readonly" />
+                                </div>
+                              </div>
+                  
+                              <div class="field">
+                                <div class="field__label">Gender</div>
+                                <div class="field__wrap">
+                                  <select class="select" name="gender{{i}}">
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                    <option value="OTHERS">Others</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="field" style="margin-top: 1.5rem">
+                              <div class="field__label">Email Address</div>
+                              <div class="field__wrap">
+                                <input class="field__input" type="email" name="email{{i}}" placeholder="jorge.gonzales833@telefonica.es"
+                                  required="True" />
+                              </div>
+                            </div>
+                            <div class="checkout__row" style="margin-top: 1.5rem">
+                              <div class="field">
+                                <div class="field__label">Mobile Phone</div>
+                                <div class="field__wrap">
+                                  <input class="field__input" type="tel" name="phone{{i}}" placeholder="480080076" required="True" />
+                                </div>
+                              </div>
+                              <div class="field">
+                                <div class="field__label">Phone Country Code</div>
+                                <div class="field__wrap">
+                                  <input class="field__input" type="tel" name="phone_country{{i}}" placeholder="34" required="True" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="field" style="margin-top: 1.5rem">
+                              <div class="field__label">Document Type</div>
+                              <div class="field__wrap">
+                                <select class="select" name="document_type{{i}}">
+                                  <option value="PASSPORT">Passport</option>
+                                  <option value="DRIVING_LICENSE">Driving License</option>
+                                  <option value="ID_CARD">ID Card</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="checkout__row" style="margin-top: 1.5rem">
+                              <div class="field">
+                                <div class="field__label">Document Number</div>
+                                <div class="field__wrap">
+                                  <input class="field__input" type="text" name="document_number{{i}}" placeholder="00000000"
+                                    required="True" />
+                                </div>
+                              </div>
+                              <div class="field">
+                                <div class="field__label">Country of Issuance</div>
+                                <div class="field__wrap">
+                                  <input class="field__input" type="text" name="issuance_country{{i}}" placeholder="ES" required="True" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="checkout__row" style="margin-top: 1.5rem">
+                              <div class="field">
+                                <div class="field__label">Date of Issuance</div>
+                                <div class="field__wrap">
+                                  <input class="field__input js-date-single" data-format="YYYY-MM-DD" data-single="data-single"
+                                    data-container=".datepicker" type="text" name="issuance_date{{i}}" placeholder="YYYY-MM-DD"
+                                    readonly="readonly" />
+                                </div>
+                              </div>
+                              <div class="field">
+                                <div class="field__label">Date of Expiry</div>
+                                <div class="field__wrap">
+                                  <input class="field__input js-date-single" data-format="YYYY-MM-DD" data-single="data-single"
+                                    data-container=".datepicker" type="text" name="expiry_date{{i}}" placeholder="YYYY-MM-DD"
+                                    readonly="readonly" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="field" style="margin-top: 1.5rem">
+                              <div class="field__label">Nationality</div>
+                              <div class="field__wrap">
+                                <input class="field__input" type="text" name="nationality{{i}}" placeholder="ES" required="True" />
+                              </div>
+                            </div>
+                          </div>     
+                        {% endwith %}
+                      {% endfor %}
+                        <button class="button checkout__button" type="button" onclick="showCardForm()">Proceed to pay</button>
                       </div>
+                  
+                      <div id="card-form" style="display: none;">
+                        <div class="checkout__box">
+                          <div class="checkout__top">
+                            <div class="checkout__category">Pay with</div>
+                            <div class="nav">
+                              <a class="nav__link js-tabs-link" href="#">Credit Card</a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="checkout__section">
+                          <div class="checkout__item js-tabs-item" style="display: block">
+                            <div class="checkout__line">
+                              <div class="checkout__subtitle">Credit Card</div>
+                              <div class="checkout__cards">
+                                <div class="checkout__card">
+                                  <img src="{% static 'img/content/visa.svg' %}" alt="Visa" />
+                                </div>
+                                <div class="checkout__card">
+                                  <img src="{% static 'img/content/master-card.svg' %}" alt="Master Card" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="checkout__fieldset">
+                              <div class="field">
+                                <div class="field__label">card number</div>
+                                <div class="field__wrap">
+                                  <input class="field__input" type="tel" name="card" placeholder="XXXX XXXX XXXX XXXX" required="True" />
+                                </div>
+                              </div>
+                              <div class="field">
+                                <div class="field__label">card holder</div>
+                                <div class="field__wrap">
+                                  <input class="field__input" type="text" name="holder" placeholder="TRAN MAU TRI TAM" required="True" />
+                                </div>
+                              </div>
+                              <div class="checkout__row">
+                                <div class="field">
+                                  <div class="field__label">EXPIRATION DATE</div>
+                                  <div class="field__wrap">
+                                    <input class="field__input" type="tel" name="ccdate" placeholder="MM / YY" required="True" />
+                                  </div>
+                                </div>
+                                <div class="field">
+                                  <div class="field__label">CVC</div>
+                                  <div class="field__wrap">
+                                    <input class="field__input" type="tel" name="cvc" placeholder="CVC" required="True" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <label class="checkbox">
+                              <input class="checkbox__input" type="checkbox" checked="checked" />
+                              <span class="checkbox__inner">
+                                <span class="checkbox__tick"></span>
+                                <span class="checkbox__text">Save Card</span>
+                              </span>
+                            </label>
+                            <div class="checkout__message">
+                              <div class="checkout__category">Message the host</div>
+                              <div class="field">
+                                <div class="field__wrap">
+                                  <textarea class="field__textarea" name="message" placeholder="I will be late about 1 hour, please wait..."
+                                    required=""></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <a
+                              class="button checkout__button"
+                              href="{% url 'index' %}}"
+                            >
+                            Make payment
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <button id="continue-button" type="button" onclick="showtravelerdataForm">Back</button>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -1293,6 +1104,7 @@
           </div>
         </div>
       </div>
+
       <!-- footer-->
       <footer class="footer">
         <div class="footer__center center">
@@ -1401,8 +1213,8 @@
                   <a class="footer__link" href=" {% static './faq.html' %} ">FAQ</a>
                   <a class="footer__link" href="#">How to Book</a>
                   <a class="footer__link" href="#">Help Center</a>
-                  <a class="footer__link" href="{% url 'terms' %}">Terms Of Use</a>
-                  <a class="footer__link" href="{% url 'terms_conditions' %}"
+                  <a class="footer__link" href=" {% static './terms.html' %} ">Terms Of Use</a>
+                  <a class="footer__link" href=" {% static './terms-conditions.html' %} "
                     >Terms & Conditions</a
                   >
                 </div>
@@ -1477,11 +1289,128 @@
           </div>
           <div class="footer__bottom">
             <div class="footer__copyright">
-              Copyright © 2023 UI8 LLC. All rights reserved
+              Copyright © 2021 UI8 LLC. All rights reserved
             </div>
           </div>
         </div>
       </footer>
+    </div>
+
+    <div class="popup popup_login mfp-hide" id="popup-login">
+      <div class="login">
+        <div class="login__item">
+          <div class="login__title h3">Sign up on Fleet</div>
+          <div class="login__info">Use Your OpenID to Sign up</div>
+          <div class="login__btns">
+            <button class="button login__button">
+              <svg class="icon icon-google">
+                <use xlink:href=" {% static '#icon-google' %} "></use></svg
+              ><span>Google</span>
+            </button>
+            <button class="button-black login__button">
+              <svg class="icon icon-apple">
+                <use xlink:href=" {% static '#icon-apple' %} "></use></svg
+              ><span>Apple</span>
+            </button>
+          </div>
+          <div class="login__note">Or continue with email</div>
+          <div class="subscription">
+            <input
+              class="subscription__input"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+            <button class="subscription__btn">
+              <svg class="icon icon-arrow-next">
+                <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
+              </svg>
+            </button>
+          </div>
+          <div class="login__foot">
+            Already have an account? <a class="login__link" href="#">Login</a>
+          </div>
+        </div>
+        <div class="login__item">
+          <div class="login__title h3">Sign in</div>
+          <div class="login__form">
+            <div class="field field_view">
+              <div class="field__wrap">
+                <input
+                  class="field__input"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+                <button class="field__view">
+                  <svg class="icon icon-eye">
+                    <use xlink:href=" {% static '#icon-eye' %} "></use>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <button class="button login__button">Login</button>
+          </div>
+          <div class="login__foot">
+            <a class="login__password" href="#">Forgot password?</a>
+          </div>
+        </div>
+        <div class="login__item">
+          <div class="login__title h3">Let’s confirm it’s really you</div>
+          <div class="login__info">
+            Help us secure your account. Please complete the verifications below
+          </div>
+          <div class="login__form">
+            <div class="login__variants">
+              <label class="radio">
+                <input
+                  class="radio__input"
+                  type="radio"
+                  name="login"
+                  checked="checked"
+                /><span class="radio__inner"
+                  ><span class="radio__tick"></span
+                  ><span class="radio__text"
+                    >Get the code by text message (SM) at +1 234 567 890</span
+                  ></span
+                >
+              </label>
+              <label class="radio">
+                <input class="radio__input" type="radio" name="login" /><span
+                  class="radio__inner"
+                  ><span class="radio__tick"></span
+                  ><span class="radio__text"
+                    >Get the code by email at tranm••••••••••••@gm•••.com</span
+                  ></span
+                >
+              </label>
+            </div>
+            <button class="button login__button">Continue</button>
+          </div>
+        </div>
+        <div class="login__item">
+          <div class="login__title h3">Enter your security code</div>
+          <div class="login__info">We texted your code to +1 234 567 890</div>
+          <div class="login__form">
+            <div class="login__code">
+              <div class="login__number">
+                <input type="tel" />
+              </div>
+              <div class="login__number">
+                <input type="tel" />
+              </div>
+              <div class="login__number">
+                <input type="tel" />
+              </div>
+              <div class="login__number">
+                <input type="tel" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- scripts-->
