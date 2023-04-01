@@ -70,6 +70,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'BookingApp.ssl_redirect.SSLRedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'BookingApp.urls'
