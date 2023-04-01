@@ -241,8 +241,12 @@ def checkoutHandle(req):
     long_Origin = req.GET.get('long_Origin', None)
     if long_Origin is None:
         long_Origin = short_Origin
+    elif long_Origin == "":
+        long_Origin = short_Origin
     long_Destination = req.GET.get('long_Destination', None)
     if long_Destination is None:
+        long_Destination = short_Destination
+    elif long_Destination == "":
         long_Destination = short_Destination
     destination = req.GET.get('destination', None)
     travellers = req.GET.get('travellers', None)
