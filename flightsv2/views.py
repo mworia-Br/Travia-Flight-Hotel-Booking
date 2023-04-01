@@ -148,7 +148,9 @@ def search_flights(req):
 
 def book_flight(req, flight):
     # Create a fake traveler profile for booking
-    traveler = {
+    traveller = Traveller_Info.objects.get(user=req.user).latest('id')
+    traveler = traveller.traveler_list
+    travelerfake = {
         "id": "1",
         "dateOfBirth": "1982-01-16",
         "name": {"firstName": "JORGE", "lastName": "GONZALES"},
