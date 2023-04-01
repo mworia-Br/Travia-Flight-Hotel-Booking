@@ -19,7 +19,9 @@
 
         <form class="login__form" method="post">
           {% csrf_token %}
-          <button class="button login__button" type="submit">{% trans "Continue" %}</button>
+          <div class="field field_view">
+            <button class="button login__button" type="submit">{% trans "Continue" %}</button>
+          </div>
         </form>
     </div>
   {% endblock %}
