@@ -138,7 +138,7 @@
       function handleFromLocation() {
         const fromInput = document.getElementById("from");
         const fromLocationData = document.getElementById("fromLocationData");
-      
+
         if (fromInput && fromLocationData) {
           const fromInputValue = fromInput.value.trim();
           if (fromInputValue.length > 1) {
@@ -157,6 +157,8 @@
                     locationItem.onclick = () => {
                       fromInput.value = location.name;
                       originCode = location.iataCode;
+                      shortOrigin = location.address.cityName;
+                      longOrigin = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                       fromLocationData.style.display = "none";
                     };
                     locationList.appendChild(locationItem);
@@ -198,7 +200,7 @@
       function handleToLocation() {
         const toInput = document.getElementById("to");
         const toLocationData = document.getElementById("toLocationData");
-      
+
         if (toInput && toLocationData) {
           const toInputValue = toInput.value.trim();
           if (toInputValue.length > 1) {
@@ -217,6 +219,8 @@
                     locationItem.onclick = () => {
                       toInput.value = location.name;
                       destinationCode = location.iataCode;
+                      shortDestination = location.address.cityName;
+                      longDestination = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                       toLocationData.style.display = "none";
                     };
                     locationList.appendChild(locationItem);
@@ -233,7 +237,7 @@
           }
         }
       }
-      
+
       document.addEventListener("DOMContentLoaded", () => {
         const toInput = document.getElementById("to");
         const toLocationData = document.getElementById("toLocationData");
