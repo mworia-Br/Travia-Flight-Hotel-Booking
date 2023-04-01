@@ -40,6 +40,14 @@ def emailsend(recipient, emailbody):
     sending = msg.send()
     print(sending)
 
+@login_required(login_url='/login/')
+def postlogin(req):
+    user = req.user
+    recipient = user.email
+    emailbody = "Successfully logged in, you can now book your flights and hotels. If this was not you, please contact us immediately."
+    emailsend(recipient, emailbody)
+    return render(req, 'index.html')
+
 def Index(req):
     if req.user.is_authenticated:
         return render(req, 'index.html')
@@ -76,7 +84,7 @@ def login_view(request):
             login(request, user)
             loggedin_user = User.objects.get(username=username)
             recipient = loggedin_user.email
-            emailbody = "Thank you for using Travia Booking Services. You were successfully logged in to our test servers."
+            emailbody = "Successfully logged in, you can now book your flights and hotels. If this was not you, please contact us immediately."
             emailsend(recipient, emailbody)
             next_url = request.GET.get('next', None) # get the 'next' parameter from the GET request
             if next_url:
