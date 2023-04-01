@@ -2,39 +2,6 @@
 {% load i18n %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
-<script>
-  var viewportmeta = document.querySelector('meta[name="viewport"]');
-  if (viewportmeta) {
-    if (screen.width < 375) {
-      var newScale = screen.width / 375;
-      viewportmeta.content =
-        "width=375, minimum-scale=" +
-        newScale +
-        ", maximum-scale=1.0, user-scalable=no, initial-scale=" +
-        newScale +
-        "";
-    } else {
-      viewportmeta.content =
-        "width=device-width, maximum-scale=1.0, initial-scale=1.0";
-    }
-  }
-</script>
-<script src="{% static 'js/app.js' %}"></script>
-<script src="{% static 'js/demo.js' %}"></script>
-<script src="{% static 'js/lib/jquery.min.js' %}"></script>
-<script src="{% static 'js/lib/slick.min.js' %}"></script>
-<script src="{% static 'js/lib/jquery.nice-select.min.js' %}"></script>
-<script src="{% static 'js/lib/share-buttons.js' %}"></script>
-<script src="{% static 'js/lib/jquery.fancybox.min.js' %}"></script>
-<script src="{% static 'js/lib/jquery.rateyo.min.js' %}"></script>
-<script src="{% static 'js/lib/nouislider.min.js' %}"></script>
-<script src="{% static 'js/lib/wNumb.js' %}"></script>
-<script src="{% static 'js/lib/jquery.magnific-popup.min.js' %}"></script>
-<script src="{% static 'js/lib/moment.min.js' %}"></script>
-<script src="{% static 'js/lib/jquery.daterangepicker.min.js' %}"></script>
-<script src="{% static 'js/lib/simpleParallax.min.js' %}"></script>
-<script src="{% static 'js/app.js' %}"></script>
-<script src="{% static 'js/demo.js' %}"></script>
 <div class="popup popup_login mfp-zoom-in">
   <div class="login">
     {% block content %}
@@ -55,6 +22,10 @@
                 <button class="button login__button" type="submit">{% trans "Continue" %}</button>
               </div>
             </form>
+            <div class="login__foot">
+              <a class="login__password" >  </a>
+              <a class="login__password" >|  </a>
+            </div>
           </div>
       </div>
    {% endblock %}
