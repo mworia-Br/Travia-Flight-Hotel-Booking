@@ -1152,7 +1152,7 @@
           </div>
           <div class="footer__row">
             <div class="footer__col">
-              <a class="footer__logo" href=" {% static 'index.html' %} ">
+              <a class="footer__logo" href="{% url 'index' %}">
                 <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
               </a>
               <a class="footer__logo" href="#">
@@ -1167,14 +1167,14 @@
               <div class="footer__menu__widget">
                 <div class="footer__menu">
                   <h5 class="footer__subtitle">Airtravia</h5>
-                  <a class="footer__link" href=" {% static 'index.html' %} ">Home</a>
-                  <a class="footer__link" href=" {% static './about-us.html' %} ">About Us</a>
-                  <a class="footer__link" href=" {% static './promo.html' %} ">Promo</a>
-                  <a class="footer__link" href=" {% static './blog.html' %} ">Blog</a>
+                  <a class="footer__link" href="{% url 'index' %}">Home</a>
+                  <a class="footer__link" href="{% url 'about_us' %}">About Us</a>
+                  <a class="footer__link" href="{% url 'promo' %}">Promo</a>
+                  <a class="footer__link" href="{% url 'blog' %}">Blog</a>
                   <a class="footer__link" href=" {% static './airline-info.html' %} "
                     >Airline Information</a
                   >
-                  <a class="footer__link" href=" {% static './contact.html' %} ">Contact Us</a>
+                  <a class="footer__link" href="{% url 'contact' %}">Contact Us</a>
                 </div>
                 <div class="footer__menu">
                   <h5 class="footer__subtitle">Account</h5>
@@ -1182,10 +1182,10 @@
                   <a class="footer__link" href="#">Forgot Password</a>
                 </div>
                 <div class="footer__menu">
-                  <a class="footer__link" href=" {% static './guide.html' %} "
+                  <a class="footer__link" href="{% url 'guide' %}"
                     >Airtravia Guide</a
                   >
-                  <a class="footer__link" href=" {% static './faq.html' %} ">FAQ</a>
+                  <a class="footer__link" href="{% url 'faq' %}">FAQ</a>
                   <a class="footer__link" href="#">How to Book</a>
                   <a class="footer__link" href="#">Help Center</a>
                   <a class="footer__link" href="{% url 'terms' %}">Terms Of Use</a>
