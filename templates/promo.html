@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load static %}
   <head>
     <meta charset="utf-8" />
-    <title>Airtravia</title>
+    <title>Promo - Airtravia</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta
       name="viewport"
@@ -34,7 +33,7 @@
     <meta name="description" content="Epic Travel Shopping Design Kit" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@ui8" />
-    <meta name="twitter:title" content="Airtravia – Travel Shopping UI Kit" />
+    <meta name="twitter:title" content="Fleet – Travel Shopping UI Kit" />
     <meta
       name="twitter:description"
       content="Epic Travel Shopping Design Kit"
@@ -42,23 +41,20 @@
     <meta name="twitter:creator" content="@ui8" />
     <meta
       name="twitter:image"
-      content="https://ui8-Airtravia-html.herokuapp.com/img/twitter-card.jpg"
+      content="https://ui8-fleet-html.herokuapp.com/img/twitter-card.jpg"
     />
-    <meta property="og:title" content="Airtravia – Travel Shopping UI Kit" />
+    <meta property="og:title" content="Fleet – Travel Shopping UI Kit" />
     <meta property="og:type" content="Article" />
     <meta
       property="og:url" {% static '' %} 
-      content="https://ui8.net/ui8/products/Airtravia--travel-shopping-ui-design-kit"
+      content="https://ui8.net/ui8/products/fleet--travel-shopping-ui-design-kit"
     />
     <meta
       property="og:image"
-      content="https://ui8-Airtravia-html.herokuapp.com/img/fb-og-image.jpg"
+      content="https://ui8-fleet-html.herokuapp.com/img/fb-og-image.jpg"
     />
     <meta property="og:description" content="Epic Travel Shopping Design Kit" />
-    <meta
-      property="og:site_name"
-      content="Airtravia – Travel Shopping UI Kit"
-    />
+    <meta property="og:site_name" content="Fleet – Travel Shopping UI Kit" />
     <meta property="fb:admins" content="132951670226590" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -97,75 +93,72 @@
     </script>
   </head>
   <body>
-    <script>
-      console.log(localStorage.getItem("darkMode"));
-      if (localStorage.getItem("darkMode") === "on") {
-        document.body.classList.add("dark");
-        document.addEventListener("DOMContentLoaded", function () {
-          document.querySelector(".js-theme input").checked = true;
-        });
-      }
-    </script>
     <!-- outer-->
     <div class="outer">
       <!-- header-->
-      <header class="header js-header header_border">
+      <header class="header js-header authorization">
         <div class="header__center center">
-          <a class="header__logo" href=" {% url 'index' %} ">
+          <a class="header__logo" href=" {% static 'index.html' %} ">
             <img class="some-icon" src=" {% static 'img/logo-light.svg' %} " alt="Fleet" />
           </a>
           <div class="header__wrapper js-header-wrapper">
-            <a class="header__item" href="{% url 'oneway_flight' %}">Flights</a>
-            <a class="header__item" href="{% url 'hotels' %}">Hotels</a>
+            <a class="header__item" href=" {% url 'oneway_flight' %} ">Flights</a>
+            <a class="header__item" href=" {% url 'hotels' %} ">Hotels</a>
             <a class="header__item" href="#">Promo</a>
-            <a class="header__item me__auto" href="{% url 'orders' %}">Orders</a>
-            <a class="header__item" href=" {% static 'support.html' %} ">Support</a>
+            <a class="header__item" href=" {% url 'orders' %} ">Orders</a>
             <div class="header__item header__item_language js-header-item">
-              <button class="header__head js-header-head">
-                <svg class="icon icon-globe">
-                  <use xlink:href="#icon-globe"></use></svg
-                >Language
+              <button
+                class="header__head header__dropdown__toggle js-header-head"
+              >
+                <span class="fi fi-us symbol"></span>
+                <span class="toggle__text">English</span>
               </button>
               <div class="header__body js-header-body">
                 <div class="header__list">
-                  <a class="header__box active" href="#">
+                  <a class="header__box js-toggle-box active" href=" {% static 'us' %} ">
                     <div class="header__category">English</div>
-                    <div class="header__country">United States</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">United States</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'vn' %} ">
                     <div class="header__category">Vietnamese</div>
-                    <div class="header__country">Vietnamese</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">Viet Nam</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'fr' %} ">
                     <div class="header__category">Français</div>
-                    <div class="header__country">Belgique</div></a
-                  ><a class="header__box" href="#">
-                    <div class="header__category">Français</div>
-                    <div class="header__country">Canada</div></a
-                  >
+                    <div class="header__country">France</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'ca' %} ">
+                    <div class="header__category">Canada</div>
+                    <div class="header__country">Canada</div>
+                  </a>
                 </div>
               </div>
             </div>
-            <div class="header__item header__item_language js-header-item">
-              <button class="header__head js-header-head">
-                <svg class="icon icon-coin">
-                  <use xlink:href="#icon-coin"></use>
-                </svg>
-                USD
+            <div class="header__item header__item_dropdown js-header-item">
+              <button
+                class="header__head js-header-head header__item_currency header__dropdown__toggle"
+              >
+                <i class="fa-solid fa-dollar-sign symbol currency__icon"></i>
+                <span class="toggle__text">USD</span>
               </button>
               <div class="header__body js-header-body">
                 <div class="header__list">
-                  <a class="header__box active" href="#">
+                  <a class="header__box js-toggle-box active" href=" {% static 'dollar' %} ">
                     <div class="header__category">USD</div>
-                    <div class="header__country">Bangladesh</div></a
-                  ><a class="header__box" href="#">
-                    <div class="header__category">USD</div>
-                    <div class="header__country">United States</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">United States</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'bangladeshi-taka' %} ">
+                    <div class="header__category">BDT</div>
+                    <div class="header__country">Bangladesh</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'turkish-lira' %} ">
                     <div class="header__category">Lira</div>
-                    <div class="header__country">Turkey</div></a
-                  ><a class="header__box" href="#">
+                    <div class="header__country">Turkey</div>
+                  </a>
+                  <a class="header__box js-toggle-box" href=" {% static 'euro' %} ">
                     <div class="header__category">EURO</div>
-                    <div class="header__country">Austria</div></a
-                  >
+                    <div class="header__country">Austria</div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -179,9 +172,9 @@
             <div class="header__body js-header-body">
               <div class="header__title">Notification</div>
               <div class="header__notifications">
-                <a class="header__notification" href=" {% static 'message-center.html' %} ">
+                <a class="header__notification" href="{% url 'index' %}">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -191,9 +184,9 @@
                       class="header__status"
                       style="background-color: #3b71fe"
                     ></div></div></a
-                ><a class="header__notification" href=" {% static 'message-center.html' %} ">
+                ><a class="header__notification" href="{% url 'index' %}">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -207,6 +200,8 @@
               </div>
             </div>
           </div>
+          <a class="button-stroke button-small header__button" href="{% url 'login' %}">Login</a>
+          </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
               <img src=" {% static 'img/content/avatar-2.jpg' %} " alt="Avatar" />
@@ -257,124 +252,358 @@
       </header>
       <!-- outer content-->
       <div class="outer__inner">
-        <div class="section setting js-tabs">
-          <div class="setting__center center">
-            <div class="setting__menu">
-              <button class="setting__link close__menu__button active" #>
-                <svg class="icon icon-close">
-                  <use xlink:href=" {% url 'profile"></use>
-                </svg>
-                Close Menu
-              </button>
-              <a class="setting__link" href=" {% url 'profile' %} ">
-                <svg class="icon icon-user">
-                  <use xlink:href="#icon-user"></use>
-                </svg>
-                Profile
-              </a>
-              <a class="setting__link active" href=" {% url 'change_password' %} ">
-                <svg class="icon icon-lock">
-                  <use xlink:href="#icon-lock"></use>
-                </svg>
-                Change Password
-              </a>
-              <a class="setting__link" href=" {% url 'profile' %} ">
-                <svg class="icon icon-contact">
-                  <use xlink:href="#icon-contact"></use>
-                </svg>
-                Contact List
-              </a>
-              <a class="setting__link" href=" {% url 'travelers' %} ">
-                <svg class="icon icon-list">
-                  <use xlink:href="#icon-list"></use>
-                </svg>
-                Traveler List
-              </a>
-              <a class="setting__link" href=" {% url 'orders' %} ">
-                <svg class="icon icon-order">
-                  <use xlink:href="#icon-order"></use>
-                </svg>
-                Orders
-              </a>
-              <a class="setting__link" href=" {% static './profile-account.html' %} ">
-                <svg class="icon icon-account">
-                  <use xlink:href="#icon-account"></use>
-                </svg>
-                Account Linking
-              </a>
-              <a class="setting__link" href="{% url 'logout' %}">
-                <svg class="icon icon-logout">
-                  <use xlink:href=" {% url 'logout"></use>
-                </svg>
-                Sign Out
-              </a>
+        <div class="section-mb80 main main_tasks-category">
+          <div class="center">
+            <div class="main__preview">
+              <img src=" {% static 'img/content/travels-promo-pic.png' %} " alt="Main" />
+              <div class="main__wrap">
+                <h1 class="main__title hero">Travel Promo</h1>
+                <div class="main__info info">
+                  Exclusive travel deals and discounts!"
+                </div>
+              </div>
             </div>
-            <div class="setting__container">
-              <div class="setting__item">
-                <form class="setting__form"method="post" action="{% url 'change_password' %}">
-                  {% csrf_token %}
-                  <div class="setting__head">
-                    <h2 class="setting__title h2">Change Password</h2>
-                    <button
-                      type="button"
-                      class="button-stroke button-small show__menu__button"
-                    >
-                      Menu
-                    </button>
-                  </div>
-                  <div class="setting__list">
-                    <div class="setting__section">
-                      <div class="setting__fieldset">
-                        <div class="field" style="margin-bottom: 2rem">
-                          <div class="field__label " label for="{{ form.old_password.id_for_label }}">Old Password</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              required = "true"
-                              {{ form.old_password }}
-                            />
+          </div>
+        </div>
+        <div class="section">
+          <div class="center">
+            <div class="js-tabs">
+              <div class="panel__controls">
+                <button
+                  type="button"
+                  class="button-stroke button-small tab__button js-tabs-link active"
+                >
+                  Flight
+                </button>
+                <button
+                  type="button"
+                  class="button-stroke button-small tab__button js-tabs-link"
+                >
+                  Hotel
+                </button>
+                <button
+                  type="button"
+                  class="button-stroke button-small tab__button js-tabs-link"
+                >
+                  Holidays
+                </button>
+              </div>
+              <div class="js-tabs-pane">
+                <div class="js-tabs-item">
+                  <div class="promo__grid">
+                    <a class="card promo__card" href=" {% static './single-promo.html' %} ">
+                      <div class="card__preview">
+                        <img
+                          srcse {% static 't="img/cont' %} ent/promo-1.png"
+                          src=" {% static 'img/content/promo-1.png' %} "
+                          alt="Entire serviced classy moutain house"
+                        />
+                      </div>
+                      <div class="card__body">
+                        <div class="card__line">
+                          <div class="card__title">
+                            Super App for a perfect vacation
                           </div>
                         </div>
-                        <div class="field" style="margin-bottom: 2rem">
-                          <div class="field__label" label for="{{ form.new_password1.id_for_label }}">New Password</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              required = "true"
-                              {{ form.new_password1 }}
-                            /> 
-                          </div>
-                        </div>
-                        <div class="field" style="margin-bottom: 2rem">
-                          <div class="field__label" label for="{{ form.new_password2.id_for_label }}">Confirm Password</div>
-                          <div class="field__wrap">
-                            <input
-                              class="field__input"
-                              required = "true"
-                              {{ form.new_password2 }}
-                            />  
+                        <div class="card__foot">
+                          <div class="card__flex">
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Promo Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                            <div class="vr__line"></div>
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Travel Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </a>
+                    <a class="card promo__card" href=" {% static './single-promo.html' %} ">
+                      <div class="card__preview">
+                        <img
+                          srcse {% static 't="img/cont' %} ent/promo-2.png"
+                          src=" {% static 'img/content/promo-2.png' %} "
+                          alt="Entire serviced classy moutain house"
+                        />
+                      </div>
+                      <div class="card__body">
+                        <div class="card__line">
+                          <div class="card__title">
+                            Super App for a perfect vacation
+                          </div>
+                        </div>
+                        <div class="card__foot">
+                          <div class="card__flex">
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Promo Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                            <div class="vr__line"></div>
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Travel Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a class="card promo__card" href=" {% static './single-promo.html' %} ">
+                      <div class="card__preview">
+                        <img
+                          srcse {% static 't="img/cont' %} ent/promo-3.png"
+                          src=" {% static 'img/content/promo-3.png' %} "
+                          alt="Entire serviced classy moutain house"
+                        />
+                      </div>
+                      <div class="card__body">
+                        <div class="card__line">
+                          <div class="card__title">
+                            Super App for a perfect vacation
+                          </div>
+                        </div>
+                        <div class="card__foot">
+                          <div class="card__flex">
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Promo Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                            <div class="vr__line"></div>
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Travel Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
                   </div>
-                  <div class="setting__controls">
-                    <button class="button setting__button" type="submit">
-                      Change Password
-                    </button>
-                    <button class="setting__clear">
-                      <svg class="icon icon-close">
-                        <use xlink:href=" {% url 'profile"></use>
-                      </svg>
-                      Cancel
-                    </button>
+                </div>
+                <div class="js-tabs-item">
+                  <div class="promo__grid">
+                    <a class="card promo__card" href=" {% static './single-promo.html' %} ">
+                      <div class="card__preview">
+                        <img
+                          srcse {% static 't="img/cont' %} ent/promo-1.png"
+                          src=" {% static 'img/content/promo-1.png' %} "
+                          alt="Entire serviced classy moutain house"
+                        />
+                      </div>
+                      <div class="card__body">
+                        <div class="card__line">
+                          <div class="card__title">
+                            Super App for a perfect vacation
+                          </div>
+                        </div>
+                        <div class="card__foot">
+                          <div class="card__flex">
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Promo Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                            <div class="vr__line"></div>
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Travel Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a class="card promo__card" href=" {% static './single-promo.html' %} ">
+                      <div class="card__preview">
+                        <img
+                          srcse {% static 't="img/cont' %} ent/promo-2.png"
+                          src=" {% static 'img/content/promo-2.png' %} "
+                          alt="Entire serviced classy moutain house"
+                        />
+                      </div>
+                      <div class="card__body">
+                        <div class="card__line">
+                          <div class="card__title">
+                            Super App for a perfect vacation
+                          </div>
+                        </div>
+                        <div class="card__foot">
+                          <div class="card__flex">
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Promo Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                            <div class="vr__line"></div>
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Travel Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a class="card promo__card" href=" {% static './single-promo.html' %} ">
+                      <div class="card__preview">
+                        <img
+                          srcse {% static 't="img/cont' %} ent/promo-3.png"
+                          src=" {% static 'img/content/promo-3.png' %} "
+                          alt="Entire serviced classy moutain house"
+                        />
+                      </div>
+                      <div class="card__body">
+                        <div class="card__line">
+                          <div class="card__title">
+                            Super App for a perfect vacation
+                          </div>
+                        </div>
+                        <div class="card__foot">
+                          <div class="card__flex">
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Promo Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                            <div class="vr__line"></div>
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Travel Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
                   </div>
-                </form>
+                </div>
+                <div class="js-tabs-item">
+                  <div class="promo__grid">
+                    <a class="card promo__card" href=" {% static './single-promo.html' %} ">
+                      <div class="card__preview">
+                        <img
+                          srcse {% static 't="img/cont' %} ent/promo-1.png"
+                          src=" {% static 'img/content/promo-1.png' %} "
+                          alt="Entire serviced classy moutain house"
+                        />
+                      </div>
+                      <div class="card__body">
+                        <div class="card__line">
+                          <div class="card__title">
+                            Super App for a perfect vacation
+                          </div>
+                        </div>
+                        <div class="card__foot">
+                          <div class="card__flex">
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Promo Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                            <div class="vr__line"></div>
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Travel Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a class="card promo__card" href=" {% static './single-promo.html' %} ">
+                      <div class="card__preview">
+                        <img
+                          srcse {% static 't="img/cont' %} ent/promo-2.png"
+                          src=" {% static 'img/content/promo-2.png' %} "
+                          alt="Entire serviced classy moutain house"
+                        />
+                      </div>
+                      <div class="card__body">
+                        <div class="card__line">
+                          <div class="card__title">
+                            Super App for a perfect vacation
+                          </div>
+                        </div>
+                        <div class="card__foot">
+                          <div class="card__flex">
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Promo Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                            <div class="vr__line"></div>
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Travel Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a class="card promo__card" href=" {% static './single-promo.html' %} ">
+                      <div class="card__preview">
+                        <img
+                          srcse {% static 't="img/cont' %} ent/promo-3.png"
+                          src=" {% static 'img/content/promo-3.png' %} "
+                          alt="Entire serviced classy moutain house"
+                        />
+                      </div>
+                      <div class="card__body">
+                        <div class="card__line">
+                          <div class="card__title">
+                            Super App for a perfect vacation
+                          </div>
+                        </div>
+                        <div class="card__foot">
+                          <div class="card__flex">
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Promo Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                            <div class="vr__line"></div>
+                            <div class="promo__desc">
+                              <h6 class="promo__title">Travel Period</h6>
+                              <span class="promo__date">
+                                1 Jan, 2023 - 31 Dec 2024
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <!-- footer-->
       <footer class="footer">
         <div class="footer__center center">
@@ -483,8 +712,8 @@
                   <a class="footer__link" href=" {% static './faq.html' %} ">FAQ</a>
                   <a class="footer__link" href="#">How to Book</a>
                   <a class="footer__link" href="#">Help Center</a>
-                  <a class="footer__link" href="{% url 'terms' %}">Terms Of Use</a>
-                  <a class="footer__link" href="{% url 'terms_conditions' %}"
+                  <a class="footer__link" href=" {% static './terms.html' %} ">Terms Of Use</a>
+                  <a class="footer__link" href=" {% static './terms-conditions.html' %} "
                     >Terms & Conditions</a
                   >
                 </div>
@@ -559,12 +788,130 @@
           </div>
           <div class="footer__bottom">
             <div class="footer__copyright">
-              Copyright © 2023 UI8 LLC. All rights reserved
+              Copyright © 2021 UI8 LLC. All rights reserved
             </div>
           </div>
         </div>
       </footer>
     </div>
+
+    <div class="popup popup_login mfp-hide" id="popup-login">
+      <div class="login">
+        <div class="login__item">
+          <div class="login__title h3">Sign up on Fleet</div>
+          <div class="login__info">Use Your OpenID to Sign up</div>
+          <div class="login__btns">
+            <button class="button login__button">
+              <svg class="icon icon-google">
+                <use xlink:href="#icon-google"></use></svg
+              ><span>Google</span>
+            </button>
+            <button class="button-black login__button">
+              <svg class="icon icon-apple">
+                <use xlink:href="#icon-apple"></use></svg
+              ><span>Apple</span>
+            </button>
+          </div>
+          <div class="login__note">Or continue with email</div>
+          <div class="subscription">
+            <input
+              class="subscription__input"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+            <button class="subscription__btn">
+              <svg class="icon icon-arrow-next">
+                <use xlink:href="#icon-arrow-next"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="login__foot">
+            Already have an account? <a class="login__link" href="#">Login</a>
+          </div>
+        </div>
+        <div class="login__item">
+          <div class="login__title h3">Sign in</div>
+          <div class="login__form">
+            <div class="field field_view">
+              <div class="field__wrap">
+                <input
+                  class="field__input"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+                <button class="field__view">
+                  <svg class="icon icon-eye">
+                    <use xlink:href="#icon-eye"></use>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <button class="button login__button">Login</button>
+          </div>
+          <div class="login__foot">
+            <a class="login__password" href="#">Forgot password?</a>
+          </div>
+        </div>
+        <div class="login__item">
+          <div class="login__title h3">Let’s confirm it’s really you</div>
+          <div class="login__info">
+            Help us secure your account. Please complete the verifications below
+          </div>
+          <div class="login__form">
+            <div class="login__variants">
+              <label class="radio">
+                <input
+                  class="radio__input"
+                  type="radio"
+                  name="login"
+                  checked="checked"
+                /><span class="radio__inner"
+                  ><span class="radio__tick"></span
+                  ><span class="radio__text"
+                    >Get the code by text message (SM) at +1 234 567 890</span
+                  ></span
+                >
+              </label>
+              <label class="radio">
+                <input class="radio__input" type="radio" name="login" /><span
+                  class="radio__inner"
+                  ><span class="radio__tick"></span
+                  ><span class="radio__text"
+                    >Get the code by email at tranm••••••••••••@gm•••.com</span
+                  ></span
+                >
+              </label>
+            </div>
+            <button class="button login__button">Continue</button>
+          </div>
+        </div>
+        <div class="login__item">
+          <div class="login__title h3">Enter your security code</div>
+          <div class="login__info">We texted your code to +1 234 567 890</div>
+          <div class="login__form">
+            <div class="login__code">
+              <div class="login__number">
+                <input type="tel" />
+              </div>
+              <div class="login__number">
+                <input type="tel" />
+              </div>
+              <div class="login__number">
+                <input type="tel" />
+              </div>
+              <div class="login__number">
+                <input type="tel" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- scripts-->
     <script src=" {% static 'js/lib/jquery.min.js' %} "></script>
     <script src=" {% static 'js/lib/slick.min.js' %} "></script>
@@ -1239,51 +1586,6 @@
           <path
             d="M8 2.667c3.351 0 5.649 2.106 6.895 3.671.784.985.784 2.34 0 3.325-1.246 1.565-3.544 3.671-6.895 3.671S2.35 11.228 1.105 9.663c-.784-.985-.784-2.34 0-3.325C2.35 4.773 4.649 2.667 8 2.667zM8 4c-2.75 0-4.706 1.728-5.852 3.168a1.31 1.31 0 0 0 0 1.665C3.294 10.272 5.249 12 8 12s4.706-1.728 5.851-3.168a1.31 1.31 0 0 0 0-1.665C12.706 5.729 10.75 4 8 4zm0 1.333c1.473 0 2.667 1.194 2.667 2.667S9.473 10.667 8 10.667 5.333 9.473 5.333 8 6.527 5.334 8 5.334zm0 1.333l-.056.001A1 1 0 0 1 7 8a1 1 0 0 1-.332-.057L6.667 8c0 .736.597 1.333 1.333 1.333S9.333 8.737 9.333 8 8.736 6.667 8 6.667z"
           ></path>
-        </symbol>
-        <symbol
-          id="icon-contact"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-        >
-          <path
-            d="M384 48c8.8 0 16 7.2 16 16V448c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16H384zM96 0C60.7 0 32 28.7 32 64V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H96zM240 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128zm-32 32c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16H336c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80H208zM512 80c0-8.8-7.2-16-16-16s-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V80zM496 192c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm16 144c0-8.8-7.2-16-16-16s-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V336z"
-          />
-        </symbol>
-        <symbol
-          id="icon-list"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-        >
-          <path
-            d="M152.1 38.2c9.9 8.9 10.7 24 1.8 33.9l-72 80c-4.4 4.9-10.6 7.8-17.2 7.9s-12.9-2.4-17.6-7L7 113C-2.3 103.6-2.3 88.4 7 79s24.6-9.4 33.9 0l22.1 22.1 55.1-61.2c8.9-9.9 24-10.7 33.9-1.8zm0 160c9.9 8.9 10.7 24 1.8 33.9l-72 80c-4.4 4.9-10.6 7.8-17.2 7.9s-12.9-2.4-17.6-7L7 273c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l22.1 22.1 55.1-61.2c8.9-9.9 24-10.7 33.9-1.8zM224 96c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H256c-17.7 0-32-14.3-32-32zm0 160c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H256c-17.7 0-32-14.3-32-32zM160 416c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32zM48 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"
-          />
-        </symbol>
-        <symbol
-          id="icon-order"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 576 512"
-        >
-          <path
-            d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H512c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H512c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm96 64a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm104 0c0-13.3 10.7-24 24-24H448c13.3 0 24 10.7 24 24s-10.7 24-24 24H224c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24H448c13.3 0 24 10.7 24 24s-10.7 24-24 24H224c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24H448c13.3 0 24 10.7 24 24s-10.7 24-24 24H224c-13.3 0-24-10.7-24-24zm-72-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM96 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
-          />
-        </symbol>
-        <symbol
-          id="icon-account"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-        >
-          <path
-            d="M181.3 32.4c17.4 2.9 29.2 19.4 26.3 36.8L197.8 128h95.1l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3s29.2 19.4 26.3 36.8L357.8 128H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H347.1L325.8 320H384c17.7 0 32 14.3 32 32s-14.3 32-32 32H315.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8l9.8-58.7H155.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8L90.2 384H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l21.3-128H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3zM187.1 192L165.8 320h95.1l21.3-128H187.1z"
-          />
-        </symbol>
-        <symbol
-          id="icon-logout"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-        >
-          <path
-            d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"
-          />
         </symbol>
       </svg>
     </div>

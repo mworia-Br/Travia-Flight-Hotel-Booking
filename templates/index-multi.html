@@ -167,15 +167,15 @@
           <div class="header__item header__item_notification js-header-item">
             <button class="header__head js-header-head active">
               <svg class="icon icon-notification">
-                <use xlink:href=" {% static '#icon-notification' %} "></use>
+                <use xlink:href="#icon-notification"></use>
               </svg>
             </button>
             <div class="header__body js-header-body">
               <div class="header__title">Notification</div>
               <div class="header__notifications">
-                <a class="header__notification" href=" {% static 'message-center.html' %} ">
+                <a class="header__notification" href="{% url 'index' %}">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -185,9 +185,9 @@
                       class="header__status"
                       style="background-color: #3b71fe"
                     ></div></div></a
-                ><a class="header__notification" href=" {% static 'message-center.html' %} ">
+                ><a class="header__notification" href="{% url 'index' %}">
                   <div class="header__avatar">
-                    <img src=" {% static 'img/content/avatar-1.jpg' %} " alt="Avatar" />
+                    <img src="{% static 'img/content/avatar-1.jpg' %}" alt="Avatar" />
                   </div>
                   <div class="header__details">
                     <div class="header__subtitle">Kohaku Tora</div>
@@ -201,13 +201,7 @@
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            class="status login__status js-popup-open"
-            href=" {% static '#popup-login' %} "
-            data-effect="mfp-zoom-in"
-          >
-            Login
+          <a class="button-stroke button-small header__button" href="{% url 'login' %}">Login</a>
           </button>
           <div class="header__item header__item_user js-header-item">
             <button class="header__head js-header-head">
@@ -218,26 +212,26 @@
                 <div class="header__menu">
                   <a class="header__link" href=" {% static 'message-center.html' %} ">
                     <svg class="icon icon-comment">
-                      <use xlink:href=" {% static '#icon-comment' %} "></use></svg
+                      <use xlink:href="#icon-comment"></use></svg
                     >Messages</a
                   ><a class="header__link" href=" {% static 'bookings-list.html' %} ">
                     <svg class="icon icon-home">
-                      <use xlink:href=" {% static '#icon-home' %} "></use></svg
+                      <use xlink:href="#icon-home"></use></svg
                     >Bookings</a
                   ><a class="header__link" href=" {% static 'wishlists.html' %} ">
                     <svg class="icon icon-email">
-                      <use xlink:href=" {% static '#icon-email' %} "></use></svg
+                      <use xlink:href="#icon-email"></use></svg
                     >Wishlists</a
                   >
                 </div>
                 <div class="header__menu">
                   <a class="header__link" href=" {% static 'list-your-property.html' %} ">
                     <svg class="icon icon-building">
-                      <use xlink:href=" {% static '#icon-building' %} "></use></svg
+                      <use xlink:href="#icon-building"></use></svg
                     >List your property</a
                   ><a class="header__link" href=" {% static 'host-an-experience.html' %} ">
                     <svg class="icon icon-flag">
-                      <use xlink:href=" {% static '#icon-flag' %} "></use></svg
+                      <use xlink:href="#icon-flag"></use></svg
                     >Host an experience</a
                   >
                 </div>
@@ -349,7 +343,7 @@
                           type="button"
                         >
                           <svg class="icon icon-minus-circle">
-                            <use xlink:href=" {% static '#icon-minus-circle' %} "></use>
+                            <use xlink:href="#icon-minus-circle"></use>
                           </svg>
                         </button>
                         <div class="counter__value js-counter-value"></div>
@@ -358,7 +352,7 @@
                           type="button"
                         >
                           <svg class="icon icon-plus-circle">
-                            <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                            <use xlink:href="#icon-plus-circle"></use>
                           </svg>
                         </button>
                         <input
@@ -378,7 +372,7 @@
                           type="button"
                         >
                           <svg class="icon icon-minus-circle">
-                            <use xlink:href=" {% static '#icon-minus-circle' %} "></use>
+                            <use xlink:href="#icon-minus-circle"></use>
                           </svg>
                         </button>
                         <div class="counter__value js-counter-value"></div>
@@ -387,7 +381,7 @@
                           type="button"
                         >
                           <svg class="icon icon-plus-circle">
-                            <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                            <use xlink:href="#icon-plus-circle"></use>
                           </svg>
                         </button>
                         <input
@@ -407,7 +401,7 @@
                           type="button"
                         >
                           <svg class="icon icon-minus-circle">
-                            <use xlink:href=" {% static '#icon-minus-circle' %} "></use>
+                            <use xlink:href="#icon-minus-circle"></use>
                           </svg>
                         </button>
                         <div class="counter__value js-counter-value"></div>
@@ -416,7 +410,7 @@
                           type="button"
                         >
                           <svg class="icon icon-plus-circle">
-                            <use xlink:href=" {% static '#icon-plus-circle' %} "></use>
+                            <use xlink:href="#icon-plus-circle"></use>
                           </svg>
                         </button>
                         <input
@@ -434,7 +428,7 @@
                     <div class="location__head js-location-head">
                       <div class="location__icon">
                         <svg class="icon icon-marker">
-                          <use xlink:href=" {% static '#icon-marker' %} "></use>
+                          <use xlink:href="#icon-marker"></use>
                         </svg>
                       </div>
                       <input
@@ -447,7 +441,7 @@
                       <div class="location__description">Leaving from</div>
                       <button class="location__clear js-location-clear">
                         <svg class="icon icon-close-circle">
-                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                          <use xlink:href="#icon-close-circle"></use>
                         </svg>
                       </button>
                     </div>
@@ -471,7 +465,7 @@
                     <div class="location__head js-location-head">
                       <div class="location__icon">
                         <svg class="icon icon-location">
-                          <use xlink:href=" {% static '#icon-location' %} "></use>
+                          <use xlink:href="#icon-location"></use>
                         </svg>
                       </div>
                       <input
@@ -484,7 +478,7 @@
                       <div class="location__description">Going to</div>
                       <button class="location__clear js-location-clear">
                         <svg class="icon icon-close-circle">
-                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                          <use xlink:href="#icon-close-circle"></use>
                         </svg>
                       </button>
                     </div>
@@ -517,7 +511,7 @@
                       />
                       <div class="datepicker__icon">
                         <svg class="icon icon-calendar">
-                          <use xlink:href=" {% static '#icon-calendar' %} "></use>
+                          <use xlink:href="#icon-calendar"></use>
                         </svg>
                       </div>
                       <div class="datepicker__description">Add date</div>
@@ -528,7 +522,7 @@
                     href=" {% static 'flights-category-multi.html' %} "
                   >
                     <svg class="icon icon-search">
-                      <use xlink:href=" {% static '#icon-search' %} "></use></svg
+                      <use xlink:href="#icon-search"></use></svg
                     ><span>Search</span></a
                   >
                 </div>
@@ -537,7 +531,7 @@
                     <div class="location__head js-location-head">
                       <div class="location__icon">
                         <svg class="icon icon-marker">
-                          <use xlink:href=" {% static '#icon-marker' %} "></use>
+                          <use xlink:href="#icon-marker"></use>
                         </svg>
                       </div>
                       <input
@@ -550,7 +544,7 @@
                       <div class="location__description">Leaving from</div>
                       <button class="location__clear js-location-clear">
                         <svg class="icon icon-close-circle">
-                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                          <use xlink:href="#icon-close-circle"></use>
                         </svg>
                       </button>
                     </div>
@@ -574,7 +568,7 @@
                     <div class="location__head js-location-head">
                       <div class="location__icon">
                         <svg class="icon icon-location">
-                          <use xlink:href=" {% static '#icon-location' %} "></use>
+                          <use xlink:href="#icon-location"></use>
                         </svg>
                       </div>
                       <input
@@ -587,7 +581,7 @@
                       <div class="location__description">Going to</div>
                       <button class="location__clear js-location-clear">
                         <svg class="icon icon-close-circle">
-                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                          <use xlink:href="#icon-close-circle"></use>
                         </svg>
                       </button>
                     </div>
@@ -620,7 +614,7 @@
                       />
                       <div class="datepicker__icon">
                         <svg class="icon icon-calendar">
-                          <use xlink:href=" {% static '#icon-calendar' %} "></use>
+                          <use xlink:href="#icon-calendar"></use>
                         </svg>
                       </div>
                       <div class="datepicker__description">Add date</div>
@@ -659,7 +653,7 @@
                     <div class="location__head js-location-head">
                       <div class="location__icon">
                         <svg class="icon icon-marker">
-                          <use xlink:href=" {% static '#icon-marker' %} "></use>
+                          <use xlink:href="#icon-marker"></use>
                         </svg>
                       </div>
                       <input
@@ -672,7 +666,7 @@
                       <div class="location__description">Leaving from</div>
                       <button class="location__clear js-location-clear">
                         <svg class="icon icon-close-circle">
-                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                          <use xlink:href="#icon-close-circle"></use>
                         </svg>
                       </button>
                     </div>
@@ -696,7 +690,7 @@
                     <div class="location__head js-location-head">
                       <div class="location__icon">
                         <svg class="icon icon-location">
-                          <use xlink:href=" {% static '#icon-location' %} "></use>
+                          <use xlink:href="#icon-location"></use>
                         </svg>
                       </div>
                       <input
@@ -709,7 +703,7 @@
                       <div class="location__description">Going to</div>
                       <button class="location__clear js-location-clear">
                         <svg class="icon icon-close-circle">
-                          <use xlink:href=" {% static '#icon-close-circle' %} "></use>
+                          <use xlink:href="#icon-close-circle"></use>
                         </svg>
                       </button>
                     </div>
@@ -742,7 +736,7 @@
                       />
                       <div class="datepicker__icon">
                         <svg class="icon icon-calendar">
-                          <use xlink:href=" {% static '#icon-calendar' %} "></use>
+                          <use xlink:href="#icon-calendar"></use>
                         </svg>
                       </div>
                       <div class="datepicker__description">Add date</div>
@@ -830,7 +824,7 @@
                       COVID-19 test required Vaccinated travelers can visit
                       <button class="subscription__btn">
                         <svg class="icon icon-arrow-next">
-                          <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
+                          <use xlink:href="#icon-arrow-next"></use>
                         </svg>
                       </button>
                     </div>
@@ -854,7 +848,7 @@
                       COVID-19 test required Vaccinated travelers can visit
                       <button class="subscription__btn">
                         <svg class="icon icon-arrow-next">
-                          <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
+                          <use xlink:href="#icon-arrow-next"></use>
                         </svg>
                       </button>
                     </div>
@@ -878,7 +872,7 @@
                       COVID-19 test required Vaccinated travelers can visit
                       <button class="subscription__btn">
                         <svg class="icon icon-arrow-next">
-                          <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
+                          <use xlink:href="#icon-arrow-next"></use>
                         </svg>
                       </button>
                     </div>
@@ -902,7 +896,7 @@
                       COVID-19 test required Vaccinated travelers can visit
                       <button class="subscription__btn">
                         <svg class="icon icon-arrow-next">
-                          <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
+                          <use xlink:href="#icon-arrow-next"></use>
                         </svg>
                       </button>
                     </div>
@@ -926,7 +920,7 @@
                       COVID-19 test required Vaccinated travelers can visit
                       <button class="subscription__btn">
                         <svg class="icon icon-arrow-next">
-                          <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
+                          <use xlink:href="#icon-arrow-next"></use>
                         </svg>
                       </button>
                     </div>
@@ -950,7 +944,7 @@
                       COVID-19 test required Vaccinated travelers can visit
                       <button class="subscription__btn">
                         <svg class="icon icon-arrow-next">
-                          <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
+                          <use xlink:href="#icon-arrow-next"></use>
                         </svg>
                       </button>
                     </div>
@@ -1044,19 +1038,19 @@
                 <div class="nav">
                   <a class="nav__link active" href="#">
                     <svg class="icon icon-coin">
-                      <use xlink:href=" {% static '#icon-coin' %} "></use></svg
+                      <use xlink:href="#icon-coin"></use></svg
                     >Featured</a
                   ><a class="nav__link" href="#">
                     <svg class="icon icon-coin">
-                      <use xlink:href=" {% static '#icon-coin' %} "></use></svg
+                      <use xlink:href="#icon-coin"></use></svg
                     >Family-friendly</a
                   ><a class="nav__link" href="#">
                     <svg class="icon icon-coin">
-                      <use xlink:href=" {% static '#icon-coin' %} "></use></svg
+                      <use xlink:href="#icon-coin"></use></svg
                     >On sale</a
                   ><a class="nav__link" href="#">
                     <svg class="icon icon-coin">
-                      <use xlink:href=" {% static '#icon-coin' %} "></use></svg
+                      <use xlink:href="#icon-coin"></use></svg
                     >Sub nav</a
                   >
                 </div>
@@ -1099,7 +1093,7 @@
                       <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
                       <div class="travels__rating">
                         <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
+                          <use xlink:href="#icon-star"></use></svg
                         >4.9
                       </div>
                     </div>
@@ -1127,7 +1121,7 @@
                       <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
                       <div class="travels__rating">
                         <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
+                          <use xlink:href="#icon-star"></use></svg
                         >4.9
                       </div>
                     </div>
@@ -1155,7 +1149,7 @@
                       <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
                       <div class="travels__rating">
                         <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
+                          <use xlink:href="#icon-star"></use></svg
                         >4.9
                       </div>
                     </div>
@@ -1183,7 +1177,7 @@
                       <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
                       <div class="travels__rating">
                         <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
+                          <use xlink:href="#icon-star"></use></svg
                         >4.9
                       </div>
                     </div>
@@ -1211,7 +1205,7 @@
                       <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
                       <div class="travels__rating">
                         <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
+                          <use xlink:href="#icon-star"></use></svg
                         >4.9
                       </div>
                     </div>
@@ -1239,7 +1233,7 @@
                       <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
                       <div class="travels__rating">
                         <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
+                          <use xlink:href="#icon-star"></use></svg
                         >4.9
                       </div>
                     </div>
@@ -1267,7 +1261,7 @@
                       <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
                       <div class="travels__rating">
                         <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
+                          <use xlink:href="#icon-star"></use></svg
                         >4.9
                       </div>
                     </div>
@@ -1295,7 +1289,7 @@
                       <div class="travels__date">Tue, Jul 20 - Fri, Jul 23</div>
                       <div class="travels__rating">
                         <svg class="icon icon-star">
-                          <use xlink:href=" {% static '#icon-star' %} "></use></svg
+                          <use xlink:href="#icon-star"></use></svg
                         >4.9
                       </div>
                     </div>
@@ -1552,12 +1546,12 @@
           <div class="login__btns">
             <button class="button login__button">
               <svg class="icon icon-google">
-                <use xlink:href=" {% static '#icon-google' %} "></use></svg
+                <use xlink:href="#icon-google"></use></svg
               ><span>Google</span>
             </button>
             <button class="button-black login__button">
               <svg class="icon icon-apple">
-                <use xlink:href=" {% static '#icon-apple' %} "></use></svg
+                <use xlink:href="#icon-apple"></use></svg
               ><span>Apple</span>
             </button>
           </div>
@@ -1572,7 +1566,7 @@
             />
             <button class="subscription__btn">
               <svg class="icon icon-arrow-next">
-                <use xlink:href=" {% static '#icon-arrow-next' %} "></use>
+                <use xlink:href="#icon-arrow-next"></use>
               </svg>
             </button>
           </div>
@@ -1594,7 +1588,7 @@
                 />
                 <button class="field__view">
                   <svg class="icon icon-eye">
-                    <use xlink:href=" {% static '#icon-eye' %} "></use>
+                    <use xlink:href="#icon-eye"></use>
                   </svg>
                 </button>
               </div>

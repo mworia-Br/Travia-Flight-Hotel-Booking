@@ -31,5 +31,6 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('singleauth/', include('allauth.urls')),
     path('payment/', include('payments.urls')),
+    path('quicklinks/', include('others.urls')),
     path('logout', LogoutView.as_view()),
 ]
