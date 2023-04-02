@@ -24,3 +24,15 @@ def contact(req):
 
 def guide(req):
     return render(req, 'guide.html')
+
+def guide_cancel(req):
+    return render(req, 'guide-cancel.html')
+
+def guide_bag(req):
+    return render(req, 'guide-bag.html')
+
+def guide_date(req):
+    return render(req, 'guide-date.html')
+
+def guide_flight(req):
+    return render(req, 'guide-flight.html')

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'frontend',
     'accounts',
     'payments',
+    'others',
     #...
     'allauth',
     'allauth.account',
