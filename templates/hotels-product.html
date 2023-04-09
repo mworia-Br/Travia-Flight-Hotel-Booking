@@ -274,7 +274,7 @@
                 </li>
                 <li class="breadcrumbs__item">
                   <a class="breadcrumbs__link" href=" {% url 'hotels' %} "
-                    >New Zealand</a
+                    >{{cityCode}}</a
                   >
                 </li>
                 <li class="breadcrumbs__item">{{name}}</li>
@@ -423,193 +423,193 @@
           </div>
         </div>
         {% for r in response %}
-        <div class="section description">
-          <div class="description__center center">
-            <div class="description__wrapper">
-              <h4 class="description__title h4">Private room in house</h4>
-              <div class="description__profile">
-                <span>Hosted by</span>
-                <div class="description__avatar">
-                  <img src=" {% static 'img/content/avatar.jpg' %} " alt="Avatar" />
-                </div>
-                <div class="description__name">Zoe Towne</div>
-              </div>
-              <div class="description__parameters">
-                <div class="description__parameter">
-                  <svg class="icon icon-home">
-                    <use xlink:href="#icon-home"></use></svg
-                  >2 guests
-                </div>
-                <div class="description__parameter">
-                  <svg class="icon icon-flag">
-                    <use xlink:href="#icon-flag"></use></svg
-                  >1 bedroom
-                </div>
-                <div class="description__parameter">
-                  <svg class="icon icon-flag">
-                    <use xlink:href="#icon-flag"></use></svg
-                  >1 private bath
-                </div>
-              </div>
-              <div class="description__content">
-                {{ r.description }}
-              </div>
-              <div class="description__info">Amenities</div>
-              <div class="description__options">
-                <div class="description__option">
-                  <svg class="icon icon-modem">
-                    <use xlink:href="#icon-modem"></use></svg
-                  >Free wifi 24/7
-                </div>
-                <div class="description__option">
-                  <svg class="icon icon-toilet-paper">
-                    <use xlink:href="#icon-toilet-paper"></use></svg
-                  >Free clean bathroom
-                </div>
-                <div class="description__option">
-                  <svg class="icon icon-monitor">
-                    <use xlink:href="#icon-monitor"></use></svg
-                  >Free computer
-                </div>
-                <div class="description__option">
-                  <svg class="icon icon-burger">
-                    <use xlink:href="#icon-burger"></use></svg
-                  >Breakfast included
-                </div>
-                <div class="description__option">
-                  <svg class="icon icon-medical-case">
-                    <use xlink:href="#icon-medical-case"></use></svg
-                  >Free wifi 24/7
-                </div>
-                <div class="description__option">
-                  <svg class="icon icon-credit-card">
-                    <use xlink:href="#icon-credit-card"></use></svg
-                  >ATM
-                </div>
-                <div class="description__option">
-                  <svg class="icon icon-modem">
-                    <use xlink:href="#icon-modem"></use></svg
-                  >Free wifi 24/7
-                </div>
-                <div class="description__option">
-                  <svg class="icon icon-building">
-                    <use xlink:href="#icon-building"></use></svg
-                  >Nearby city
-                </div>
-              </div>
-              <div class="description__full">
-                <div class="description__content description__content_hide">
-                    {{ r.description }}
-                </div>
-                <button class="button-stroke button-small description__button">
-                  More detail
-                </button>
-              </div>
-            </div>
-            <div class="receipt">
-              <div class="receipt__head">
-                <div class="receipt__details">
-                  <div class="receipt__cost">
-                    <div class="receipt__old"></div>
-                    <div class="receipt__actual">${{ r.price }}</div>
-                    <div class="receipt__note">/room</div>
+          <div class="section description">
+            <div class="description__center center">
+              <div class="description__wrapper">
+                <h4 class="description__title h4">{{ r.category }}</h4>
+                <div class="description__profile">
+                  <span>Hosted by</span>
+                  <div class="description__avatar">
+                    <img src=" {% static 'img/content/avatar.jpg' %} " alt="Avatar" />
                   </div>
-                  <div class="receipt__rating">
-                    <svg class="icon icon-star">
-                      <use xlink:href="#icon-star"></use>
-                    </svg>
-                    <div class="receipt__number">4.8</div>
-                    <div class="receipt__reviews">(256 reviews)</div>
+                  <div class="description__name"></div>
+                </div>
+                <div class="description__parameters">
+                  <div class="description__parameter">
+                    <svg class="icon icon-home">
+                      <use xlink:href="#icon-home"></use></svg
+                    >{{ r.boardType }}
+                  </div>
+                  <div class="description__parameter">
+                    <svg class="icon icon-flag">
+                      <use xlink:href="#icon-flag"></use></svg
+                    >{{ r.beds }} BED
+                  </div>
+                  <div class="description__parameter">
+                    <svg class="icon icon-flag">
+                      <use xlink:href="#icon-flag"></use></svg
+                    >{{ r.bedType }} BED
                   </div>
                 </div>
-                <div class="receipt__avatar">
-                  <img src=" {% static 'img/content/avatar.jpg' %} " alt="Avatar" />
-                  <div class="receipt__check">
-                    <svg class="icon icon-check">
-                      <use xlink:href="#icon-check"></use>
-                    </svg>
+                <div class="description__content">
+                  {{ r.description }}
+                </div>
+                <div class="description__info">Amenities</div>
+                <div class="description__options">
+                  <div class="description__option">
+                    <svg class="icon icon-modem">
+                      <use xlink:href="#icon-modem"></use></svg
+                    >Free wifi 24/7
                   </div>
+                  <div class="description__option">
+                    <svg class="icon icon-toilet-paper">
+                      <use xlink:href="#icon-toilet-paper"></use></svg
+                    >Free clean bathroom
+                  </div>
+                  <div class="description__option">
+                    <svg class="icon icon-monitor">
+                      <use xlink:href="#icon-monitor"></use></svg
+                    >Free computer
+                  </div>
+                  <div class="description__option">
+                    <svg class="icon icon-burger">
+                      <use xlink:href="#icon-burger"></use></svg
+                    >Breakfast included
+                  </div>
+                  <div class="description__option">
+                    <svg class="icon icon-medical-case">
+                      <use xlink:href="#icon-medical-case"></use></svg
+                    >Free wifi 24/7
+                  </div>
+                  <div class="description__option">
+                    <svg class="icon icon-credit-card">
+                      <use xlink:href="#icon-credit-card"></use></svg
+                    >ATM
+                  </div>
+                  <div class="description__option">
+                    <svg class="icon icon-modem">
+                      <use xlink:href="#icon-modem"></use></svg
+                    >Free wifi 24/7
+                  </div>
+                  <div class="description__option">
+                    <svg class="icon icon-building">
+                      <use xlink:href="#icon-building"></use></svg
+                    >Nearby city
+                  </div>
+                </div>
+                <div class="description__full">
+                  <div class="description__content description__content_hide">
+                      {{ r.description }}
+                  </div>
+                  <button class="button-stroke button-small description__button">
+                    More detail
+                  </button>
                 </div>
               </div>
-              <div class="receipt__description receipt__description_flex">
-                <div class="receipt__item">
-                  <div class="receipt__icon">
-                    <svg class="icon icon-calendar">
-                      <use xlink:href="#icon-calendar"></use>
-                    </svg>
+              <div class="receipt">
+                <div class="receipt__head">
+                  <div class="receipt__details">
+                    <div class="receipt__cost">
+                      <div class="receipt__old"></div>
+                      <div class="receipt__actual">${{ r.price }}</div>
+                      <div class="receipt__note">/room</div>
+                    </div>
+                    <div class="receipt__rating">
+                      <svg class="icon icon-star">
+                        <use xlink:href="#icon-star"></use>
+                      </svg>
+                      <div class="receipt__number">4.8</div>
+                      <div class="receipt__reviews">(256 reviews)</div>
+                    </div>
                   </div>
-                  <div class="receipt__box">
-                    <div class="receipt__category">Check-in</div>
-                    <div class="receipt__subtitle">May 15, 2021</div>
-                  </div>
-                </div>
-                <div class="receipt__item">
-                  <div class="receipt__icon">
-                    <svg class="icon icon-calendar">
-                      <use xlink:href="#icon-calendar"></use>
-                    </svg>
-                  </div>
-                  <div class="receipt__box">
-                    <div class="receipt__category">Check-out</div>
-                    <div class="receipt__subtitle">May 22, 2021</div>
-                  </div>
-                </div>
-                <div class="receipt__item">
-                  <div class="receipt__icon">
-                    <svg class="icon icon-user">
-                      <use xlink:href="#icon-user"></use>
-                    </svg>
-                  </div>
-                  <div class="receipt__box">
-                    <div class="receipt__category">Guest</div>
-                    <div class="receipt__subtitle">2 guests</div>
+                  <div class="receipt__avatar">
+                    <img src=" {% static 'img/content/avatar.jpg' %} " alt="Avatar" />
+                    <div class="receipt__check">
+                      <svg class="icon icon-check">
+                        <use xlink:href="#icon-check"></use>
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="receipt__btns">
-                <button class="button-stroke receipt__button">
-                  <span>Save</span
-                  ><span>
-                    <svg class="icon icon-plus">
-                      <use xlink:href="#icon-plus"></use>
-                    </svg>
-                    <svg class="icon icon-check">
-                      <use xlink:href="#icon-check"></use></svg
-                  ></span></button
-                ><a class="button receipt__button" href="{% url 'book_hotel' r.offerID%}"
-                  ><span>Reserve</span>
-                  <svg class="icon icon-bag">
-                    <use xlink:href="#icon-bag"></use></svg
-                ></a>
-              </div>
-              <div class="receipt__table">
-                <div class="receipt__line">
-                  <div class="receipt__cell">${{ r.price }} x 1 rooms</div>
-                  <div class="receipt__cell">$833</div>
+                <div class="receipt__description receipt__description_flex">
+                  <div class="receipt__item">
+                    <div class="receipt__icon">
+                      <svg class="icon icon-calendar">
+                        <use xlink:href="#icon-calendar"></use>
+                      </svg>
+                    </div>
+                    <div class="receipt__box">
+                      <div class="receipt__category">Check-in</div>
+                      <div class="receipt__subtitle">{{ r.stayFrom }}</div>
+                    </div>
+                  </div>
+                  <div class="receipt__item">
+                    <div class="receipt__icon">
+                      <svg class="icon icon-calendar">
+                        <use xlink:href="#icon-calendar"></use>
+                      </svg>
+                    </div>
+                    <div class="receipt__box">
+                      <div class="receipt__category">Check-out</div>
+                      <div class="receipt__subtitle">{{ r.stayTo }}</div>
+                    </div>
+                  </div>
+                  <div class="receipt__item">
+                    <div class="receipt__icon">
+                      <svg class="icon icon-user">
+                        <use xlink:href="#icon-user"></use>
+                      </svg>
+                    </div>
+                    <div class="receipt__box">
+                      <div class="receipt__category">Guest</div>
+                      <div class="receipt__subtitle">2 guests</div>
+                    </div>
+                  </div>
                 </div>
-                <div class="receipt__line">
-                  <div class="receipt__cell">10% campaign discount</div>
-                  <div class="receipt__cell">-$0</div>
+                <div class="receipt__btns">
+                  <button class="button-stroke receipt__button">
+                    <span>Save</span
+                    ><span>
+                      <svg class="icon icon-plus">
+                        <use xlink:href="#icon-plus"></use>
+                      </svg>
+                      <svg class="icon icon-check">
+                        <use xlink:href="#icon-check"></use></svg
+                    ></span></button
+                  ><a class="button receipt__button" href="{% url 'book_hotel' r.offerID%}"
+                    ><span>Reserve</span>
+                    <svg class="icon icon-bag">
+                      <use xlink:href="#icon-bag"></use></svg
+                  ></a>
                 </div>
-                <div class="receipt__line">
-                  <div class="receipt__cell">Service fee</div>
-                  <div class="receipt__cell">$0</div>
+                <div class="receipt__table">
+                  <div class="receipt__line">
+                    <div class="receipt__cell">${{ r.price }} x 1 rooms</div>
+                    <div class="receipt__cell">${{ r.price }}</div>
+                  </div>
+                  <div class="receipt__line">
+                    <div class="receipt__cell">10% campaign discount</div>
+                    <div class="receipt__cell">-$0</div>
+                  </div>
+                  <div class="receipt__line">
+                    <div class="receipt__cell">Service fee</div>
+                    <div class="receipt__cell">$0</div>
+                  </div>
+                  <div class="receipt__line">
+                    <div class="receipt__cell">Total</div>
+                    <div class="receipt__cell">${{ r.price }}</div>
+                  </div>
                 </div>
-                <div class="receipt__line">
-                  <div class="receipt__cell">Total</div>
-                  <div class="receipt__cell">${{ r.price }}</div>
+                <div class="receipt__foot">
+                  <button class="receipt__report">
+                    <svg class="icon icon-flag">
+                      <use xlink:href="#icon-flag"></use></svg
+                    >Report this property
+                  </button>
                 </div>
-              </div>
-              <div class="receipt__foot">
-                <button class="receipt__report">
-                  <svg class="icon icon-flag">
-                    <use xlink:href="#icon-flag"></use></svg
-                  >Report this property
-                </button>
               </div>
             </div>
           </div>
-        </div>
         {% endfor %}
         <div class="section comments">
           <div class="comments__center center">

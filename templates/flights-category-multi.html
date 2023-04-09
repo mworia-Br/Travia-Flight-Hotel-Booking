@@ -94,45 +94,45 @@
     </script>
     <script>
       let checkoutHost = window.location.host;
-      function handleFlightdata(){
+    
+      function handleFlightdata() {
         const flightInput = document.querySelector('input[name="flight"]');
         const flightData = flightInput.value;
-
+    
         const userIdInput = document.querySelector('input[name="user_id"]');
         const userId = userIdInput.value;
-
-        // Send flight data and user ID to checkout view via AJAX
+    
+        // Send flight data and user ID to checkout view via AJAX synchronously
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', `https://${checkoutHost}/api/v2/flight/pre_checkout/`);
+        xhr.open('POST', `https://${checkoutHost}/api/v2/flight/pre_checkout/`, false); // Set async to false
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        // Monitor for changes in the state of the XMLHttpRequest object
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            // The response has been received successfully, proceed with the next steps
-            const response = JSON.parse(xhr.responseText);
-
-            // Create the query string for other variables
-            const inputs = document.querySelectorAll('input[type="hidden"]');
-            let variables = {};
-            inputs.forEach(input => {
-              if (input.name !== "flight" && input.name !== "user_id") {
-                variables[input.name] = input.value;
-              }
-            });
-            const queryString = Object.keys(variables).map(key => `${key}=${encodeURIComponent(variables[key])}`).join('&');
-
-            // Append the query string to the URL
-            const confirmurl = `https://${checkoutHost}/api/v2/flight/checkoutHandle/?${queryString}`;
-            window.location.href = confirmurl;
-          }
-        };
-
+    
+        // Send the request and wait for the response to complete
         xhr.send(`flight=${encodeURIComponent(flightData)}&user_id=${encodeURIComponent(userId)}`);
+        while (xhr.readyState !== 4) {}
+    
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          // Proceed with next steps
+    
+          // Create the query string for other variables
+          const inputs = document.querySelectorAll('input[type="hidden"]');
+          let variables = {};
+          inputs.forEach(input => {
+            if (input.name !== "flight" && input.name !== "user_id") {
+              variables[input.name] = input.value;
+            }
+          });
+          const queryString = Object.keys(variables).map(key => `${key}=${encodeURIComponent(variables[key])}`).join('&');
+    
+          // Append the query string to the URL
+          const confirmurl = `https://${checkoutHost}/api/v2/flight/checkoutHandle/?${queryString}`;
+          window.location.href = confirmurl;
+        } else {
+          // Handle errors appropriately
+        }
       }
-
-
-    </script>
+    </script>    
   </head>
   <body>
     <!-- outer-->

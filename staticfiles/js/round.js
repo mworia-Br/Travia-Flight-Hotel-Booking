@@ -62,6 +62,8 @@ function handleFromLocation() {
               locationItem.onclick = () => {
                 fromInput.value = location.name;
                 originCode = location.iataCode;
+                shortOrigin = location.address.cityName;
+                longOrigin = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                 fromLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);
@@ -122,6 +124,8 @@ function handleToLocation() {
               locationItem.onclick = () => {
                 toInput.value = location.name;
                 destinationCode = location.iataCode;
+                shortDestination = location.address.cityName;
+                longDestination = `${location.name} ${location.subType}, ${location.address.cityName} ${location.address.countryName}`;
                 toLocationData.style.display = "none";
               };
               locationList.appendChild(locationItem);

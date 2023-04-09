@@ -47,13 +47,13 @@ class Traveler(models.Model):
 
 class HotelSearch(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    destination = models.CharField(max_length=3)
-    check_in = models.DateField()
-    check_out = models.DateField()
-    adults = models.IntegerField()
-    children = models.IntegerField()
-    currency = models.CharField(max_length=3)
-    max_price = models.IntegerField()
+    destination = models.CharField(max_length=50)
+    check_in = models.DateField(null=True)
+    check_out = models.DateField(null=True)
+    adults = models.IntegerField(default=1)
+    children = models.IntegerField(default=0)
+    currency = models.CharField(max_length=3, default='USD')
+    max_price = models.IntegerField(default=0)
     made_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

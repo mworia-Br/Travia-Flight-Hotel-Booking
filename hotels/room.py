@@ -10,6 +10,12 @@ class Room:
                 offer['price'] = room['price']['total']
                 offer['description'] = room['room']['description']['text']
                 offer['offerID'] = room['id']
+                offer['category'] = room['room']['typeEstimated']['category']
+                offer['beds'] = room['room']['typeEstimated']['beds']
+                offer['bedType'] = room['room']['typeEstimated']['bedType']
+                offer['stayFrom'] = room['checkInDate']
+                offer['stayTo'] = room['checkOutDate']
+                offer['boardType'] = room['boardType']
                 hotel_rooms.append(offer)
         except (TypeError, AttributeError, KeyError):
             pass

@@ -320,7 +320,7 @@ def checkoutHandle(req):
     }
     # Get the latest flight from the database
     user_id = req.user
-    latest_flight = FlightTmp.objects.filter(user_id=user_id).latest('added')
+    latest_flight = FlightTmp.objects.filter(user_id=user_id).latest('id')
     print("---------------------------------")
     flight_info = latest_flight.flight_data
     # save cart item with flight data

@@ -84,7 +84,8 @@ def rooms_per_hotel(req, hotel, departureDate, returnDate, adults, children, roo
                                                            roomQuantity=roomsqty).data
         hotel_rooms = Room(rooms).construct_room()
         return render(req, 'hotels-product.html', {'response': hotel_rooms,
-                                                             'name': rooms[0]['hotel']['name'],
+                                                    'name': rooms[0]['hotel']['name'],
+                                                    'cityCode': rooms[0]['hotel']['cityCode'],
                                                              })
     except (TypeError, AttributeError, ResponseError, KeyError) as error:
         messages.add_message(req, messages.ERROR, error)
