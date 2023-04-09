@@ -1018,14 +1018,6 @@
                   <div class="flight">
                     <div class="flight__wrap"> 
                       {% if r.0firstFlightDepartureDate %}
-                          <input type="hidden" name="0firstFlightDepartureDate" value="{{ r.0firstFlightDepartureDate }}">
-                          <input type="hidden" name="0firstFlightAirlineLogo" value="{{ r.0firstFlightAirlineLogo }}">
-                          <input type="hidden" name="0firstFlightAirline" value="{{ r.0firstFlightAirline }}">
-                          <input type="hidden" name="0firstFlightDepartureAirport" value="{{ r.0firstFlightDepartureAirport }}">
-                          <input type="hidden" name="0firstFlightArrivalAirport" value="{{ r.0firstFlightArrivalAirport }}">
-                          <input type="hidden" name="0firstFlightArrivalDate" value="{{ r.0firstFlightArrivalDate }}">
-                          <input type="hidden" name="0firstFlightArrivalDuration" value="{{ r.0firstFlightArrivalDuration }}">
-                          <input type="hidden" name="0stop_time" value="{{ r.0stop_time }}">
                           <div class="flight__item">
                             <div class="flight__logo">
                               <img src="{{ r.0firstFlightAirlineLogo }}" alt="{{ r.0firstFlightAirline }}" />
@@ -1041,16 +1033,17 @@
                                 <div class="flight__time">{{ r.0firstFlightArrivalDate }}</div>
                               </div>
                             </div>
+                            <input type="hidden" name="0firstFlightDepartureDate" value="{{ r.0firstFlightDepartureDate }}">
+                            <input type="hidden" name="0firstFlightAirlineLogo" value="{{ r.0firstFlightAirlineLogo }}">
+                            <input type="hidden" name="0firstFlightAirline" value="{{ r.0firstFlightAirline }}">
+                            <input type="hidden" name="0firstFlightDepartureAirport" value="{{ r.0firstFlightDepartureAirport }}">
+                            <input type="hidden" name="0firstFlightArrivalAirport" value="{{ r.0firstFlightArrivalAirport }}">
+                            <input type="hidden" name="0firstFlightArrivalDate" value="{{ r.0firstFlightArrivalDate }}">
+                            <input type="hidden" name="0firstFlightArrivalDuration" value="{{ r.0firstFlightArrivalDuration }}">
+                            <input type="hidden" name="0stop_time" value="{{ r.0stop_time }}">
                           </div>
                       {% endif %}
                       {% if r.0secondFlightDepartureAirport %}
-                        <input type="hidden" name="0secondFlightDepartureDate" value="{{ r.0secondFlightDepartureDate }}">
-                        <input type="hidden" name="0secondFlightAirlineLogo" value="{{ r.0secondFlightAirlineLogo }}">
-                        <input type="hidden" name="0secondFlightAirline" value="{{ r.0secondFlightAirline }}">
-                        <input type="hidden" name="0secondFlightDepartureAirport" value="{{ r.0secondFlightDepartureAirport }}">
-                        <input type="hidden" name="0secondFlightArrivalAirport" value="{{ r.0secondFlightArrivalAirport }}">
-                        <input type="hidden" name="0secondFlightArrivalDuration" value="{{ r.0secondFlightArrivalDuration }}">
-                        <input type="hidden" name="0secondFlightArrivalDate" value="{{ r.0secondFlightArrivalDate }}">
                         <div class="flight__item">
                           <div class="flight__logo">
                             <img src="{{ r.0secondFlightAirlineLogo }}" alt="{{ r.0secondFlightAirline }}" />
@@ -1066,17 +1059,16 @@
                               <div class="flight__time">{{ r.0secondFlightArrivalDate }}</div>
                             </div>
                           </div>
+                          <input type="hidden" name="0secondFlightDepartureDate" value="{{ r.0secondFlightDepartureDate }}">
+                          <input type="hidden" name="0secondFlightAirlineLogo" value="{{ r.0secondFlightAirlineLogo }}">
+                          <input type="hidden" name="0secondFlightAirline" value="{{ r.0secondFlightAirline }}">
+                          <input type="hidden" name="0secondFlightDepartureAirport" value="{{ r.0secondFlightDepartureAirport }}">
+                          <input type="hidden" name="0secondFlightArrivalAirport" value="{{ r.0secondFlightArrivalAirport }}">
+                          <input type="hidden" name="0secondFlightArrivalDuration" value="{{ r.0secondFlightArrivalDuration }}">
+                          <input type="hidden" name="0secondFlightArrivalDate" value="{{ r.0secondFlightArrivalDate }}">
                         </div>
                       {% endif %}
                       {% if r.1firstFlightDepartureAirport %}
-                        <input type="hidden" name="1firstFlightDepartureDate" value="{{ r.1firstFlightDepartureDate }}">
-                        <input type="hidden" name="1firstFlightAirlineLogo" value="{{ r.1firstFlightAirlineLogo }}">
-                        <input type="hidden" name="1firstFlightAirline" value="{{ r.1firstFlightAirline }}">
-                        <input type="hidden" name="1firstFlightDepartureAirport" value="{{ r.1firstFlightDepartureAirport }}">
-                        <input type="hidden" name="1firstFlightArrivalAirport" value="{{ r.1firstFlightArrivalAirport }}">
-                        <input type="hidden" name="1firstFlightArrivalDuration" value="{{ r.1firstFlightArrivalDuration }}">
-                        <input type="hidden" name="1firstFlightArrivalDate" value="{{ r.1firstFlightArrivalDate }}">
-                        <input type="hidden" name="1stop_time" value="{{ r.1stop_time }}">
                         <div class="flight__item">
                           <div class="flight__logo">
                             <img src="{{ r.1firstFlightAirlineLogo }}" alt="{{ r.1firstFlightAirline }}" />
@@ -1092,16 +1084,17 @@
                               <div class="flight__time">{{ r.1firstFlightArrivalDate }}</div>
                             </div>
                           </div>
+                          <input type="hidden" name="1firstFlightDepartureDate" value="{{ r.1firstFlightDepartureDate }}">
+                          <input type="hidden" name="1firstFlightAirlineLogo" value="{{ r.1firstFlightAirlineLogo }}">
+                          <input type="hidden" name="1firstFlightAirline" value="{{ r.1firstFlightAirline }}">
+                          <input type="hidden" name="1firstFlightDepartureAirport" value="{{ r.1firstFlightDepartureAirport }}">
+                          <input type="hidden" name="1firstFlightArrivalAirport" value="{{ r.1firstFlightArrivalAirport }}">
+                          <input type="hidden" name="1firstFlightArrivalDuration" value="{{ r.1firstFlightArrivalDuration }}">
+                          <input type="hidden" name="1firstFlightArrivalDate" value="{{ r.1firstFlightArrivalDate }}">
+                          <input type="hidden" name="1stop_time" value="{{ r.1stop_time }}">
                         </div>
                       {% endif %}
                       {% if r.1secondFlightDepartureAirport %}
-                        <input type="hidden" name="1secondFlightDepartureDate" value="{{ r.1secondFlightDepartureDate }}">
-                        <input type="hidden" name="1secondFlightAirlineLogo" value="{{ r.1secondFlightAirlineLogo }}">
-                        <input type="hidden" name="1secondFlightAirline" value="{{ r.1secondFlightAirline }}">
-                        <input type="hidden" name="1secondFlightDepartureAirport" value="{{ r.1secondFlightDepartureAirport }}">
-                        <input type="hidden" name="1secondFlightArrivalAirport" value="{{ r.1secondFlightArrivalAirport }}">
-                        <input type="hidden" name="1secondFlightArrivalDuration" value="{{ r.1secondFlightArrivalDuration }}">
-                        <input type="hidden" name="1secondFlightArrivalDate" value="{{ r.1secondFlightArrivalDate }}">
                         <div class="flight__item">
                           <div class="flight__logo">
                             <img src="{{ r.1secondFlightAirlineLogo }}" alt="{{ r.1secondFlightAirline }}" />
@@ -1119,29 +1112,36 @@
                               </div>
                             </div>
                           </div>
+                          <input type="hidden" name="1secondFlightDepartureDate" value="{{ r.1secondFlightDepartureDate }}">
+                          <input type="hidden" name="1secondFlightAirlineLogo" value="{{ r.1secondFlightAirlineLogo }}">
+                          <input type="hidden" name="1secondFlightAirline" value="{{ r.1secondFlightAirline }}">
+                          <input type="hidden" name="1secondFlightDepartureAirport" value="{{ r.1secondFlightDepartureAirport }}">
+                          <input type="hidden" name="1secondFlightArrivalAirport" value="{{ r.1secondFlightArrivalAirport }}">
+                          <input type="hidden" name="1secondFlightArrivalDuration" value="{{ r.1secondFlightArrivalDuration }}">
+                          <input type="hidden" name="1secondFlightArrivalDate" value="{{ r.1secondFlightArrivalDate }}">
                         </div>
                       {% endif %}
                     
                       <div class="flight__control">
                         <div class="flight__info">
-                          <input type="hidden" name="flight_total_duration" value="{{ r.0FlightTotalDuration }}">
-                          <input type="hidden" name="flight_price" value="{{ r.price }}">
-                          <input type="hidden" name="origin" value="{{ r.origin }}">
-                          <input type="hidden" name="destination" value="{{ r.destination }}">
-                          <input type="hidden" name="travellers" value="{{ r.travellers }}">
-                          <input type="hidden" name="flight" value="{{ flight }}">
-                          <input type="hidden" name="user_id" value="{{ r.owner }}">
-                          <input type="hidden" name="short_Origin" value="{{ r.short_Origin }}">
-                          <input type="hidden" name="short_Destination" value="{{ r.short_Destination }}">
-                          <input type="hidden" name="long_Origin" value="{{ r.long_Origin }}">
-                          <input type="hidden" name="long_Destination" value="{{ r.long_Destination }}">
-                          <input type="hidden" name="flightDate" value="{{ r.flightDate }}">
-                          <input type="hidden" name="lastTicketingDate" value="{{ r.lastTicketingDate }}">
-                          <input type="hidden" name="bookableSeats" value="{{ r.bookableSeats }}">
                           <svg class="icon icon-tick">
                             <use xlink:href="#icon-tick"></use></svg
                           >{{ r.0FlightTotalDuration }}
                         </div>
+                        <input type="hidden" name="flight_total_duration" value="{{ r.0FlightTotalDuration }}">
+                        <input type="hidden" name="flight_price" value="{{ r.price }}">
+                        <input type="hidden" name="origin" value="{{ r.origin }}">
+                        <input type="hidden" name="destination" value="{{ r.destination }}">
+                        <input type="hidden" name="travellers" value="{{ r.travellers }}">
+                        <input type="hidden" name="flight" value="{{ flight }}">
+                        <input type="hidden" name="user_id" value="{{ r.owner }}">
+                        <input type="hidden" name="short_Origin" value="{{ r.short_Origin }}">
+                        <input type="hidden" name="short_Destination" value="{{ r.short_Destination }}">
+                        <input type="hidden" name="long_Origin" value="{{ r.long_Origin }}">
+                        <input type="hidden" name="long_Destination" value="{{ r.long_Destination }}">
+                        <input type="hidden" name="flightDate" value="{{ r.flightDate }}">
+                        <input type="hidden" name="lastTicketingDate" value="{{ r.lastTicketingDate }}">
+                        <input type="hidden" name="bookableSeats" value="{{ r.bookableSeats }}">
                         <button class="button-stroke flight__button" onclick="handleFlightdata()">
                           <span class="flight__price">${{ r.price }}</span
                           ><span class="flight__more"
