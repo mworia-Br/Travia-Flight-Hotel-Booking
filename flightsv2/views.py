@@ -41,15 +41,26 @@ def search_flights(req):
     currency = 'USD'
     owner=req.user
 
+
     # Create a new SearchedRoute object and save it to the database
-    route = SearchedRoute.objects.create(
+    if return_date:
+        route = SearchedRoute.objects.create(
         origin=origin, 
         destination=destination, 
         departure_date=departure_date,
         return_date=return_date,
         adults_count=adults,
         children_count=children
-    )
+        )
+    else:
+        route = SearchedRoute.objects.create(
+        origin=origin, 
+        destination=destination, 
+        departure_date=departure_date,
+        adults_count=adults,
+        children_count=children
+        )
+
 
     # Prepare url parameters for search
     kwargs = {
@@ -57,8 +68,8 @@ def search_flights(req):
         "destinationLocationCode": destination,
         "departureDate": departure_date,
         "adults": adults,
-        "children": children,
-        'currency': 'USD'
+        "children": children
+        #'currency': 'USD'
         }
 
     # For a round trip, we use AI Trip Purpose Prediction
