@@ -259,10 +259,9 @@
               <div class="travels__wrapper">
                 <h2 class="travels__title h2">Air, Sleep, dream</h2>
                 <div class="travels__info info">Places to stay for {{ origin }} </div>
-
                 <div class="travels__list">
-                    {% for r, hotel in response %}
-                    <a class="travels__card" href="{% url 'rooms_per_hotel' r.hotelID departureDate returnDate %}">
+                  {% for r, hotel in response %}          
+                    <a class="travels__card" href="{% url 'rooms_per_hotel' r.hotelID departureDate returnDate adults children roomsqty %}">
                         <div class="travels__preview">
                         <img
                             srcse {% static 't="img/cont' %} ent/catalog-pic-1.jpg 2x"
@@ -290,7 +289,7 @@
                         </div>
                         </div></a
                     >
-                    {% endfor %}
+                  {% endfor %}
                 </div>
                 <div class="travels__btns">
                   <a class="button-stroke button-small" href=" {% url 'hotels' %} "

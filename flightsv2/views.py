@@ -46,6 +46,7 @@ def search_flights(req):
         origin=origin, 
         destination=destination, 
         departure_date=departure_date,
+        return_date=return_date,
         adults_count=adults,
         children_count=children
     )
@@ -57,7 +58,7 @@ def search_flights(req):
         "departureDate": departure_date,
         "adults": adults,
         "children": children,
-        #"currency": currency
+        'currency': 'USD'
         }
 
     # For a round trip, we use AI Trip Purpose Prediction

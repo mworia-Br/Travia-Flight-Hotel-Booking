@@ -3,6 +3,7 @@ import geocoder
 class Hotel:
     def __init__(self, hotel):
         self.hotel = hotel
+        print(hotel)
 
     def construct_hotel(self):
         try:

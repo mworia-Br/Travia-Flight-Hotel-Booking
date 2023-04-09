@@ -17,6 +17,9 @@ def search_hotels(req):
         origin = req.GET['locationCode']
         checkinDate = req.GET['checkInDate']
         checkoutDate = req.GET['checkOutDate']
+        roomsqty = req.GET['rooms']
+        adults = req.GET['adultsPerRoom']
+        children = req.GET['childrenPerRoom']
 
         kwargs = {'cityCode': origin,
                 'checkInDate': checkinDate,
@@ -37,6 +40,9 @@ def search_hotels(req):
             kwargs = {'hotelIds': hotel_ids[0:num_hotels],
                     'checkInDate': checkinDate,
                     'checkOutDate': checkoutDate,
+                    'adults': adults,
+                    'children': children,
+                    'roomQuantity': roomsqty,
                     'view': 'FULL',
                     'currency': 'USD'}
             try:
@@ -55,6 +61,9 @@ def search_hotels(req):
                                                             'origin': origin,
                                                             'departureDate': checkinDate,
                                                             'returnDate': checkoutDate,
+                                                            'adults': adults,
+                                                            'children': children,
+                                                            'roomsqty': roomsqty,
                                                             })
             except UnboundLocalError:
                 messages.add_message(req, messages.ERROR, 'No hotels found.')
@@ -64,14 +73,17 @@ def search_hotels(req):
         return render(req, 'hotels.html', {})
 
 
-def rooms_per_hotel(req, hotel, departureDate, returnDate):
+def rooms_per_hotel(req, hotel, departureDate, returnDate, adults, children, roomsqty):
     try:
         # Search for rooms in a given hotel
         rooms = amadeus.shopping.hotel_offers_search.get(hotelIds=hotel,
                                                            checkInDate=departureDate,
-                                                           checkOutDate=returnDate).data
+                                                           checkOutDate=returnDate,
+                                                           adults=adults,
+                                                           children=children,
+                                                           roomQuantity=roomsqty).data
         hotel_rooms = Room(rooms).construct_room()
-        return render(req, 'hotelrooms.html', {'response': hotel_rooms,
+        return render(req, 'hotels-product.html', {'response': hotel_rooms,
                                                              'name': rooms[0]['hotel']['name'],
                                                              })
     except (TypeError, AttributeError, ResponseError, KeyError) as error:
