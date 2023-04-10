@@ -356,13 +356,13 @@ def checkoutHandle(req):
 @login_required(login_url="/login")
 def pre_Checkout(req):
     if req.method == "POST":
-        flight_data = req.POST.get('flight', None)
+        rawflight_data = req.POST.get('flight', None)
         user_id = req.POST.get('user', None)
         if user_id is None:
             user_id = req.user      
         # save to database model FlightTmp
         print("passed")
-        newflight = FlightTmp(flight_data=flight_data, user_id=user_id)
+        newflight = FlightTmp(flight_data=rawflight_data, user_id=user_id)
         newflight.save()
         # Return a JSON response indicating success
         return JsonResponse({'status': 'success'})
