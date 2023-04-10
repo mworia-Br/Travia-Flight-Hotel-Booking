@@ -145,6 +145,30 @@
       } else {
         document.getElementById("arr_terminal4").textContent = "none";
       }
+
+      if (firstSegmentOfFirstItinerary && firstSegmentOfFirstItinerary.departure && firstSegmentOfFirstItinerary.departure.terminal) {
+        document.getElementById("dep_terminal1").textContent = firstSegmentOfFirstItinerary.departure.terminal;
+      } else {
+        document.getElementById("dep_terminal1").textContent = "none";
+      }
+
+      if (secondSegmentOfFirstItinerary && secondSegmentOfFirstItinerary.departure && secondSegmentOfFirstItinerary.departure.terminal) {
+        document.getElementById("dep_terminal2").textContent = secondSegmentOfFirstItinerary.departure.terminal;
+      } else {
+        document.getElementById("dep_terminal2").textContent = "none";
+      }
+
+      if (firstSegmentOfSecondItinerary && firstSegmentOfSecondItinerary.departure && firstSegmentOfSecondItinerary.departure.terminal) {
+        document.getElementById("dep_terminal3").textContent = firstSegmentOfSecondItinerary.departure.terminal;
+      } else {
+        document.getElementById("dep_terminal3").textContent = "none";
+      }
+
+      if (secondSegmentOfSecondItinerary && secondSegmentOfSecondItinerary.departure && secondSegmentOfSecondItinerary.departure.terminal) {
+        document.getElementById("dep_terminal4").textContent = secondSegmentOfSecondItinerary.departure.terminal;
+      } else {
+        document.getElementById("dep_terminal4").textContent = "none";
+      }
     </script>
   </head>
   <body>
@@ -155,6 +179,10 @@
       <input type="hidden" id="arr_terminal2" value="">
       <input type="hidden" id="arr_terminal3" value="">
       <input type="hidden" id="arr_terminal4" value="">
+      <input type="hidden" id="dep_terminal1" value="">
+      <input type="hidden" id="dep_terminal2" value="">
+      <input type="hidden" id="dep_terminal3" value="">
+      <input type="hidden" id="dep_terminal4" value="">
 
       <header class="header js-header authorization">
         <div class="header__center center">
@@ -364,11 +392,11 @@
                               </div>
                               <div class="travel__destination__desc">
                                 <div>{{ flight_data.flightDate }}</div>
-                                <div class="flight__number">{{ flight_data.firstFlightDepartureAirport }} {{ flight_data.secondFlightDepartureDate }}</div>
+                                <div class="flight__number">{{ flight_data.firstFlightDepartureAirport }} {{ flight_data.firstFlightDepartureDate }}</div>
                                 <div>
                                   {{ flight_data.firstFlightDepartureAirport }}
                                 </div>
-                                <div>(Terminal 2)</div>
+                                <div>(Terminal <span id="dep_terminal1"></span>)</div>
                               </div>
                             </div>
                             <div class="travel__detination__duration">
@@ -440,7 +468,7 @@
                                 <div>
                                   {{ flight_data.secondFlightDepartureAirport }}
                                 </div>
-                                <div>(Terminal 2)</div>
+                                <div>(Terminal <span id="dep_terminal2"></span>)</div>
                               </div>
                             </div>
                             <div class="travel__detination__duration">
@@ -488,7 +516,7 @@
                                 <div>
                                   {{ flight_data.secondFlightArrivalAirport }}
                                 </div>
-                                <div>(Terminal 2)</div>
+                                <div>(Terminal <span id="arr_terminal2"></span>)</div>
                               </div>
                             </div>
                           </div>
@@ -512,7 +540,7 @@
                                 <div>
                                   {{ flight_data.thirdFlightDepartureAirport }}
                                 </div>
-                                <div>(Terminal 2)</div>
+                                <div>(Terminal <span id="dep_terminal3"></span>)</div>
                               </div>
                             </div>
                             <div class="travel__detination__duration">
@@ -560,7 +588,7 @@
                                 <div>
                                   {{ flight_data.thirdFlightArrivalAirport }}
                                 </div>
-                                <div>(Terminal 2)</div>
+                                <div>(Terminal <span id="arr_terminal3"></span>)</div>
                               </div>
                             </div>
                           </div>
@@ -584,7 +612,7 @@
                                 <div>
                                   {{ flight_data.fourthFlightDepartureAirport }}
                                 </div>
-                                <div>(Terminal 2)</div>
+                                <div>(Terminal <span id="dep_terminal4"></span>)</div>
                               </div>
                             </div>
                             <div class="travel__detination__duration">
@@ -632,7 +660,7 @@
                                 <div>
                                   {{ flight_data.fourthFlightArrivalAirport }}
                                 </div>
-                                <div>(Terminal 2)</div>
+                                <div>(Terminal <span id="arr_terminal4"></span>)</div>
                               </div>
                             </div>
                           </div>
