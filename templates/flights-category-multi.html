@@ -134,6 +134,7 @@
           window.location.href = confirmurl;
         } else {
           // Handle errors appropriately
+          alert('Something went wrong');
         }
       }
     </script>
@@ -1023,7 +1024,7 @@
                   <div class="flight">
                     <div class="flight__wrap"> 
                       {% if r.0firstFlightDepartureDate %}
-                          <div class="flight__item">{{ i|add:1 }}
+                          <div class="flight__item">
                             <div class="flight__logo">
                               <img src="{{ r.0firstFlightAirlineLogo }}" alt="{{ r.0firstFlightAirline }}" />
                             </div>
