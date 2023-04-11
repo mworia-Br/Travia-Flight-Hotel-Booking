@@ -92,6 +92,22 @@
         }
       }
     </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Replace the values of longitude and latitude below with your own data
+        const longitude = document.getElementById("longitude").value;
+        const latitude = document.getElementById("latitude").value;
+        console.log(longitude);
+        console.log(latitude);
+        
+        // Generate the center for the map
+        const center = `${latitude},${longitude}`;
+        
+        // Update the map URL with the center and API key
+        const map = document.getElementById("map");
+        map.src = `https://www.google.com/maps/embed/v1/view?key=AIzaSyCizGHycTHoJDtCHAZUebMF5Fjon7o3jxg&center=${center}&zoom=16`;
+      });
+    </script>
   </head>
   <body>
     <!-- outer-->
@@ -321,11 +337,11 @@
                       </svg>
                     </button>
                     <div class="actions__body js-actions-body">
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63817.0803287881!2d168.63234961382247!3d-45.04173987887954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa9d51df1d7a8de5f%3A0x500ef868479a600!2z0JrRg9C40L3RgdGC0LDRg9C9LCDQndC-0LLQsNGPINCX0LXQu9Cw0L3QtNC40Y8!5e0!3m2!1sru!2sua!4v1624887132616!5m2!1sru!2sua"
+                      <iframe id="map"
                         width="600"
                         height="450"
-                      ></iframe>
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d0!2d0!3d0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDM0JzA2LjciUyA2OMKwMjYnMDYuMCJF!5e0!3m2!1sen!2sus!4v1617122021959!5m2!1sen!2sus">
+                      </iframe>
                     </div>
                   </div>
                   <div
@@ -385,6 +401,9 @@
               </div>
             </div>
             <div class="gallery">
+              
+              <input type="hidden" name="latitude" id="latitude" value="{{latitude}}" />
+              <input type="hidden" name="longitude" id="longitude" value="{{longitude}}" />
               <div class="gallery__list gallery__list_stays">
                 <div class="gallery__preview">
                   <a
@@ -562,7 +581,7 @@
                     </div>
                     <div class="receipt__box">
                       <div class="receipt__category">Guest</div>
-                      <div class="receipt__subtitle">2 guests</div>
+                      <div class="receipt__subtitle">{{ r.guests }} guests</div>
                     </div>
                   </div>
                 </div>

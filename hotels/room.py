@@ -15,6 +15,7 @@ class Room:
                 offer['bedType'] = room['room']['typeEstimated']['bedType']
                 offer['stayFrom'] = room['checkInDate']
                 offer['stayTo'] = room['checkOutDate']
+                offer['guests'] = room['guests']['adults']
                 hotel_rooms.append(offer)
         except (TypeError, AttributeError, KeyError):
             pass
