@@ -76,6 +76,7 @@ def search_hotels(req):
 def rooms_per_hotel(req, hotel, departureDate, returnDate, adults, children, roomsqty):
     try:
         # Search for rooms in a given hotel
+        roomQuantity = roomsqty
         rooms = amadeus.shopping.hotel_offers_search.get(hotelIds=hotel,
                                                            checkInDate=departureDate,
                                                            checkOutDate=returnDate,
@@ -88,6 +89,7 @@ def rooms_per_hotel(req, hotel, departureDate, returnDate, adults, children, roo
                                                     'cityCode': rooms[0]['hotel']['cityCode'],
                                                     'latitude': rooms[0]['hotel']['latitude'],
                                                     'longitude': rooms[0]['hotel']['longitude'],
+                                                    'roomQuantity': roomQuantity,
                                                              })
     except (TypeError, AttributeError, ResponseError, KeyError) as error:
         messages.add_message(req, messages.ERROR, error)
