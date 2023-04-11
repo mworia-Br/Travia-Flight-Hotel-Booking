@@ -106,7 +106,12 @@
         // Update the map URL with the center and API key
         const map = document.getElementById("map");
         map.src = `https://www.google.com/maps/embed/v1/view?key=AIzaSyCizGHycTHoJDtCHAZUebMF5Fjon7o3jxg&center=${center}&zoom=16`;
+
+        const currentPageLink = window.location.href;
+        const shareBtn = document.querySelector('.share-btn');
+        shareBtn.setAttribute('data-url', currentPageLink);
       });
+
     </script>
   </head>
   <body>
@@ -356,23 +361,21 @@
                     </button>
                     <div class="actions__body js-actions-body">
                       <div class="actions__title">Share link to this page</div>
-                      <div
-                        class="actions__list share-btn"
-                        data-url="https://ui8.net"
-                      >
-                        <a class="actions__link btn-twitter" data-id="tw"
-                          ><span>
+                      <div class="actions__list share-btn" data-url="">
+                        <a class="actions__link btn-twitter" data-id="tw">
+                          <span>
                             <svg class="icon icon-twitter">
-                              <use
-                                xlink:href="#icon-twitter' %} "
-                              ></use></svg></span></a
-                        ><a class="actions__link btn-facebook" data-id="fb"
-                          ><span>
+                              <use xlink:href="#icon-twitter"></use>
+                            </svg>
+                          </span>
+                        </a>
+                        <a class="actions__link btn-facebook" data-id="fb">
+                          <span>
                             <svg class="icon icon-facebook">
-                              <use
-                                xlink:href="#icon-facebook' %} "
-                              ></use></svg></span
-                        ></a>
+                              <use xlink:href="#icon-facebook"></use>
+                            </svg>
+                          </span>
+                        </a>
                       </div>
                     </div>
                   </div>
