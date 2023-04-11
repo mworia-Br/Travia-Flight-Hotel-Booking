@@ -28,12 +28,12 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-h&@6&n)$0li4p@j#lsw2f^*sy$
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False
+DEBUG = True
 
-#ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['traviabooking.azurewebsites.net', '127.0.0.1', 'www.airtravia.co.ke', 'airtravia.co.ke']
+ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['traviabooking.azurewebsites.net', '127.0.0.1', 'www.airtravia.co.ke', 'airtravia.co.ke']
 
-CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net", "http://127.0.0.1", "https://www.airtravia.co.ke", "https://f1b5-2c0f-fe38-2182-311-81d2-16a2-dbeb-ab31.ngrok.io"]
+CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net", "http://127.0.0.1", "https://www.airtravia.co.ke", "https://c9ad-196-111-226-235.ngrok-free.app"]
 
 
 # Application definition
@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'BookingApp.wsgi.application'
 
 
 #local database settings
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -118,7 +118,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('DBPASS'),
     }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
