@@ -453,7 +453,10 @@
                             </div>
                           </div>
                           {% endif %}
-                          {% if flight_data.secondFlightDepartureDate %}           
+                          {% if flight_data.secondFlightDepartureDate %}  
+                          <div class="ticket__details__timeline">
+                            {{ flight_data.secondFlightDepartureAirport }} (-) {{ flight_data.firstLayover }} layover
+                          </div>         
                           <hr class="ticket__details__hr" />
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">
@@ -598,6 +601,9 @@
                           </div>
                           {% endif %}
                           {% if flight_data.fourthFlightDepartureDate %}
+                          <div class="ticket__details__timeline">
+                            {{ flight_data.fourthFlightDepartureAirport }} (-) {{ flight_data.secondLayover }} layover
+                          </div>
                           <hr class="ticket__details__hr" />
                           <div class="travel__detination__flex">
                             <div class="travel__detination__item">

@@ -236,6 +236,7 @@ def checkoutHandle(req):
     firstFlightArrivalAirport = req.GET.get('0firstFlightArrivalAirport', None)
     firstFlightArrivalDate = req.GET.get('0firstFlightArrivalDate', None)
     firstFlightArrivalDuration = req.GET.get('0firstFlightArrivalDuration', None)
+    firstStopTime = req.GET.get('0stop_time', None)
 
     secondFlightDepartureAirport = req.GET.get('0secondFlightDepartureAirport', None)
     secondFlightDepartureDate = req.GET.get('0secondFlightDepartureDate', None)
@@ -266,6 +267,7 @@ def checkoutHandle(req):
     thirdFlightArrivalAirport = req.GET.get('1firstFlightArrivalAirport', None)
     thirdFlightArrivalDate = req.GET.get('1firstFlightArrivalDate', None)
     thirdFlightArrivalDuration = req.GET.get('1firstFlightArrivalDuration', None)
+    secondStopTime = req.GET.get('1stop_time', None)
 
     fourthFlightDepartureAirport = req.GET.get('1secondFlightDepartureAirport', None)
     fourthFlightDepartureDate = req.GET.get('1secondFlightDepartureDate', None)
@@ -306,6 +308,8 @@ def checkoutHandle(req):
         "fourthFlightArrivalDate": fourthFlightArrivalDate,
         "fourthFlightArrivalDuration": fourthFlightArrivalDuration,
         "flight_total_duration": flight_total_duration,
+        "firstLayover": firstStopTime,
+        "secondLayover": secondStopTime,
         "flight_price": flight_price,
         "origin": origin,
         "destination": destination,
