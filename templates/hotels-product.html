@@ -92,6 +92,8 @@
         }
       }
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCizGHycTHoJDtCHAZUebMF5Fjon7o3jxg"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCizGHycTHoJDtCHAZUebMF5Fjon7o3jxg&libraries=places"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         // Replace the values of longitude and latitude below with your own data
@@ -116,8 +118,46 @@
         const currentPageLink = window.location.href;
         const shareBtn = document.querySelector('.share-btn');
         shareBtn.setAttribute('data-url', currentPageLink);
-      });
 
+        var latLng = new google.maps.LatLng(latitude, longitude);
+        geocoder.geocode({ 'latLng': latLng }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              var placeId = results[0].place_id;
+              console.log(placeId);
+            } else {
+              console.log('No results found');
+            }
+          } else {
+            console.log('Geocoder failed due to: ' + status);
+          }
+        });
+        // Initialize PlacesService with a new div element
+        const service = new google.maps.places.PlacesService(
+          document.createElement('div')
+        );
+
+        // Request place details using the place ID
+        service.getDetails({ placeId }, (place, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // Get the first four photo URLs from the place details
+            const photoUrls = place.photos.slice(0, 4).map(photo => photo.getUrl());
+
+            // Add the photo URLs to the gallery container
+            const gallery = document.getElementById('places-gallery');
+            photoUrls.forEach(url => {
+              const img = document.createElement('img');
+              img.src = url;
+              img.alt = place.name;
+              const link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('data-fancybox', 'gallery');
+              link.appendChild(img);
+              gallery.appendChild(link);
+            });
+          }
+        });
+      });
     </script>
   </head>
   <body>
@@ -400,7 +440,7 @@
                   <div class="actions__item">
                     <a
                       class="button-circle-stroke button-small actions__button"
-                      href=" {% url 'hotels' %} "
+                      href="#"
                     >
                       <svg class="icon icon-close">
                         <use xlink:href="#icon-close"></use></svg
@@ -413,39 +453,28 @@
               
               <input type="hidden" name="latitude" id="latitude" value="{{latitude}}" />
               <input type="hidden" name="longitude" id="longitude" value="{{longitude}}" />
-              <div class="gallery__list gallery__list_stays">
+              <div class="gallery__list gallery__list_stays" id="places-gallery">
                 <div class="gallery__preview">
                   <a
                     class="gallery__view"
-                    href=" {% static 'img/content/photo-1.1.jpg' %} "
+                    href="{{first_image_url}}"
                     data-fancybox="gallery"
-                    data-caption="Spectacular views of Queenstown"
-                    ><img src=" {% static 'img/content/photo-1.1.jpg' %} " alt="Gallery" /></a
-                  ><a
+                    data-caption="{{caption}}"
+                  >
+                    <img src="{{first_image_url}}" alt="{{caption}}" />
+                  </a>
+                  <a
                     class="button-white button-small gallery__button"
-                    href=" {% static 'full-photo-grid.html' %} "
+                    href="{% static 'full-photo-grid.html' %}"
                   >
                     <svg class="icon icon-image">
-                      <use xlink:href="#icon-image"></use></svg
-                    ><span>Show all photos</span></a
-                  >
+                      <use xlink:href="#icon-image"></use>
+                    </svg>
+                    <span>Show all photos</span>
+                  </a>
                 </div>
-                <a
-                  class="gallery__preview"
-                  href=" {% static 'img/content/photo-1.2.jpg' %} "
-                  data-fancybox="gallery"
-                  ><img src=" {% static 'img/content/photo-1.2.jpg' %} " alt="Gallery" /></a
-                ><a
-                  class="gallery__preview"
-                  href=" {% static 'img/content/photo-1.3.jpg' %} "
-                  data-fancybox="gallery"
-                  ><img src=" {% static 'img/content/photo-1.3.jpg' %} " alt="Gallery" /></a
-                ><a
-                  class="gallery__preview"
-                  href=" {% static 'img/content/photo-1.4.jpg' %} "
-                  data-fancybox="gallery"
-                  ><img src=" {% static 'img/content/photo-1.4.jpg' %} " alt="Gallery"
-                /></a>
+                
+
               </div>
             </div>
           </div>
