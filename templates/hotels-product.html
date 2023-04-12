@@ -102,6 +102,9 @@
         const grandFinal = grandTotal.toFixed(2);
         document.getElementById("grandTotal").innerHTML = grandTotal;
         document.getElementById("grandFinal").innerHTML = grandFinal;
+        // select the image element
+        const hero = document.getElementById("hero");
+
         const longitude = document.getElementById("longitude").value;
         const latitude = document.getElementById("latitude").value;
         console.log(longitude);
@@ -138,9 +141,13 @@
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                   if (place && place.photos) {
                     // Get the first four photo URLs from the place details
+                    // Get the first four photo URLs from the place details
                     const photoUrls = place.photos.slice(0, 4).map(photo => photo.getUrl());
-    
-                    // Add the photo URLs to the gallery container
+                    // Separate the first photo from the rest
+                    const firstPhotoUrl = photoUrls.shift();
+                    // Add the first photo to a separate container
+                    hero.src = firstPhotoUrl;
+                    hero.parentElement.href = firstPhotoUrl;
                     const gallery = document.getElementById('places-gallery');
                     photoUrls.forEach(url => {
                       const img = document.createElement('img');
@@ -160,6 +167,9 @@
                       "{% static 'img/content/photo-1.3.jpg' %}",
                       "{% static 'img/content/photo-1.4.jpg' %}"
                     ];
+                    
+                    hero.src = "{% static 'img/content/photo-1.1.jpg' %}";
+                    hero.parentElement.href = "{% static 'img/content/photo-1.1.jpg' %}";
                     const gallery = document.getElementById('places-gallery');
                     photoUrls.forEach(url => {
                       const img = document.createElement('img');
@@ -483,8 +493,8 @@
                     class="gallery__view"
                     href=" {% static 'img/content/photo-1.1.jpg' %} "
                     data-fancybox="gallery"
-                    data-caption="Spectacular views of Queenstown"
-                    ><img src=" {% static 'img/content/photo-1.1.jpg' %} " alt="Gallery" /></a
+                    data-caption="Available images for this place"
+                    ><img id="hero" src="" alt="Gallery" /></a
                   ><a
                     class="button-white button-small gallery__button"
                     href=" {% static 'full-photo-grid.html' %} "
