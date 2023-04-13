@@ -33,7 +33,7 @@ DEBUG = False
 #ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['traviabooking.azurewebsites.net', '127.0.0.1', 'www.airtravia.co.ke', 'airtravia.co.ke']
 
-CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net", "http://127.0.0.1", "https://www.airtravia.co.ke", "https://f1b5-2c0f-fe38-2182-311-81d2-16a2-dbeb-ab31.ngrok.io"]
+CSRF_TRUSTED_ORIGINS = ["https://traviabooking.azurewebsites.net", "http://127.0.0.1", "https://www.airtravia.co.ke", "https://1ab9-2c0f-fe38-2187-7409-902b-cc0f-bbd7-590a.ngrok-free.app"]
 
 
 # Application definition
@@ -198,6 +198,14 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+# settings.py
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SECURE_SSL_REDIRECT = True
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 #stripe settings
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51JvQDXKO7bEwzNWD1k5BZmNotKYDgmitXX7s9H9Hiv1pkhVao5OYuLU98wn2qco4t3ieYCuUlOBo6CJKm8niyRhC00T9g1hMqe'
